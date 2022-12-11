@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  6 AUG 2022 12:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  11 DEC 2022 17:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1532,6 +1532,61 @@ Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
 \everycr=\toks55
 \minrowclearance=\skip172
 )
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2012/05/21 v1.0 Adjusting TeX boxes (trim, clip, ...)
+
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks56
+\XKV@tempa@toks=\toks57
+)
+\XKV@depth=\count353
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2012/05/16 v1.0 Trim and clip general TeX material
+
+(/usr/share/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
+\collectedbox=\box75
+)
+\tc@llx=\dimen326
+\tc@lly=\dimen327
+\tc@urx=\dimen328
+\tc@ury=\dimen329
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2012/05/13 v1.0 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen330
+\adjbox@Height=\dimen331
+\adjbox@Depth=\dimen332
+\adjbox@Totalheight=\dimen333
+
+(/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count354
+)
+(/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box76
+\sift@deathcycles=\count355
+\@vwid@loff=\dimen334
+\@vwid@roff=\dimen335
+))
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2016/05/22 v1.1-161 Sub-captions (AR)
+\c@subfigure=\count356
+\c@subtable=\count357
+)
 \tikzscale@accuracy=\skip173
 ))
 
@@ -1598,7 +1653,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box75
+\AtBeginShipoutBox=\box77
 Package hyperref Info: Link coloring ON on input line 2.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -1606,7 +1661,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count353
+\c@section@level=\count358
 )
 LaTeX Info: Redefining \ref on input line 2.
 LaTeX Info: Redefining \pageref on input line 2.
@@ -1614,17 +1669,17 @@ LaTeX Info: Redefining \nameref on input line 2.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count354
-\scratchdimen=\dimen326
-\scratchbox=\box76
-\nofMPsegments=\count355
-\nofMParguments=\count356
-\everyMPshowfont=\toks56
-\MPscratchCnt=\count357
-\MPscratchDim=\dimen327
-\MPnumerator=\count358
-\makeMPintoPDFobject=\count359
-\everyMPtoPDFconversion=\toks57
+\scratchcounter=\count359
+\scratchdimen=\dimen336
+\scratchbox=\box78
+\nofMPsegments=\count360
+\nofMParguments=\count361
+\everyMPshowfont=\toks58
+\MPscratchCnt=\count362
+\MPscratchDim=\dimen337
+\MPnumerator=\count363
+\makeMPintoPDFobject=\count364
+\everyMPtoPDFconversion=\toks59
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -1646,7 +1701,7 @@ ABD: EveryShipout initializing macros
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.15}).
 
-\c@lstlisting=\count360
+\c@lstlisting=\count365
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 Package epstopdf Info: Source file: <imgs/drawings/fun_pipeline.eps>
@@ -2669,16 +2724,12 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 834.
  (./hardware.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 834.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 834.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 49028 strings out of 494880
- 1059151 string characters out of 6179601
- 1339845 words of memory out of 5000000
- 51335 multiletter control sequences out of 15000+600000
+ 49839 strings out of 494880
+ 1072289 string characters out of 6179601
+ 1354733 words of memory out of 5000000
+ 52109 multiletter control sequences out of 15000+600000
  567196 words of font info for 60 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,16n,132p,10469b,2369s stack positions out of 5000i,500n,10000p,200000b,80000s
