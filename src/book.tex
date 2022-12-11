@@ -1,0 +1,91 @@
+\documentclass[8pt]{book}
+
+% All styles and package and commands are defined here.
+% This allow to have one preambule used in all |/subfile| .
+\usepackage{mystyle}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
+
+
+% Define EGA colors
+\definecolor{CGA_Black}{RGB}{0,0,0}
+\definecolor{CGA_Blue}{RGB}{0,0,170}
+\definecolor{CGA_Green}{RGB}{0,170,0}
+\definecolor{CGA_Cyan}{RGB}{0,170,170}
+\definecolor{CGA_Red}{RGB}{170,0,0}
+\definecolor{CGA_Magenta}{RGB}{170,0,170}
+\definecolor{CGA_Brown}{RGB}{170,85,0}
+\definecolor{CGA_Light_Grey}{RGB}{170,170,170}
+\definecolor{CGA_Dark_Grey}{RGB}{85,85,85}
+\definecolor{CGA_Bright_Blue}{RGB}{85,85,255}
+\definecolor{CGA_Bright_Green}{RGB}{85,255,85}
+\definecolor{CGA_Bright_Cyan}{RGB}{85,255,255}
+\definecolor{CGA_Bright_Red}{RGB}{255,85,85}
+\definecolor{CGA_Bright_Magenta}{RGB}{255,85,255}
+\definecolor{CGA_Bright_Brown}{RGB}{255,255,85}
+\definecolor{CGA_White}{RGB}{255,255,255}
+
+%table formatting command
+\makeatletter
+
+\newcommand*{\@rowstyle}{}
+
+\newcommand*{\rowstyle}[1]{% sets the style of the next row
+  \gdef\@rowstyle{#1}%
+  \@rowstyle\ignorespaces%
+}
+
+\newcolumntype{=}{% resets the row style
+  >{\gdef\@rowstyle{}}%
+}
+
+\newcolumntype{+}{% adds the current row style to the next column
+  >{\@rowstyle}%
+}
+
+\makeatother
+
+\begin{document}
+
+    % For pdf publishing
+       \subfile{cover}  
+    % For printing publishing
+       % \blankpage
+       % \blankpage
+
+    \renewcommand{\rmdefault}{cmss} 
+    \renewcommand{\familydefault}{\sfdefault}
+    
+
+    
+    % Table of content
+    \cftsetindents{subsection}{0.5in}{14mm}
+    
+    \cleardoublepage % Make toc appear on right side.
+  
+
+    \cleardoublepage % Make toc appear on right side.
+
+    \setcounter{secnumdepth}{3} % toc is 2 level deep.
+    
+    
+    
+    
+    \tableofcontents
+    
+    \pagebreak
+
+
+    
+  
+    \chapter{Hardware}
+      \subfile{hardware}
+
+  
+    \cleartoleftpage
+    \thispagestyle{plain} \blankpage
+    \thispagestyle{plain} \blankpage
+    \thispagestyle{plain} \blankpage
+\end{document}
