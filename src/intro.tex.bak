@@ -1,0 +1,54 @@
+ \documentclass[book.tex]{subfiles}
+\begin{document}
+My personal introduction to computer gaming started in 1985, when my parents bought a MSX-1 Home Computer. I was fascinated by games such as Knightmare and Nemesis 2. It was not only the gameplay that interested me, but also how such games are developed. That's how I started my deep interest into programming and learned about sprites and side-scrolling techniques.\\
+\par
+The same year I had my first computer experience, Nintendo released a game called Super Mario Bros on the Nintendo Entertainment System (NES). It was an instant blockbuster; it combined great graphics with smooth side scrolling. Earlier side scrolling games, like Knightmare and Nemesis 2, moved at constant and "choppy" speed. Super Mario Bros was different, as the player dictates the scrolling speed. You could smoothly accelerate from walk to run or jump, and the screen would smoothly follow your actions. Super Mario Bros was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform game genre,and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan}.\\
+PICTURE OF MARIO\\
+\par
+Super Mario Bros showed the real power of the NES, which was hardware supported scrolling. Most computers around that time, like MSX and Commodore-64 computer systems, only had hardware support for sprites. To perform side scrolling on these platforms the only way is to move all the backgound "characters" (typically represented by 8x8 pixel tiles), which is why you get that super choppy "scrolling". The only way to actually get smooth pixel scrolling is be redrawing the entire screen offset by the number of pixels you want to scroll, which is incredibly performance intensive, and not even possible with most hardware of that time. \\
+\par
+The NES was one of the very first home computers that supported smooth scrolling. Essentially, the hardware had a register you could just write to to set the fine (pixel) scroll. If you want your background to be displayed scrolled 120 pixels in from the right, and 22 pixels from the top, you just write "120" and then "22" in order, to the same register. Done deal! The video chip takes care of the rest, running at the same constant speed as it always done.\\
+\par
+The IBM PC was by late 80s far behind the gaming power of the NES. It was designed for office work rather than gaming. It was meant to crunch integers and display static images for word processing and spreadsheet applications. Most PC games around that time are graphic adventure games (King's Quest), static platform games (Prince of Persia) and simulation games (Sim City). Basically, the PC lacked all hardware support for sprites and smooth scrolling.\\
+\par
+Then, on December 14\textsuperscript{th}, 1990, a small unknown software company called "Ideas from the Deep" released "Commander Keen in Invasion of the Vorticons" for the IBM PC. It was the first smooth side-scrolling game on a PC, similar like Super Mario Bros on the NES. \\
+PICTURE OF KEEN\\
+\par 
+How was this possible on the IBM PC? Yes, the the CPU of the PC outperformed any home computer on the market.\\
+PICTURE OF MIPS\\
+But that was about everything the IBM PC excelerated in.
+\begin{itemize}
+  \item As stated before, the video system (called EGA) did not support any form of scrolling. It did not even support any form of sprites, which allowed movement of something on the screen by simply updating its \cw{(x,y)} coordinates.
+  \item The video system could not double buffer. It was not possible to have smooth scrolling without ugly artifacts called "tears" on the screen.
+  \item The PC Speaker, the default sound device, could only produce square waves resulting in a bunch of "beeps" which were more annoying than anything else.
+  \item The audio ecosystem was fragmented. Each of the various sound systems had
+different capabilities and expectations
+  \item The RAM addressing mode was not flat but segmented, resulting in complex and
+error prone pointer arithmetic.
+  \item The bus was slow and I/O with the VRAM was a bottleneck. It was next to impossible to write a full framebuffer at 70 frames per second
+\end{itemize}
+Overall, it seemed impossible to create any reasonable side-scrolling game on the PC platform. But many around the world did not accept that and tinkered with the hardware to achieve unexpected results. How they did it is the \textit{raison d'\^etre} of this book. I've chosen to divide this book into three chapters:
+\begin{itemize}
+  \item Chapter 2: The Hardware. The five components of a PC from 1990.
+  \item Chapter 3: The assets. How are assets created and structured on a disk.
+  \item Chapter 4: The Software. The Commander Keen game engine.
+\end{itemize}
+By first showing the hardware constraints, I hope programmers will develop an appreciation for the software and how it navigated obstacles, sometimes turning limitations into advantages.
+
+
+
+
+
+
+
+
+
+\label{chapter_console}
+Explain consoles of that time frame with capabilities such as hardware supported sprites, scrolling.\\
+Compare consoles of that time: MSX, Amiga, Commodore64, NES in terms of MIPS.
+Most games where scrolling games, like Super Mario and Nemesis - supported by the hardware.\\
+
+
+In September 1990, John Carmack, was game programmer for the Gamer's Edge video game subscription service and disk magazine at Softdisk in Shreveport, Louisiana. A disk magazine, colloquially known as a diskmag or diskzine, is a magazine that is distributed in electronic form to be read using computers. It was sold on an annual subscription basis and in retail stores, with a paid staff and contracted freelancers to produce material.
+
+\end{document}
