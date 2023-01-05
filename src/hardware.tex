@@ -36,7 +36,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 \subsection{Overview}
   Intel released the 8086 in 1979, which was the first microchip of the succesfull x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later at 12.5Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen could run on a 8088, but an Intel 286 was recommended.\\   
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later at 12.5-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen could run on a 8088, but an Intel 286 was recommended.\\   
 
 \par
 
@@ -56,14 +56,14 @@ A lot of friction was present since manufacturers had not embraced the gaming in
       axis x line=bottom,
       axis y line=left,
       enlarge x limits=0.11,
-      symbolic x coords={8088 4.8Mhz, 286 6MHz,286 8MHz,386SX 16,386SX 33,386DX 33},
+      symbolic x coords={8088 10Mhz, 286 8MHz,286 16MHz,386SX 16,386SX 33,386DX 33},
       xticklabel style={anchor=base,yshift=-\baselineskip},
       nodes near coords={\pgfmathprintnumber\pgfplotspointmeta}
     ]
       \addplot[fill=black!20,draw=black] coordinates {
-      	(8088 4.8Mhz,0.2)
-        (286 6MHz,0.8)
+      	(8088 10Mhz,0.75)
         (286 8MHz,1.5)
+        (286 16MHz,2.5)
         (386SX 16,2.5)
         (386SX 33,5.1)
         (386DX 33,8)

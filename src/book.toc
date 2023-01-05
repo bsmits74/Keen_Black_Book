@@ -1,62 +1,62 @@
 \contentsline {chapter}{\numberline {1}Introduction}{5}{chapter.1}
-\contentsline {chapter}{\numberline {2}Hardware}{7}{chapter.2}
-\contentsline {section}{\numberline {2.1}CPU: Central Processing Unit}{8}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Overview}{8}{subsection.2.1.1}
-\contentsline {subsection}{\numberline {2.1.2}The Intel 80286}{9}{subsection.2.1.2}
-\contentsline {section}{\numberline {2.2}RAM}{15}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}DOS Limitations}{16}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}The Infamous Real Mode: 1MiB RAM limit}{16}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}The Infamous Real Mode: 16-bit Segmented addressing}{19}{subsection.2.2.3}
-\contentsline {section}{\numberline {2.3}Video}{21}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}History of Video Adapters}{21}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}EGA Architecture}{23}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}EGA Planar Madness}{24}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}EGA Modes}{26}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}EGA compatibility with 200-line CGA modes}{27}{subsection.2.3.5}
-\contentsline {subsection}{\numberline {2.3.6}EGA Color Palette}{27}{subsection.2.3.6}
-\contentsline {subsection}{\numberline {2.3.7}EGA Programming: Memory Mapping}{29}{subsection.2.3.7}
-\contentsline {subsubsection}{\numberline {2.3.7.1}Setup}{32}{subsubsection.2.3.7.1}
-\contentsline {subsection}{\numberline {2.3.8}The Importance of Double-Buffering}{32}{subsection.2.3.8}
-\contentsline {section}{\numberline {2.4}Audio}{34}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}AdLib}{35}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Sound Blaster}{36}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Disney Sound Source}{38}{subsection.2.4.3}
-\contentsline {section}{\numberline {2.5}Bus}{38}{section.2.5}
-\contentsline {section}{\numberline {2.6}Inputs}{40}{section.2.6}
-\contentsline {section}{\numberline {2.7}Summary}{41}{section.2.7}
-\contentsline {chapter}{\numberline {3}Software}{43}{chapter.3}
-\contentsline {section}{\numberline {3.1}About the Source Code}{43}{section.3.1}
-\contentsline {section}{\numberline {3.2}Getting the Source Code}{43}{section.3.2}
-\contentsline {section}{\numberline {3.3}First Contact}{44}{section.3.3}
-\contentsline {section}{\numberline {3.4}Compile source code}{45}{section.3.4}
-\contentsline {section}{\numberline {3.5}Big Picture}{48}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Unrolled Loop}{49}{subsection.3.5.1}
-\contentsline {section}{\numberline {3.6}Architecture}{53}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Memory Manager (MM)}{55}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Video Manager (VW \& RF)}{58}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Cache Manager (CA)}{58}{subsection.3.6.3}
-\contentsline {subsection}{\numberline {3.6.4}User Manager (US)}{62}{subsection.3.6.4}
-\contentsline {subsection}{\numberline {3.6.5}Sound Manager (SD)}{66}{subsection.3.6.5}
-\contentsline {subsection}{\numberline {3.6.6}Input Manager (IN)}{66}{subsection.3.6.6}
-\contentsline {subsection}{\numberline {3.6.7}Softdisk files}{66}{subsection.3.6.7}
-\contentsline {section}{\numberline {3.7}Startup}{67}{section.3.7}
-\contentsline {section}{\numberline {3.8}Action Phase: Adaptive Tile Refreshment}{67}{section.3.8}
-\contentsline {subsection}{\numberline {3.8.1}EGA Virtual Screen}{70}{subsection.3.8.1}
-\contentsline {subsection}{\numberline {3.8.2}Horizontal Pel Panning}{71}{subsection.3.8.2}
-\contentsline {section}{\numberline {3.9}View Port and Buffer setup}{74}{section.3.9}
-\contentsline {section}{\numberline {3.10}Screen buffer}{75}{section.3.10}
-\contentsline {section}{\numberline {3.11}Life of a 2D Frame}{76}{section.3.11}
-\contentsline {subsection}{\numberline {3.11.1}Screen refresh in Commander Keen 1-3}{77}{subsection.3.11.1}
-\contentsline {subsection}{\numberline {3.11.2}Screen refresh in Commander Keen 4-6}{83}{subsection.3.11.2}
-\contentsline {section}{\numberline {3.12}Refresh video screen}{88}{section.3.12}
-\contentsline {section}{\numberline {3.13}A.I.}{88}{section.3.13}
-\contentsline {section}{\numberline {3.14}Drawing Sprites}{88}{section.3.14}
-\contentsline {subsection}{\numberline {3.14.1}Visible actor determination}{88}{subsection.3.14.1}
-\contentsline {subsection}{\numberline {3.14.2}Clipping}{88}{subsection.3.14.2}
-\contentsline {section}{\numberline {3.15}Global coordinate system}{91}{section.3.15}
-\contentsline {section}{\numberline {3.16}Color Palette}{92}{section.3.16}
-\contentsline {section}{\numberline {3.17}Audio and Heartbeat}{92}{section.3.17}
-\contentsline {subsection}{\numberline {3.17.1}IRQs and ISRs}{93}{subsection.3.17.1}
-\contentsline {subsection}{\numberline {3.17.2}PIT and PIC}{94}{subsection.3.17.2}
-\contentsline {subsection}{\numberline {3.17.3}Interrupt Frequency}{95}{subsection.3.17.3}
-\contentsline {subsection}{\numberline {3.17.4}Heartbeats}{96}{subsection.3.17.4}
+\contentsline {chapter}{\numberline {2}Hardware}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}CPU: Central Processing Unit}{12}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Overview}{12}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}The Intel 80286}{13}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}RAM}{19}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}DOS Limitations}{20}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}The Infamous Real Mode: 1MiB RAM limit}{20}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}The Infamous Real Mode: 16-bit Segmented addressing}{23}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Video}{25}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}History of Video Adapters}{25}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}EGA Architecture}{27}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}EGA Planar Madness}{28}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}EGA Modes}{30}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}EGA compatibility with 200-line CGA modes}{31}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}EGA Color Palette}{31}{subsection.2.3.6}
+\contentsline {subsection}{\numberline {2.3.7}EGA Programming: Memory Mapping}{33}{subsection.2.3.7}
+\contentsline {subsubsection}{\numberline {2.3.7.1}Setup}{36}{subsubsection.2.3.7.1}
+\contentsline {subsection}{\numberline {2.3.8}The Importance of Double-Buffering}{36}{subsection.2.3.8}
+\contentsline {section}{\numberline {2.4}Audio}{38}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}AdLib}{39}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Sound Blaster}{40}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Disney Sound Source}{42}{subsection.2.4.3}
+\contentsline {section}{\numberline {2.5}Bus}{42}{section.2.5}
+\contentsline {section}{\numberline {2.6}Inputs}{44}{section.2.6}
+\contentsline {section}{\numberline {2.7}Summary}{45}{section.2.7}
+\contentsline {chapter}{\numberline {3}Software}{47}{chapter.3}
+\contentsline {section}{\numberline {3.1}About the Source Code}{47}{section.3.1}
+\contentsline {section}{\numberline {3.2}Getting the Source Code}{47}{section.3.2}
+\contentsline {section}{\numberline {3.3}First Contact}{48}{section.3.3}
+\contentsline {section}{\numberline {3.4}Compile source code}{49}{section.3.4}
+\contentsline {section}{\numberline {3.5}Big Picture}{52}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Unrolled Loop}{53}{subsection.3.5.1}
+\contentsline {section}{\numberline {3.6}Architecture}{57}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Memory Manager (MM)}{59}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Video Manager (VW \& RF)}{62}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Cache Manager (CA)}{62}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}User Manager (US)}{66}{subsection.3.6.4}
+\contentsline {subsection}{\numberline {3.6.5}Sound Manager (SD)}{70}{subsection.3.6.5}
+\contentsline {subsection}{\numberline {3.6.6}Input Manager (IN)}{70}{subsection.3.6.6}
+\contentsline {subsection}{\numberline {3.6.7}Softdisk files}{70}{subsection.3.6.7}
+\contentsline {section}{\numberline {3.7}Startup}{71}{section.3.7}
+\contentsline {section}{\numberline {3.8}Action Phase: Adaptive Tile Refreshment}{71}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}EGA Virtual Screen}{74}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}Horizontal Pel Panning}{75}{subsection.3.8.2}
+\contentsline {section}{\numberline {3.9}View Port and Buffer setup}{78}{section.3.9}
+\contentsline {section}{\numberline {3.10}Screen buffer}{79}{section.3.10}
+\contentsline {section}{\numberline {3.11}Life of a 2D Frame}{80}{section.3.11}
+\contentsline {subsection}{\numberline {3.11.1}Screen refresh in Commander Keen 1-3}{81}{subsection.3.11.1}
+\contentsline {subsection}{\numberline {3.11.2}Screen refresh in Commander Keen 4-6}{87}{subsection.3.11.2}
+\contentsline {section}{\numberline {3.12}Refresh video screen}{92}{section.3.12}
+\contentsline {section}{\numberline {3.13}A.I.}{92}{section.3.13}
+\contentsline {section}{\numberline {3.14}Drawing Sprites}{92}{section.3.14}
+\contentsline {subsection}{\numberline {3.14.1}Visible actor determination}{92}{subsection.3.14.1}
+\contentsline {subsection}{\numberline {3.14.2}Clipping}{92}{subsection.3.14.2}
+\contentsline {section}{\numberline {3.15}Global coordinate system}{95}{section.3.15}
+\contentsline {section}{\numberline {3.16}Color Palette}{96}{section.3.16}
+\contentsline {section}{\numberline {3.17}Audio and Heartbeat}{96}{section.3.17}
+\contentsline {subsection}{\numberline {3.17.1}IRQs and ISRs}{97}{subsection.3.17.1}
+\contentsline {subsection}{\numberline {3.17.2}PIT and PIC}{98}{subsection.3.17.2}
+\contentsline {subsection}{\numberline {3.17.3}Interrupt Frequency}{99}{subsection.3.17.3}
+\contentsline {subsection}{\numberline {3.17.4}Heartbeats}{100}{subsection.3.17.4}
