@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  3 JAN 2023 19:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  7 JAN 2023 16:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1598,6 +1598,9 @@ LaTeX Warning: Unused global option(s):
 LaTeX Warning: Label `ega_pel_pan' multiply defined.
 
 
+LaTeX Warning: Label `ega_refresh' multiply defined.
+
+
 LaTeX Warning: Label `fig:kc4_6_add_column' multiply defined.
 
 
@@ -1783,13 +1786,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 31--32
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 33.
+(Font)              scaled to size 11.39996pt on input line 34.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 33.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 34.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 11.39996pt on input line 33.
+(Font)              scaled to size 11.39996pt on input line 34.
 
-Underfull \hbox (badness 10000) in paragraph at lines 35--36
+Underfull \hbox (badness 10000) in paragraph at lines 36--37
 
  []
 
@@ -1800,64 +1803,65 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 38.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 38.
+nput line 39.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 39.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 (./code/SCREEN_WIDTH.ASM)<<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>>
 (./code/EGA_SET_ADDRESS.ASM) [3]
-Underfull \hbox (badness 10000) in paragraph at lines 52--53
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 54--55
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 56--57
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
 
  []
 
 (./code/EGA_PELPAN.ASM)
-Package epstopdf Info: Source file: <imgs/drawings/Tile_Refresh.eps>
-(epstopdf)                    date: 2022-08-03 16:56:01
-(epstopdf)                    size: 52761 bytes
-(epstopdf)             Output file: <imgs/drawings/Tile_Refresh-eps-converted-t
-o.pdf>
-(epstopdf)                    date: 2022-08-03 16:56:05
-(epstopdf)                    size: 19310 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/Tile_Refresh
--eps-converted-to.pdf imgs/drawings/Tile_Refresh.eps>
-(epstopdf)             \includegraphics on input line 68.
-Package epstopdf Info: Output file is already uptodate.
-
-
-pdfTeX warning: pdflatex (file ./imgs/drawings/Tile_Refresh-eps-converted-to.pd
-f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/Tile_Refresh-eps-converted-to.pdf, id=119, 939.51pt x 480.79625p
-t>
-File: imgs/drawings/Tile_Refresh-eps-converted-to.pdf Graphic file (type pdf)
-<use imgs/drawings/Tile_Refresh-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/Tile_Refresh-eps-converted-to.pdf  used 
-on input line 68.
-(pdftex.def)             Requested size: 375.80377pt x 192.31508pt.
-[5] (./code/EGA_REFRESH.ASM)
-Underfull \hbox (badness 10000) in paragraph at lines 84--85
-
- []
-
-[6 <./imgs/drawings/Tile_Refresh-eps-converted-to.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 88.
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 68.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
 File: omsphv.fd 
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 88.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 68.
+
+(./code/EGA_REFRESH.ASM) [5]
+Package epstopdf Info: Source file: <imgs/drawings/Tile_Refresh.eps>
+(epstopdf)                    date: 2023-01-06 15:33:45
+(epstopdf)                    size: 38003 bytes
+(epstopdf)             Output file: <imgs/drawings/Tile_Refresh-eps-converted-t
+o.pdf>
+(epstopdf)                    date: 2023-01-06 15:33:48
+(epstopdf)                    size: 16189 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/Tile_Refresh
+-eps-converted-to.pdf imgs/drawings/Tile_Refresh.eps>
+(epstopdf)             \includegraphics on input line 92.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/Tile_Refresh-eps-converted-to.pd
+f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<imgs/drawings/Tile_Refresh-eps-converted-to.pdf, id=142, 509.905pt x 434.62375
+pt>
+File: imgs/drawings/Tile_Refresh-eps-converted-to.pdf Graphic file (type pdf)
+<use imgs/drawings/Tile_Refresh-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/Tile_Refresh-eps-converted-to.pdf  used 
+on input line 92.
+(pdftex.def)             Requested size: 225.48454pt x 192.19664pt.
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
+
+ []
+
 Package epstopdf Info: Source file: <imgs/drawings/buffer_tile_layout.eps>
 (epstopdf)                    date: 2022-10-13 21:30:35
 (epstopdf)                    size: 79403 bytes
@@ -1867,212 +1871,212 @@ rted-to.pdf>
 (epstopdf)                    size: 20105 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/buffer_tile_
 layout-eps-converted-to.pdf imgs/drawings/buffer_tile_layout.eps>
-(epstopdf)             \includegraphics on input line 96.
+(epstopdf)             \includegraphics on input line 114.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/buffer_tile_layout-eps-converted
 -to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
 owed
-<imgs/drawings/buffer_tile_layout-eps-converted-to.pdf, id=181, 733.74126pt x 5
+<imgs/drawings/buffer_tile_layout-eps-converted-to.pdf, id=173, 733.74126pt x 5
 54.07pt>
 File: imgs/drawings/buffer_tile_layout-eps-converted-to.pdf Graphic file (type 
 pdf)
 <use imgs/drawings/buffer_tile_layout-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/buffer_tile_layout-eps-converted-to.pdf 
- used on input line 96.
+ used on input line 114.
 (pdftex.def)             Requested size: 375.80377pt x 283.78094pt.
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 104--105
+[7 <./imgs/drawings/Tile_Refresh-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
 
  []
 
 [8 <./imgs/drawings/buffer_tile_layout-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <imgs/drawings/ega_ram_architecture.eps>
-(epstopdf)                    date: 2022-08-28 10:21:14
-(epstopdf)                    size: 18738 bytes
+(epstopdf)                    date: 2023-01-06 14:12:38
+(epstopdf)                    size: 18646 bytes
 (epstopdf)             Output file: <imgs/drawings/ega_ram_architecture-eps-con
 verted-to.pdf>
-(epstopdf)                    date: 2022-08-28 10:21:19
-(epstopdf)                    size: 9364 bytes
+(epstopdf)                    date: 2023-01-06 14:44:22
+(epstopdf)                    size: 9331 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ega_ram_arch
 itecture-eps-converted-to.pdf imgs/drawings/ega_ram_architecture.eps>
-(epstopdf)             \includegraphics on input line 117.
+(epstopdf)             \includegraphics on input line 135.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/ega_ram_architecture-eps-convert
 ed-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> a
 llowed
-<imgs/drawings/ega_ram_architecture-eps-converted-to.pdf, id=205, 653.44125pt x
+<imgs/drawings/ega_ram_architecture-eps-converted-to.pdf, id=206, 653.44125pt x
  356.33125pt>
 File: imgs/drawings/ega_ram_architecture-eps-converted-to.pdf Graphic file (typ
 e pdf)
 <use imgs/drawings/ega_ram_architecture-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/ega_ram_architecture-eps-converted-to.pd
-f  used on input line 117.
+f  used on input line 135.
 (pdftex.def)             Requested size: 375.80377pt x 204.92693pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--129
+Underfull \hbox (badness 10000) in paragraph at lines 146--148
 
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 130.
+(Font)              scaled to size 6.64998pt on input line 149.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 130.
+(Font)              scaled to size 7.59998pt on input line 149.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 130.
+(Font)              scaled to size 5.69998pt on input line 149.
 [9 <./imgs/drawings/ega_ram_architecture-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
 
  []
 
-<screenshots_300dpi//game/Scroll_KC1-3_1.png, id=219, 547.2947pt x 400.49625pt>
+<screenshots_300dpi//game/Scroll_KC1-3_1.png, id=220, 547.2947pt x 400.49625pt>
 
 File: screenshots_300dpi//game/Scroll_KC1-3_1.png Graphic file (type png)
 <use screenshots_300dpi//game/Scroll_KC1-3_1.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC1-3_1.png  used on i
-nput line 156.
+nput line 175.
 (pdftex.def)             Requested size: 375.80377pt x 275.00438pt.
 [10]
-<screenshots_300dpi//game/Scroll_KC1-3_1-scroll_master.png, id=232, 547.2947pt 
+<screenshots_300dpi//game/Scroll_KC1-3_1-scroll_master.png, id=233, 547.2947pt 
 x 400.49625pt>
 File: screenshots_300dpi//game/Scroll_KC1-3_1-scroll_master.png Graphic file (t
 ype png)
 <use screenshots_300dpi//game/Scroll_KC1-3_1-scroll_master.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC1-3_1-scroll_master.
-png  used on input line 163.
+png  used on input line 182.
 (pdftex.def)             Requested size: 375.80377pt x 275.00438pt.
  [11 <./screenshots_300dpi//game/Scroll_KC1-3_1.png>]
-Underfull \hbox (badness 1097) in paragraph at lines 170--171
+Underfull \hbox (badness 1097) in paragraph at lines 189--190
 \T1/phv/m/n/10 num-ber has changed, the tile is
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 170--171
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
 
  []
 
-<screenshots_300dpi/game/Scroll_KC1-3_1-scroll_update.png, id=239, 514.92375pt 
+<screenshots_300dpi/game/Scroll_KC1-3_1-scroll_update.png, id=240, 514.92375pt 
 x 363.60844pt>
 File: screenshots_300dpi/game/Scroll_KC1-3_1-scroll_update.png Graphic file (ty
 pe png)
 <use screenshots_300dpi/game/Scroll_KC1-3_1-scroll_update.png>
 Package pdftex.def Info: screenshots_300dpi/game/Scroll_KC1-3_1-scroll_update.p
-ng  used on input line 177.
+ng  used on input line 196.
 (pdftex.def)             Requested size: 202.93471pt x 143.29918pt.
 
-Overfull \hbox (2.01398pt too wide) in paragraph at lines 169--181
+Overfull \hbox (2.01398pt too wide) in paragraph at lines 188--200
 []$[]$ $[]$ 
  []
 
 [12 <./screenshots_300dpi//game/Scroll_KC1-3_1-scroll_master.png> <./screenshot
 s_300dpi/game/Scroll_KC1-3_1-scroll_update.png>]
-<screenshots_300dpi//game/Scroll_KC1-3_1_remove.png, id=248, 547.2947pt x 400.4
+<screenshots_300dpi//game/Scroll_KC1-3_1_remove.png, id=249, 547.2947pt x 400.4
 9625pt>
 File: screenshots_300dpi//game/Scroll_KC1-3_1_remove.png Graphic file (type png
 )
 <use screenshots_300dpi//game/Scroll_KC1-3_1_remove.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC1-3_1_remove.png  us
-ed on input line 186.
+ed on input line 205.
 (pdftex.def)             Requested size: 375.80377pt x 275.00438pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 
  []
 
-<screenshots_300dpi/game/Scroll_KC1-3_1-update_remove.png, id=250, 514.92375pt 
+<screenshots_300dpi/game/Scroll_KC1-3_1-update_remove.png, id=251, 514.92375pt 
 x 362.85562pt>
 File: screenshots_300dpi/game/Scroll_KC1-3_1-update_remove.png Graphic file (ty
 pe png)
 <use screenshots_300dpi/game/Scroll_KC1-3_1-update_remove.png>
 Package pdftex.def Info: screenshots_300dpi/game/Scroll_KC1-3_1-update_remove.p
-ng  used on input line 200.
+ng  used on input line 219.
 (pdftex.def)             Requested size: 202.93471pt x 143.0025pt.
 
-Overfull \hbox (2.01398pt too wide) in paragraph at lines 192--204
+Overfull \hbox (2.01398pt too wide) in paragraph at lines 211--223
 []$[]$ $[]$ 
  []
 
 [13 <./screenshots_300dpi//game/Scroll_KC1-3_1_remove.png> <./screenshots_300dp
 i/game/Scroll_KC1-3_1-update_remove.png>]
-<screenshots_300dpi//game/Scroll_KC1-3_1_sprite.png, id=260, 547.2947pt x 400.4
+<screenshots_300dpi//game/Scroll_KC1-3_1_sprite.png, id=261, 547.2947pt x 400.4
 9625pt>
 File: screenshots_300dpi//game/Scroll_KC1-3_1_sprite.png Graphic file (type png
 )
 <use screenshots_300dpi//game/Scroll_KC1-3_1_sprite.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC1-3_1_sprite.png  us
-ed on input line 209.
+ed on input line 228.
 (pdftex.def)             Requested size: 375.80377pt x 275.00438pt.
-<screenshots_300dpi/game/Scroll_KC1-3_1-update_sprite.png, id=261, 514.92375pt 
+<screenshots_300dpi/game/Scroll_KC1-3_1-update_sprite.png, id=262, 514.92375pt 
 x 365.86688pt>
 File: screenshots_300dpi/game/Scroll_KC1-3_1-update_sprite.png Graphic file (ty
 pe png)
 <use screenshots_300dpi/game/Scroll_KC1-3_1-update_sprite.png>
 Package pdftex.def Info: screenshots_300dpi/game/Scroll_KC1-3_1-update_sprite.p
-ng  used on input line 221.
+ng  used on input line 240.
 (pdftex.def)             Requested size: 202.93471pt x 144.18924pt.
 
-Overfull \hbox (2.01398pt too wide) in paragraph at lines 215--225
+Overfull \hbox (2.01398pt too wide) in paragraph at lines 234--244
 []$[]$ $[]$ 
  []
 
 [14 <./screenshots_300dpi//game/Scroll_KC1-3_1_sprite.png> <./screenshots_300dp
 i/game/Scroll_KC1-3_1-update_sprite.png>]
-<screenshots_300dpi//game/Scroll_KC1-3_1_final.png, id=270, 547.2947pt x 400.49
+<screenshots_300dpi//game/Scroll_KC1-3_1_final.png, id=271, 547.2947pt x 400.49
 625pt>
 File: screenshots_300dpi//game/Scroll_KC1-3_1_final.png Graphic file (type png)
 
 <use screenshots_300dpi//game/Scroll_KC1-3_1_final.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC1-3_1_final.png  use
-d on input line 230.
+d on input line 249.
 (pdftex.def)             Requested size: 375.80377pt x 275.00438pt.
 
-Underfull \hbox (badness 1509) in paragraph at lines 237--238
+Underfull \hbox (badness 1509) in paragraph at lines 256--257
 []\T1/phv/m/n/10 Point the vis-i-ble screen into the
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 237--238
+Underfull \hbox (badness 1895) in paragraph at lines 256--257
 \T1/phv/m/n/10 start ad-dress and hor-i-zon-tal Pel
  []
 
 
-Underfull \hbox (badness 2050) in paragraph at lines 237--238
+Underfull \hbox (badness 2050) in paragraph at lines 256--257
 \T1/phv/m/n/10 Pan-ning. The en-tire tile buffer
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 237--238
+Underfull \hbox (badness 10000) in paragraph at lines 256--257
 
  []
 
 
-Underfull \hbox (badness 1661) in paragraph at lines 239--240
+Underfull \hbox (badness 1661) in paragraph at lines 258--259
 \T1/phv/m/n/10 have changed from scrolling the
  []
 
-<screenshots_300dpi/game/Scroll_KC1-3_1-scroll_final.png, id=271, 514.92375pt x
+<screenshots_300dpi/game/Scroll_KC1-3_1-scroll_final.png, id=272, 514.92375pt x
  363.60844pt>
 File: screenshots_300dpi/game/Scroll_KC1-3_1-scroll_final.png Graphic file (typ
 e png)
 <use screenshots_300dpi/game/Scroll_KC1-3_1-scroll_final.png>
 Package pdftex.def Info: screenshots_300dpi/game/Scroll_KC1-3_1-scroll_final.pn
-g  used on input line 244.
+g  used on input line 263.
 (pdftex.def)             Requested size: 202.93471pt x 143.29918pt.
 
-Overfull \hbox (2.01398pt too wide) in paragraph at lines 236--248
+Overfull \hbox (2.01398pt too wide) in paragraph at lines 255--267
 []$[]$ $[]$ 
  []
 
@@ -2087,189 +2091,300 @@ o.pdf>
 (epstopdf)                    size: 10706 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ega_wrapping
 -eps-converted-to.pdf imgs/drawings/ega_wrapping.eps>
-(epstopdf)             \includegraphics on input line 260.
+(epstopdf)             \includegraphics on input line 279.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/ega_wrapping-eps-converted-to.pd
 f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/ega_wrapping-eps-converted-to.pdf, id=280, 872.25874pt x 281.05p
+<imgs/drawings/ega_wrapping-eps-converted-to.pdf, id=281, 872.25874pt x 281.05p
 t>
 File: imgs/drawings/ega_wrapping-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/ega_wrapping-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/ega_wrapping-eps-converted-to.pdf  used 
-on input line 260.
+on input line 279.
 (pdftex.def)             Requested size: 375.80377pt x 121.085pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--263
+Underfull \hbox (badness 10000) in paragraph at lines 275--282
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 284--285
+
+ []
+
+Package epstopdf Info: Source file: <imgs/drawings/Page_down_switch.eps>
+(epstopdf)                    date: 2023-01-07 15:40:02
+(epstopdf)                    size: 17701 bytes
+(epstopdf)             Output file: <imgs/drawings/Page_down_switch-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2023-01-07 15:40:20
+(epstopdf)                    size: 8921 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/Page_down_sw
+itch-eps-converted-to.pdf imgs/drawings/Page_down_switch.eps>
+(epstopdf)             \includegraphics on input line 291.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/Page_down_switch-eps-converted-t
+o.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allow
+ed
+<imgs/drawings/Page_down_switch-eps-converted-to.pdf, id=285, 505.89pt x 281.05
+pt>
+File: imgs/drawings/Page_down_switch-eps-converted-to.pdf Graphic file (type pd
+f)
+<use imgs/drawings/Page_down_switch-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/Page_down_switch-eps-converted-to.pdf  u
+sed on input line 291.
+(pdftex.def)             Requested size: 169.11055pt x 93.95184pt.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.54997pt on input line 292.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 292.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 8.54997pt on input line 292.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <9> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 292.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <9> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 292.
+LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
+(Font)              scaled to size 8.54997pt on input line 292.
+Package epstopdf Info: Source file: <imgs/drawings/Page_up_switch.eps>
+(epstopdf)                    date: 2023-01-07 15:39:38
+(epstopdf)                    size: 17765 bytes
+(epstopdf)             Output file: <imgs/drawings/Page_up_switch-eps-converted
+-to.pdf>
+(epstopdf)                    date: 2023-01-07 15:40:11
+(epstopdf)                    size: 8957 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/Page_up_swit
+ch-eps-converted-to.pdf imgs/drawings/Page_up_switch.eps>
+(epstopdf)             \includegraphics on input line 297.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/Page_up_switch-eps-converted-to.
+pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+
+<imgs/drawings/Page_up_switch-eps-converted-to.pdf, id=286, 505.89pt x 281.05pt
+>
+File: imgs/drawings/Page_up_switch-eps-converted-to.pdf Graphic file (type pdf)
+
+<use imgs/drawings/Page_up_switch-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/Page_up_switch-eps-converted-to.pdf  use
+d on input line 297.
+(pdftex.def)             Requested size: 169.11055pt x 93.95184pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
 
  []
 
 [16 <./imgs/drawings/ega_wrapping-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 277--279
+(./code/wrap_page_buffer.c) [17 <./imgs/drawings/Page_down_switch-eps-converted
+-to.pdf> <./imgs/drawings/Page_up_switch-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 328--330
 
  []
 
-<screenshots_300dpi//game/Scroll_KC4_6_1.png, id=299, 547.2947pt x 400.49625pt>
+<screenshots_300dpi//game/Scroll_KC4_6_1.png, id=343, 547.2947pt x 400.49625pt>
 
 File: screenshots_300dpi//game/Scroll_KC4_6_1.png Graphic file (type png)
 <use screenshots_300dpi//game/Scroll_KC4_6_1.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC4_6_1.png  used on i
-nput line 282.
+nput line 333.
 (pdftex.def)             Requested size: 375.80377pt x 275.00438pt.
-<screenshots_300dpi//game/Scroll_KC4_6_2.png, id=300, 593.21625pt x 402.00188pt
+[18]
+<screenshots_300dpi//game/Scroll_KC4_6_2.png, id=356, 593.21625pt x 402.00188pt
 >
 File: screenshots_300dpi//game/Scroll_KC4_6_2.png Graphic file (type png)
 <use screenshots_300dpi//game/Scroll_KC4_6_2.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC4_6_2.png  used on i
-nput line 289.
+nput line 340.
 (pdftex.def)             Requested size: 375.80377pt x 254.67947pt.
-[17 <./screenshots_300dpi//game/Scroll_KC4_6_1.png>]
-Underfull \hbox (badness 3746) in paragraph at lines 296--297
-[]\T1/phv/m/n/10 Decrease the screen-start of all
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 296--297
+ [19 <./screenshots_300dpi//game/Scroll_KC4_6_1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 347--348
 
  []
 
-<screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update.png, id=309, 586.44093pt 
+<screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update.png, id=364, 586.44093pt 
 x 385.44pt>
 File: screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update.png Graphic file (ty
 pe png)
 <use screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update.png>
 Package pdftex.def Info: screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update.p
-ng  used on input line 304.
+ng  used on input line 355.
 (pdftex.def)             Requested size: 202.93471pt x 133.37686pt.
 
-Overfull \hbox (2.01398pt too wide) in paragraph at lines 295--308
+Overfull \hbox (2.01398pt too wide) in paragraph at lines 346--359
 []$[]$ $[]$ 
  []
 
-<screenshots_300dpi//game/Scroll_KC4_6_3.png, id=310, 593.21625pt x 402.00188pt
+<screenshots_300dpi//game/Scroll_KC4_6_3.png, id=365, 593.21625pt x 402.00188pt
 >
 File: screenshots_300dpi//game/Scroll_KC4_6_3.png Graphic file (type png)
 <use screenshots_300dpi//game/Scroll_KC4_6_3.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC4_6_3.png  used on i
-nput line 311.
+nput line 362.
 (pdftex.def)             Requested size: 375.80377pt x 254.67947pt.
-[18 <./screenshots_300dpi//game/Scroll_KC4_6_2.png> <./screenshots_300dpi/game/
+[20 <./screenshots_300dpi//game/Scroll_KC4_6_2.png> <./screenshots_300dpi/game/
 Scroll_KC4_6_1-scroll_update.png>]
-Underfull \hbox (badness 1331) in paragraph at lines 318--319
+Underfull \hbox (badness 1331) in paragraph at lines 369--370
 []\T1/phv/m/n/10 The sprite up-date steps are the
  []
 
 
-Underfull \hbox (badness 1648) in paragraph at lines 318--319
+Underfull \hbox (badness 1648) in paragraph at lines 369--370
 \T1/phv/m/n/10 same as Com-man-der Keen 1-3,
  []
 
 
-Underfull \hbox (badness 3009) in paragraph at lines 318--319
+Underfull \hbox (badness 3009) in paragraph at lines 369--370
 \T1/phv/m/n/10 mean-ing re-moval blocks will be
  []
 
 
-Underfull \hbox (badness 1616) in paragraph at lines 318--319
+Underfull \hbox (badness 1616) in paragraph at lines 369--370
 \T1/phv/m/n/10 vis-i-ble sprites are copied to the
  []
 
-<screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_sprite.png, id=319, 554.8
+<screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_sprite.png, id=374, 554.8
 2281pt x 390.70969pt>
 File: screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_sprite.png Graphic f
 ile (type png)
 <use screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_sprite.png>
 Package pdftex.def Info: screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_s
-prite.png  used on input line 323.
+prite.png  used on input line 374.
 (pdftex.def)             Requested size: 202.93471pt x 142.9089pt.
 
-Overfull \hbox (2.01398pt too wide) in paragraph at lines 317--327
+Overfull \hbox (2.01398pt too wide) in paragraph at lines 368--378
 []$[]$ $[]$ 
  []
 
-[19 <./screenshots_300dpi//game/Scroll_KC4_6_3.png> <./screenshots_300dpi/game/
+[21 <./screenshots_300dpi//game/Scroll_KC4_6_3.png> <./screenshots_300dpi/game/
 Scroll_KC4_6_1-scroll_update_sprite.png>]
-<screenshots_300dpi//game/Scroll_KC4_6_final.png, id=329, 570.63188pt x 402.754
+<screenshots_300dpi//game/Scroll_KC4_6_final.png, id=383, 570.63188pt x 402.754
 68pt>
 File: screenshots_300dpi//game/Scroll_KC4_6_final.png Graphic file (type png)
 <use screenshots_300dpi//game/Scroll_KC4_6_final.png>
 Package pdftex.def Info: screenshots_300dpi//game/Scroll_KC4_6_final.png  used 
-on input line 332.
+on input line 383.
 (pdftex.def)             Requested size: 375.80377pt x 265.24123pt.
 
-Underfull \hbox (badness 1509) in paragraph at lines 339--340
-[]\T1/phv/m/n/10 Point the vis-i-ble screen into the
+Underfull \hbox (badness 1648) in paragraph at lines 390--391
+\T1/phv/m/n/10 of both the \T1/cmtt/m/n/10 screenstart[] \T1/phv/m/n/10 and
  []
 
 
-Underfull \hbox (badness 1895) in paragraph at lines 339--340
-\T1/phv/m/n/10 start ad-dress and hor-i-zon-tal Pel
- []
-
-
-Underfull \hbox (badness 2050) in paragraph at lines 339--340
-\T1/phv/m/n/10 Pan-ning. The en-tire tile buffer
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 339--340
+Underfull \hbox (badness 10000) in paragraph at lines 390--391
 
  []
 
 
-Underfull \hbox (badness 1210) in paragraph at lines 341--342
+Underfull \hbox (badness 1210) in paragraph at lines 392--393
 \T1/phv/m/n/10 the screen-page was not yet up-
  []
 
-<screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_final.png, id=330, 554.82
+<screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_final.png, id=384, 554.82
 281pt x 390.70969pt>
 File: screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_final.png Graphic fi
 le (type png)
 <use screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_final.png>
 Package pdftex.def Info: screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_f
-inal.png  used on input line 346.
+inal.png  used on input line 397.
 (pdftex.def)             Requested size: 202.93471pt x 142.9089pt.
 
-Overfull \hbox (2.01398pt too wide) in paragraph at lines 338--350
+Overfull \hbox (2.01398pt too wide) in paragraph at lines 389--401
 []$[]$ $[]$ 
  []
 
-[20 <./screenshots_300dpi//game/Scroll_KC4_6_final.png> <./screenshots_300dpi/g
+
+Underfull \hbox (badness 10000) in paragraph at lines 389--401
+
+ []
+
+[22 <./screenshots_300dpi//game/Scroll_KC4_6_final.png> <./screenshots_300dpi/g
 ame/Scroll_KC4_6_1-scroll_update_final.png>]
-<screenshots_300dpi/game/clip_tinf_1.png, id=340, 220.57407pt x 147.55125pt>
+Package epstopdf Info: Source file: <imgs/drawings/buffer_tile_move_1.eps>
+(epstopdf)                    date: 2023-01-07 16:45:43
+(epstopdf)                    size: 55377 bytes
+(epstopdf)             Output file: <imgs/drawings/buffer_tile_move_1-eps-conve
+rted-to.pdf>
+(epstopdf)                    date: 2023-01-07 16:45:48
+(epstopdf)                    size: 16021 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/buffer_tile_
+move_1-eps-converted-to.pdf imgs/drawings/buffer_tile_move_1.eps>
+(epstopdf)             \includegraphics on input line 408.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/buffer_tile_move_1-eps-converted
+-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
+owed
+<imgs/drawings/buffer_tile_move_1-eps-converted-to.pdf, id=394, 523.9575pt x 47
+3.77pt>
+File: imgs/drawings/buffer_tile_move_1-eps-converted-to.pdf Graphic file (type 
+pdf)
+<use imgs/drawings/buffer_tile_move_1-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/buffer_tile_move_1-eps-converted-to.pdf 
+ used on input line 408.
+(pdftex.def)             Requested size: 300.64415pt x 271.85176pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 405--411
+
+ []
+
+Package epstopdf Info: Source file: <imgs/drawings/buffer_tile_move_2.eps>
+(epstopdf)                    date: 2023-01-07 16:38:55
+(epstopdf)                    size: 55716 bytes
+(epstopdf)             Output file: <imgs/drawings/buffer_tile_move_2-eps-conve
+rted-to.pdf>
+(epstopdf)                    date: 2023-01-07 16:42:17
+(epstopdf)                    size: 16106 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/buffer_tile_
+move_2-eps-converted-to.pdf imgs/drawings/buffer_tile_move_2.eps>
+(epstopdf)             \includegraphics on input line 415.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/buffer_tile_move_2-eps-converted
+-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
+owed
+<imgs/drawings/buffer_tile_move_2-eps-converted-to.pdf, id=395, 516.93124pt x 4
+73.77pt>
+File: imgs/drawings/buffer_tile_move_2-eps-converted-to.pdf Graphic file (type 
+pdf)
+<use imgs/drawings/buffer_tile_move_2-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/buffer_tile_move_2-eps-converted-to.pdf 
+ used on input line 415.
+(pdftex.def)             Requested size: 300.64415pt x 275.55309pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 412--418
+
+ []
+
+[23 <./imgs/drawings/buffer_tile_move_1-eps-converted-to.pdf>] [24 <./imgs/draw
+ings/buffer_tile_move_2-eps-converted-to.pdf>]
+<screenshots_300dpi/game/clip_tinf_1.png, id=427, 220.57407pt x 147.55125pt>
 File: screenshots_300dpi/game/clip_tinf_1.png Graphic file (type png)
 <use screenshots_300dpi/game/clip_tinf_1.png>
 Package pdftex.def Info: screenshots_300dpi/game/clip_tinf_1.png  used on input
- line 387.
+ line 455.
 (pdftex.def)             Requested size: 111.61357pt x 74.6625pt.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.54997pt on input line 388.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 388.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 8.54997pt on input line 388.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <9> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 388.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <9> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 388.
-LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
-(Font)              scaled to size 8.54997pt on input line 388.
-<screenshots_300dpi/game/clip_tinf_south.png, id=341, 220.57407pt x 147.55125pt
+<screenshots_300dpi/game/clip_tinf_south.png, id=428, 220.57407pt x 147.55125pt
 >
 File: screenshots_300dpi/game/clip_tinf_south.png Graphic file (type png)
 <use screenshots_300dpi/game/clip_tinf_south.png>
 Package pdftex.def Info: screenshots_300dpi/game/clip_tinf_south.png  used on i
-nput line 393.
+nput line 461.
 (pdftex.def)             Requested size: 111.61357pt x 74.6625pt.
 File: screenshots_300dpi/game/clip_tinf_south.png Graphic file (type png)
 <use screenshots_300dpi/game/clip_tinf_south.png>
 Package pdftex.def Info: screenshots_300dpi/game/clip_tinf_south.png  used on i
-nput line 399.
+nput line 467.
 (pdftex.def)             Requested size: 111.61357pt x 74.6625pt.
- (./code/clip_east_wall.c) [21]
-(./code/wallclip_array.c) [22 <./screenshots_300dpi/game/clip_tinf_1.png> <./sc
-reenshots_300dpi/game/clip_tinf_south.png>]
+ (./code/clip_east_wall.c)
+[25] (./code/wallclip_array.c) [26 <./screenshots_300dpi/game/clip_tinf_1.png> 
+<./screenshots_300dpi/game/clip_tinf_south.png>]
 Package epstopdf Info: Source file: <imgs/drawings/clipping.eps>
 (epstopdf)                    date: 2022-12-09 20:53:46
 (epstopdf)                    size: 21045 bytes
@@ -2279,41 +2394,44 @@ f>
 (epstopdf)                    size: 10078 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/clipping-eps
 -converted-to.pdf imgs/drawings/clipping.eps>
-(epstopdf)             \includegraphics on input line 425.
+(epstopdf)             \includegraphics on input line 493.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/clipping-eps-converted-to.pdf): 
 PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/clipping-eps-converted-to.pdf, id=382, 414.54875pt x 83.31125pt>
+<imgs/drawings/clipping-eps-converted-to.pdf, id=471, 414.54875pt x 83.31125pt>
 
 File: imgs/drawings/clipping-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/clipping-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/clipping-eps-converted-to.pdf  used on i
-nput line 425.
+nput line 493.
 (pdftex.def)             Requested size: 375.80377pt x 75.52731pt.
-(./code/clip_north_wall.c) [23 <./imgs/drawings/clipping-eps-converted-to.pdf>]
-[24]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 447.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 447.
+(./code/clip_north_wall.c) [27 <./imgs/drawings/clipping-eps-converted-to.pdf>]
+[28]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 510.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 510.
  (./software_2d.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 447.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 447.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 510.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 510.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 49125 strings out of 494880
- 1055969 string characters out of 6179601
- 1459362 words of memory out of 5000000
- 51356 multiletter control sequences out of 15000+600000
+ 49239 strings out of 494880
+ 1058465 string characters out of 6179601
+ 1459649 words of memory out of 5000000
+ 51428 multiletter control sequences out of 15000+600000
  570548 words of font info for 59 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,11n,132p,10472b,1143s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
+, replaced by a fixed one
 
  </home/bas/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk>{
 /usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/t
@@ -2322,10 +2440,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/u
 hvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on software_2d.pdf (24 pages, 1455321 bytes).
+Output written on software_2d.pdf (28 pages, 1499181 bytes).
 PDF statistics:
- 635 PDF objects out of 1000 (max. 8388607)
- 439 compressed objects within 5 object streams
- 226 named destinations out of 1000 (max. 500000)
- 371 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 738 PDF objects out of 1000 (max. 8388607)
+ 520 compressed objects within 6 object streams
+ 261 named destinations out of 1000 (max. 500000)
+ 407 words of extra memory for PDF output out of 10000 (max. 10000000)
 

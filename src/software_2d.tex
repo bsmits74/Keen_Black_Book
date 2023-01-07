@@ -4,7 +4,7 @@
 \section{Action Phase: Adaptive Tile Refreshment}
 After the player is done setting up the game, it is time for the scrolling engine to shine. On bitmapped displays without hardware scrolling like the EGA card, the entire screen have to be erased and redrawn in the slightly shifted position whenever the player moved in any direction. This would kill the CPU as you need to update all pixels of all four planes on the EGA card (remember the planar mapping of chapter \#\#\#?).\\ 
 
-So here John Carmack came with a smart solution. The scrolling engine is based on a simple yet powerful technology called Adaptive Tile Refreshment. The core idea is to  refresh only those tiles on the screen that needed to change.\\
+So here John Carmack came with a smart solution. The scrolling engine is based on a simple yet powerful technology called Adaptive Tile Refreshment. The core idea is to  refresh only those areas on the screen that needed to change.\\
 
 The visible screen is divided into tiles of 16x16 pixels. On a screen with 320x200 pixels, it means a grid of 20x13 tiles (actually it is 12.5 tiles high, but we need to round to integer). Let's look at \textit{Commander Keen 1: Marooned on Mars} in Figure \ref{fig:keen_difference}. This is the first level of Marooned, immediately to the right of the crashed Bean-with-Bacon Megarocket. The first figure is the start of the level, the second figure is after Keen has moved one tile (16 pixels) to the right through the world. They look almost identical to the naked eye, don't they? \\
 
@@ -28,7 +28,8 @@ Now, if we perform a difference on both images you see which tiles needs to be c
 \end{figure}
 \pagebreak
 
-So everytime Keen is crossing one tile the entire level is 'jolted' 16 pixels. This 'jolted' doesn't feel like a smooth scrolling game. Luckily, the EGA card provides two hardware features that support smooth pixel scrolling: setting the CRTC Start Address and Horizontal PEL Panning Registers. \\
+So now we know how to scroll the screen in steps of 16 pixels, which is still pretty 'choppy'. For smooth scrolling we need to dive deeper into the EGA card, which is explained in the next section.\\
+
 
 \subsection{EGA Virtual Screen}
 
@@ -61,15 +62,15 @@ There is one annoying quirk about programming the Attribute Controller: when the
   \label{ega_pel_pan}
   \par
 
-So the smooth horizontal and vertical panning should be viewed as a series 16-pixel tile refreshment and fine adjustments in the 8-pixel range between coarse byte-sized adjustments as illustrated in Figure \ref{fig:tile_refresh} 
+\subsection{Smooth scrolling: Bring it all together}
+Now we know how to perform tile refresh and smooth scrolling, it is time to bring it all together. The game and all actors are defined in a global coordinate system, which is scaled to 16 times a pixel. The higher resolution enables more precision of movements and better simulation of movement acceleration. Conversion between global, pixel and tile coordinate systems can be easily performed by bit shift operations:
+\begin{itemize}
+\item From global to pixel is shifing 4 bits to right.
+\item From pixel to tile is shifting 4 bits to right.
+\item From global to tile is shifting 8 bits to right.
+\end{itemize}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/Tile_Refresh.eps}
-\caption{Smooth scrolling in EGA.}
-\label{fig:tile_refresh}
-\end{figure}
-
+The idea is to first perform all actions and movements in the global coordinate system, and then move back to pixels or tile coordinate system for video updates. \\
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/EGA_REFRESH.ASM}
   \end{minipage}
@@ -77,11 +78,28 @@ So the smooth horizontal and vertical panning should be viewed as a series 16-pi
   \par
 
 
+So the smooth horizontal and vertical panning should be viewed as a series 16-pixel tile refreshment and fine adjustments in the 8-pixel range. The scrolling is defined by the following steps, see also Figure \ref{fig:tile_refresh}:
+\begin{itemize}
+  \item Calculate the panning in pixels for both x- and y-direction
+  \item The y-panning is defined by adding \cw{logical width * y} to the CRTC start address
+  \item In case the panning in x-direction is more than 8 pixels, increase the CRTC start address by 1 byte
+  \item the remaining pixels, ranging from 0-7, will be adjusted using horizontal pel panning
+\end{itemize}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{imgs/drawings/Tile_Refresh.eps}
+\caption{Smooth scrolling in EGA.}
+\label{fig:tile_refresh}
+\end{figure}
+
+
 
 
 
 \section{View Port and Buffer setup}
-First we need to explain how the view port and buffer layout are setup. The visible viewing screen has a resolution of 320x200 pixels. If we translate this into 16x16 pixel tiles, we have a screen view size of 20x13 tiles. By making the view port one tile higher and wider than the screen (21x14 tiles), we can scroll the screen up to 16 pixels without any tile refresh to the right or bottom side of the screen using the Start Address and Pel Pan registers. Finally, we create an update buffer that has enough space to float the view port up to two tiles in all direction.\\
+First we need to explain how the view port and buffer layout are setup. The visible viewing screen has a resolution of 320x200 pixels. If we translate this into 16x16 pixel tiles, we have a screen view size of 20x13 tiles. By making the view port one tile higher and wider than the screen (21x14 tiles), we can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh by using the Start Address and Pel Pan registers. Finally, we create an update buffer that has enough space to float the view port up to two tiles in all direction. Later we explain why we need a buffer of 2 tiles in all directions.\\
 
 So summarized, as can be seen in Figure \ref{fig:screen_setup}, the following tile views are defined:
 \begin{itemize}
@@ -94,7 +112,7 @@ So summarized, as can be seen in Figure \ref{fig:screen_setup}, the following ti
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/buffer_tile_layout.eps}
-\caption{View and buffer port layout.}
+\caption{View and buffer port tile layout.}
 \label{fig:screen_setup}
 \end{figure}
 
@@ -115,6 +133,7 @@ Since one screen only used 15,360 bytes of VRAM (which is 3,840 bytes per plane)
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/ega_ram_architecture.eps}
+\caption{Virtual screen layout on EGA card.}
 \label{fig:ega_ram_arch}
 \end{figure}
 
@@ -252,8 +271,8 @@ Note that after swapping, the tile buffer now has marked all tiles that have cha
 Step 2 and 3 (except for the animated tiles) only needs to happen if Commander Keen is moving more than 16 pixels, where step 4 and 5 normally needs to happen for each refresh.
 So the number of drawing operations required during each refresh is controllable by the level designer. If they choose to place large regions of identical tiles (the large swathes of constant background), less redrawing (meaning: less redrawing in step 2 and 3) is required.
 
-\subsection{Screen refresh in Commander Keen 4-6}
-In the later versions of Commander Keen, John Carmack explored what would happen if you push the virtual screen over de 64K, or \cw{0xFFFF}, border in video memory. It turned out that the EGA continues the virtual screen at \cw{0x0000}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moved more than 16 pixels.
+\subsection{Wrap around the EGA Memory}
+In the later versions of Commander Keen, John Carmack explored what would happen if you push the virtual screen over de 64kB, or \cw{0xFFFF}, border in video memory. It turned out that the EGA continues the virtual screen at \cw{0x0000}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moved more than 16 pixels.
 \\
 \begin{figure}[H]
   \centering
@@ -261,8 +280,40 @@ In the later versions of Commander Keen, John Carmack explored what would happen
   \label{fig:ega_wrapping}
   \caption{Wrap virtual screen around the EGA memory}
 \end{figure}
+\par
+There was however an issue with the introduction of Super VGA cards, which had typically more than 256kB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring >256kB RAM, which from a hardware constraint resulted in 512kB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{0xFFFF} did not work anymore on these cards. \\
+\par
+Luckily there was a way to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} the space between \cw{0xB400} and \cw{0xFFFF} is not used and contains enough space for another virtual screen. Each screen buffer has a size of \cw{0x3C00}. In case the start address is between \cw{0xC400} and \cw{0xFFFF} the corresponsing screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{imgs/drawings/Page_down_switch.eps}
+  \caption{Virtual pages moved down}
+  \label{fig:page0_down}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{imgs/drawings/Page_up_switch.eps}
+    \caption{Virtual pages moved up}
+  \label{fig:page0_up}
+\end{subfigure}
+\caption{Move screen to opposite end of VRAM buffer}
+\label{fig:page_wrapping}
+\end{figure}
 
-This results in the following algoritm to scroll and refresh the screen:
+The screen copy comes at the cost of some performance, but is not noticed during game play, also due to the fact that we can make use of copying 4 bytes in one cycle using the latches (as explain in section XXX).\\
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/wrap_page_buffer.c}
+  \end{minipage}
+  \label{ega_refresh}
+  \par
+
+
+\subsection{Screen refresh in Keen Dreams}
+
+The EGA Memory wrapping results in the following improved algoritm to scroll and refresh the screen for Keen Dreams:
 \begin{enumerate}
 \item Check if the player has moved one tile in any direction.
 \item In case the player moved one tile, add the respective column or row in the Master view in VRAM and flag the new tiles of column/row to be updated in the next refresh for both the screenpage and otherpage update list. Update the screenstart and tile buffer array pointers as well.
@@ -293,9 +344,9 @@ In the next screenshots we explain only steps that are different compared to Com
 
 
 \begin{minipage}{.4\textwidth}
-Decrease the screenstart of all three screen locations 2 bytes (1 tile). Copy a left-column of tiles from the asset location in memory into the corresponding location in the VRAM of the masterscreen.\\
+First decrease the screenstart of all three screen locations 2 bytes (1 tile). Then copy a left-column of tiles from the asset location in memory into the corresponding location in the VRAM of the masterscreen.\\
 \par
-In parallel decrease both tile array pointers one byte and mark each tile on the left border in both the visible and tile buffer array with '1', so it is updated upon the next refresh.
+In parallel decrease both tile buffer array pointers one byte and mark each tile on the left border in both buffer arrays with '1', so it is updated upon the next refresh.
 Finally, the most right column (which is now outside the view port) is marked with a '0'.
  \end{minipage}
 \begin{minipage}{.6\textwidth}
@@ -336,7 +387,7 @@ The sprite update steps are the same as Commander Keen 1-3, meaning removal bloc
 
 
 \begin{minipage}{.4\textwidth}
-Point the visible screen into the buffer screen by updating the CRTR start address and horizontal Pel Panning. The entire tile buffer array is cleared to '0'. Finally the buffer and screenpage of both the \cw{screenstart[]} and \cw{update[]} are swapped. Then step 1 is repeated. \\
+In the final step point the visible screen to the buffer screen by updating the CRTR start address and horizontal Pel Panning. The entire tile buffer array is cleared to '0'. Finally the buffer and screenpage of both the \cw{screenstart[]} and \cw{update[]} are swapped. Then step 1 is repeated. \\
 \par
 As before, in the tile buffer array already tiles are marked by '1' (since the screenpage was not yet updated).
  \end{minipage}
@@ -346,8 +397,25 @@ As before, in the tile buffer array already tiles are marked by '1' (since the s
  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_final.png}
  \label{fig:kc4-6_update_final_img_1}  
 \end{figure}
-\end{minipage}
+\end{minipage}\\
 
+
+
+\pagebreak
+We now can also explain why the tile array buffer is 2 tiles wider on all sides than the view port. Let's take the situation where the screen needs to scroll to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated where the tile buffer array is marked '1'. After the visible screen is swapped with the buffer screen, the \cw{*updatestart[otherpage]} pointer is cleared and the pointer is resetted. However, the \cw{*updatestart[screenpage]} is not cleared nor resetted since we did not update the screenpage (we only updated the buffer screen).\\
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imgs/drawings/buffer_tile_move_1.eps}
+  \caption{scroll to top-left tile}
+  \label{fig:buffer_tile_move_1}
+\end{figure}
+Now, if the screen needs again to scroll to the top-left you can see why we need the 2\textsuperscript{nd} row for the buffer. The process will repeat, but after this cycle the \cw{*update[otherpage]} is cleared and resetted.\\
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imgs/drawings/buffer_tile_move_2.eps}
+  \caption{scroll again to top-left tile}
+  \label{fig:buffer_tile_move_2}
+\end{figure}
 \pagebreak
 
 
@@ -434,15 +502,7 @@ When a sprite is clipped to a top or bottom tile, the corresponding midpoint pix
 \label{wallclip_array}
 \par
 
-\section{Global coordinate system}
-The game and all actors are defined in a global coordinate system, which is scaled to 16 times a pixel. The higher resolution enables more precision of movements and better simulation of movement acceleration. Conversion between global, pixel and tile coordinate systems can be easily performed by bit shift operations:
-\begin{itemize}
-\item From global to pixel is shifing 4 bits to right.
-\item From pixel to tile is shifting 4 bits to right.
-\item From global to tile is shifting 8 bits to right.
-\end{itemize}
 
-The idea is to first perform all actions and movements in the global coordinate system, and then move back to pixels or tile coordinate system for video updates.
 
 \section{Color Palette}
 
