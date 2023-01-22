@@ -151,8 +151,9 @@ Then comes the core loop, where the menu and 2D renderer are called forever.
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/unrolled_loop_playloop.c}
-\end{minipage}
+\end{minipage} \\
 \par
+ 
 The interrupt system is started via the Sound Manager in \cw{SDL\_SetIntsPerSec(rate)}. While there is a famous game development library called Simple DirectMedia Layer (SDL), the prefix \cw{SDL\_} has nothing to do with it. It stands for SounD Low level (Simple DirectMedia Layer did not even exist in 1991).\\
 \par
 The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with an OS supporting neither processes nor threads, it was the only way to have something execute concurrently with the rest of the engine.\\
@@ -174,7 +175,7 @@ The source code is structured in two layers. KD\_* files are high-level layers r
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/layers.eps} 
-\caption{Wolfenstein 3D source code layers.}
+\caption{Commander Keen source code layers.}
  \end{figure}
  \par
 There are six managers in total:\\
@@ -325,7 +326,7 @@ In the graphic assets the complete font is stored with the following information
   \item The width of the character
   \item The location in memory where each character is stored as a bitmap
 \end{itemize}
-Each character has the same height of 10 pixels, where the width could vary as illustrated in Figure \ref{fig:text_bitmap}. As explained before, in the video memory each 8 pixels are represented by 1 byte. So how do we print a character which is not perfectly aligned with the memory layout? Here a trick of bit shift tabels is being used.
+Each character has the same height of 10 pixels, where the width could vary as illustrated in Figure \ref{fig:text_bitmap}. 
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/text_bitmap.eps}
@@ -333,12 +334,14 @@ Each character has the same height of 10 pixels, where the width could vary as i
  \label{fig:text_bitmap}
  \end{figure}
  \par
-The default table (\cw{shiftdata0}) is defined a integer (16 bits) and contains all values from 0-255. Now, we shift this entire table 1 bit to the right. We can translate the bit shift back into an integer and store these values again in a table (\cw{shiftdata1}). We can do this again when we shift another bit, until we cycled through the 8-bits. So at the end we have created 7 shift tables to fully cycle through 8-bits. 
+As explained before, in the video memory each 8 pixels are represented by 1 byte. So how do we print a character which is not perfectly aligned with the memory layout? Here a trick of bit shift tabels is being used. 
+\par
+The default table (\cw{shiftdata0}) is defined as integer (16 bits) and contains all values from 0-255. Now, we shift this entire table 1 bit to the right. We can translate the bit shift back into an integer and store these values again in a table (\cw{shiftdata1}). We can do this again when we shift another bit, until we cycled through the 8-bits. So at the end we have created 7 shift tables to fully cycle through 8-bits. In Figure \ref{fig:shiftttable} you see how the bitshift is working for the values '1' and '198'.
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/shift_tables.eps}
  \caption{Right bitshift [0-7] for 1 and 198.}
- \label{fig:text_bitmap}
+ \label{fig:shiftttable}
  \end{figure}
  \par
 
@@ -390,7 +393,7 @@ The only function for the softdisk files is to load and show the intro screen bi
 
 
 \section{Startup}
-As the game engine starts, it will first load the memory manager. Then it will check if there is at least 335KiB of RAM is available. If not, it gives  a warning, but you can continue with the game. But most likely somewhere soon the game will either crash or receives and "Out of memory" error.\\
+As the game engine starts, it will first load the memory manager. Then it will check if there is at least 335KiB of RAM available. If not, it gives  a warning, but you can continue with the game. But most likely somewhere soon the game will either crash or receives and "Out of memory" error.\\
 \par
 After succesfully starting the game the intro image is diplayed, which is a Deluxe PaintBitmap image (*.LBM). After the user has hit any key, the intro image is unloaded from RAM to make more room for runtime and the control panel is shown.\\
 \begin{figure}[H]
@@ -398,6 +401,5 @@ After succesfully starting the game the intro image is diplayed, which is a Delu
 \fullimage{Keen_intro_screen.png}
 \caption{Keen Dreams intro screen}
 \end{figure}
-\par
-
+\pagebreak
 \end{document}

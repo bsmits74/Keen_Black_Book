@@ -12,14 +12,25 @@ void PlayLoop (void)
     {
       if (obj->active)
         StateMachine(obj);  // Enemies think
-
       obj = (objtype *)obj->next;
     } while (obj);
 
-    [...]             // Check for and handle collisions 
-                      // between objects
+    [...]           // Check for and handle collisions 
+                    // between objects
 
-    ScrollScreen();   // Scroll if Keen is nearing an edge
-    RF_Refresh();     // Update the screen
+    ScrollScreen(); // Scroll if Keen is nearing an edge.
+                    // Draw new tiles to master screen in
+                    // VRAM, and mark them in tile arrays
+
+    [...]           // React to whatever happened, and post 
+                    // sprites to the refresh manager
+
+    RF_Refresh();   // Copy marked tiles from master to
+                    // buffer screen, and update sprites
+                    // in buffer screen. 
+                    // Finally, switch buffer and view
+                    // screen
+
+    CheckKeys();    // Check special keys
   } while (!loadedgame && !playstate);
 }
