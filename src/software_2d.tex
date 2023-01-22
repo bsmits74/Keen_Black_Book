@@ -99,13 +99,13 @@ So the smooth horizontal and vertical panning should be viewed as a series 16-pi
 
 
 \section{View Port and Buffer setup}
-First we need to explain how the view port and buffer layout are setup. The visible viewing screen has a resolution of 320x200 pixels. If we translate this into 16x16 pixel tiles, we have a screen view size of 20x13 tiles. By making the view port one tile higher and wider than the screen (21x14 tiles), we can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh by using the Start Address and Pel Pan registers. Finally, we create an update buffer that has enough space to float the view port up to two tiles in all direction. Later we explain why we need a buffer of 2 tiles in all directions.\\
+Before we explain the scrolling algoritm, we first explain how the view port and buffer layout are setup. The visible viewing screen on EGA has a resolution of 320x200 pixels. If we translate this into 16x16 pixel tiles, we have a screen view size of 20x13 tiles. By making the view port one tile higher and wider than the screen (21x14 tiles), we can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh by using the Start Address and Pel Pan registers. Finally, we create an update buffer that has enough space to float the view port up to two tiles in all direction. At the end of Section \ref{section:scroll_refresh_dreams} it is explained why we need a spare buffer of 2 tiles.\\
 
 So summarized, as can be seen in Figure \ref{fig:screen_setup}, the following tile views are defined:
 \begin{itemize}
 \item Screen View size of 20x13 tiles and Port View size of 21x14 tiles.
 \item Buffer screen size of 22x14 tiles. This is one tile wider than the Port View, where the additional tile is used to mark a '0' at the end of each tile row. Notice that in the code the UPDATESCREENSIZE value is defined as (UPDATEWIDE * UPDATEHEIGHT + 2). The additional 2 bytes are used to store a termination indicator at the very end of the buffer screen.
-\item Total buffer size is stored in UPDATESIZE, which contains the UPDATESCREENSIZE and 2 two times a spare buffer to support the floating of two tiles in any direction. At the end of Section \ref{section:scroll_refresh_dreams} it is explained why we need a spare buffer of 2 tiles.
+\item Total buffer size is stored in UPDATESIZE, which contains the UPDATESCREENSIZE and 2 two times a spare buffer to support the floating of two tiles in any direction.
 \end{itemize}
 \par
  
@@ -123,7 +123,7 @@ Even if the screen is not scrolling, tile refreshes are required to support spri
 
 Now, let's have a closer look at the EGA memory setup. As explained in the previous section, the view port has a size of 21x14 tiles, which is 336x224 pixels. That means the logical width in VRAM must be at least 336 pixels (42 bytes) wide. In the file \cw{id\_vw.h} the VRAM screen buffer is defined by SCREENSPACE, which is set to 64x240 bytes, or 512x240 pixels. This is more than sufficient to update one virtual screen in VRAM.\\
 
-Since one screen only used 15,360 bytes of VRAM (which is 3,840 bytes per plane), we have more than enough space to store more than two full screens of video data. The video memory is organized into three virtual screens:
+Since one screen only uses 15,360 bytes of VRAM (which is 3,840 bytes per plane), we have more than enough space to store more than two full screens of video data. The video memory is organized into three virtual screens:
 \begin{itemize}
 \item Page 0 and 1, which are used to switch between buffer and view screen
 \item A master page containing all tiles, which are copied to the buffer memory when performing the screen update.
@@ -365,7 +365,7 @@ Finally, the most right column (which is now outside the view port) is marked wi
 
 
 \begin{minipage}{.4\textwidth}
-The sprite update steps are the same as Commander Keen 1-3, meaning removal blocks will be marked with a '2' and copied from the master to the buffer screen and visible sprites are copied to the buffer screen and marked with a '3' in the tile buffer array.
+The sprite update steps are the same as Commander Keen 1-3, meaning removal blocks will be marked with a '2' in the tile buffer array and copied from the master to the buffer screen and visible sprites are copied to the buffer screen and marked with a '3' in the tile buffer array.
  \end{minipage}
 \begin{minipage}{.6\textwidth}
 \begin{figure}[H]
@@ -373,8 +373,10 @@ The sprite update steps are the same as Commander Keen 1-3, meaning removal bloc
  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/Scroll_KC4_6_1-scroll_update_sprite.png}
  \label{fig:kc4_6_update_array}  
 \end{figure}
-\end{minipage}
-
+\end{minipage}\\
+\par
+\textbf{\underline{Trivia :}} The removal blocks which are marked '2' in the tile buffer array are nowhere used in the engine .\\
+  \par
 \pagebreak
 
 \begin{figure}[H]
@@ -400,8 +402,11 @@ As before, in the tile buffer array already tiles are marked by '1' (since the s
 
 
 
+
 \pagebreak
-We now can also explain why the tile array buffer is 2 tiles wider on all sides than the view port. Let's take the situation where the screen needs to scroll to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated on places where the tile buffer array is marked '1'. After the visible screen is swapped with the buffer screen, the \cw{*updatestart[otherpage]} pointer is cleared and the pointer is resetted. However, the \cw{*updatestart[screenpage]} is not cleared nor resetted since we did not update the screenpage (we only updated the buffer screen).\\
+We now can also see why the tile array buffer is 2 tiles wider on all sides than the view port. Let's take the situation where the screen needs to scroll to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated on places where the tile buffer array is marked '1'. \\
+\par
+After the visible screen is swapped with the buffer screen, the \cw{*updatestart[otherpage]} pointer is cleared and the pointer is resetted. However, the \cw{*updatestart[screenpage]} is not cleared nor resetted since we did not update the screenpage (we only updated the buffer screen).\\
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{imgs/drawings/buffer_tile_move.eps}
@@ -457,8 +462,8 @@ To define whether a tile is a wall or floor, a tile can be enriched with wall in
 \end{subfigure}
 \begin{subfigure}{.33\textwidth}
   \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/clip_tinf_south.png}
-  \caption{Tile info map EASTWALL UPDATE!!!}
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/clip_tinf_east.png}
+  \caption{Tile info map EASTWALL}
   \label{fig:clip_tinf_e}
 \end{subfigure}
 \caption{Tile clipping map}
