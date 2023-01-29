@@ -149,7 +149,7 @@ The approach of refreshing the screen is different between the first Commander K
 In the this section we explain how the first games are working\footnote{We can only explain how the algoritm is working without code examples, since the only released code is Keen Dreams which is using the improved algoritm.}. Six stages are involved in drawing a 2D scene:
 \begin{enumerate}
 \item Check if the player has moved one tile in any direction.
-\item Validate which tiles have changed (both from scrolling and animated tiles), copy these respective tiles to the Master view in VRAM and mark the tiles to be updated in the next refresh in both the screenpage and otherpage update list.
+\item Validate which tiles have changed (both from scrolling and animated tiles), copy these respective tiles to the Master view in VRAM and mark the tiles to be updated in the next refresh.
 \item Refresh the buffer view by scanning all tiles. If a tile needs to be updated, copy the tile from the master view to the buffer view in VRAM.
 \item Iterate through the sprite removal list and copy corresponding image block from master view to buffer view in VRAM. 
 \item Iterate through the sprite list and copy corresponding sprite image block from asset location in RAM to buffer view in VRAM
@@ -179,53 +179,49 @@ In the next six screenshots, we take you step-by-step to each of the stages. The
 
 \begin{figure}[H]
 \centering
- \fullimage{/game/Scroll_KC1-3_1-scroll_master.png}
- \caption{Step 2: Update changed tiles in masterscreen}
+ \fullimage{/game/Scroll_KC1-3_1-mem2master.png}
+ \caption{Step 2: Update changed tiles in masterscreen, marked in dark grey}
  \label{fig:kc1_3_update_masterscreen}
 \end{figure}
 
-
-\begin{minipage}{.4\textwidth}
 Each tile of the buffer screen is compared with the tile on the corresponding level location. If the tile number has changed, the tile is updated by copying tile data from the asset location in memory into the corresponding location in the VRAM of the masterpage.\\
 \par
-In parallel each tile in both visible and tile buffer array will be marked with a '1', which means it needs to be updated upon next refresh.
- \end{minipage}
-\begin{minipage}{.6\textwidth}
+In parallel each tile in both tile buffer and display array will be marked with a '1', which means it needs to be updated upon next refresh.
+
 \begin{figure}[H]
-  \centering
- \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/Scroll_KC1-3_1-scroll_update.png}
- \label{fig:kc1_3_update_refresh_img_1}  
+\centering
+ \fullimage{/game/Scroll_KC1-3_1-tile_mem2master.png}
+ \caption{Mark all changed tiles with '1' in both tile buffer and display arrays.}
+ \label{fig:kc1_3_update_refresh_img_1}
 \end{figure}
-\end{minipage}
+
 
 \pagebreak
 
 \begin{figure}[H]
 \centering
- \fullimage{/game/Scroll_KC1-3_1_remove.png}
+ \fullimage{/game/Scroll_KC1-3_1-master2buffer.png}
  \caption{Step 3 and 4: Copy tiles from master to buffer screen and remove sprites}
  \label{fig:kc1_3_update_remove}
 \end{figure}
 
-
-\begin{minipage}{.4\textwidth}
-Scan all tiles in the tile buffer array and for each tile marked as '1', copy the tile from master to buffer screen in VRAM.\\
+Scan all tiles in the tile buffer array and for each tile marked as '1', copy the tile from master to buffer page in VRAM.\\
 \par
-If a sprite has moved, the previous sprite location is added to the block removal list. For each block in this list, erase the sprite by copying the width and height size of the sprite block (marked in orange in Figure \ref{fig:kc1_3_update_remove}) from the master screen and mark the corresponding tiles in the tile buffer array with a '2'.
- \end{minipage}
-\begin{minipage}{.6\textwidth}
+If a sprite has moved, the previous sprite location is added to the block removal list. For each block in this list, erase the sprite by copying the width and height size of the sprite block (marked in green in Figure \ref{fig:kc1_3_update_remove}) from the master screen to the update screen, and mark the corresponding tiles only in the tile buffer array with a '2'.
+
 \begin{figure}[H]
-  \centering
- \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/Scroll_KC1-3_1-update_remove.png}
- \label{fig:kc1_3_update_remove_img_1}  
+\centering
+ \fullimage{/game/Scroll_KC1-3_1-tile_master2buffer.png}
+ \caption{Mark removed sprites with '2' in tile buffer array only.}
+ \label{fig:kc1_3_update_remove_img_1}
 \end{figure}
-\end{minipage}
+
 
 \pagebreak
 
 \begin{figure}[H]
 \centering
- \fullimage{/game/Scroll_KC1-3_1_sprite.png}
+ \fullimage{/game/Scroll_KC1-3_1-sprite2buffer.png}
  \caption{Step 5: Scan sprite list and copy sprite onto buffer screen}
  \label{fig:kc1_3_update_sprite}
 \end{figure}
