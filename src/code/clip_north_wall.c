@@ -2,6 +2,7 @@ void ClipToEnds (objtype *ob)
 {
 	...
 
+  //Get midpoint of sprite [0-15]
 	midxpix = (ob->midx&0xf0) >> 4;
 
 	map = (unsigned far *)mapsegs[1] +

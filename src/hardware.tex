@@ -414,7 +414,7 @@ Below an ATI EGA Wonder 800 (8-bit ISA). The eight chips on the left of the card
 EGA can be summarized as three major systems made of input, storage, and output:
 \begin{itemize}
 \item The Graphic Controller and Sequence Controller controlling how EGA RAM is accessed (the CPU-VRAM interface)
-\item The framebuffer (the VRAM) made of four memory banks with a minimum of 16KiB (rather than one bank of 64KiB). Via memory expansion each memory bank could be upgraded to 32KiB or 64KiB (resulting in 128KiB or 256KiB total VRAM). The original model from IBM came with 16KiB per plane, but almost all other EGA cards were equiped with the full 64KiB per plane. For the reminder of this book we will discuss only 256KiB EGA operations.
+\item The framebuffer (the VRAM) made of four memory banks with a minimum of 16KiB (rather than one bank of 64KiB). Via memory expansion each memory bank could be upgraded to 32KiB or 64KiB (resulting in 128KiB or 256KiB total VRAM). The original model from IBM came with 16KiB per plane, but almost all other EGA cards were equiped with the full 64KiB per plane. For the remainder of this book we will discuss only 256KiB EGA operations.
 \item The CRT Controller and the Attribute Controller taking care of converting the palette-indexed framebuffer to RGB and then to digital TTL\footnote{Transistor Transistor Logic} signal for display
 \end{itemize}
 
@@ -443,7 +443,7 @@ Keep in mind that this architecture reduced the penalty of read operations, but 
 \subsection{EGA Planar Madness}
 \label{section:EGA_Planar_Madness}
 
-Four memory banks grant enough throughput to reach high resolutions at 60Hz. Howver, the price for this solution is complexity of programming. \\
+Four memory banks grant enough throughput to reach high resolutions at 60Hz. However, the price for this solution is complexity of programming. \\
 \par
 The first problem with this design is that it is unintuitive. There is no linear framebuffer and figuring out which byte corresponds to which pixel on screen is difficult.\\
 \par
@@ -525,7 +525,7 @@ For each pixel a number index is derived from the 4 planes, representing a color
 
 When selecting a color from the EGA palette, two bits are used for the red, green and blue channels. This allows each channel a value of 0, 1, 2 or 3. To select the color magenta, the red and blue values would be medium intensity (2, or 10 in binary) and the green value would be off (0). When calculating the intended value in the 64-color EGA palette, the binary number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity and an uppercase letter is the most significant bit. For magenta, the most significant bit in the red and blue values is a 1, so the uppercase R and B placeholders would become 1. All other digits are zeros, giving the binary number 000101 for the color magenta. This is 5 in decimal, so setting a palette entry to 5 would result in it being set to magenta. All the color values for the default colors are listed in the table below.\\
 
-However, standard EGA monitors do not support use of the extended color palette in 200-line modes. The monitor cannot distinguish between being connected to a CGA card or being connected to an EGA card in a 200-line mode. Compared to CGA, EGA redefines some pins of the connector to carry the extended color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. For this reason, standard EGA monitors will use the CGA pin assignment in 200-line modes so the monitor can also be used with a CGA card. To keep  CGA compatibility most video games did not take advantage of the color palette and kept the 16 standard CGA colors. Nevertheless, Keen Dreams did  use a custom palette.\\
+However, standard EGA monitors do not support use of the extended color palette in 200-line modes. The monitor cannot distinguish between being connected to a CGA card or being connected to an EGA card in a 200-line mode. Compared to CGA, EGA redefines some pins of the connector to carry the extended color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. For this reason, standard EGA monitors will use the CGA pin assignment in 200-line modes so the monitor can also be used with a CGA card. To keep  CGA compatibility most video games did not take advantage of the color palette and kept the 16 standard CGA colors.\\
 
 
 \begin{figure}[H]
@@ -559,6 +559,7 @@ However, standard EGA monitors do not support use of the extended color palette 
 
 
  \subsection{EGA Programming: Memory Mapping}
+ \label{section:ega_memmap}
 To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in table \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from 0xA0000 to 0xAFFFF. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
 
 \par
@@ -689,9 +690,7 @@ However, square waves are not useful for producing anything pleasant. Some peopl
 \item Disney Sound Source
 \end{itemize}
 \par
-Although adoption was growing (Creative would go on to sell one million SoundBlaster cards in 1991), the majority of PCs had no sound card which once again presented a huge problem for game developers. 
-\par
-Commander Keen 1-3 did only support the PC speaker, only after introduction of Keen Dreams soundcards were supported.
+Although adoption was growing (Creative would go on to sell one million SoundBlaster cards in 1991), the majority of PCs had no sound card which once again presented a huge problem for game developers. Commander Keen 1-3 did only support the PC speaker, only after introduction of Keen Dreams soundcards were supported.
 
  \subsection{AdLib}
   AdLib's music card was first on the market. The company was founded in 1988 by Martin Prevel, a former professor of music from Quebec. After an initial struggle to get game developers to use their card (the SDK was \$300), AdLib managed to convince Taito, Velocity, and Sierra On-Line to support their hardware. Sierra in particular did much to increase adoption with King's Quest IV selling close to 3 million copies. Soon after, all games supported the "music card".\\
