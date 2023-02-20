@@ -24,40 +24,45 @@
 \contentsline {section}{\numberline {2.5}Bus}{42}{section.2.5}
 \contentsline {section}{\numberline {2.6}Inputs}{44}{section.2.6}
 \contentsline {section}{\numberline {2.7}Summary}{45}{section.2.7}
-\contentsline {chapter}{\numberline {3}Software}{47}{chapter.3}
-\contentsline {section}{\numberline {3.1}About the Source Code}{47}{section.3.1}
-\contentsline {section}{\numberline {3.2}Getting the Source Code}{47}{section.3.2}
-\contentsline {section}{\numberline {3.3}First Contact}{48}{section.3.3}
-\contentsline {section}{\numberline {3.4}Compile source code}{49}{section.3.4}
-\contentsline {section}{\numberline {3.5}Big Picture}{52}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}Unrolled Loop}{53}{subsection.3.5.1}
-\contentsline {section}{\numberline {3.6}Architecture}{58}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Memory Manager (MM)}{60}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Video Manager (VW \& RF)}{63}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Cache Manager (CA)}{63}{subsection.3.6.3}
-\contentsline {subsection}{\numberline {3.6.4}User Manager (US)}{67}{subsection.3.6.4}
-\contentsline {subsection}{\numberline {3.6.5}Sound Manager (SD)}{71}{subsection.3.6.5}
-\contentsline {subsection}{\numberline {3.6.6}Input Manager (IN)}{71}{subsection.3.6.6}
-\contentsline {subsection}{\numberline {3.6.7}Softdisk files}{71}{subsection.3.6.7}
-\contentsline {section}{\numberline {3.7}Startup}{72}{section.3.7}
-\contentsline {section}{\numberline {3.8}Action Phase: Adaptive Tile Refreshment}{73}{section.3.8}
-\contentsline {subsection}{\numberline {3.8.1}EGA Virtual Screen}{75}{subsection.3.8.1}
-\contentsline {subsection}{\numberline {3.8.2}Horizontal Pel Panning}{76}{subsection.3.8.2}
-\contentsline {subsection}{\numberline {3.8.3}Smooth scrolling: Bring it all together}{77}{subsection.3.8.3}
-\contentsline {section}{\numberline {3.9}View Port and Buffer setup}{79}{section.3.9}
-\contentsline {section}{\numberline {3.10}Screen buffer}{80}{section.3.10}
-\contentsline {section}{\numberline {3.11}Life of a 2D Frame}{81}{section.3.11}
-\contentsline {subsection}{\numberline {3.11.1}Scroll and screen refresh in Commander Keen 1-3}{82}{subsection.3.11.1}
-\contentsline {subsection}{\numberline {3.11.2}Optimize tile updates}{89}{subsection.3.11.2}
-\contentsline {subsection}{\numberline {3.11.3}Wrap around the EGA Memory}{90}{subsection.3.11.3}
-\contentsline {subsection}{\numberline {3.11.4}Scroll and screen refresh in Keen Dreams}{92}{subsection.3.11.4}
-\contentsline {section}{\numberline {3.12}Refresh video screen}{98}{section.3.12}
-\contentsline {section}{\numberline {3.13}A.I.}{98}{section.3.13}
-\contentsline {section}{\numberline {3.14}Drawing Sprites}{98}{section.3.14}
-\contentsline {subsection}{\numberline {3.14.1}Visible actor determination}{98}{subsection.3.14.1}
-\contentsline {subsection}{\numberline {3.14.2}Clipping}{98}{subsection.3.14.2}
-\contentsline {section}{\numberline {3.15}Audio and Heartbeat}{101}{section.3.15}
-\contentsline {subsection}{\numberline {3.15.1}IRQs and ISRs}{102}{subsection.3.15.1}
-\contentsline {subsection}{\numberline {3.15.2}PIT and PIC}{104}{subsection.3.15.2}
-\contentsline {subsection}{\numberline {3.15.3}Interrupt Frequency}{105}{subsection.3.15.3}
-\contentsline {subsection}{\numberline {3.15.4}Heartbeats}{106}{subsection.3.15.4}
+\contentsline {chapter}{\numberline {3}Assets}{47}{chapter.3}
+\contentsline {section}{\numberline {3.1}Programming}{47}{section.3.1}
+\contentsline {section}{\numberline {3.2}Graphic Assets}{52}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Assets Workflow}{52}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Assets file structure}{54}{subsection.3.2.2}
+\contentsline {chapter}{\numberline {4}Software}{59}{chapter.4}
+\contentsline {section}{\numberline {4.1}About the Source Code}{59}{section.4.1}
+\contentsline {section}{\numberline {4.2}Getting the Source Code}{59}{section.4.2}
+\contentsline {section}{\numberline {4.3}First Contact}{60}{section.4.3}
+\contentsline {section}{\numberline {4.4}Compile source code}{61}{section.4.4}
+\contentsline {section}{\numberline {4.5}Big Picture}{64}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Unrolled Loop}{65}{subsection.4.5.1}
+\contentsline {section}{\numberline {4.6}Architecture}{70}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Memory Manager (MM)}{72}{subsection.4.6.1}
+\contentsline {subsection}{\numberline {4.6.2}Video Manager (VW \& RF)}{75}{subsection.4.6.2}
+\contentsline {subsection}{\numberline {4.6.3}Cache Manager (CA)}{75}{subsection.4.6.3}
+\contentsline {subsection}{\numberline {4.6.4}User Manager (US)}{79}{subsection.4.6.4}
+\contentsline {subsection}{\numberline {4.6.5}Sound Manager (SD)}{83}{subsection.4.6.5}
+\contentsline {subsection}{\numberline {4.6.6}Input Manager (IN)}{83}{subsection.4.6.6}
+\contentsline {subsection}{\numberline {4.6.7}Softdisk files}{83}{subsection.4.6.7}
+\contentsline {section}{\numberline {4.7}Startup}{84}{section.4.7}
+\contentsline {section}{\numberline {4.8}Action Phase: Adaptive Tile Refreshment}{85}{section.4.8}
+\contentsline {subsection}{\numberline {4.8.1}EGA Virtual Screen}{87}{subsection.4.8.1}
+\contentsline {subsection}{\numberline {4.8.2}Horizontal Pel Panning}{88}{subsection.4.8.2}
+\contentsline {subsection}{\numberline {4.8.3}Smooth scrolling: Bring it all together}{89}{subsection.4.8.3}
+\contentsline {section}{\numberline {4.9}View Port and Buffer setup}{91}{section.4.9}
+\contentsline {section}{\numberline {4.10}Screen buffer}{92}{section.4.10}
+\contentsline {section}{\numberline {4.11}Life of a 2D Frame}{93}{section.4.11}
+\contentsline {subsection}{\numberline {4.11.1}Scroll and screen refresh in Commander Keen 1-3}{94}{subsection.4.11.1}
+\contentsline {subsection}{\numberline {4.11.2}Optimize tile updates}{101}{subsection.4.11.2}
+\contentsline {subsection}{\numberline {4.11.3}Wrap around the EGA Memory}{102}{subsection.4.11.3}
+\contentsline {subsection}{\numberline {4.11.4}Scroll and screen refresh in Keen Dreams}{104}{subsection.4.11.4}
+\contentsline {section}{\numberline {4.12}Refresh video screen}{110}{section.4.12}
+\contentsline {section}{\numberline {4.13}A.I.}{110}{section.4.13}
+\contentsline {section}{\numberline {4.14}Drawing Sprites}{110}{section.4.14}
+\contentsline {subsection}{\numberline {4.14.1}Visible actor determination}{110}{subsection.4.14.1}
+\contentsline {subsection}{\numberline {4.14.2}Clipping}{110}{subsection.4.14.2}
+\contentsline {section}{\numberline {4.15}Audio and Heartbeat}{113}{section.4.15}
+\contentsline {subsection}{\numberline {4.15.1}IRQs and ISRs}{114}{subsection.4.15.1}
+\contentsline {subsection}{\numberline {4.15.2}PIT and PIC}{116}{subsection.4.15.2}
+\contentsline {subsection}{\numberline {4.15.3}Interrupt Frequency}{117}{subsection.4.15.3}
+\contentsline {subsection}{\numberline {4.15.4}Heartbeats}{118}{subsection.4.15.4}
