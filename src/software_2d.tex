@@ -455,6 +455,7 @@ Once the state of the actor is updated, it is time to render the actor on the sc
 
 
 \subsection{Clipping}
+\ref{section:clipping}
 Before drawing a sprite on the screen, the engine determines if the boundaries of a sprite are hitting a wall or floor. This is called clipping and ensures an actor doesn't fall through a floor or walks through a vertical wall. To define whether a tile is a wall or floor, a tile can be enriched with wall information. For each level map the tile info variable \cw{tinf} contains a \cw{NORTHWALL}, \cw{SOUTHWALL}, \cw{EASTWALL} and \cw{WESTWALL} map as illustrated in Fig \ref{fig:clip_tinf}.\\
 
 

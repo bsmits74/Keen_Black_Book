@@ -7,6 +7,8 @@
 Development was done with Borland C++ 3.1 (but the language used was C) which by default ran in EGA mode 3 offering a screen 80 characters wide and 25 characters tall.\\
 \par
 John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
+\par
+Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}\footnote{Source: Borland C++ 3.1 User Guide.}.\\
 
 \begin{figure}[H]
 \centering
@@ -14,7 +16,7 @@ John Carmack took care of the runtime code. John Romero programmed many of the t
 \caption{Borland C++ 3.1 editor}
 \end{figure}
 \par
-Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}\footnote{Source: Borland C++ 3.1 User Guide.}.
+
 \pagebreak
 
 
@@ -76,12 +78,12 @@ After the graphic assets were generated, a tool (IGRAB) packed all ILBMs togethe
  In the engine code, asset usage is hardcoded via an enum. This enum is an offset into the \cw{HEAD} table which gives an offset in the \cw{DATA} archive. The \cw{HEAD} table files are stored in the \cw{\textbackslash static} folder as \cw{*.KDR} files.\\
 
 \subsection{Assets file structure}
-Figure \ref{fig:asset-creation-pipeline} shows the structure of the \cw{KDREAMS.EGA} asset file.
+Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset file.
 \begin{figure}[H]
 \centering
  \includegraphics[width=.5\textwidth]{imgs/drawings/graphic_assets.eps}
  \caption{File structure of \cw{KDREAMS.EGA} asset file.}
- \label{fig:asset-creation-pipeline}
+ \label{fig:asset-file}
 \end{figure}
 
 The \cw{pictable[]} contains the width and height in bytes for each picture in the asset file. Note that a width of 5 bytes means a size of 40 pixels on the screen. The same size structure is applied for mask pictures.\\
@@ -125,7 +127,19 @@ The \cw{spritetable[]} contains beside width and height in bytes also informatio
   \caption{content of spritetable[].}
   \end{table}
 
-As all tiles have fixed dimension (either 8 or 16 pixels), there is no need to store any tile size table structure. From \cw{STARTPICS} location onwards all assets are stored.
+The font segment contains a table for the height (same for all characters) and width of the font, as well as a reference where the character data is located.\\
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/font_structure.c}\par
+ \end{minipage}
+\begin{figure}[H] 
+  \centering 
+  \includegraphics[width=1.0\textwidth, frame]{screenshots_300dpi/font.png}
+  \caption{Font assets data.}
+  \label{fig:font_assets}
+\end{figure} 
+
+Since all tiles have fixed dimension (either 8 or 16 pixels), there is no need to store any tile size table structure. From \cw{STARTPICS} location onwards all graphical assets are stored. Each asset contains four planes, aligned with the EGA architecture. Foreground tiles and sprites include a mask plane as well.
  
 \begin{figure}[H] 
   \centering 
@@ -149,14 +163,14 @@ As all tiles have fixed dimension (either 8 or 16 pixels), there is no need to s
 \begin{figure}[H] 
   \centering 
   \includegraphics[width=0.9\textwidth, frame]{screenshots_300dpi/tile16M_assets.png}
-  \caption{Tile-16 and masked tile-16 assets data.}
+  \caption{Background (Tile-16) and foreground (masked tile-16) assets data.}
   \label{fig:tile16_assets}
 \end{figure} 
 
 
 
 \section{Maps}
-Maps were created using an in-house editor called TED5, short for Tile EDitor. TED5 was not created specially for Wolf 3D, but was originally made for the Commander Keen series and improved over the years. It was a versatile tool since it allowed for creating maps of both side-scroller games and top-down games like Rescue Rover and Wolf 3D.\\
+Maps were created using an in-house editor called TED5, short for Tile EDitor. Over the years TED5 had improvements and the same tool is used for creating maps of both side-scrolling games and top-down games like Wolf 3D.\\
 \par
  TED5 is not stand-alone; in order to start, it needs an asset archive and the  associated header (as described in the graphic asset workflow Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, texture IDs are directly encoded in the map.\\
 
@@ -171,40 +185,90 @@ Maps were created using an in-house editor called TED5, short for Tile EDitor. T
 
  \fullimage{ted5_scrolling_map.png}\\
 \par
-\vspace{20pt}
-\par
- \fullimage{TED.png}
+
 
 
  \par
- TED5 allows placement of tiles on layers called "planes". This layered approach proved powerful and versatile. In Commander Keen, layers are used for background, tiles which the hero can stand on, generating bonuses and so on. For Wolfenstein 3D, two layers are used: one for walls, and one to place bonuses and enemies on.\\
- \par
+ TED5 allows placement of tiles on layers called "planes". In Commander Keen, layers are used for background, foreground and information tiles. Note that foreground tiles are always using a mask as they are overlayed with the background. The info plane contains the location of all actors and special places. Each foreground and background tile could also be enriched with additional tile information such as tile clipping and tile animations. Just like IGRAB, the TED5 tool generated a header table file (\cw{KDR}-format) and a \cw{*.MAP} file containing the levels. Figure \ref{fig:map-header-file} shows the map header table, which is hard-coded in the source code.
+\begin{figure}[H]
+\centering
+ \includegraphics[width=.7\textwidth]{imgs/drawings/map_header.eps}
+ \caption{File structure of \cw{MAPHEAD.KDR} header file.}
+ \label{fig:map-header-file}
+\end{figure}
 
-Reusing TED5 was a double win. Not only did it save tool development time, but ramp-up time was also reduced as all team members had been using it for years. TED5 was so good at doing the job that it allowed designers to make a level within minutes\footnote{TED5 was used in 33 commercially shipped games (including Rise of the Triad in 1994).}.\\
+\subsection{Map header structure}
+The header offset and header size refer to the location and size in the \cw{KDREAMS.MAP} file. A total of 100 maps are supported in the game.\\
 \par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/map_header_structure.c}\par
+ \end{minipage}
 
- \begin{fancyquotes}
-After talking with Romero and Tom, Scott learned that it was taking the group only about one day to make a level of the game. Ka-chung! Dollar signs! Instead of just three episodes, why not have six? Scott said, "If you can do thirty more levels, it would only take you fifteen days. And we could have it where people could buy the first trilogy for thirty-five dollars or get all six for fifty dollars, or if people buy the first episode and later want the second episodes it will be twenty dollars. So there's a reason to get them all!" After some consideration, id agreed.\\
-\\
- \textbf{- Masters of Doom}
- \end{fancyquotes}\\
+\subsection{Background tile information}
+For background tile animation two information tables are required: tile animation and tile animation speed. The tile animation refers to the next tile in the animation sequence. So in case of tile \#90, the next animation tile is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in TimeCount, which is the number of ticks before the next tile is displayed. \\
+ \begin{table}[H]
+  \begin{tabularx}{\textwidth}[c]{XXX}
+  \hline
+  \textbf{index} & \textbf{tile animation} & \textbf{tile animation speed}   \\ \hline
+  0             & 0          & 0    \\
+  1             & 0          & 0    \\
+  ...             & ...          & ...    \\
+  57             & 1          & 32    \\
+  58             & -1          & 24    \\
+  ...             & ...          & ...    \\
+  90             & 1          & 8    \\
+  91            & 1          & 8    \\
+  92             & 1          & 8    \\
+  93             & -3          & 8    \\
+  ...             & ...          & ...    \\
+  \end{tabularx}
+  \caption{Background tile animation.}
+  \end{table}
 
+\subsection{Foreground tile information}
+The foreground tiles contain some additional information tables. Beside tile animation (tile mask animation and tile mask animation speed, similar like background tiles) it also contains clipping and 'inside' tile information.\\
 \par
-John Romero and Tom Hall did all the map design with TED5. Bobby Prince helped too and is credited for maps E6M2 and E6M3.\\
-\par
- \textbf{\underline{Trivia :}} The source code of TED5 was released several years later. Among the source code made of \cw{.C} and \cw{.H} was a mysterious \codeword{\_TOM.PIC}\footnote{Intentionally not reproduced here.}. It turned out to be an adult caricature of Tom Hall made by Adrian Carmack. The explanation came from John Romero:\\% in 2002:\\
-\par
- \begin{fancyquotes}
-   "Hahahaha! Wow, I forgot all about that picture. I can't believe it's 
-in the TED5 source files! It's basically a pic that Adrian drew of Tom 
-[...] saying "Sorry!".\\
-\par 
-It's because Tom and Adrian used to share a worktable together. Tom 
-would always bump the table while Adrian was drawing graphics with the 
-mouse and Tom would say, "Sorry!".\\
-   \\
-\textbf{John Romero - Programmer}
- \end{fancyquotes}
+The clipping tables contains how Commander Keen is clipped against foreground tiles. 'Inside' tile information is used to climb on a pole and illustrate Commander Keen is going through a floor opening ('inside' the tile). In section \ref{section:clipping} both the clipping and 'inside' logic is further explained.\\
+\begin{table}[H]
+  \begin{tabularx}{\textwidth}[c]{XXXXXXX}
+  \hline
+  \textbf{index} & \textbf{clip north} & \textbf{clip east} & \textbf{clip south} & \textbf{clip west}  & \textbf{inside tile} \\ \hline
+  ...    & ...     & ...    & ...   & ...     & ...      \\
+  238    & 0       & 1      & 5     & 0       & 0        \\
+  239    & 0       & 0      & 0     & 0       & 0        \\
+  240    & 0       & 0      & 5     & 0       & 0        \\
+  241    & 0       & 0      & 0     & 0       & 128       \\
+  242    & 1       & 1      & 1     & 1       & 128       \\
+  243    & 1       & 0      & 1     & 0       & 0       \\
+  244    & 0       & 0      & 2     & 0       & 0       \\
+  ...    & ...     & ...    & ...   & ...     & ...     \\
+  \end{tabularx}
+  \caption{Foreground tile clipping and 'inside' tile information.}
+  \end{table}
 
+
+
+
+
+
+
+
+
+
+The size of each tile information block is defined by the amount of tile-16 and mask tile-16 data items in the IGRAB tool.\\
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/map_header.c}\par
+ \end{minipage}
+ 
+ 
+\subsection{Map file structure}
+The structure of \cw{KDREAMS.MAP} is explain in Figure \ref{fig:map-file}. For each map there is a small header containing the width, height and name of the map as well as a reference pointer to each of the three planes. Each plane exists out of a map of tile numbers for foreground, background and info.
+\begin{figure}[H]
+\centering
+ \includegraphics[width=\textwidth]{imgs/drawings/kdreams_map.eps}
+ \caption{File structure of \cw{KDREAMS.MAP} file.}
+ \label{fig:map-file}
+\end{figure}
 
 \end{document}
