@@ -334,7 +334,10 @@ Each character has the same height of 10 pixels, where the width could vary as i
  \label{fig:text_bitmap}
  \end{figure}
  \par
-As explained before, in the video memory each 8 pixels are represented by 1 byte. So how do we print a character which is not perfectly aligned with the memory layout? Here a trick of bit shift tabels is being used. 
+ 
+\subsection{Bitshifting}
+\label{section:bitshifting}
+As explained in section \ref{section:ega_memmap} on page \pageref{section:ega_memmap}, each 8 pixels are represented by 1 byte per memory bank. So how do we print a character which is not perfectly aligned with the memory layout? Here a trick of bit shift tabels is being used. 
 \par
 The default table (\cw{shiftdata0}) is defined as integer (16 bits) and contains all values from 0-255. Now, we shift this entire table 1 bit to the right. We can translate the bit shift back into an integer and store these values again in a table (\cw{shiftdata1}). We can do this again when we shift another bit, until we cycled through the 8-bits. So at the end we have created 7 shift tables to fully cycle through 8-bits. In Figure \ref{fig:shiftttable} you see how the bitshift is working for the values '1' and '198'.
 \begin{figure}[H]

@@ -443,7 +443,6 @@ Actors are programmed via a state machine. They can be aggressive, sneaky, or du
 (XXX for instance). To model their behavior, all enemies have an associated state:
 
 \section{Drawing Sprites}
-Explain how animation are performed. Should we somehow also explain sprites on other systems, like Nintendo, etc.?\\
 Once the state of the actor is updated, it is time to render the actor on the screen. This is a two step operation.
 \begin{enumerate}
 \item Update the state and move actors within the active region.
@@ -451,11 +450,25 @@ Once the state of the actor is updated, it is time to render the actor on the sc
 \item Update the actor by removing and drawing sprites to it's new position
 \end{enumerate}
 
+The concept of sprites did not exists on the EGA card, so again they need to write their own solution. As explained in Section \ref{section:asset_file_structure} (Page \pageref{table:spritetable}, table \ref{table:spritetable}) each sprite asset contains additional information which is explained in Figure \ref{fig:sprite_structure}.\\
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{imgs/drawings/sprite.png}
+  \caption{sprite structure}
+  \label{fig:sprite_structure}
+\end{figure}
+
+All global movement takes place from the origin. The offset (xoff,yoff) defines the top-left position of the sprite. Together with the width and height it defines the dimensions of the sprite. The parameters xl, xh, yl and yh define the hit box of the sprite, which is explained in the next section.\\
+\par
+
+As each sprite can float freely over the screen, also here bit shift sprites are used to position the sprite (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift table defines the amount of steps the sprite has to be shifted within 8 pixels. So a value of 4 means the sprite is shifted in steps of 2 pixels (8 / 4), where a shift value of 1 means the sprite is not shifted at all (so this sprite is always perfectly 8-pixel aligned).\\ 
+ 
+
 \subsection{Visible actor determination}
 
 
 \subsection{Clipping}
-\ref{section:clipping}
+\label{section:clipping}
 Before drawing a sprite on the screen, the engine determines if the boundaries of a sprite are hitting a wall or floor. This is called clipping and ensures an actor doesn't fall through a floor or walks through a vertical wall. To define whether a tile is a wall or floor, a tile can be enriched with wall information. For each level map the tile info variable \cw{tinf} contains a \cw{NORTHWALL}, \cw{SOUTHWALL}, \cw{EASTWALL} and \cw{WESTWALL} map as illustrated in Fig \ref{fig:clip_tinf}.\\
 
 

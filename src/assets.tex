@@ -78,6 +78,7 @@ After the graphic assets were generated, a tool (IGRAB) packed all ILBMs togethe
  In the engine code, asset usage is hardcoded via an enum. This enum is an offset into the \cw{HEAD} table which gives an offset in the \cw{DATA} archive. The \cw{HEAD} table files are stored in the \cw{\textbackslash static} folder as \cw{*.KDR} files.\\
 
 \subsection{Assets file structure}
+\label{section:asset_file_structure}
 Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset file.
 \begin{figure}[H]
 \centering
@@ -125,6 +126,7 @@ The \cw{spritetable[]} contains beside width and height in bytes also informatio
  296  &   12  &   103  &   -128  &   0  &   256  &   128  &   752  &   1648  &   4\\
   \end{tabularx}
   \caption{content of spritetable[].}
+  \label{table:spritetable}
   \end{table}
 
 The font segment contains a table for the height (same for all characters) and width of the font, as well as a reference where the character data is located.\\
@@ -189,13 +191,15 @@ Maps were created using an in-house editor called TED5, short for Tile EDitor. O
 
 
  \par
- TED5 allows placement of tiles on layers called "planes". In Commander Keen, layers are used for background, foreground and information tiles. Note that foreground tiles are always using a mask as they are overlayed with the background. The info plane contains the location of all actors and special places. Each foreground and background tile could also be enriched with additional tile information such as tile clipping and tile animations. Just like IGRAB, the TED5 tool generated a header table file (\cw{KDR}-format) and a \cw{*.MAP} file containing the levels. Figure \ref{fig:map-header-file} shows the map header table, which is hard-coded in the source code.
+ TED5 allows placement of tiles on layers called "planes". In Commander Keen, layers are used for background, foreground and information tiles. Note that foreground tiles are always using a mask as they are overlayed with the background. The info plane contains the location of all actors and special places. Each foreground and background tile could also be enriched with additional tile information such as tile clipping and animated tiles. Just like IGRAB, the TED5 tool generated a header table file (\cw{KDR}-format) and a \cw{*.MAP} file containing the levels. Figure \ref{fig:map-header-file} shows the map header table structure, which is hard-coded in the source code.\\
+ 
 \begin{figure}[H]
 \centering
- \includegraphics[width=.7\textwidth]{imgs/drawings/map_header.eps}
+ \includegraphics[width=.65\textwidth]{imgs/drawings/map_header.eps}
  \caption{File structure of \cw{MAPHEAD.KDR} header file.}
  \label{fig:map-header-file}
 \end{figure}
+\par
 
 \subsection{Map header structure}
 The header offset and header size refer to the location and size in the \cw{KDREAMS.MAP} file. A total of 100 maps are supported in the game.\\
@@ -205,7 +209,7 @@ The header offset and header size refer to the location and size in the \cw{KDRE
  \end{minipage}
 
 \subsection{Background tile information}
-For background tile animation two information tables are required: tile animation and tile animation speed. The tile animation refers to the next tile in the animation sequence. So in case of tile \#90, the next animation tile is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in TimeCount, which is the number of ticks before the next tile is displayed. \\
+For background tile animation two information tables are required: tile animation and tile animation speed. The tile animation refers to the next tile in the animation sequence. So in case of tile \#90 in Table \ref{table:background tile anim}, the next animation tile is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in TimeCount, which is the number of ticks before the next tile is displayed. \\
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXX}
   \hline
@@ -223,6 +227,7 @@ For background tile animation two information tables are required: tile animatio
   ...             & ...          & ...    \\
   \end{tabularx}
   \caption{Background tile animation.}
+  \label{table:background tile anim}
   \end{table}
 
 \subsection{Foreground tile information}
@@ -263,12 +268,14 @@ The size of each tile information block is defined by the amount of tile-16 and 
  
  
 \subsection{Map file structure}
-The structure of \cw{KDREAMS.MAP} is explain in Figure \ref{fig:map-file}. For each map there is a small header containing the width, height and name of the map as well as a reference pointer to each of the three planes. Each plane exists out of a map of tile numbers for foreground, background and info.
+The structure of \cw{KDREAMS.MAP} is explained in Figure \ref{fig:map-file}. For each map there is a small header containing the width, height and name of the map as well as a reference pointer to each of the three planes. Each plane exists out of a map of tile numbers for foreground, background and info.
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/kdreams_map.eps}
  \caption{File structure of \cw{KDREAMS.MAP} file.}
  \label{fig:map-file}
 \end{figure}
+
+\section{Audio}
 
 \end{document}
