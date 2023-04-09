@@ -2,12 +2,12 @@
 \begin{document}
 \label{chapter_software_architecture}
 \section{About the Source Code}
-Commander Keen series 1-3 and 4-6 source code is not available as the current owner Zenimax \ref{On June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, as of writing this book, no interest in selling intellectual properties. Luckily the ownership of Commander Keen: Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the then-owners of Softdisk, and released a version for Android devices. \\
+Commander Keen series 1-3 and 4-6 source code is not available as the current owner Zenimax\footnote{June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, as of writing this book, no interest in selling intellectual properties. Luckily the ownership of Commander Keen: Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the then-owners of Softdisk, and released a version for Android devices. \\
 The following September, an Indiegogo crowdfunding campaign was started to attempt to buy the rights from Flat Rock for US\$1500 in order to release the source code to the game and start publishing it on multiple platforms. The campaign did not reach the goal, but it's creator Javier Chavez made up the difference, and the source code was released under GNU GPL-2.0-or-later soon after.
 
 \section{Getting the Source Code}
 \par
-The source code is made available via \cw{github.com}. It is important to take the the source code for the shareware version 1.13, otherwise you run into issues due to incompatible map headers. To get the correct source code \\
+The source code is made available via \cw{github.com}. It is important to take the the source code from shareware version 1.13, otherwise you run into issues due to incompatible map headers. To get the correct source code \\
 \par
 \tcode{keen13_github.txt}\\
 \par
@@ -81,15 +81,17 @@ Now let's start to compile the source code. To compile the code like it's 1990 y
 \end{itemize}
 
 After setting up the DosBox environment, with Borland C++ 3.1 installed (You can find a complete tutorial in "Let's compile like it's 1992" on \cw{fabiensanglard.net}) download the source code via github.\\
+
+\par
 Once you start DosBox and change directory to the \cw{keen} folder, first create the folder where we create our compiled object files.\\
 \par
 \tcode{mkdir.txt}\\
 \par
-Then we need to create the static \cw{OBJ} files.\\
+Then we need to create the static \cw{OBJ} header files.\\
 \par
 \tcode{static.txt}\\
 \par
-Once the static object files are created, move back to the \cw{keen} folder and open Borland C++. Open the \cw{kdreams.prj} project file. Before we can start compiling we need to set the correct directories. Select Options -> Directories and change the values as follow:
+Once the static object header files are created, move back to the \cw{keen} folder and open Borland C++. Open the \cw{kdreams.prj} project file. Before we can start compiling we need to set the correct directories. Select Options -> Directories and change the values as follow:
 \begin{figure}[H]
 \centering
   \fullimage{borland_directories.png}
@@ -107,11 +109,11 @@ Now it's time to compile. Go to Compile -> Build all, and voila! The final step 
 \section{Big Picture}
 The game engine is divided in three blocks:
 \begin{itemize}
-\item Menu engine which lets users configure the game.
+\item Control panel which lets users configure and start the game.
 \item 2D game renderer where the users spend most of their time.
 \item Sound system which runs concurrently with either the Menu or 2D renderer. 
 \end{itemize}
-The three systems communicate via shared memory. The renderer writes music and sound requests to the RAM (also making sure the assets are ready). These requests are read by the sound "loop". The sound system also writes to the RAM for the renderers since it is in charge of the heartbeat of the whole engine. The renderers update the world according to the wall-time tracked by \cw{TimeCount} variable.
+The three systems communicate via shared memory. The renderer writes sound requests to the RAM (also making sure the assets are ready). These requests are read by the sound "loop". The sound system also writes to the RAM for the renderers since it is in charge of the heartbeat of the whole engine. The renderers update the screen according to the wall-time tracked by \cw{TimeCount} variable.
 \par
 \begin{figure}[H]
 \centering
@@ -121,7 +123,7 @@ The three systems communicate via shared memory. The renderer writes music and s
  \par
  
 \subsection{Unrolled Loop}
-With the big picture in mind, we can dive into the code and unroll the main loop starting in \cw{void main()}. The two renderers are regular loops but due to limitations explained later, the sound system is interrupt-driven and therefore out of \cw{main}. Because of real mode, C types don't mean what people would expect from a 32-bit architecture.
+With the big picture in mind, we can dive into the code and unroll the main loop starting in \cw{void main()}. The control panel and 2D renderer are regular loops but due to limitations explained later, the sound system is interrupt-driven and therefore out of \cw{main}. Because of real mode, C types don't mean what people would expect from a 16-bit architecture.
 \begin{itemize}
 \item \cw{int} and \cw{word} are 16 bits.
 \item \cw{long} and \cw{dword} are 32 bits.
@@ -147,7 +149,7 @@ Then comes the core loop, where the menu and 2D renderer are called forever.
 \lstinputlisting[language=C]{code/unrolled_loop_demoloop.c}
 \end{minipage}
 \par
-\cw{PlayLoop} contains the 2D renderer. It is pretty standard with getting inputs, update world, and render world approach.\\
+\cw{PlayLoop} contains the 2D renderer. It is pretty standard with getting inputs, update screen, and render screen approach.\\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/unrolled_loop_playloop.c}
@@ -158,7 +160,7 @@ The interrupt system is started via the Sound Manager in \cw{SDL\_SetIntsPerSec(
 \par
 The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with an OS supporting neither processes nor threads, it was the only way to have something execute concurrently with the rest of the engine.\\
 \par
-An ISR (Interrupt Service Routine) is installed in the Interrupt Vector Table to respond to interrupts triggered by the engine. 
+An ISR (Interrupt Service Routine) is installed in the Interrupt Vector Table to respond to interrupts triggered by the engine. \\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/soundsystem_interrupt.c}
@@ -197,7 +199,7 @@ The KD\_ stuff was written specifically for Commander Keen while the ID\_ manage
 \caption{Architecture with engine and sub-systems (in white) connected to I/O (in gray).}
 \label{fig:architecture}
 \end{figure}
-Next to the hard drives (HDD) you can see the assets packed as described in Chapter \ref{chapter_team}.
+Next to the hard drives (HDD) you can see the assets packed as described in Chapter \ref{section:graphic_assets}.
 
 
 
@@ -283,7 +285,7 @@ The video manager features two parts:
 \item The \cw{VW\_*} layer is made of both C and ASM, where the C functions abstract away EGA register manipulation via assembly routines. 
 \item The \cw{RF\_*} layer is used to update tiles, and is also made both C and ASM code.
 \end{itemize}
-The video manager is described extensively in the "XXX" section.
+The video manager is described extensively in section \ref{section:adaptive_tile_refresh} on page \pageref{section:adaptive_tile_refresh}.
 \par
 
 
@@ -299,7 +301,7 @@ The cache manager is a small but critical component. It loads and decompresses m
 \end{itemize}
  \par
  
-Details of each asset file are explained in chapter XXX. The header and dictionary files are provided with the source code in the \cw{static} folder and contain \cw{*.KDR} extension. Both file types are hardcoded and required during compilation (they are converted into an \cw{OBJ} file using \cw{makeobj.c}). The data file containing the assets is not part of the source code and must be acquired via downloading the shareware version.
+Details of each asset file are explained in chapter \ref{section:programming}. The header and dictionary files are provided with the source code in the \cw{static} folder and contain \cw{*.KDR} extension. Both file types are hardcoded and required during compilation (they are converted into an \cw{OBJ} file using \cw{makeobj.c}). The data file containing the assets is not part of the source code and must be acquired via downloading the shareware version.
  All resources are compressed using a traditional huffman method for (de-)compression. \\
  \par
 \begin{figure}[H]
@@ -320,8 +322,10 @@ The function \cw{CA\_CacheMarks()} loads and decompress all required graphical a
  
 \subsection{User Manager (US)} 
 The user manager is responsible for text layout and control panels like loading and saving games, configure controls and setting sound device.\\
-Once we start the game, we move the display to EGA graphic mode \cw{0x0D}. Here we can't directly print characters on the screen anymore. So a key function of the User Manager is to print text for a given location. When a high-level routine needs to draw a string, it is first passed to \cw{USL\_MeasureString} which does all measurement (e.g. height and total width of string) and then to \cw{USL\_DrawString} which passes this information to the Video Manager (\cw{VW\_DrawPropString}), which takes care of rendition.
-In the graphic assets the complete font is stored with the following information of each character:
+\par
+
+Once we start the game, we move the display to EGA graphic mode \cw{0x0D}. Here we can't directly print characters on the screen anymore. So a key function of the User Manager is to print text for a given pixel location. When a high-level routine needs to draw a string, it is first passed to \cw{USL\_MeasureString} which does all measurement (e.g. height and total width of string) and then to \cw{USL\_DrawString} which passes this information to the Video Manager (\cw{VW\_DrawPropString}), which takes care of rendition.
+In the graphic assets file the complete font is stored with the following information for each character:
 \begin{itemize}
   \item The width of the character
   \item The location in memory where each character is stored as a bitmap
@@ -337,13 +341,14 @@ Each character has the same height of 10 pixels, where the width could vary as i
  
 \subsection{Bitshifting}
 \label{section:bitshifting}
-As explained in section \ref{section:ega_memmap} on page \pageref{section:ega_memmap}, each 8 pixels are represented by 1 byte per memory bank. So how do we print a character which is not perfectly aligned with the memory layout? Here a trick of bit shift tabels is being used. 
+As explained in section \ref{section:ega_memmap} on page \pageref{section:ega_memmap}, each 8 pixels are represented by 1 byte per memory bank. So how do we print a character which is not perfectly aligned with the memory layout? Here a trick of bit shift tabels is being used. \\
 \par
-The default table (\cw{shiftdata0}) is defined as integer (16 bits) and contains all values from 0-255. Now, we shift this entire table 1 bit to the right. We can translate the bit shift back into an integer and store these values again in a table (\cw{shiftdata1}). We can do this again when we shift another bit, until we cycled through the 8-bits. So at the end we have created 7 shift tables to fully cycle through 8-bits. In Figure \ref{fig:shiftttable} you see how the bitshift is working for the values '1' and '198'.
+
+The default table (\cw{shiftdata0}) is defined as integer (16 bits) and contains all values from 0-255. Now, we shift this entire table 1 bit to the right. We can translate the bit shift back into an integer and store these values again in a table (\cw{shiftdata1}). We can do this again when we shift another bit, until we cycled through the 8-bits. So at the end we have created 7 shift tables to fully cycle through 8-bits. In Figure \ref{fig:shiftttable} you see how the bitshift is working for the values '198'.
 \begin{figure}[H]
 \centering
- \includegraphics[width=\textwidth]{imgs/drawings/shift_tables.eps}
- \caption{Right bitshift [0-7] for 1 and 198.}
+ \includegraphics[width=0.8\textwidth]{imgs/drawings/shift_tables.eps}
+ \caption{Right bitshift [0-7] for 198.}
  \label{fig:shiftttable}
  \end{figure}
  \par

@@ -10,7 +10,7 @@ void InitGame (void)
 	RF_Startup ();    // Refresh Manager
 	IN_Startup ();    // Input Manager
 	SD_Startup ();    // Sound Manager
-	US_Startup ();    // Font Manager
+	US_Startup ();    // User Manager
 
 	CA_Startup ();    // Cache Manager
 	US_Setup ();      

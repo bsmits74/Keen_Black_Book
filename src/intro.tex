@@ -1,17 +1,17 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
-My personal introduction to computer gaming started in 1985, when my parents bought a MSX-1 Home Computer. I was fascinated by games such as Knightmare and Nemesis 2. It was not only the gameplay that interested me, but also how such games are developed. That's how I started my deep interest into programming and learned about sprites and side-scrolling techniques.\\
+My personal introduction to computer gaming started in 1985, when my parents bought a MSX-1 Home Computer. I was fascinated by games such as Konami's Knightmare and Nemesis 2. It was not only the gameplay that interested me, but also how such games are developed. That's how I started my interest into programming and understanding of sprites and side-scrolling techniques.\\
 \par
-The same year I had my first computer experience, Nintendo released a game called Super Mario Bros. on the Nintendo Entertainment System (NES). It was an instant blockbuster; it combined great graphics with smooth side scrolling. Earlier side scrolling games, like Knightmare and Nemesis 2, moved at constant and "choppy" speed. Super Mario Bros was different, as the player dictates the scrolling speed. You could smoothly accelerate from walk to run or jump, and the screen would smoothly follow your actions. Super Mario Bros was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform game genre,and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan}.\\
+The same year I had my first home computer, Nintendo released a game called Super Mario Bros. on the Nintendo Entertainment System (NES). It was an instant blockbuster; it combined great graphics with smooth side scrolling. Side scrolling games from that time period, like Knightmare and Nemesis 2, moved at constant and "choppy" speed. Super Mario Bros was different, as the player dictates the scrolling speed. You could smoothly accelerate from walk to run or jump, and the screen would smoothly follow your actions. Super Mario Bros was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform game genre,and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan}.\\
 \begin{figure}[H]
   \centering
  \includegraphics[width=1.0\textwidth]{screenshots_300dpi/Mario_Bros.png}
 \caption{Super Mario Bros. on Nintendo Entertainment System}
 \end{figure}
 \par
-Super Mario Bros. showed the real power of the NES, which was hardware supported scrolling. Most computers around that time, like MSX and Commodore-64 computer systems, only had hardware support for sprites. To perform side scrolling on these platforms the only way is to move all the background "characters" (typically represented by 8x8 pixel tiles), which is why you get that super choppy "scrolling". The only way to actually get smooth pixel scrolling is be redrawing the entire screen offset by the number of pixels you want to scroll, which is incredibly performance intensive, and not even possible with most hardware of that time. \\
+Super Mario Bros. showed the real power of the NES, which was hardware supported scrolling. Most computers around that time, like MSX and Commodore-64 computer systems, only had hardware support for sprites. To perform side scrolling on these platforms one  need to move all the background "characters" (typically represented by 8x8 pixel tiles), which is why you get that super choppy "scrolling". The only way to actually get smooth pixel scrolling is be redrawing the entire screen offset by the number of pixels you want to scroll, which is incredibly performance intensive, and not even possible with most hardware of that time. \\
 \par
-The NES was one of the very first home computers that supported smooth scrolling. Essentially, the hardware had a register you could just write to to set the fine (pixel) scroll. If you want your background to be displayed scrolled 120 pixels in from the right, and 22 pixels from the top, you just write "120" and then "22" in order, to the same register. Done deal! The video chip takes care of the rest, running at the same constant speed as it always done.\\
+The NES was one of the very first home computers that supported smooth scrolling. Essentially, the hardware had a register you could just write to set the fine (pixel) scroll. If you want your background to be displayed scrolled 120 pixels in from the right, and 22 pixels from the top, you just write "120" and then "22" in order, to the same register. Done deal! The video chip takes care of the rest, running at the same constant speed as it always done.\\
 \par
 The IBM PC was by late 80s far behind the gaming power of the NES. It was designed for office work rather than gaming. It was meant to crunch integers and display static images for word processing and spreadsheet applications. Most PC games around that time are graphic adventure games (King's Quest), static platform games (Prince of Persia) and simulation games (Sim City). Basically, the PC lacked all hardware support for sprites and smooth scrolling.\\
 \par
@@ -22,13 +22,10 @@ Then, on December 14\textsuperscript{th}, 1990, a small unknown software company
 \caption{Commander Keen in Invasion of the Vorticons}
 \end{figure}
 \par
-How was this possible on the IBM PC? Yes, the 286 CPU of the PC outperformed any home computer on the market in terms of raw power.\\
-\par
-\input{imgs/drawings/available_hardware_mips.tex}
 
-
-But that was about everything the IBM PC excelled in. Many obstacles had to be overcome:
+How was this possible on the IBM PC? Many obstacles had to be overcome:
 \begin{itemize}
+  \item The first 8086 CPU did not outperform the average home computer in terms of raw power. Only with the release of the 286 CPU the PC started to outperform the market in terms of raw power.
   \item As stated before, the video system (called EGA) did not support any form of scrolling. It did not even support any form of sprites, which allowed movement of something on the screen by simply updating its \cw{(x,y)} coordinates.
   \item The video system could not double buffer. It was not possible to have smooth scrolling without ugly artifacts called "tears" on the screen.
   \item The PC Speaker, the default sound device, could only produce square waves resulting in a bunch of "beeps" which were more annoying than anything else.
@@ -39,6 +36,9 @@ error prone pointer arithmetic.
   \item The bus was slow and I/O with the VRAM was a bottleneck. It was next to impossible to write a full framebuffer at 70 frames per second
 \end{itemize}
 \par
+
+\input{imgs/drawings/available_hardware_mips.tex}
+
 Overall, it seemed impossible to create any reasonable side-scrolling game on the PC platform. But many around the world did not accept that and tinkered with the hardware to achieve unexpected results. How they did it is the \textit{raison d'\^etre} of this book. I've chosen to divide this book into three chapters:
 \begin{itemize}
   \item Chapter 2: The Hardware. The five components of a PC from 1990.

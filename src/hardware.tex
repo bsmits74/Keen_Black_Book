@@ -21,7 +21,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
   Video & Impossible \\ 
   Audio & Very Poor \\ 
   Inputs & Ok \\ 
-  CPU & Impossible \\ \bottomrule
+  CPU & Very Poor \\ \bottomrule
 \end{tabularx}
 \caption{Component quality for a game engine.}
 \end{figure}
@@ -32,11 +32,11 @@ A lot of friction was present since manufacturers had not embraced the gaming in
   
 
 
-  In 1991 there were 54 million PCs in the USA\footnote{"Computers". Collier's Encyclopedia. Vol. 7, 1992: 114, 129.}. The performance of these machines was so overwhelmingly determined by the CPU that a PC was referred to not by its brand or GPU\footnote{There was no GPU yet. The term was coined by Nvidia in 1999, who marketed the GeForce 256 as "the world's first GPU", or Graphics Processing Unit.} but by the main chip inside. If a PC had an Intel 8088 or equivalent, it was called a "XT" . If it had an Intel 80286, it was a "286" or "AT".\\
+  In 1989 around 15\% of the households owned a computer\footnote{https://www.statista.com/statistics/184685/percentage-of-households-with-computer-in-the-united-states-since-1984/}. The performance of these machines was so overwhelmingly determined by the CPU that a PC was referred to not by its brand or GPU\footnote{There was no GPU yet. The term was coined by Nvidia in 1999, who marketed the GeForce 256 as "the world's first GPU", or Graphics Processing Unit.}, but by the main chip inside. If a PC had an Intel 8088 or equivalent, it was called a "XT" . If it had an Intel 80286, it was a "286" or "AT".\\
 \subsection{Overview}
   Intel released the 8086 in 1979, which was the first microchip of the succesfull x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later at 12.5-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen could run on a 8088, but an Intel 286 was recommended.\\   
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12.5-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen could run on a 8088, but an Intel 286 was recommended.\\   
 
 \par
 
@@ -74,7 +74,6 @@ A lot of friction was present since manufacturers had not embraced the gaming in
    \caption{Comparison\protect\footnotemark of CPUs with MIPS}
  \end{figure}
  \par
-  % Latex footnote I HATE YOU. What is this stepcounter non-sense GARBAGE ???????!!!!!! WHY CAN'T YOU JUST COUNT ?!
  % \addtocounter{footnote}{0}
   \footnotetext{Roy Longbottom's PC Benchmark Collection: http://www.roylongbottom.org.uk/mips.htm\#anchorIntel2.}
    % \stepcounter{footnote}
@@ -97,7 +96,7 @@ When IBM developed the AT, it selected the 286 as the basis for the new system b
 The 286 chip has two modes of operation: real mode and protected mode. The two modes are distinct enough to make the 286 resemble two chips in one. In real mode, a 286 acts essentially the same as an 8086 chip and is fully compatible with the 8086 and 8088. In the protected mode of operation, the 286 was truly something new. In this mode, a program designed to take advantage of the chip's capabilities believes that it has access to 1GB of memory (including virtual memory). The 286 chip, however, can address only 16MB of hardware memory. A significant failing of the 286 chip is that it cannot switch from protected mode to real mode without a hardware reset (a warm reboot) of the system. (It can, however, switch from real mode to protected mode without a reset.)\\
 
 \par
-While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors instead of 29,000.\\
+While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 on a 286 chip versus 29,000 on a 8088 chip.\\
 
 
 \fullimage{286_layout_photo.png}
@@ -240,7 +239,7 @@ For compatibility reasons all PCs have to start in real mode. You may assume tha
   \subsection{The Infamous Real Mode: 1MiB RAM limit}
   With protected mode unavailable, 1990 developers programmed like it was 1976: with a 20-bit-wide address bus offering only 1MiB of addressable RAM. Regardless how much memory was installed on the machine, only 1MiB could be addressed. To top it all off, addressing had to be done by combining two 16-bit registers. One was the segment, the other an offset within that segment. Hence the name: '16-bit segmented programming'.
 
-  \bigskip
+  \pagebreak
 The memory layout is as follows:
 \begin{itemize}
 \item From 00000h to 003FFh : the Interrupt Vector Table.
@@ -255,9 +254,9 @@ The memory layout is as follows:
 Out of the original 1024KiB, only 640KiB (called Conventional Memory) was accessible to a program. 384KiB was reserved for the UMA and every single driver installed (\codeword{.SYS} and \codeword{.COM}) took away from the remaining 640KiB.
 
 \par
-\begin{figure}[H]
+\begin{figure}
 \centering
-\includegraphics[width=\textwidth]{imgs/drawings/real_mode_v2.eps}
+\includegraphics[width=0.7\textwidth]{imgs/drawings/real_mode_v2.eps}
 \caption{First 1MiB of RAM layout.}
 \label{fig:fp_internals}
 \end{figure}
@@ -319,7 +318,7 @@ Will output:\\
 \end{minipage}
 \par
 
-With this system, pointer arithmetic must also receive careful consideration. A \cw{far} pointer increment only increments the offset, not the segment. If you iterate on an array larger than 64KiB you will end up wrapping around. You could use yet another type of pointer \cw{int huge*} to make pointer arithmetic work beyond 64KiB but really, nobody wants to go there.
+With this system, pointer arithmetic must also receive careful consideration. A \cw{far} pointer increment only increments the offset, not the segment. If you iterate on an array larger than 64KiB you will end up wrapping around. You could use yet another type of pointer \cw{int huge*} to make pointer arithmetic work beyond 64KiB but really, nobody wants to go there.\\
 
 
 \par
@@ -475,7 +474,7 @@ In order to configure this mess of planes and the controllers, 50 poorly documen
 
 
 
-To compensate for the complexity, IBM provided a routine to initialize all the registers via one BIOS call. One mode can be selected out of 11 available with an associated resolution, number of colors, and memory layout.
+To compensate for the complexity, IBM provided a routine to initialize all the registers via one BIOS call. One mode can be selected out of 12 available with an associated resolution, number of colors, and memory layout.
 
 \subsection{EGA Modes}
 
@@ -516,12 +515,12 @@ The EGA uses a female nine-pin D-subminiature (DE-9) connector for output, ident
 \label{fig:egaPort}
 \end{figure}
 
-Although EGA supported high resolutions like 640x350 pixels, it required an expensive high resolution EGA monitor. For reasons of the compatibility with CGA and avoid acquiring an expensive EGA monitor most game programmers used  mode \cw{10h}, using the 320x200 resolution with 16 colors.
+Although EGA supported high resolutions like 640x350 pixels, it required an expensive high resolution EGA monitor. For reasons of the compatibility with CGA and avoid acquiring an expensive EGA monitor most game programmers used  mode \cw{0Dh}, using the 320x200 resolution with 16 colors.
 
 
   
 \subsection{EGA Color Palette}
-For each pixel a number index is derived from the 4 planes, representing a color number. The default color palette are all 16 CGA colors, but it allows substitution of each of these colors with any one from a total of 64 colors (two bits each for red, green and blue).\\
+For each pixel a number index is derived from the 4 planes, representing a color number. The default color palette are all 16 CGA colors, but it allows substitution of each of these colors with any one from a total of 64 colors.\\
 
 When selecting a color from the EGA palette, two bits are used for the red, green and blue channels. This allows each channel a value of 0, 1, 2 or 3. To select the color magenta, the red and blue values would be medium intensity (2, or 10 in binary) and the green value would be off (0). When calculating the intended value in the 64-color EGA palette, the binary number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity and an uppercase letter is the most significant bit. For magenta, the most significant bit in the red and blue values is a 1, so the uppercase R and B placeholders would become 1. All other digits are zeros, giving the binary number 000101 for the color magenta. This is 5 in decimal, so setting a palette entry to 5 would result in it being set to magenta. All the color values for the default colors are listed in the table below.\\
 
@@ -563,7 +562,7 @@ However, standard EGA monitors do not support use of the extended color palette 
 To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in table \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from 0xA0000 to 0xAFFFF. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
 
 \par
- The most commonly considered mode for game programming is mode \cw{0Dh}. It offers a resolution of 320x200 at 60hz with 16 colors. Each pixel is encoded in 4 bits (a nibble) spread across the four banks.\\
+ The most commonly considered mode for game programming is mode \cw{0Dh}. It offers a resolution of 320x200 at 60hz with 16 colors. Each pixel is encoded in 4 bits (a nibble) spread across the four banks.
 \par
 
 
@@ -575,8 +574,7 @@ To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indica
   \label{ram_to_ega_mapping_label}
 \end{figure}
 \par
- To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0 (R), the second in plane 1 (G), the third in plane 2 (B) and the fourth in plane 3 (I). The CRT Controller then reads 4 bytes at a time (one from each plane) resulting in 8 pixels on screen. So in figure \ref{fig:ega_bank_layout} the first pixel has color magenta(\cw{05h}), second pixel  dark grey (\cw{08h}) and third pixel  bright yellow(\cw{0Eh}).\\
-\par
+ To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0 (R), the second in plane 1 (G), the third in plane 2 (B) and the fourth in plane 3 (I). The CRT Controller then reads 4 bytes at a time (one from each plane) resulting in 8 pixels on screen. So in figure \ref{fig:ega_bank_layout} the first pixel has color magenta(\cw{05h}), second pixel  dark grey (\cw{08h}) and third pixel  bright yellow(\cw{0Eh}).
  
 
 
@@ -629,7 +627,7 @@ If the CPU is faster than the frequency of the CRT (60Hz), it can write the fram
 With two buffers (a.k.a double buffering) the CPU can start writing in the second framebuffer without messing with the framebuffer being scanned to the screen\footnote{Now the CPU speed is capped by the CRT refresh rate. Triple buffering can solve this at the price of frame latency.}. No more tearing!\\
 
 \par
-Note that creating 320x200 picture on the screen requires 8KiB of VRAM (4 planes, each 2KiB). 
+Note that creating 320x200 picture with 16 colors on the screen requires 8KiB of VRAM (4 planes, each 2KiB). 
 
 
 
@@ -769,15 +767,8 @@ It is also backward compatible and an 8-bit ISA card can be plugged into a 16-bi
 \end{figure}
 
 \par
- In practice the effective bandwidth of the bus is divided by two due to packet overhead and interrupts. As a result, a PC equipped with an 8 bit ISA EGA card can push 19.1Mbits/s/2/8 = 1.1MB/s. In mode \cw{0Dh}, since a frame is 320x200/2 = 32,000 bytes, the theoretical maximum framerate with a CPU taking 0ms to render a frame is 1,100,000 / 32,000 = 34 frames per second.\\
+ In practice the effective bandwidth of the bus is divided by two due to packet overhead and interrupts. As a result, a PC equipped with an 8 bit ISA EGA card can push 19.1Mbits/s/2/8 = 1.1MB/s. In mode \cw{0Dh}, since a frame is 320x200/8 = 8,000 bytes, the theoretical maximum framerate with a CPU taking 0ms to render a frame is 1,100,000 / 8,000 = 138 frames per second. So the good part is that most likely the address bus is not the bottleneck in the entire process.\\
  \par
-
- If you factor in other things which had to be transported by the bus such as palette, keyboard interrupt, mouse inputs, and music/sounds it is easy to understand how important it was to limit data transfer.
-
-
-
-
-
 
 
 
@@ -830,7 +821,7 @@ Finally, a SoundBlaster sound card connected via the ISA bus provided a Game Por
 \section{Summary}
 To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface didn't allow double buffering, the memory model only allowed 1 standard MiB with an address composed of two separate 16-bit registers, and the \cw{near}/\cw{far} pointers forbade using standard C. Last, but not least, the default sound system could only produce square waves.\\
 \par
-Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves id Software\footnote{They originally called themselves Ideas From the Deep but then decided to shorten it to simply id, which stands for "in demand", and is pronounced as in "did" or "kid." The name also refers to id, the part of the brain that behaves by the pleasure principle in Freudian psychology.}.
+Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves Ideas From the Deep\footnote{They originally called themselves Ideas From the Deep but then decided to shorten it to simply id, which stands for "in demand", and is pronounced as in "did" or "kid." The name also refers to id, the part of the brain that behaves by the pleasure principle in Freudian psychology.}.
 \end{document}
 
 

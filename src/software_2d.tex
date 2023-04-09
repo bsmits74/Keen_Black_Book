@@ -2,6 +2,7 @@
 \begin{document}
 
 \section{Action Phase: Adaptive Tile Refreshment}
+\label{section:adaptive_tile_refresh}
 After the player is done setting up the game, it is time for the scrolling engine to shine. On bitmapped displays without hardware scrolling like the EGA card, the entire screen have to be erased and redrawn in the slightly shifted position whenever the player moved in any direction. This would kill the CPU as you need to update all pixels of all four planes on the EGA card (remember the planar mapping of section \ref{section:EGA_Planar_Madness}?).\\ 
 
 So here John Carmack came with a smart solution. The scrolling engine is based on a simple yet powerful technology called Adaptive Tile Refreshment. The core idea is to  refresh only those areas on the screen that needed to change.\\
@@ -34,7 +35,7 @@ So now we know how to scroll the screen in steps of 16 pixels, which is still pr
 
 \subsection{EGA Virtual Screen}
 
-The EGA adds a powerful twist to linear addressing: the logical width of the virtual screen in VRAM memory need not to be the same as the physical width of the screen display. The programmer is free to define a logical screen width of up to 4096 pixels and then use the physical screen as a window onto any part of the virtual screen. What's more, a virtual screen can have any logical height up to the capacity of the VRAM memory. The logical width of the virtual screen is expressed in the number of \cw{words} of display memory considered to make up one scan line. So 20 \cw{words} of display memory is setting a scan line of 320 pixels. The code below illustrates how to change the logical width.\\
+The EGA adds a powerful twist to linear addressing: the logical width of the virtual screen in VRAM memory need not to be the same as the physical width of the screen display. The programmer is free to define a logical screen width of up to 4096 pixels and then use the physical screen as a window onto any part of the virtual screen. What's more, a virtual screen can have any logical height up to the capacity of the VRAM memory. The code below illustrates how to change the logical width.\\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/SCREEN_WIDTH.ASM}
@@ -42,7 +43,7 @@ The EGA adds a powerful twist to linear addressing: the logical width of the vir
   \label{ega_pel_pan}
   \par
 
-The area of the virtual screen displayed at any given time is selected by setting the display memory address at which to begin fetching video data. This is set by way of the Start Address register. The default address is \cw{A000:0000h}, but the offset can be changed to any other number. In EGA's planar graphics modes, the eight bits in each byte of video RAM correspond to eight consecutive pixels on-screen. Panning down a scan line requires only that the start address is increased by the logical width in bytes. Horizontal panning is possible by increasing the start address by one byte, although in this case only relative coarse of 8 pixels (1 byte)  adjustments are supported. See the code below how to set the Start Address register.
+The area of the virtual screen displayed at any given time is selected by setting the display memory address at which to begin fetching video data. This is set by way of the CRTC Start Address register. The default address is \cw{A000:0000h}, but the offset can be changed to any other number. In EGA's planar graphics modes, the eight bits in each byte of video RAM correspond to eight consecutive pixels on-screen. Panning down a scan line requires only that the start address is increased by the logical width in bytes. Horizontal panning is possible by increasing the start address by one byte, although in this case only relative coarse of 8 pixels (1 byte)  adjustments are supported. See the code below how to set the CRTC Start Address register.
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/EGA_SET_ADDRESS.ASM}
@@ -70,7 +71,7 @@ Now we know how to perform tile refresh and smooth scrolling, it is time to brin
 \item From global to tile is shifting 8 bits to right.
 \end{itemize}
 
-The idea is to first perform all actions and movements in the global coordinate system, and then move back to pixels or tile coordinate system for video updates. \\
+The idea is to first perform all actions and movements in the global coordinate system, and then translate back to pixel or tile coordinate system for video updates. \\
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/EGA_REFRESH.ASM}
   \end{minipage}
@@ -99,20 +100,20 @@ So the smooth horizontal and vertical panning should be viewed as a series 16-pi
 
 
 \section{View Port and Buffer setup}
-Before explaining the scrolling algoritm, let's first explain how the view port and buffer layout are setup. The visible viewing screen on EGA has a resolution of 320x200 pixels. Translated in 16x16 pixel tiles, the screen view has a size of 20x13 tiles. By making the view port one tile higher and wider than the screen (21x14 tiles), the engine can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh, by means of using the Start Address and Pel Pan registers. Finally, an update buffer is defined that has enough space to float the view port up to two tiles in all direction. At the end of Section \ref{section:scroll_refresh_dreams} it is explained why we need a spare buffer of 2 tiles.\\
+Before explaining the scrolling algoritm, let's first explain how the view port and buffer layout are setup. The visible viewing screen on EGA has a resolution of 320x200 pixels. Translated in 16x16 pixel tiles, the screen view has a size of 20x13 tiles. By making the view port one tile higher and wider than the screen, the engine can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh, by means of adjusting the CRTC Start Address and Pel Pan registers. Finally, the buffer must have enough space to float the view port up to two tiles in all direction. At the end of Section \ref{section:scroll_refresh_dreams} it is explained why we need a spare buffer of 2 tiles.\\
 
 So summarized, as illustrated in Figure \ref{fig:screen_setup}, the following tile views are defined:
 \begin{itemize}
 \item Screen View size of 20x13 tiles and Port View size of 21x14 tiles.
 \item Buffer screen size of 22x14 tiles. This is one tile wider than the Port View, where the additional tile is used to mark a '0' at the end of each tile row. 
-\item Total buffer size is stored in UPDATESIZE, which contains the UPDATESCREENSIZE and 2 two times a spare buffer to support the floating of two tiles in any direction.
+\item Total buffer is the buffer screen plus two times a spare buffer to support floating the buffer screen two tiles in any direction.
 \end{itemize}
 \par
  
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/buffer_tile_layout.eps}
-\caption{View and buffer port tile layout.}
+\caption{View and buffer tile layout.}
 \label{fig:screen_setup}
 \end{figure}
 
@@ -123,7 +124,7 @@ Even if the screen is not scrolling, tile refreshes are required to support spri
 
 Now, let's have a closer look at the EGA memory setup. As explained in the previous section, the view port has a size of 21x14 tiles, which is 336x224 pixels. That means the logical width in VRAM must be at least 336 pixels (42 bytes) wide. In the file \cw{id\_vw.h} the VRAM screen buffer is defined by SCREENSPACE, which is set to 64x240 bytes, or 512x240 pixels. This is more than sufficient to update one virtual screen in VRAM.\\
 
-Since one screen only uses 15,360 bytes of VRAM (which is 3,840 bytes per plane), we have more than enough space to store more than two full screens of video data. The video memory is organized into three virtual screens:
+Since one screen only uses 15,360 bytes of VRAM (which is 3,840 bytes per plane), there is more than enough space to store more than two full screens of video data. The video memory is organized into three virtual screens:
 \begin{itemize}
 \item Page 0 and 1, which are used to switch between buffer and view screen
 \item A master page containing a static page, which is copied to the buffer memory when performing the screen refresh.
@@ -137,7 +138,7 @@ Since one screen only uses 15,360 bytes of VRAM (which is 3,840 bytes per plane)
 \label{fig:ega_ram_arch}
 \end{figure}
 
-The page that is actually displayed at any given time is selected by setting the Start Address register at which to begin fetching video data.\\
+The page that is actually displayed at any given time is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
 
 
 
@@ -146,7 +147,7 @@ The page that is actually displayed at any given time is selected by setting the
 The approach of refreshing the screen is different between the first Commander Keen games, Commander Keen 1-3, and the ones after. In the first games the algoritm keeps the screen view and buffer at fixed VRAM locations, where it performs a check which tiles are changed after the scroll. In the later games, it makes use of the moving the VRAM location and add a full row or column at the beginning or end of the view port. 
 \\
 \subsection{Scroll and screen refresh in Commander Keen 1-3}
-In the this section we explain how the first games are working\footnote{We can only explain how the algoritm is working without code examples, since the only released code is Keen Dreams which is using the improved algoritm.}. Six stages are involved in drawing a 2D scene:
+In the this section we explain how the first 3 versions of the game are working\footnote{We can only explain how the algoritm is working without code examples, since the only released code is Keen Dreams which is using the improved algoritm.}. Six stages are involved in drawing a 2D scene:
 \begin{enumerate}
 \item Check if the player has moved one tile in any direction.
 \item Validate which tiles have changed (both from scrolling and animated tiles), copy these respective tiles to the Master view in VRAM and mark the tiles to be updated in the next refresh.
@@ -443,6 +444,7 @@ Actors are programmed via a state machine. They can be aggressive, sneaky, or du
 (XXX for instance). To model their behavior, all enemies have an associated state:
 
 \section{Drawing Sprites}
+\label{section:draw_sprites}
 Once the state of the actor is updated, it is time to render the actor on the screen. This is a two step operation.
 \begin{enumerate}
 \item Update the state and move actors within the active region.
