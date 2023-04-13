@@ -299,7 +299,7 @@ To take full advantage of this optimization, the refresh algoritm maintains a li
 
 
 \subsection{Wrap around the EGA Memory}
-In the later versions of Commander Keen, John Carmack explored what would happen if you push the virtual screen over de 64kB, or \cw{0xFFFF}, border in video memory. It turned out that the EGA continues the virtual screen at \cw{0x0000}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moved more than 16 pixels.\\
+In the later versions of Commander Keen, John Carmack explored what would happen if you push the virtual screen over de 64kB, or \cw{0xFFFF}, border in video memory. It turned out that the EGA continues the virtual screen at \cw{0x0000}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
 \par
 \begin{figure}[H]
   \centering
@@ -308,9 +308,9 @@ In the later versions of Commander Keen, John Carmack explored what would happen
   \caption{Wrap virtual screen around the EGA memory}
 \end{figure}
 \par
-There was however an issue with the introduction of Super VGA cards, which had typically more than 256kB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring >256kB RAM, which from a hardware constraint resulted in 512kB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{0xFFFF} did not work anymore on these cards. \\
+There was however an issue with the introduction of Super VGA cards, which had typically more than 256kB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring at least 256kB RAM, which from a hardware constraint resulted in 512kB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{0xFFFF} did not work anymore on these cards. \\
 \par
-Luckily there was a way to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} the space between \cw{0xB400} and \cw{0xFFFF} is not used and contains enough space for another virtual screen. Each screen buffer has a size of \cw{0x3C00}. In case the start address is between \cw{0xC400} and \cw{0xFFFF} the corresponsing screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
+Luckily there was a way to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} on page \pageref{fig:ega_ram_arch}, the space between \cw{0xB400} and \cw{0xFFFF} is not used and contains enough space for another virtual screen. Each screen buffer has a size of \cw{0x3C00} in each memory bank. In case the start address is between \cw{0xC400} and \cw{0xFFFF} the corresponsing screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
 \par
 \begin{figure}[H]
 \centering
@@ -341,38 +341,38 @@ The screen copy comes at the cost of some performance, but is not noticed during
 
 \subsection{Scroll and screen refresh in Keen Dreams} \label{section:scroll_refresh_dreams}
 
-The EGA Memory wrapping results in the following improved algoritm to scroll and refresh the screen for Keen Dreams:
+The EGA memory wrapping results in the following improved algoritm to scroll and refresh the screen for Keen Dreams:
 \begin{enumerate}
 \item Check if the player has moved one tile in any direction.
-\item In case the player moved one tile, add the respective column or row in the Master view in VRAM and flag the new tiles of column/row to be updated in the next refresh for both the screenpage and otherpage update list. Update the screenstart and tile buffer array pointers as well.
-\item Refresh the buffer view by scanning all tiles. If a tile needs to be updated, copy the tile from the master view to the buffer view in VRAM.
-\item Remove the opposite row/column from the Master view.
-\item Iterate through the sprite removal list and copy corresponding image block from master view to buffer view in VRAM. 
-\item Iterate through the sprite list and copy corresponding sprite image block from asset location in RAM to buffer view in VRAM
-\item Switch the screen and buffer view by adjusting the Start Address and Pel Panning registers.
+\item In case the player moved one tile, move the \cw{screenstart[]} pointers accordingly. 
+\item Copy the new introduced column or row of tiles to the Master screen and flag this new column/row of tiles to be updated in the next refresh for both pages. 
+\item Refresh the buffer screen by scanning all tiles in the tile buffer array. If a tile is flagged for update, copy the tile from the master screen to the buffer screen.
+\item Iterate through the sprite removal list and copy corresponding image block from master screen to buffer screen. 
+\item Iterate through the sprite list and copy corresponding sprite image block from asset location in RAM to buffer screen.
+\item Switch the view screen and buffer screen by adjusting the CRTC Start Address and Pel Panning register.
 \end{enumerate}
 
-As you can see, step 2 until 4 are different and the rest of the steps are the same as Commander Keen 1-3. In the next screenshots we explain only steps that are different compared to Commander Keen 1-3. In the case below the screen is forced to scroll to the left.
+As you can see, step 2 to 4 are different from Commander Keen 1-3, the rest of the steps are the same. In the example below the screen is forced to scroll to the left.
 \\
 
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC4_6_1.png}
- \caption{Step 1: Player moved to the left and forces the screen to scroll}
+ \caption{Step 1: Scroll screen to the left}
  \label{fig:kc4_6_start}
 \end{figure}
 
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC4-6_1-mem2master.png}
- \caption{Step 2: Move screen start and add column to VRAM}
+ \caption{Step 2 and 3: Shift screen pointer and add column to VRAM}
  \label{fig:kc4_6_add_column}
 \end{figure}
 
 
-First decrease the screenstart of all three screen locations 2 bytes (1 tile). Then copy a left-column of tiles from the asset location into the corresponding location in the VRAM of the masterscreen.\\
+First decrease the \cw{screenstart[]} of all three screen locations 2 bytes (1 tile). Then copy a left-column of tiles from the asset or cache location into the corresponding location of the masterscreen.\\
 \par
-In parallel decrease both tile buffer and display array pointers one byte and mark each tile on the left border in both buffer arrays with '1', so it is updated upon the next refresh.
+In parallel decrease both the tile buffer and tile display array pointers one byte and mark each tile on the left border in both buffer arrays with '1', so it is updated upon the next refresh.
 Finally, the most right column (which is now outside the view port) is marked with a '0'.
 
 \begin{figure}[H]
@@ -386,13 +386,13 @@ Finally, the most right column (which is now outside the view port) is marked wi
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC4-6_1-sprite2buffer.png}
- \caption{Step 2: Copy master to buffer screen and remove sprites}
+ \caption{Step 4 and 5: Copy master to buffer screen and remove sprites}
  \label{fig:kc4_6_update_buffer}
 \end{figure}
 
 
 
-Just like before, we copy the animated tiles from asset location to master screen and mark them as '1' in both tile arays. Then we scan all '1' and copy those tiles from master to buffer screen. Finally, we remove sprites by copying the removal block from master to buffer screen and mark the corresponding tiles with '2' in the tile buffer array. The result is shown in Figure \ref{fig:kc4_6_update_buffer} and Figure \ref{fig:kc4_6_update_array}.
+Just like before, we copy the animated tiles from asset or cache location to master screen and mark them as '1' in both tile arays. Then we scan all '1' and copy those tiles from master to buffer screen. Finally, we remove sprites by copying the removal block from master to buffer screen and mark the corresponding tiles with '2' in the tile buffer array. The result is shown in Figure \ref{fig:kc4_6_update_buffer} and Figure \ref{fig:kc4_6_update_array}.
 
 \begin{figure}[H]
 \centering
@@ -402,23 +402,23 @@ Just like before, we copy the animated tiles from asset location to master scree
 \end{figure}
 
 \par
-\textbf{\underline{Trivia :}} The removal blocks which are marked '2' in the tile buffer array are nowhere used in the engine .\\
+\textbf{\underline{Trivia :}} The removal blocks which are marked '2' in the tile buffer array are nowhere used in the engine.\\
   \par
 \pagebreak
 
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC1-4-6_final.png}
- \caption{Step 6: Updated screen after swapping buffer and screen page}
+ \caption{Step 7: Updated screen after swapping buffer and screen page}
  \label{fig:k4_6_update_final}
 \end{figure}
 
 
-The remaining steps are also the same as before, meaning putting the sprites on the buffer screen and finally swap both the buffer and screen page. Since we only need to update one border, the engine needed to replace only 6\% of the screen!\\
+The remaining steps are the same as before, meaning putting the sprites on the buffer screen and finally swap both the buffer and screen page. Since we only need to update one border, the engine needed to update only 6\% of the screen!\\
 
 \par
 
-We now can also see why the tile array buffer is 2 tiles wider on all sides than the view port. Let's take the situation where the screen needs to scroll to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated on places where the tile buffer array is marked '1'. \\
+Now we can also see why the tile array buffer is 2 tiles wider on all sides than the view port (see Figure \ref{fig:screen_setup}). Let's take the situation where the screen needs to scroll to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated on places where the tile buffer array is marked '1'. \\
 \par
 After the visible screen is swapped with the buffer screen, the \cw{*updatestart[otherpage]} pointer is cleared and the pointer is resetted. However, the \cw{*updatestart[screenpage]} is not cleared nor resetted since we did not update the screenpage (we only updated the buffer screen).\\
 \begin{figure}[H]
@@ -445,14 +445,14 @@ Actors are programmed via a state machine. They can be aggressive, sneaky, or du
 
 \section{Drawing Sprites}
 \label{section:draw_sprites}
-Once the state of the actor is updated, it is time to render the actor on the screen. This is a two step operation.
+Once the state of the actor is updated, it is time to render the actor on the screen. This is a three step operation.
 \begin{enumerate}
 \item Update the state and move actors within the active region.
 \item Determinate if a actor has changed or moved
 \item Update the actor by removing and drawing sprites to it's new position
 \end{enumerate}
 
-The concept of sprites did not exists on the EGA card, so again they need to write their own solution. As explained in Section \ref{section:asset_file_structure} (Page \pageref{table:spritetable}, table \ref{table:spritetable}) each sprite asset contains additional information which is explained in Figure \ref{fig:sprite_structure}.\\
+The concept of sprites did not exists on the EGA card, so again the team needs to write their own solution. As explained in Section \ref{section:asset_file_structure} (Page \pageref{table:spritetable}, table \ref{table:spritetable}) each sprite asset contains additional information which is explained in Figure \ref{fig:sprite_structure}.\\
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{imgs/drawings/sprite.png}
@@ -460,7 +460,7 @@ The concept of sprites did not exists on the EGA card, so again they need to wri
   \label{fig:sprite_structure}
 \end{figure}
 
-All global movement takes place from the origin. The offset (xoff,yoff) defines the top-left position of the sprite. Together with the width and height it defines the dimensions of the sprite. The parameters xl, xh, yl and yh define the hit box of the sprite, which is explained in the next section.\\
+All global movement takes place from the origin. The offset \cw{(xoff,yoff)} defines the top-left position of the sprite. Together with the width and height it defines the dimensions of the sprite. The parameters xl, xh, yl and yh define the hit box of the sprite, which is used to detect collisions.\\
 \par
 
 As each sprite can float freely over the screen, also here bit shift sprites are used to position the sprite (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift table defines the amount of steps the sprite has to be shifted within 8 pixels. So a value of 4 means the sprite is shifted in steps of 2 pixels (8 / 4), where a shift value of 1 means the sprite is not shifted at all (so this sprite is always perfectly 8-pixel aligned).\\ 

@@ -11,8 +11,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="193.88068mm"
-   height="142.875mm"
-   viewBox="0 0 193.88067 142.87501"
+   height="154.71623mm"
+   viewBox="0 0 193.88067 154.71624"
    version="1.1"
    id="svg929"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -133,6 +133,21 @@
          transform="scale(0.8)"
          inkscape:connector-curvature="0" />
     </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1450"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1329"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)"
+         inkscape:connector-curvature="0" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -141,9 +156,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="253.10226"
-     inkscape:cy="313.14654"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="219.01182"
+     inkscape:cy="322.93215"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -159,7 +174,7 @@
        type="xygrid"
        id="grid1476"
        originx="48.91623"
-       originy="-73.731363" />
+       originy="-73.731357" />
   </sodipodi:namedview>
   <metadata
      id="metadata926">
@@ -177,7 +192,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(48.916233,-80.393661)">
+     transform="translate(48.916233,-68.552428)">
     <image
        y="84.963547"
        x="-48.609783"
@@ -187,12 +202,12 @@
        height="127.07719"
        width="191.67174" />
     <rect
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.07376456;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.36957192;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2941"
-       width="182.60992"
-       height="9.3299932"
-       x="-37.645477"
-       y="82.182335" />
+       width="225.10577"
+       height="36.858753"
+       x="-61.165195"
+       y="54.653572" />
     <rect
        style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.87682658;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2939"
@@ -2728,21 +2743,6 @@
        y="100.55806" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:9.53913879px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23847847"
-       x="-39.566978"
-       y="81.134445"
-       id="text913"
-       transform="scale(0.97173061,1.0290918)"
-       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/text913.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         sodipodi:role="line"
-         id="tspan911"
-         x="-39.566978"
-         y="81.134445"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.81565547px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.23847847">screenstart[screenpage] in VRAM</tspan></text>
-    <text
-       xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:9.53913689px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23847845"
        x="15.085776"
        y="86.94973"
@@ -2752,28 +2752,53 @@
          id="tspan911-6-8"
          x="15.085776"
          y="86.94973"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.81565523px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.23847845">Visible Screen (CRTR address and pel panning)</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.81565523px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.23847845">Visible Screen (CRTR start address and pel panning)</tspan></text>
     <path
        style="fill:none;stroke:#e521ab;stroke-width:0.30466786;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M -29.124771,100.11731 12.611065,88.370061"
        id="path2266-2"
        inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m -37.645477,91.512329 v -6.95629"
-       id="path1198"
-       inkscape:connector-curvature="0" />
-    <circle
-       style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path1200"
-       cx="-37.673195"
-       cy="91.371422"
-       r="0.8018086" />
     <circle
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path1200-5"
        cx="-28.977995"
        cy="100.14292"
        r="0.8018086" />
-  </g>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.28200001;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5826-5"
+       width="54.299198"
+       height="13.436608"
+       x="-47.159809"
+       y="68.693428"
+       ry="2.4810948" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:9.53913689px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23847845"
+       x="-43.935287"
+       y="74.33255"
+       id="text913"
+       transform="scale(0.97173061,1.0290918)"><tspan
+         sodipodi:role="line"
+         id="tspan911"
+         x="-43.935287"
+         y="74.33255"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.81565523px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.23847845">screenstart[screenpage]</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.227;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1450)"
+       d="m -37.645477,82.182335 v 7.932966"
+       id="path1185"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot1272"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-79.004318,68.552428)"><flowRegion
+         id="flowRegion1274"><rect
+           id="rect1276"
+           width="57.578693"
+           height="44.446712"
+           x="-30.304577"
+           y="130.18562" /></flowRegion><flowPara
+         id="flowPara1278" /></flowRoot>  </g>
 </svg>
