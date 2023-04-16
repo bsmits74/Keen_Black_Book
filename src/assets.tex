@@ -113,25 +113,9 @@ The \cw{pictable[]} contains the width and height in bytes for each picture in t
 
 
 
-The \cw{spritetable[]} contains beside width and height in bytes also information on the sprite center, hit boundaries and number of shifted sprites (this will be explained in section \ref{section:draw_sprites}, page \pageref{section:draw_sprites}). \\
+The \cw{spritetable[]} contains beside width and height in bytes also information on the sprite center, hit boundaries and number of shifted sprites, which will be explained in section \ref{section:draw_sprites} on page \pageref{section:draw_sprites}. \\
+\par
 
-\begin{table}[H]
-  \begin{tabularx}{\textwidth}[c]{lXXXXXXXXX}
-  \hline
-  \textbf{index} & \textbf{width} & \textbf{height} & \textbf{orgx} & \textbf{orgy}
-    & \textbf{xl} & \textbf{yl} & \textbf{xh} & \textbf{yh} & \textbf{shift} \\ \hline
-  0  &   3  &   24  &   0  &   0  &   0  &   0  &   368  &   368  &   4 \\
-  1  &   3  &   32  &   0  &   0  &   64  &   0  &   304  &   496  &   4 \\
-  2  &   3  &   30  &   0  &   16  &   64  &   0  &   304  &   496  &   4 \\
-  3  &   3  &   30  &   0  &   32  &   64  &   48  &   304  &   496  &   4 \\
-  4  &   3  &   32  &   0  &   0  &   64  &   0  &   304  &   496  &   4 \\
-  5  &   3  &   30  &   0  &   32  &   64  &   48  &   304  &   496  &   4 \\
- ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ... \\
- 296  &   12  &   103  &   -128  &   0  &   256  &   128  &   752  &   1648  &   4\\
-  \end{tabularx}
-  \caption{content of spritetable[].}
-  \label{table:spritetable}
-  \end{table}
 
 The font segment contains a table for the height (same for all characters) and width of the font, as well as a reference where the character data is located.\\
 \par
@@ -238,6 +222,7 @@ For background tile animation two information tables are required: tile animatio
   \end{table}
 
 \subsection{Foreground tile information}
+\label{section:foreground_tile_info}
 The foreground tiles contain, beside tile animation (similar like background tiles), also clipping and 'inside' tile information.\\
 \par
 The clipping tables contain how Commander Keen is clipped against foreground tiles. 'Inside' tile information is used to climb on a pole and mimics Commander Keen going through a floor opening ('inside' the tile). In section \ref{section:clipping} both the clipping and 'inside' logic is further explained.\\

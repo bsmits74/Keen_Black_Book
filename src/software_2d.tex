@@ -416,9 +416,16 @@ Just like before, we copy the animated tiles from asset or cache location to mas
 
 The remaining steps are the same as before, meaning putting the sprites on the buffer screen and finally swap both the buffer and screen page. Since we only need to update one border, the engine needed to update only 6\% of the screen!\\
 
+\begin{figure}[H]
+\centering
+ \fullimage{/game/Scroll_KC4-6_1-tile_final.png}
+ \caption{Clear and reset tile buffer array and swap arrays.}
+ \label{fig:kc4_6_final}
+\end{figure}
+
 \par
 
-Now we can also see why the tile array buffer is 2 tiles wider on all sides than the view port (see Figure \ref{fig:screen_setup}). Let's take the situation where the screen needs to scroll to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated on places where the tile buffer array is marked '1'. \\
+Now we can also explain why the tile buffer and view arrays are 2 tiles wider on all sides than the tile view port (see Figure \ref{fig:screen_setup}). Let's take the situation where the screen scrolls to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated on places where the tile buffer array is marked '1'. \\
 \par
 After the visible screen is swapped with the buffer screen, the \cw{*updatestart[otherpage]} pointer is cleared and the pointer is resetted. However, the \cw{*updatestart[screenpage]} is not cleared nor resetted since we did not update the screenpage (we only updated the buffer screen).\\
 \begin{figure}[H]
@@ -427,7 +434,7 @@ After the visible screen is swapped with the buffer screen, the \cw{*updatestart
   \caption{scroll to top-left tile}
   \label{fig:buffer_tile_move_1}
 \end{figure}
-Now, if the screen needs again to scroll to the top-left you can see why we need the 2\textsuperscript{nd} row for the buffer. The process will repeat, but after this cycle the \cw{*update[otherpage]} is cleared and resetted.\\
+Now, if the screen is again scrolling to the top-left one can see why there is a need for the 2\textsuperscript{nd} row in the buffer. After this cycle the \cw{*update[otherpage]} is cleared and resetted as shown in the last illustration of Figure \ref{fig:screen_setup}.\\
 \pagebreak
 
 
@@ -437,13 +444,15 @@ Now, if the screen needs again to scroll to the top-left you can see why we need
 \section{Refresh video screen}
 Here explain with code. Focus on when to perform screen refresh (waiting for vertical retracement)
 
-\section{A.I.}
+\section{Actors and sprites}
+
+\subsection{A.I.}
 To simulate enemies, some objects are allowed to "think" and take actions like firing, walking,
 or emitting sounds. These thinking objects are called "actors".
 Actors are programmed via a state machine. They can be aggressive, sneaky, or dumb
 (XXX for instance). To model their behavior, all enemies have an associated state:
 
-\section{Drawing Sprites}
+\subsection{Drawing Sprites}
 \label{section:draw_sprites}
 Once the state of the actor is updated, it is time to render the actor on the screen. This is a three step operation.
 \begin{enumerate}
@@ -460,18 +469,40 @@ The concept of sprites did not exists on the EGA card, so again the team needs t
   \label{fig:sprite_structure}
 \end{figure}
 
-All global movement takes place from the origin. The offset \cw{(xoff,yoff)} defines the top-left position of the sprite. Together with the width and height it defines the dimensions of the sprite. The parameters xl, xh, yl and yh define the hit box of the sprite, which is used to detect collisions.\\
-\par
+All global movement takes place from the origin. The offset \cw{(xoff,yoff)} defines the top-left position of the sprite. Together with the width and height it defines the boundaries of the sprite. The parameters \cw{xl, xh, yl and yh} define the hit box of the sprite, which is used to detect collisions.\\
 
-As each sprite can float freely over the screen, also here bit shift sprites are used to position the sprite (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift table defines the amount of steps the sprite has to be shifted within 8 pixels. So a value of 4 means the sprite is shifted in steps of 2 pixels (8 / 4), where a shift value of 1 means the sprite is not shifted at all (so this sprite is always perfectly 8-pixel aligned).\\ 
+\begin{table}[H]
+  \begin{tabularx}{\textwidth}[c]{lXXXXXXXXX}
+  \hline
+  \textbf{index} & \textbf{width} & \textbf{height} & \textbf{orgx} & \textbf{orgy}
+    & \textbf{xl} & \textbf{yl} & \textbf{xh} & \textbf{yh} & \textbf{shift} \\ \hline
+  0  &   3  &   24  &   0  &   0  &   0  &   0  &   368  &   368  &   4 \\
+  1  &   3  &   32  &   0  &   0  &   64  &   0  &   304  &   496  &   4 \\
+  2  &   3  &   30  &   0  &   16  &   64  &   0  &   304  &   496  &   4 \\
+  3  &   3  &   30  &   0  &   32  &   64  &   48  &   304  &   496  &   4 \\
+  4  &   3  &   32  &   0  &   0  &   64  &   0  &   304  &   496  &   4 \\
+  5  &   3  &   30  &   0  &   32  &   64  &   48  &   304  &   496  &   4 \\
+ ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ... \\
+ 296  &   12  &   103  &   -128  &   0  &   256  &   128  &   752  &   1648  &   4\\
+  \end{tabularx}
+  \caption{content of spritetable[] in the \cw{KDREAMS.EGA} asset file.}
+  \label{table:spritetable}
+\end{table}
+
+As each sprite can float freely over the screen, so also here bit shift sprites are used to position the sprite on a byte-aligned memory layout (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift column defines the amount of steps the sprite has to be shifted within 8 pixels. A value of 4 means the sprite is shifted in 4 steps with a 2 pixel interval.\\ 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/sprite_shift.eps}
+  \caption{Sprite shifted in 4 steps.}
+  \label{fig:sprite_shift}  
+\end{figure}
  
-
-\subsection{Visible actor determination}
 
 
 \subsection{Clipping}
 \label{section:clipping}
-Before drawing a sprite on the screen, the engine determines if the boundaries of a sprite are hitting a wall or floor. This is called clipping and ensures an actor doesn't fall through a floor or walks through a vertical wall. To define whether a tile is a wall or floor, a tile can be enriched with wall information. For each level map the tile info variable \cw{tinf} contains a \cw{NORTHWALL}, \cw{SOUTHWALL}, \cw{EASTWALL} and \cw{WESTWALL} map as illustrated in Fig \ref{fig:clip_tinf}.\\
+Before drawing a sprite on the screen, the engine determines if the boundaries of a sprite are hitting a wall or floor. This is called clipping and ensures an actor doesn't fall through a floor or walks through a vertical wall. To define whether a tile is a wall or floor, a tile is enriched with tile information, as explained in section \ref{section:foreground_tile_info} on page \pageref{section:foreground_tile_info}. For each level map the tile info variable \cw{tinf} contains a \cw{NORTHWALL}, \cw{SOUTHWALL}, \cw{EASTWALL} and \cw{WESTWALL} map as illustrated in Fig \ref{fig:clip_tinf}.\\
 
 
 \begin{figure}[H]
@@ -493,7 +524,15 @@ Before drawing a sprite on the screen, the engine determines if the boundaries o
 \end{figure}
 
 \par
-When the sprite boundary is hitting a wall on the right (east), it will update the sprite movement to ensure the sprite right boundary is equal to the right side of the tile as illustrated in Fig. XX. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()}. \\
+When the sprite boundary is hitting a wall on the left, it will update the sprite movement to ensure the sprite left boundary is equal to the left side of the next tile as illustrated in Figure \ref{fig:clipping_east}. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()} functions. \\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/clipping_east.eps}
+  \caption{Clipping to east wall.}
+  \label{fig:clipping_east}  
+\end{figure}
+
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/clip_east_wall.c}
