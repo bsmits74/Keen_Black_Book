@@ -434,7 +434,7 @@ After the visible screen is swapped with the buffer screen, the \cw{*updatestart
   \caption{scroll to top-left tile}
   \label{fig:buffer_tile_move_1}
 \end{figure}
-Now, if the screen is again scrolling to the top-left one can see why there is a need for the 2\textsuperscript{nd} row in the buffer. After this cycle the \cw{*update[otherpage]} is cleared and resetted as shown in the last illustration of Figure \ref{fig:screen_setup}.\\
+Now, if the screen is again scrolling to the top-left one can see why there is a need for the 2\textsuperscript{nd} row in the buffer. After this cycle the \cw{*update[otherpage]} pointer is cleared and resetted as shown in the last illustration of Figure \ref{fig:buffer_tile_move_1}.\\
 \pagebreak
 
 
@@ -489,7 +489,7 @@ All global movement takes place from the origin. The offset \cw{(xoff,yoff)} def
   \label{table:spritetable}
 \end{table}
 
-As each sprite can float freely over the screen, so also here bit shift sprites are used to position the sprite on a byte-aligned memory layout (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift column defines the amount of steps the sprite has to be shifted within 8 pixels. A value of 4 means the sprite is shifted in 4 steps with a 2 pixel interval.\\ 
+As each sprite can float freely over the screen, here also bitshifted sprites are used to position the sprite on a byte-aligned memory layout (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift column defines the amount of steps the sprite has to be shifted within 8 pixels. A value of 4 means the sprite is shifted in 4 steps with a 2 pixel interval.\\ 
 
 \begin{figure}[H]
   \centering
@@ -539,23 +539,29 @@ When the sprite boundary is hitting a wall on the left, it will update the sprit
 \end{minipage}
 \label{wallclip_array}
 \par
-The clipping for top and bottom is a bit more complex, as the engine also needs to take walking on slopes into account. After the sprite is clipped to the top or bottom of the wall tile, an offset can be applied to move a sprite up or down a slope. 
+For clipping top and bottom the engine also needs to take walking on slopes into account. After the sprite is clipped to the top or bottom of the wall tile, an offset can be applied to move a sprite up or down a slope. The offset is defined by a lookup table, where the midpoint pixel of the sprite (0-15) and the wall type from the map defines the offset.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/clipping.eps}
+  \includegraphics[width=\textwidth]{imgs/drawings/clipping_north.eps}
   \label{fig:clipping_north}
   \caption{Clipping NORTHWALL}
 \end{figure}
 
-\par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/walltype.eps}
+  \label{fig:walltype}
+  \caption{Eight different walltypes defined.}
+\end{figure}
+
 \begin{minipage}{\textwidth}
   \lstinputlisting[basicstyle=\fontsize{7}{9}\selectfont]{code/wallclip_array.c}
 \end{minipage}
 \label{wallclip_array}
 \par
 
-When a sprite is clipped to a top or bottom tile, the corresponding midpoint pixels (0-15) and tile info map defines the offset from this top or bottom tile.
+
 
 
 \par
