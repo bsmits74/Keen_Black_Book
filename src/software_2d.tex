@@ -34,6 +34,7 @@ So now we know how to scroll the screen in steps of 16 pixels, which is still pr
 
 
 \subsection{EGA Virtual Screen}
+\label{section:EGA_virtual_screen}
 
 The EGA adds a powerful twist to linear addressing: the logical width of the virtual screen in VRAM memory need not to be the same as the physical width of the screen display. The programmer is free to define a logical screen width of up to 4096 pixels and then use the physical screen as a window onto any part of the virtual screen. What's more, a virtual screen can have any logical height up to the capacity of the VRAM memory. The code below illustrates how to change the logical width.\\
 
@@ -338,6 +339,24 @@ The screen copy comes at the cost of some performance, but is not noticed during
   \label{ega_refresh}
   \par
 
+Flipping between the pages is as simple as setting the CRTC start address registers to page 0 or page 1 starting point, as explained in Section \ref{section:EGA_virtual_screen}. 
+However, it is not as simple as it sounds. If you were to run it, every once in a while the expected screen shown below...
+
+ \begin{figure}[H]
+\centering
+ \scaledimage{0.95}{/game/full_screen.png}
+ \end{figure}
+...would instead appear distorted:\\
+\par
+ \begin{figure}[H]
+\centering
+ \scaledimage{0.95}{/game/crtc_scanstart_problem.png}
+ \end{figure}
+\par
+This glitch shows both misalignment and parts of two pages. This problem has to do with the timing between updating the CRTC starting address and screen refresh. The start address is latched by the EGA's internal circuitry exactly once per frame, typically at the start of the vertical retracement. The CRTC starting address is a 16-bit value but the \cw{out} instruction can only write 8 bits at a time. \\
+\par
+
+Now we have the following situation, where the current CRTC start address is pointing to 0x0000. We moved one tile to the left and now Page 0 is pointing at 0xFFFE in VRAM and Page 1 is at 0x3BFE. Page 1 is the updated buffer and will be displayed upon next refresh cycle. Poor timing of the vertical retracement and start address update results in the CRTC picking up a value of 0x3B00 instead of 0x3BFE:
 
 \subsection{Scroll and screen refresh in Keen Dreams} \label{section:scroll_refresh_dreams}
 
@@ -440,9 +459,6 @@ Now, if the screen is again scrolling to the top-left one can see why there is a
 
 
 
-
-\section{Refresh video screen}
-Here explain with code. Focus on when to perform screen refresh (waiting for vertical retracement)
 
 \section{Actors and sprites}
 
