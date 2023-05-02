@@ -367,7 +367,7 @@ Now we have the following situation, where the current CRTC start address is poi
 The most obvious option is to update the start address when we pick up the vertical retracement signal via the Input Status 1 Register (bit 3 of \cw{0x3DA}). Unfortunately, by the time the vertical retrace status is observed by a program, the start address for the next frame has already been latched, having happened the instant the vertical retrace pulse began.\\
 
 \par
-The trick is to update the start address sufficient far away from when the vertical retracement starts. So we're looking for a signal that tells us it just finished a horizontal or vertical retrace and started a scan line, far enough away from vertical retrace so we can be sure the new start address will get used at the next vertical sync. This signal is provided by the Display Enable status via the Input Status 1 Register, where a value of 1\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.} indicates the display is in a horizontal or vertical retracement.
+The trick is to update the start address sufficient far away from when the vertical retracement starts. So we're looking for a signal that tells us it just finished a horizontal or vertical retrace and started a scan line, far enough away from vertical retrace so we can be sure the new start address will get used at the next vertical sync. This signal is provided by the Display Enable status via the Input Status 1 Register, where a value of 1 indicates the display is in a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.
 \\
 
 \begin{figure}[H]
@@ -497,14 +497,14 @@ Actors are programmed via a state machine. They can be aggressive, sneaky, or du
 
 \subsection{Drawing Sprites}
 \label{section:draw_sprites}
-Once the state of the actor is updated, it is time to render the actor on the screen. This is a three step operation.
+Once the state of the actor is updated, it is time to render the actor on the screen. This is done using sprites and contains the following steps:
 \begin{enumerate}
 \item Update the state and move actors within the active region.
 \item Determinate if a actor has changed or moved
 \item Update the actor by removing and drawing sprites to it's new position
 \end{enumerate}
 
-The concept of sprites did not exists on the EGA card, so again the team needs to write their own solution. As explained in Section \ref{section:asset_file_structure} (Page \pageref{table:spritetable}, table \ref{table:spritetable}) each sprite asset contains additional information which is explained in Figure \ref{fig:sprite_structure}.\\
+Unlike many game consoles such as Nintendo, the concept of sprites did not exists on the EGA card, so again the team needs to write their own solution. As explained in Section \ref{section:asset_file_structure} (Page \pageref{table:spritetable}, table \ref{table:spritetable}) each sprite asset contains additional information which is explained in Figure \ref{fig:sprite_structure}.\\
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{imgs/drawings/sprite.png}
@@ -620,6 +620,80 @@ For clipping top and bottom the engine also needs to take walking on slopes into
 \label{wallclip_array}
 \par
 
-\section{Drawing in layers}
+\subsection{Layering tiles and sprites on screen}
+The normal screen build is as follows:
+\begin{enumerate}
+  \item Draw the background tile.
+  \item Draw the masked foreground tile.
+  \item Draw the sprites on top of both the background and foreground tiles.
+\end{enumerate}
+
+If multiple sprites are displayed on the same tile, each sprite is given a priority 0-3 to define the order of drawing. A sprite with a higher priority number is always displayed on top of lower priority sprites. In general sprites are always displayed on top of tiles and this is causing unnatural situation when as example Commander Keen is climbing through a  hole.\\
+
+\begin{figure}[H]
+\begin{subfigure}{.25\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_1.png}
+  \caption{Background tile.}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_2.png}
+  \caption{Foreground tile.}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_3.png}
+  \caption{Draw sprite.}
+\end{subfigure}
+\caption{Unnatural situation where Commander Keen is in front of a hole.}
+\label{fig:draw_layers}
+\end{figure}
+\par
+
+To draw sprites 'inside' a foreground tile, a small trick is used by introducing a priority foreground tile. As explained in section \ref{section:foreground_tile_info} each foreground tile is enriched with INTILE ('inside tile') information. If the highest bit (\cw{80h}) of INTILE is set, this foreground tile has a higher priority than sprites with a priority 0, 1 or 2. So when drawing the tiles and sprites the following drwaing order is applied:
+\begin{enumerate}
+  \item Draw the background tile.
+  \item Draw the masked foreground tile.
+  \item Draw sprites with priority 0, 1 and 2 (in that order).
+  \item If the foreground INTILE high bit is set, redraw the masked foreground tile.
+  \item Draw sprite with priority 3. This sprite is always on top of everything.
+\end{enumerate}
+\par
+The priority foreground tiles are updated in the \cw{RFL\_MaskForegroundTiles()} function.\\
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{.245\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_1.png}
+  \caption{Background tile.}
+\end{subfigure}%
+\begin{subfigure}{.245\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_2.png}
+  \caption{Foreground tile.}
+\end{subfigure}
+\begin{subfigure}{.245\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_3.png}
+  \caption{Draw sprite.}
+\end{subfigure}
+\begin{subfigure}{.245\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_4.png}
+  \caption{Foreground tile.}
+\end{subfigure}
+\caption{Draw sprite inside a tile, by redrawing foreground tile.}
+\label{fig:clip_tinf}
+\end{figure}
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/mask_foreground_tile.asm}
+\end{minipage}
+\label{mask_foreground_tile}
+\par
+
 
 \end{document}
