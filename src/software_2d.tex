@@ -340,7 +340,7 @@ The screen copy comes at the cost of some performance, but is not noticed during
   \par
 
 Flipping between the pages is as simple as setting the CRTC start address registers to page 0 or page 1 starting point, as explained in Section \ref{section:EGA_virtual_screen}. 
-However, it is not as simple as it sounds. If you were to run it, every once in a while the expected screen shown below...
+However, there is one issue to solve. If you were to run it, every once in a while the expected screen shown below...
 
  \begin{figure}[H]
 \centering
@@ -356,7 +356,34 @@ However, it is not as simple as it sounds. If you were to run it, every once in 
 This glitch shows both misalignment and parts of two pages. This problem has to do with the timing between updating the CRTC starting address and screen refresh. The start address is latched by the EGA's internal circuitry exactly once per frame, typically at the start of the vertical retracement. The CRTC starting address is a 16-bit value but the \cw{out} instruction can only write 8 bits at a time. \\
 \par
 
-Now we have the following situation, where the current CRTC start address is pointing to 0x0000. We moved one tile to the left and now Page 0 is pointing at 0xFFFE in VRAM and Page 1 is at 0x3BFE. Page 1 is the updated buffer and will be displayed upon next refresh cycle. Poor timing of the vertical retracement and start address update results in the CRTC picking up a value of 0x3B00 instead of 0x3BFE:
+Now we have the following situation, where the current CRTC start address is pointing to 0x0000. We moved one tile to the left and now Page 0 is pointing at 0xFFFE in VRAM and Page 1 is at 0x3BFE. Page 1 is the updated buffer and will be displayed upon next refresh cycle. Poor timing of the vertical retracement and start address update results in the CRTC picking up a value of 0x3B00 instead of 0x3BFE:\\
+
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language={[x86masm]Assembler}]{code/pageflip_error.c}
+\end{minipage}
+\par
+
+The most obvious option is to update the start address when we pick up the vertical retracement signal via the Input Status 1 Register (bit 3 of \cw{0x3DA}). Unfortunately, by the time the vertical retrace status is observed by a program, the start address for the next frame has already been latched, having happened the instant the vertical retrace pulse began.\\
+
+\par
+The trick is to update the start address sufficient far away from when the vertical retracement starts. So we're looking for a signal that tells us it just finished a horizontal or vertical retrace and started a scan line, far enough away from vertical retrace so we can be sure the new start address will get used at the next vertical sync. This signal is provided by the Display Enable status via the Input Status 1 Register, where a value of 1\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.} indicates the display is in a horizontal or vertical retracement.
+\\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/update_start_address.eps}
+  \label{fig:update_start_address}
+  \caption{Update CRTC start address at beginning of new scan line.}
+\end{figure}
+\par
+
+Once the Display Enable status is observed, the program sets the new start address, waits for vertical retrace to happen, sets the new pel panning state, and then continues drawing.\\
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language={[x86masm]Assembler}]{code/screen_refresh.c}
+\end{minipage}
+\par
 
 \subsection{Scroll and screen refresh in Keen Dreams} \label{section:scroll_refresh_dreams}
 
@@ -513,7 +540,13 @@ As each sprite can float freely over the screen, here also bitshifted sprites ar
   \caption{Sprite shifted in 4 steps.}
   \label{fig:sprite_shift}  
 \end{figure}
- 
+\par
+Displaying the correct shifted sprite is as simple as below
+\\
+\\
+CODE EXAMPLE LINE
+\\
+\\ 
 
 
 \subsection{Clipping}
@@ -561,22 +594,22 @@ For clipping top and bottom the engine also needs to take walking on slopes into
   \centering
   \includegraphics[width=\textwidth]{imgs/drawings/clipping_north.eps}
   \label{fig:clipping_north}
-  \caption{Clipping NORTHWALL}
+  \caption{Clipping north wall with slope.}
 \end{figure}
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/walltype.eps}
-  \label{fig:walltype}
-  \caption{Eight different walltypes defined.}
-\end{figure}
+
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[basicstyle=\fontsize{7}{9}\selectfont]{code/wallclip_array.c}
 \end{minipage}
 \label{wallclip_array}
 \par
-
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/walltype.eps}
+  \label{fig:walltype}
+  \caption{Eight different walltypes (slopes) defined.}
+\end{figure}
 
 
 
@@ -587,5 +620,6 @@ For clipping top and bottom the engine also needs to take walking on slopes into
 \label{wallclip_array}
 \par
 
+\section{Drawing in layers}
 
 \end{document}

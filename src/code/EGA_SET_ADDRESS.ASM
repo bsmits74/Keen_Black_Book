@@ -21,7 +21,7 @@ CRTC_STARTHIGH	=	12
   out  dx,al	   
   mov  al,cl
   inc  dx                 ;port 03D5h
-  out  dx,al              ;set address high
+  out  dx,al              ;set address low
 
   sti                     ;enable interrupts
 

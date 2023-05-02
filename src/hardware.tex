@@ -356,6 +356,34 @@ PCs were connected to CRT monitors: big, heavy, small diagonal, cathode ray-base
 \trivia{Despite their difference of capabilities, both monitors are the same weight: 27.5 pounds (12 kg).}
 \\
 
+\subsection{CRT Monitor}
+All standard PC monitors use a raster-scan display to create the image.
+In a raster-scan display, the position of the electron beam is continually sweeping across the surface of the tube. The tube's surface is coated with phosphors that glow when struck by electrons (and for a short time thereafter), and, of course, the beam may be turned on in order to light a phosphor or off to leave it black.\\
+\par
+
+The electron beam scans the phosphor-coated screen from left to right and
+top to bottom. The period during which the beams return to the left is known as
+the horizontal retrace. During most of the retrace, the guns must be turned off
+to prevent writing in the active display area (the area which contains the actual
+character and/or graphics data); this is known as horizontal blanking. The area
+immediately surrounding the display area, in which the beam may be turned on
+during the retrace interval, is called the overscan (or border). The active display
+area is the portion of the screen that contains characters and/or graphics. These
+components of the scan are shown in simplified form in Figure \ref{fig:monitor}.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{imgs/drawings/monitor.eps}
+\caption{Simplified CRT monitor scan.}
+\label{fig:monitor}
+\end{figure}
+
+\par
+After a horizontal scan has been completed, the beam is moved to the next
+line during the horizontal retrace. This sequence continues until the last line, at which point the vertical retrace begins. The vertical retrace is similar to the horizontal retrace; the electron beam may be enabled through a small overscan area and then turned off (vertical blanking) as the beam returns to the top left comer of the screen. If the vertical refresh is too slow, the display will flicker. Most people can detect flicker when the refresh rate drops below 60 Hz, and thus most displays use vertical refresh frequencies of about 60Hz (EGA) to 70Hz (VGA). 
+
+
+
   \subsection{History of Video Adapters}
 
 The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IBM PC 5150. It offered two colors, allowing 80 columns by 25 lines of text.  While not great, it was standard on every PC. Many other systems followed over the years, each of them preserving backward compatibility.
