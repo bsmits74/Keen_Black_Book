@@ -17,8 +17,8 @@
 @@findtile:
 	mov	ax,ss
 	mov	es,ax         ; scan in the data segment
-	mov	al,3          ; check for '3's
-	pop	di            ; place to continue scaning from
+	mov	al,3          ; check for tiles marked as '3's
+	pop	di            ; place to continue scanning from
 	repne	scasb
 	cmp	di,bp
 	je	@@done

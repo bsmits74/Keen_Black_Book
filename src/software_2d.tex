@@ -504,7 +504,7 @@ Once the state of the actor is updated, it is time to render the actor on the sc
 \item Update the actor by removing and drawing sprites to it's new position
 \end{enumerate}
 
-Unlike many game consoles such as Nintendo, the concept of sprites did not exists on the EGA card, so again the team needs to write their own solution. As explained in Section \ref{section:asset_file_structure} (Page \pageref{table:spritetable}, table \ref{table:spritetable}) each sprite asset contains additional information which is explained in Figure \ref{fig:sprite_structure}.\\
+Unlike many game consoles such as Nintendo, the concept of sprites did not exists on the EGA card, so again the team needs to write their own solution. As explained in Section \ref{section:asset_file_structure} (Page \pageref{table:spritetable}, table \ref{table:spritetable}) each sprite asset contains additional information which is illustrated in Figure \ref{fig:sprite_structure}.\\
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.6\textwidth]{imgs/drawings/sprite.png}
@@ -551,8 +551,7 @@ CODE EXAMPLE LINE
 
 \subsection{Clipping}
 \label{section:clipping}
-Before drawing a sprite on the screen, the engine determines if the boundaries of a sprite are hitting a wall or floor. This is called clipping and ensures an actor doesn't fall through a floor or walks through a vertical wall. To define whether a tile is a wall or floor, a tile is enriched with tile information, as explained in section \ref{section:foreground_tile_info} on page \pageref{section:foreground_tile_info}. For each level map the tile info variable \cw{tinf} contains a \cw{NORTHWALL}, \cw{SOUTHWALL}, \cw{EASTWALL} and \cw{WESTWALL} map as illustrated in Fig \ref{fig:clip_tinf}.\\
-
+Before drawing a sprite on the screen, the engine determines if the boundaries of a sprite are hitting a wall or floor. This is called clipping and ensures an actor doesn't fall through a floor or walks through a vertical wall. To define whether a tile is a wall or floor, a tile is enriched with tile information, as explained in section \ref{section:foreground_tile_info} on page \pageref{section:foreground_tile_info}. Each foreground tile contains a \cw{NORTHWALL}, \cw{SOUTHWALL}, \cw{EASTWALL} and \cw{WESTWALL}, as explained in section \ref{section:foreground_tile_info}. A number greater than 0 means the tile is a wall or floor when approaching from a given direction. 
 
 \begin{figure}[H]
 \centering
@@ -568,17 +567,17 @@ Before drawing a sprite on the screen, the engine determines if the boundaries o
   \caption{Wall type map EASTWALL}
   \label{fig:clip_tinf_e}
 \end{subfigure}
-\caption{Tile clipping map}
+\caption{Foreground tile clipping information.}
 \label{fig:clip_tinf}
 \end{figure}
 
 \par
-When the sprite boundary is hitting a wall on the left, it will update the sprite movement to ensure the sprite left boundary is equal to the left side of the next tile as illustrated in Figure \ref{fig:clipping_east}. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()} functions. \\
+When a sprite, moving from the west, is hitting a wall on the left side, it will update the sprite movement to ensure the sprite clips to the eastwall of the left tile as illustrated in Figure \ref{fig:clipping_east}. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()} functions. \\
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{imgs/drawings/clipping_east.eps}
-  \caption{Clipping to east wall.}
+  \caption{Clipping to east wall when moving from the west.}
   \label{fig:clipping_east}  
 \end{figure}
 
@@ -628,7 +627,7 @@ The normal screen build is as follows:
   \item Draw the sprites on top of both the background and foreground tiles.
 \end{enumerate}
 
-If multiple sprites are displayed on the same tile, each sprite is given a priority 0-3 to define the order of drawing. A sprite with a higher priority number is always displayed on top of lower priority sprites. In general sprites are always displayed on top of tiles and this is causing unnatural situation when as example Commander Keen is climbing through a  hole.\\
+If multiple sprites are displayed on the same tile, each sprite is given a priority 0-3 to define the order of drawing. A sprite with a higher priority number is always displayed on top of lower priority sprites. As sprites are always displayed on top of tiles, this is causing unnatural situation when Commander Keen is climbing through a  hole as illustrated in Figure \ref{fig:draw_layers}.\\
 
 \begin{figure}[H]
 \begin{subfigure}{.25\textwidth}
@@ -644,45 +643,45 @@ If multiple sprites are displayed on the same tile, each sprite is given a prior
 \begin{subfigure}{.25\textwidth}
   \centering
   \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_3.png}
-  \caption{Draw sprite.}
+  \caption{Sprite on top.}
 \end{subfigure}
 \caption{Unnatural situation where Commander Keen is in front of a hole.}
 \label{fig:draw_layers}
 \end{figure}
 \par
 
-To draw sprites 'inside' a foreground tile, a small trick is used by introducing a priority foreground tile. As explained in section \ref{section:foreground_tile_info} each foreground tile is enriched with INTILE ('inside tile') information. If the highest bit (\cw{80h}) of INTILE is set, this foreground tile has a higher priority than sprites with a priority 0, 1 or 2. So when drawing the tiles and sprites the following drwaing order is applied:
+To draw sprites 'inside' a foreground tile, a small trick is used by introducing a priority foreground tile. As explained in section \ref{section:foreground_tile_info} each foreground tile is enriched with INTILE ('inside tile') information. If the highest bit (\cw{80h}) of INTILE is set, this foreground tile has a higher priority than sprites with a priority 0, 1 or 2. So when drawing the tiles and sprites the following drawing order is applied:
 \begin{enumerate}
   \item Draw the background tile.
   \item Draw the masked foreground tile.
-  \item Draw sprites with priority 0, 1 and 2 (in that order).
-  \item If the foreground INTILE high bit is set, redraw the masked foreground tile.
-  \item Draw sprite with priority 3. This sprite is always on top of everything.
+  \item Draw sprites with priority 0, 1 and 2 (in that order) and mark the corresponding tile in the tile buffer array with '3' as illustrated in Figure \ref{fig:kc1_3_tile_update_sprite} on page \pageref{fig:kc1_3_tile_update_sprite}.
+  \item Scan the tile buffer array for tiles marked with '3'. If the corresponsing foreground INTILE high bit is set, redraw the masked foreground tile.
+  \item Finally, draw sprites with priority 3. These sprites are always on top of everything.
 \end{enumerate}
 \par
 The priority foreground tiles are updated in the \cw{RFL\_MaskForegroundTiles()} function.\\
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}{.245\textwidth}
+\begin{subfigure}[t]{.245\textwidth}
   \centering
   \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_1.png}
   \caption{Background tile.}
 \end{subfigure}%
-\begin{subfigure}{.245\textwidth}
+\begin{subfigure}[t]{.245\textwidth}
   \centering
   \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_2.png}
   \caption{Foreground tile.}
 \end{subfigure}
-\begin{subfigure}{.245\textwidth}
+\begin{subfigure}[t]{.245\textwidth}
   \centering
   \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_3.png}
-  \caption{Draw sprite.}
+  \caption{Sprite on top.}
 \end{subfigure}
-\begin{subfigure}{.245\textwidth}
+\begin{subfigure}[t]{.245\textwidth}
   \centering
   \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_4.png}
-  \caption{Foreground tile.}
+  \caption{Redraw masked foreground tile.}
 \end{subfigure}
 \caption{Draw sprite inside a tile, by redrawing foreground tile.}
 \label{fig:clip_tinf}
