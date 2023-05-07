@@ -1,13 +1,7 @@
 #define CA_MarkGrChunk(chunk)	grneeded[chunk]|=ca_levelbit
 
-ca_levelbit = 1;
-
 void InitGame (void)
 {
-  [...]   //
-          // load in and lock down some basic chunks
-          //
-
   CA_ClearMarks ();  // Clears out all the marks at the current level
 
   // Mark assets to be cached in memory
@@ -19,6 +13,5 @@ void InitGame (void)
     CA_MarkGrChunk(i);
 
   CA_CacheMarks (NULL, 0); // Cache marked assets into memory
-
 }
 

@@ -310,14 +310,119 @@ Details of each asset file are explained in chapter \ref{section:programming}. T
  \includegraphics[width=\textwidth]{imgs/drawings/cache_manager_architecture.eps}
  \end{figure}
 \pagebreak
-To keep track of required assets, an array \cw{gr\_needed[]} is maintained to mark if an asset needs to be loaded from disk.
- \par
+
+
+To manage and keep track of the assets to be loaded, an array \cw{gr\_needed[]} is maintained to mark if an asset needs to be loaded from disk. The index of this array refers to the enum of the graphic assets. By using the seven bits the array can maintain the required assets for different levels.
+\begin{itemize}
+  \item \cw{ca\_levelbit} : Flag bit marking if an asset needs to be loaded for the current level.
+  \item \cw{ca\_levelnum} : The current level to cache the data. 
+\end{itemize}
+
+\par
+
+The cache manager starts with an empty \cw{gr\_needed[]} array and setting the \cw{ca\_levelbit} to 1 and \cw{ca\_levelnum} to 0.\\
+\par
+
+\begin{figure}[H]
+\centering
+\setlength{\tabcolsep}{0pt} % set border margin to 0
+\begin{tabular}{m{15em}|S|S|S|S|S|S|S|S|S|} 
+  \multicolumn{1}{r|}{\it bit level: \kern 0.15em} & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \it 2 & \it 1 & \it 0 \\ \hline
+  STARTFONT &  & & & & & & &  \\ \hline
+  CTL\_STARTUPPIC &  & & & & & & & \\  \hline
+  CTL\_HELPUPPIC &  & & & & & & & \\ \hline
+  ... &  & & & & & & & \\ \hline
+  KEENSTANDRSPR &  & & & & & & & \\ \hline
+  KEENRUNR1SPR &  & & & & & & &  \\ \hline
+  ... &  & & & & & & & \\ \hline
+  SCOREBOXSPR &  & & & & & & & \\ \hline
+  ... &   & & & & & & & \\ \hline
+  TILE8 &  & & & & & & & \\  \hline
+  TILE8M &  & & & & & & & \\ \hline
+  TILE16 \#1 &  & & & & & & & \\ \hline
+  TILE16 \#2 &  & & & & & & & \\ \hline
+  ... &  & & & & & & & \\ \hline
+  TILE16M \#1 &  & & & & & & & \\ \hline
+  TILE16M \#2 &  & & & & & & & \\ \hline
+  ... &  & & & & & & & \\ \hline
+\end{tabular}\\
+\setlength{\tabcolsep}{6pt} % reset border margin
+\caption{Initiating \cw{gr\_needed[]} array.}
+\end{figure}
+
+When a new map needs to be cached, all required assets are marked by setting the current bit level 1.\\
+\pagebreak
 \lstinputlisting[language=C]{code/unrolled_mark_cache.c}
- \par
-The function \cw{CA\_CacheMarks()} loads and decompress all required graphical assets from disk to memory. Since access and loading from disk is a slow process, the engine will try to load as much as possible assets in one go from the disk.
- \pagebreak
-\lstinputlisting[language=C]{code/unrolled_load_cache.c}
- \par
+\par
+
+\begin{figure}[H]
+\centering
+\setlength{\tabcolsep}{0pt} % set border margin to 0
+\begin{tabular}{m{15em}|S|S|S|S|S|S|S|S|S|} 
+  \multicolumn{1}{r|}{\it bit level: \kern 0.15em} & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \it 2 & \it 1 & \it 0 \\ \hline
+  STARTFONT &  & & & & & & & \cellcolor{black} \\ \hline
+  CTL\_STARTUPPIC &  & & & & & & &  \\  \hline
+  CTL\_HELPUPPIC &  & & & & & & & \\ \hline
+  ... &  & & & & & & & \\ \hline
+  KEENSTANDRSPR &  & & & & & & & \cellcolor{black} \\ \hline
+  KEENRUNR1SPR &  & & & & & & &  \cellcolor{black} \\ \hline
+  ... &  & & & & & & & \\ \hline
+  SCOREBOXSPR &  & & & & & & & \cellcolor{black} \\ \hline
+  ... &   & & & & & & & \\ \hline
+  TILE8 &  & & & & & & & \cellcolor{black} \\  \hline
+  TILE8M &  & & & & & & & \cellcolor{black} \\ \hline
+  TILE16 \#1 &  & & & & & & & \cellcolor{black} \\ \hline
+  TILE16 \#2 &  & & & & & & & \\ \hline
+  ... &  & & & & & & & \\ \hline
+  TILE16M \#1 &  & & & & & & & \cellcolor{black} \\ \hline
+  TILE16M \#2 &  & & & & & & & \\ \hline
+  ... &  & & & & & & & \\ \hline
+\end{tabular}\\
+\setlength{\tabcolsep}{6pt} % reset border margin
+\caption{Mark all assets required for the new level in bit level 0.}
+\end{figure}
+
+
+The function \cw{CA\_CacheMarks()} loads and decompress all required graphical assets from disk to memory for the current bit level. Now if during playing the game we open the control panel (e.g. to pause the game), the assets for the control panel needs to be cached. By increasing the bit level we keep the assets for control panel separated from the map.\\
+
+\par
+\lstinputlisting[language=C]{code/CA_level_up.c}
+\par
+
+
+\begin{figure}[H]
+\centering
+\setlength{\tabcolsep}{0pt} % set border margin to 0
+\begin{tabular}{m{15em}|S|S|S|S|S|S|S|S|S|} 
+  \multicolumn{1}{r|}{\it bit level: \kern 0.15em} & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \it 2 & \it 1 & \it 0 \\ \hline
+  STARTFONT &  & & & & & & \cellcolor{black} & \cellcolor{black} \\ \hline
+  CTL\_STARTUPPIC &  & & & & & & \cellcolor{black} &  \\  \hline
+  CTL\_HELPUPPIC &  & & & & & & \cellcolor{black} & \\ \hline
+  ... &  & & & & & & & \\ \hline
+  KEENSTANDRSPR &  & & & & & & & \cellcolor{black} \\ \hline
+  KEENRUNR1SPR &  & & & & & & &  \cellcolor{black} \\ \hline
+  ... &  & & & & & & & \\ \hline
+  SCOREBOXSPR &  & & & & & & & \cellcolor{black} \\ \hline
+  ... &   & & & & & & & \\ \hline
+  TILE8 &  & & & & & & & \cellcolor{black} \\  \hline
+  TILE8M &  & & & & & & & \cellcolor{black} \\ \hline
+  TILE16 \#1 &  & & & & & & & \cellcolor{black} \\ \hline
+  TILE16 \#2 &  & & & & & & & \\ \hline
+  ... &  & & & & & & & \\ \hline
+  TILE16M \#1 &  & & & & & & & \cellcolor{black} \\ \hline
+  TILE16M \#2 &  & & & & & & & \\ \hline
+  ... &  & & & & & & & \\ \hline
+\end{tabular}\\
+\setlength{\tabcolsep}{6pt} % reset border margin
+\caption{Mark all assets required for the control panel in bit level 1.}
+\end{figure}
+\par
+
+If the control panel is closed again, it simply lowers the bit level and calls the function \cw{CA\_CacheMarks()} to reload any map assets removed from memory. \\
+
+\par
+\lstinputlisting[language=C]{code/CA_level_down.c}
+\par
  
  
  
@@ -362,7 +467,7 @@ Each bitshift table is generated in \cw{id\_vw\_a.asm} \\
 \par
  
 
-Now let's take the example of printing 'N', with an \cw{x} offset of 3 pixels. A simple lookup in \cw{shiftdata3} results in the 3-bit shifted 'N'. Note that you first display the low byte and then the high byte value. \\
+Now let's take the example of printing 'N', with an offset of 3 pixels. A simple lookup in \cw{shiftdata3} results in the 3-bit shifted 'N'. Note that you first display the low byte and then the high byte value. \\
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/text_bitshift_N.eps}

@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{array}[2003/12/17]
+\usepackage{calc}
+\usepackage[table]{xcolor}
+
+\newlength\celldim 
+\newlength\fontheight 
+\newlength\extraheight
+\newcounter{sqcolumns}
+
+
+\begin{document}
+	\setlength\celldim{1.5em}
+	\settoheight\fontheight{A}
+	\setlength\extraheight{\celldim - \fontheight}
+
+	\newcolumntype{S}
+	{>{\centering\arraybackslash} p{\celldim}
+	<{\rule[-0.5\extraheight]{0pt}%
+	{\fontheight + \extraheight}}}
+
+
+\setlength{\tabcolsep}{0pt} % set border margin to 0
+\begin{tabular}{|S|S|S|} \hline
+	1 & 2 & 3 \\ \hline
+	4 & \cellcolor{black}5 & 6 \\ \hline
+	7 & 8 & 9 \\ \hline
+\end{tabular}
+\setlength{\tabcolsep}{6pt} % reset border margin
+
+\end{document}

@@ -7,6 +7,8 @@
 \usepackage{colortbl}
 \usepackage[export]{adjustbox}
 \usepackage{subcaption}
+\usepackage{array}
+\usepackage{calc}
 
 
 % Define EGA colors
@@ -46,6 +48,21 @@
 }
 
 \makeatother
+
+% to create square cells in table
+\newlength\celldim 
+\newlength\fontheight 
+\newlength\extraheight
+
+\setlength\celldim{1.2em}
+\settoheight\fontheight{A}
+\setlength\extraheight{\celldim - \fontheight}
+
+\newcolumntype{S}
+	{>{\centering\arraybackslash} p{\celldim}
+	<{\rule[-0.5\extraheight]{0pt}%
+	{\fontheight + \extraheight}}}
+
 
 \begin{document}
 

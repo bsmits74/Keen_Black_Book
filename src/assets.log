@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  16 APR 2023 14:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  6 MAY 2023 17:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2084,21 +2084,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 203--222
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 225--226
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
 
  []
 
 
 LaTeX Warning: Reference `section:clipping' on page 17 undefined on input line 
-227.
+228.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--243
+Underfull \hbox (badness 10000) in paragraph at lines 228--244
 
  []
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 249--250
+Underfull \hbox (badness 10000) in paragraph at lines 250--251
 
  []
 
@@ -2112,7 +2112,7 @@ Package epstopdf Info: Source file: <imgs/drawings/kdreams_map.eps>
 (epstopdf)                    size: 13420 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/kdreams_map-
 eps-converted-to.pdf imgs/drawings/kdreams_map.eps>
-(epstopdf)             \includegraphics on input line 261.
+(epstopdf)             \includegraphics on input line 262.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -2123,24 +2123,27 @@ pdfTeX warning: pdflatex (file ./imgs/drawings/kdreams_map-eps-converted-to.pdf
 File: imgs/drawings/kdreams_map-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/kdreams_map-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/kdreams_map-eps-converted-to.pdf  used o
-n input line 261.
+n input line 262.
 (pdftex.def)             Requested size: 375.80377pt x 400.9382pt.
 [18] [19 <./imgs/drawings/kdreams_map-eps-converted-to.pdf>] [20]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 268.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 268.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 269.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
  (./assets.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 268.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 268.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 269.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 269.
 
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 48632 strings out of 494880
- 1047878 string characters out of 6179601
+ 48633 strings out of 494880
+ 1047908 string characters out of 6179601
  1333574 words of memory out of 5000000
- 51014 multiletter control sequences out of 15000+600000
+ 51015 multiletter control sequences out of 15000+600000
  563169 words of font info for 54 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,12n,132p,10467b,1141s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2156,7 +2159,7 @@ exmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
 rw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/
 uhvro8a.pfb>
-Output written on assets.pdf (20 pages, 601282 bytes).
+Output written on assets.pdf (20 pages, 601291 bytes).
 PDF statistics:
  423 PDF objects out of 1000 (max. 8388607)
  260 compressed objects within 3 object streams
