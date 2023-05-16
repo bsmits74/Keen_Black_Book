@@ -490,10 +490,37 @@ Now, if the screen is again scrolling to the top-left one can see why there is a
 \section{Actors and sprites}
 
 \subsection{A.I.}
-To simulate enemies, some objects are allowed to "think" and take actions like firing, walking,
-or emitting sounds. These thinking objects are called "actors".
-Actors are programmed via a state machine. They can be aggressive, sneaky, or dumb
-(XXX for instance). To model their behavior, all enemies have an associated state:
+To simulate enemies, some objects are allowed to "think" and take actions like walking,
+shooting or emitting sounds. These thinking objects are called "actors".
+Actors are programmed via a state machine. They can be aggressive (chase you), just running in any direction, or dump (throwing things at you). To model their behavior, all enemies have an associated state:
+\begin{itemize}
+  \item Chase Keen
+  \item Smash Keen
+  \item Shoot projectile
+  \item Climb and slide from pole
+  \item Walking around
+  \item Turn into flower
+  \item Special Boss (Boobus)
+\end{itemize}
+\par
+
+Each state has associated think, reaction and contact method pointers. There is also a next
+pointer to indicate which state the actor should transition to when the current state is completed.\\
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/statetype.c}
+\end{minipage}
+\label{state_type}
+\par
+
+All actors have a state chain, as example the tater trooper.\\
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C,style=mystyle,basicstyle=\small]{code/s_grdchase.c}
+\end{minipage}
+\par
+All types of enemies (including Boobus) have their own state machine. They often share
+the same reactions (e.g. WalkReact and ProjectileReact), but often have their own thinking state.
 
 \subsection{Drawing Sprites}
 \label{section:draw_sprites}
@@ -512,7 +539,7 @@ Unlike many game consoles such as Nintendo, the concept of sprites did not exist
   \label{fig:sprite_structure}
 \end{figure}
 
-All global movement takes place from the origin. The offset \cw{(xoff,yoff)} defines the top-left position of the sprite. Together with the width and height it defines the boundaries of the sprite. The parameters \cw{xl, xh, yl and yh} define the hit box of the sprite, which is used to detect collisions.\\
+All global movement takes place from the origin. The origin \cw{(orgx,orgy)} defines the top-left position of the sprite. Together with the width and height it defines the boundaries of the sprite. The parameters \cw{xl, xh, yl and yh} define the hit box of the sprite, which is used to detect collisions.\\
 
 \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{lXXXXXXXXX}
@@ -541,12 +568,14 @@ As each sprite can float freely over the screen, here also bitshifted sprites ar
   \label{fig:sprite_shift}  
 \end{figure}
 \par
-Displaying the correct shifted sprite is as simple as below
+Displaying the correct shifted sprite is as simple as below.
 \\
-\\
-CODE EXAMPLE LINE
-\\
-\\ 
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/sprite_shift.c}
+\end{minipage}
+\label{state_type}
+\par
 
 
 \subsection{Clipping}
@@ -599,7 +628,7 @@ For clipping top and bottom the engine also needs to take walking on slopes into
 
 
 \begin{minipage}{\textwidth}
-  \lstinputlisting[basicstyle=\fontsize{7}{9}\selectfont]{code/wallclip_array.c}
+  \lstinputlisting[language=C,style=mystyle,basicstyle=\scriptsize]{code/wallclip_array.c}
 \end{minipage}
 \label{wallclip_array}
 \par

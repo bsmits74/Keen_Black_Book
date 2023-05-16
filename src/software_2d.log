@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  3 MAY 2023 21:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  16 MAY 2023 19:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1587,7 +1587,23 @@ Package: subcaption 2016/05/22 v1.1-161 Sub-captions (AR)
 \c@subfigure=\count356
 \c@subtable=\count357
 )
-\tikzscale@accuracy=\skip173
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count358
+\calc@Bcount=\count359
+\calc@Adimen=\dimen336
+\calc@Bdimen=\dimen337
+\calc@Askip=\skip173
+\calc@Bskip=\skip174
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count360
+\calc@Cskip=\skip175
+)
+\celldim=\skip176
+\fontheight=\skip177
+\extraheight=\skip178
+\tikzscale@accuracy=\skip179
 ))
 
 LaTeX Warning: Unused global option(s):
@@ -1602,6 +1618,9 @@ LaTeX Warning: Label `fig:kc1_3_update_final' multiply defined.
 
 
 LaTeX Warning: Label `ega_refresh' multiply defined.
+
+
+LaTeX Warning: Label `state_type' multiply defined.
 
 
 LaTeX Warning: Label `wallclip_array' multiply defined.
@@ -1680,7 +1699,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count358
+\c@section@level=\count361
 )
 LaTeX Info: Redefining \ref on input line 2.
 LaTeX Info: Redefining \pageref on input line 2.
@@ -1688,16 +1707,16 @@ LaTeX Info: Redefining \nameref on input line 2.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count359
-\scratchdimen=\dimen336
+\scratchcounter=\count362
+\scratchdimen=\dimen338
 \scratchbox=\box78
-\nofMPsegments=\count360
-\nofMParguments=\count361
+\nofMPsegments=\count363
+\nofMParguments=\count364
 \everyMPshowfont=\toks58
-\MPscratchCnt=\count362
-\MPscratchDim=\dimen337
-\MPnumerator=\count363
-\makeMPintoPDFobject=\count364
+\MPscratchCnt=\count365
+\MPscratchDim=\dimen339
+\MPnumerator=\count366
+\makeMPintoPDFobject=\count367
 \everyMPtoPDFconversion=\toks59
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1720,7 +1739,7 @@ ABD: EveryShipout initializing macros
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.15}).
 
-\c@lstlisting=\count365
+\c@lstlisting=\count368
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -2392,40 +2411,50 @@ Underfull \hbox (badness 10000) in paragraph at lines 476--482
 
 [30 <./screenshots_300dpi//game/Scroll_KC4-6_1-tile_final.png>] [31 <./imgs/dra
 wings/buffer_tile_move-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 507--509
 
-LaTeX Warning: Reference `section:asset_file_structure' on page 32 undefined on
- input line 507.
+ []
 
-<imgs/drawings/sprite.png, id=575, 222.07968pt x 203.25937pt>
+(./code/statetype.c)
+Underfull \hbox (badness 10000) in paragraph at lines 516--517
+
+ []
+
+(./code/s_grdchase.c) [32]
+
+LaTeX Warning: Reference `section:asset_file_structure' on page 33 undefined on
+ input line 534.
+
+<imgs/drawings/sprite.png, id=598, 222.07968pt x 203.25937pt>
 File: imgs/drawings/sprite.png Graphic file (type png)
 <use imgs/drawings/sprite.png>
-Package pdftex.def Info: imgs/drawings/sprite.png  used on input line 510.
+Package pdftex.def Info: imgs/drawings/sprite.png  used on input line 537.
 (pdftex.def)             Requested size: 225.48454pt x 206.37585pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 507--513
+Underfull \hbox (badness 10000) in paragraph at lines 534--540
+
+ []
+
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 542--543
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 515--516
-
- []
-
-[32 <./imgs/drawings/sprite.png>]
-Overfull \hbox (2.81825pt too wide) in paragraph at lines 530--530
+Overfull \hbox (2.81825pt too wide) in paragraph at lines 557--557
 []|\T1/phv/b/n/10 height| 
  []
 
 
-LaTeX Warning: Reference `section:bitshifting' on page 33 undefined on input li
-ne 535.
+LaTeX Warning: Reference `section:bitshifting' on page 34 undefined on input li
+ne 562.
 
 
-LaTeX Warning: Reference `section:bitshifting' on page 33 undefined on input li
-ne 535.
+LaTeX Warning: Reference `section:bitshifting' on page 34 undefined on input li
+ne 562.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 535--536
+Underfull \hbox (badness 10000) in paragraph at lines 562--563
 
  []
 
@@ -2438,65 +2467,57 @@ o.pdf>
 (epstopdf)                    size: 13204 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/sprite_shift
 -eps-converted-to.pdf imgs/drawings/sprite_shift.eps>
-(epstopdf)             \includegraphics on input line 539.
+(epstopdf)             \includegraphics on input line 566.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/sprite_shift-eps-converted-to.pd
 f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/sprite_shift-eps-converted-to.pdf, id=589, 559.08875pt x 141.528
+<imgs/drawings/sprite_shift-eps-converted-to.pdf, id=618, 559.08875pt x 141.528
 75pt>
 File: imgs/drawings/sprite_shift-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/sprite_shift-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/sprite_shift-eps-converted-to.pdf  used 
-on input line 539.
+on input line 566.
 (pdftex.def)             Requested size: 375.80377pt x 95.13474pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 544--550
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 544--550
+[34 <./imgs/drawings/sprite.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 571--573
 
  []
 
+(./code/sprite_shift.c)
 
-Underfull \hbox (badness 10000) in paragraph at lines 544--550
-
- []
-
-
-LaTeX Warning: Reference `section:foreground_tile_info' on page 33 undefined on
- input line 554.
+LaTeX Warning: Reference `section:foreground_tile_info' on page 35 undefined on
+ input line 583.
 
 
-LaTeX Warning: Reference `section:foreground_tile_info' on page 33 undefined on
- input line 554.
+LaTeX Warning: Reference `section:foreground_tile_info' on page 35 undefined on
+ input line 583.
 
 
-LaTeX Warning: Reference `section:foreground_tile_info' on page 33 undefined on
- input line 554.
+LaTeX Warning: Reference `section:foreground_tile_info' on page 35 undefined on
+ input line 583.
 
-[33 <./imgs/drawings/sprite_shift-eps-converted-to.pdf>]
-<screenshots_300dpi/game/clip_tinf_1.png, id=602, 220.57407pt x 147.55125pt>
+<screenshots_300dpi/game/clip_tinf_1.png, id=624, 220.57407pt x 147.55125pt>
 File: screenshots_300dpi/game/clip_tinf_1.png Graphic file (type png)
 <use screenshots_300dpi/game/clip_tinf_1.png>
 Package pdftex.def Info: screenshots_300dpi/game/clip_tinf_1.png  used on input
- line 560.
+ line 589.
 (pdftex.def)             Requested size: 169.11055pt x 113.13074pt.
-<screenshots_300dpi/game/clip_tinf_east.png, id=603, 220.57407pt x 147.55125pt>
+<screenshots_300dpi/game/clip_tinf_east.png, id=625, 220.57407pt x 147.55125pt>
 
 File: screenshots_300dpi/game/clip_tinf_east.png Graphic file (type png)
 <use screenshots_300dpi/game/clip_tinf_east.png>
 Package pdftex.def Info: screenshots_300dpi/game/clip_tinf_east.png  used on in
-put line 566.
+put line 595.
 (pdftex.def)             Requested size: 169.11055pt x 113.13074pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 575--576
+Underfull \hbox (badness 10000) in paragraph at lines 604--605
 
  []
 
+[35 <./imgs/drawings/sprite_shift-eps-converted-to.pdf> <./screenshots_300dpi/g
+ame/clip_tinf_1.png> <./screenshots_300dpi/game/clip_tinf_east.png>]
 Package epstopdf Info: Source file: <imgs/drawings/clipping_east.eps>
 (epstopdf)                    date: 2023-04-16 14:13:46
 (epstopdf)                    size: 17466 bytes
@@ -2506,22 +2527,20 @@ to.pdf>
 (epstopdf)                    size: 9473 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/clipping_eas
 t-eps-converted-to.pdf imgs/drawings/clipping_east.eps>
-(epstopdf)             \includegraphics on input line 579.
+(epstopdf)             \includegraphics on input line 608.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/clipping_east-eps-converted-to.p
 df): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/clipping_east-eps-converted-to.pdf, id=605, 296.10625pt x 84.315
+<imgs/drawings/clipping_east-eps-converted-to.pdf, id=649, 296.10625pt x 84.315
 pt>
 File: imgs/drawings/clipping_east-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/clipping_east-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/clipping_east-eps-converted-to.pdf  used
- on input line 579.
+ on input line 608.
 (pdftex.def)             Requested size: 375.80377pt x 107.01193pt.
-(./code/clip_east_wall.c) [34 <./screenshots_300dpi/game/clip_tinf_1.png> <./sc
-reenshots_300dpi/game/clip_tinf_east.png> <./imgs/drawings/clipping_east-eps-co
-nverted-to.pdf>]
+(./code/clip_east_wall.c)
 Package epstopdf Info: Source file: <imgs/drawings/clipping_north.eps>
 (epstopdf)                    date: 2023-04-22 17:06:47
 (epstopdf)                    size: 16437 bytes
@@ -2531,23 +2550,23 @@ Package epstopdf Info: Source file: <imgs/drawings/clipping_north.eps>
 (epstopdf)                    size: 8179 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/clipping_nor
 th-eps-converted-to.pdf imgs/drawings/clipping_north.eps>
-(epstopdf)             \includegraphics on input line 594.
+(epstopdf)             \includegraphics on input line 623.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/clipping_north-eps-converted-to.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<imgs/drawings/clipping_north-eps-converted-to.pdf, id=624, 236.885pt x 83.3112
+<imgs/drawings/clipping_north-eps-converted-to.pdf, id=650, 236.885pt x 83.3112
 5pt>
 File: imgs/drawings/clipping_north-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imgs/drawings/clipping_north-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/clipping_north-eps-converted-to.pdf  use
-d on input line 594.
+d on input line 623.
 (pdftex.def)             Requested size: 375.80377pt x 132.17313pt.
-(./code/wallclip_array.c) [35 <./imgs/drawings/clipping_north-eps-converted-to.
-pdf>]
+[36 <./imgs/drawings/clipping_east-eps-converted-to.pdf>]
+(./code/wallclip_array.c)
 Package epstopdf Info: Source file: <imgs/drawings/walltype.eps>
 (epstopdf)                    date: 2023-04-22 17:44:43
 (epstopdf)                    size: 20351 bytes
@@ -2557,95 +2576,96 @@ f>
 (epstopdf)                    size: 11411 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/walltype-eps
 -converted-to.pdf imgs/drawings/walltype.eps>
-(epstopdf)             \includegraphics on input line 608.
+(epstopdf)             \includegraphics on input line 637.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/walltype-eps-converted-to.pdf): 
 PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/walltype-eps-converted-to.pdf, id=657, 296.10625pt x 185.69376pt
+<imgs/drawings/walltype-eps-converted-to.pdf, id=687, 296.10625pt x 185.69376pt
 >
 File: imgs/drawings/walltype-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/walltype-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/walltype-eps-converted-to.pdf  used on i
-nput line 608.
+nput line 637.
 (pdftex.def)             Requested size: 375.80377pt x 235.6811pt.
-(./code/clip_north_wall.c) [36 <./imgs/drawings/walltype-eps-converted-to.pdf>]
+[37 <./imgs/drawings/clipping_north-eps-converted-to.pdf>]
+(./code/clip_north_wall.c) [38 <./imgs/drawings/walltype-eps-converted-to.pdf>]
 
-Underfull \hbox (badness 10000) in paragraph at lines 630--631
+Underfull \hbox (badness 10000) in paragraph at lines 659--660
 
  []
 
-<screenshots_300dpi/game/tile_composite_1.png, id=693, 115.43124pt x 99.37125pt
+<screenshots_300dpi/game/tile_composite_1.png, id=734, 115.43124pt x 99.37125pt
 >
 File: screenshots_300dpi/game/tile_composite_1.png Graphic file (type png)
 <use screenshots_300dpi/game/tile_composite_1.png>
 Package pdftex.def Info: screenshots_300dpi/game/tile_composite_1.png  used on 
-input line 635.
+input line 664.
 (pdftex.def)             Requested size: 84.55527pt x 72.79059pt.
-<screenshots_300dpi/game/tile_composite_2.png, id=694, 115.43124pt x 99.37125pt
+<screenshots_300dpi/game/tile_composite_2.png, id=735, 115.43124pt x 99.37125pt
 >
 File: screenshots_300dpi/game/tile_composite_2.png Graphic file (type png)
 <use screenshots_300dpi/game/tile_composite_2.png>
 Package pdftex.def Info: screenshots_300dpi/game/tile_composite_2.png  used on 
-input line 640.
+input line 669.
 (pdftex.def)             Requested size: 84.55527pt x 72.79059pt.
-<screenshots_300dpi/game/tile_composite_3.png, id=695, 115.43124pt x 99.37125pt
+<screenshots_300dpi/game/tile_composite_3.png, id=736, 115.43124pt x 99.37125pt
 >
 File: screenshots_300dpi/game/tile_composite_3.png Graphic file (type png)
 <use screenshots_300dpi/game/tile_composite_3.png>
 Package pdftex.def Info: screenshots_300dpi/game/tile_composite_3.png  used on 
-input line 645.
+input line 674.
 (pdftex.def)             Requested size: 84.55527pt x 72.79059pt.
-[37]
+[39]
 
-LaTeX Warning: Reference `section:foreground_tile_info' on page 38 undefined on
- input line 653.
+LaTeX Warning: Reference `section:foreground_tile_info' on page 40 undefined on
+ input line 682.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 662--663
+Underfull \hbox (badness 10000) in paragraph at lines 691--692
 
  []
 
 File: screenshots_300dpi/game/tile_composite_1.png Graphic file (type png)
 <use screenshots_300dpi/game/tile_composite_1.png>
 Package pdftex.def Info: screenshots_300dpi/game/tile_composite_1.png  used on 
-input line 668.
+input line 697.
 (pdftex.def)             Requested size: 82.8625pt x 71.33344pt.
 File: screenshots_300dpi/game/tile_composite_2.png Graphic file (type png)
 <use screenshots_300dpi/game/tile_composite_2.png>
 Package pdftex.def Info: screenshots_300dpi/game/tile_composite_2.png  used on 
-input line 673.
+input line 702.
 (pdftex.def)             Requested size: 82.8625pt x 71.33344pt.
 File: screenshots_300dpi/game/tile_composite_3.png Graphic file (type png)
 <use screenshots_300dpi/game/tile_composite_3.png>
 Package pdftex.def Info: screenshots_300dpi/game/tile_composite_3.png  used on 
-input line 678.
+input line 707.
 (pdftex.def)             Requested size: 82.8625pt x 71.33344pt.
-<screenshots_300dpi/game/tile_composite_4.png, id=735, 115.43124pt x 99.37125pt
+<screenshots_300dpi/game/tile_composite_4.png, id=775, 115.43124pt x 99.37125pt
 >
 File: screenshots_300dpi/game/tile_composite_4.png Graphic file (type png)
 <use screenshots_300dpi/game/tile_composite_4.png>
 Package pdftex.def Info: screenshots_300dpi/game/tile_composite_4.png  used on 
-input line 683.
+input line 712.
 (pdftex.def)             Requested size: 82.8625pt x 71.33344pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 684--684
+Underfull \hbox (badness 10000) in paragraph at lines 713--713
 []\T1/phv/b/sl/9 (d) |\T1/phv/m/n/9 Re-draw masked
  []
 
-(./code/mask_foreground_tile.asm) [38 <./screenshots_300dpi/game/tile_composite
+(./code/mask_foreground_tile.asm) [40 <./screenshots_300dpi/game/tile_composite
 _1.png> <./screenshots_300dpi/game/tile_composite_2.png> <./screenshots_300dpi/
 game/tile_composite_3.png> <./screenshots_300dpi/game/tile_composite_4.png>]
 Overfull \vbox (1.85622pt too high) has occurred while \output is active []
 
 
-[39] [40]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 698.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 698.
+[41] [42]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 727.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 727.
  (./software_2d.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 698.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 698.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 727.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 727.
 
 
 LaTeX Warning: There were undefined references.
@@ -2655,13 +2675,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 50212 strings out of 494880
- 1072884 string characters out of 6179601
- 1467303 words of memory out of 5000000
- 52201 multiletter control sequences out of 15000+600000
+ 50419 strings out of 494880
+ 1076224 string characters out of 6179601
+ 1430258 words of memory out of 5000000
+ 52364 multiletter control sequences out of 15000+600000
  570548 words of font info for 59 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 91i,12n,132p,10472b,1527s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 91i,12n,132p,10472b,1533s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -2678,10 +2698,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/u
 hvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on software_2d.pdf (40 pages, 2411949 bytes).
+Output written on software_2d.pdf (42 pages, 2418821 bytes).
 PDF statistics:
- 1052 PDF objects out of 1200 (max. 8388607)
- 778 compressed objects within 8 object streams
- 428 named destinations out of 1000 (max. 500000)
+ 1100 PDF objects out of 1200 (max. 8388607)
+ 823 compressed objects within 9 object streams
+ 462 named destinations out of 1000 (max. 500000)
  467 words of extra memory for PDF output out of 10000 (max. 10000000)
 
