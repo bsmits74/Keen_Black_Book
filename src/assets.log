@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  6 MAY 2023 17:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  19 MAY 2023 16:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1587,7 +1587,23 @@ Package: subcaption 2016/05/22 v1.1-161 Sub-captions (AR)
 \c@subfigure=\count356
 \c@subtable=\count357
 )
-\tikzscale@accuracy=\skip173
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count358
+\calc@Bcount=\count359
+\calc@Adimen=\dimen336
+\calc@Bdimen=\dimen337
+\calc@Askip=\skip173
+\calc@Bskip=\skip174
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count360
+\calc@Cskip=\skip175
+)
+\celldim=\skip176
+\fontheight=\skip177
+\extraheight=\skip178
+\tikzscale@accuracy=\skip179
 ))
 
 LaTeX Warning: Unused global option(s):
@@ -1661,7 +1677,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count358
+\c@section@level=\count361
 )
 LaTeX Info: Redefining \ref on input line 2.
 LaTeX Info: Redefining \pageref on input line 2.
@@ -1669,16 +1685,16 @@ LaTeX Info: Redefining \nameref on input line 2.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count359
-\scratchdimen=\dimen336
+\scratchcounter=\count362
+\scratchdimen=\dimen338
 \scratchbox=\box78
-\nofMPsegments=\count360
-\nofMParguments=\count361
+\nofMPsegments=\count363
+\nofMParguments=\count364
 \everyMPshowfont=\toks58
-\MPscratchCnt=\count362
-\MPscratchDim=\dimen337
-\MPnumerator=\count363
-\makeMPintoPDFobject=\count364
+\MPscratchCnt=\count365
+\MPscratchDim=\dimen339
+\MPnumerator=\count366
+\makeMPintoPDFobject=\count367
 \everyMPtoPDFconversion=\toks59
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1701,7 +1717,7 @@ ABD: EveryShipout initializing macros
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.15}).
 
-\c@lstlisting=\count365
+\c@lstlisting=\count368
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -2125,44 +2141,244 @@ File: imgs/drawings/kdreams_map-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: imgs/drawings/kdreams_map-eps-converted-to.pdf  used o
 n input line 262.
 (pdftex.def)             Requested size: 375.80377pt x 400.9382pt.
-[18] [19 <./imgs/drawings/kdreams_map-eps-converted-to.pdf>] [20]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 269.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 269.
- (./assets.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 269.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 269.
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 269--270
 
+ []
+
+[19 <./imgs/drawings/kdreams_map-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 272--273
+
+ []
+
+
+LaTeX Warning: Reference `hardware-audio' on page 20 undefined on input line 27
+8.
+
+<screenshots_300dpi/muse.png, id=276, 1606.0pt x 1204.5pt>
+File: screenshots_300dpi/muse.png Graphic file (type png)
+<use screenshots_300dpi/muse.png>
+Package pdftex.def Info: screenshots_300dpi/muse.png  used on input line 282.
+(pdftex.def)             Requested size: 375.80377pt x 281.84451pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 278--284
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
+
+ []
+
+<screenshots_300dpi/music.png, id=277, 321.2pt x 200.75pt>
+File: screenshots_300dpi/music.png Graphic file (type png)
+<use screenshots_300dpi/music.png>
+Package pdftex.def Info: screenshots_300dpi/music.png  used on input line 293.
+(pdftex.def)             Requested size: 375.80377pt x 234.88573pt.
+[20 <./screenshots_300dpi/muse.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 300--301
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
+
+ []
+
+Package epstopdf Info: Source file: <imgs/drawings/music_pipelione.eps>
+(epstopdf)                    date: 2023-05-16 21:25:36
+(epstopdf)                    size: 20416 bytes
+(epstopdf)             Output file: <imgs/drawings/music_pipelione-eps-converte
+d-to.pdf>
+(epstopdf)                    date: 2023-05-16 21:26:32
+(epstopdf)                    size: 9750 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/music_pipeli
+one-eps-converted-to.pdf imgs/drawings/music_pipelione.eps>
+(epstopdf)             \includegraphics on input line 317.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/music_pipelione-eps-converted-to
+.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowe
+d
+<imgs/drawings/music_pipelione-eps-converted-to.pdf, id=283, 513.92pt x 293.095
+pt>
+File: imgs/drawings/music_pipelione-eps-converted-to.pdf Graphic file (type pdf
+)
+<use imgs/drawings/music_pipelione-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/music_pipelione-eps-converted-to.pdf  us
+ed on input line 317.
+(pdftex.def)             Requested size: 338.2211pt x 192.89319pt.
+[21 <./screenshots_300dpi/music.png>]
+<screenshots_300dpi/music_editor.png, id=292, 2258.4375pt x 1694.33pt>
+File: screenshots_300dpi/music_editor.png Graphic file (type png)
+<use screenshots_300dpi/music_editor.png>
+Package pdftex.def Info: screenshots_300dpi/music_editor.png  used on input lin
+e 325.
+(pdftex.def)             Requested size: 375.80377pt x 281.9309pt.
+ [22 <./imgs/drawings/music_pipelione-eps-converted-to.pdf>]
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <8> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 330.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.59998pt on input line 330.
+
+
+LaTeX Warning: Reference `IMF_explanation' on page 23 undefined on input line 3
+30.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 330--331
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 332--333
+
+ []
+
+
+LaTeX Warning: Reference `IMF_explanation' on page 23 undefined on input line 3
+33.
+
+
+LaTeX Warning: Reference `IMF_explanation' on page 23 undefined on input line 3
+33.
+
+
+LaTeX Warning: Reference `IMF_explanation' on page 23 undefined on input line 3
+33.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
+
+ []
+
+[23 <./screenshots_300dpi/music_editor.png>]
+Package epstopdf Info: Source file: <imgs/drawings/channel.eps>
+(epstopdf)                    date: 2022-01-20 21:37:23
+(epstopdf)                    size: 20552 bytes
+(epstopdf)             Output file: <imgs/drawings/channel-eps-converted-to.pdf
+>
+(epstopdf)                    date: 2023-05-16 21:28:58
+(epstopdf)                    size: 9206 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/channel-eps-
+converted-to.pdf imgs/drawings/channel.eps>
+(epstopdf)             \includegraphics on input line 341.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/channel-eps-converted-to.pdf): P
+DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<imgs/drawings/channel-eps-converted-to.pdf, id=314, 579.16376pt x 172.645pt>
+File: imgs/drawings/channel-eps-converted-to.pdf Graphic file (type pdf)
+<use imgs/drawings/channel-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/channel-eps-converted-to.pdf  used on in
+put line 341.
+(pdftex.def)             Requested size: 375.80377pt x 112.02559pt.
+Package epstopdf Info: Source file: <imgs/drawings/wave_transform.eps>
+(epstopdf)                    date: 2022-01-20 21:37:23
+(epstopdf)                    size: 19236 bytes
+(epstopdf)             Output file: <imgs/drawings/wave_transform-eps-converted
+-to.pdf>
+(epstopdf)                    date: 2023-05-16 21:28:59
+(epstopdf)                    size: 7762 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/wave_transfo
+rm-eps-converted-to.pdf imgs/drawings/wave_transform.eps>
+(epstopdf)             \includegraphics on input line 349.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/wave_transform-eps-converted-to.
+pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+
+<imgs/drawings/wave_transform-eps-converted-to.pdf, id=315, 533.995pt x 192.72p
+t>
+File: imgs/drawings/wave_transform-eps-converted-to.pdf Graphic file (type pdf)
+
+<use imgs/drawings/wave_transform-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/wave_transform-eps-converted-to.pdf  use
+d on input line 349.
+(pdftex.def)             Requested size: 375.80377pt x 135.63235pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--359
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 361--362
+
+ []
+
+<screenshots_300dpi/shareware.jpg, id=317, 129.283pt x 160.6pt>
+File: screenshots_300dpi/shareware.jpg Graphic file (type jpg)
+<use screenshots_300dpi/shareware.jpg>
+Package pdftex.def Info: screenshots_300dpi/shareware.jpg  used on input line 3
+66.
+(pdftex.def)             Requested size: 263.0615pt x 326.78645pt.
+[24 <./imgs/drawings/channel-eps-converted-to.pdf> <./imgs/drawings/wave_transf
+orm-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 372--373
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 377.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
+File: omsphv.fd 
+)
+LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 377.
+ [25 <./screenshots_300dpi/shareware.jpg>]
+<screenshots_300dpi/dos_result.png, id=345, 642.4pt x 496.85625pt>
+File: screenshots_300dpi/dos_result.png Graphic file (type png)
+<use screenshots_300dpi/dos_result.png>
+Package pdftex.def Info: screenshots_300dpi/dos_result.png  used on input line 
+395.
+(pdftex.def)             Requested size: 375.80377pt x 290.6711pt.
+ [26 <./screenshots_300dpi/dos_result.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 401.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 401.
+ (./assets.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 401.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 401.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 48633 strings out of 494880
- 1047908 string characters out of 6179601
- 1333574 words of memory out of 5000000
- 51015 multiletter control sequences out of 15000+600000
- 563169 words of font info for 54 fonts, out of 8000000 for 9000
+ 48831 strings out of 494880
+ 1052073 string characters out of 6179601
+ 1334533 words of memory out of 5000000
+ 51174 multiletter control sequences out of 15000+600000
+ 565899 words of font info for 56 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 91i,12n,132p,10467b,1141s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
+ 91i,12n,132p,10467b,1147s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
+, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
+, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
 , replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </home/bas/.texlive
 2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk></usr/share/texlive/t
-exmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
-rw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/
-uhvro8a.pfb>
-Output written on assets.pdf (20 pages, 601291 bytes).
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/hel
+vetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8
+a.pfb>
+Output written on assets.pdf (26 pages, 959000 bytes).
 PDF statistics:
- 423 PDF objects out of 1000 (max. 8388607)
- 260 compressed objects within 3 object streams
- 104 named destinations out of 1000 (max. 500000)
- 304 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 512 PDF objects out of 1000 (max. 8388607)
+ 326 compressed objects within 4 object streams
+ 126 named destinations out of 1000 (max. 500000)
+ 368 words of extra memory for PDF output out of 10000 (max. 10000000)
 
