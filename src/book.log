@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  19 MAY 2023 16:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  22 MAY 2023 21:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -3644,12 +3644,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 184--185
  []
 
 Package epstopdf Info: Source file: <imgs/drawings/architecture.eps>
-(epstopdf)                    date: 2023-05-19 16:26:44
-(epstopdf)                    size: 43062 bytes
+(epstopdf)                    date: 2023-05-19 16:28:48
+(epstopdf)                    size: 43066 bytes
 (epstopdf)             Output file: <imgs/drawings/architecture-eps-converted-t
 o.pdf>
-(epstopdf)                    date: 2023-01-04 17:21:02
-(epstopdf)                    size: 15936 bytes
+(epstopdf)                    date: 2023-05-19 16:27:08
+(epstopdf)                    size: 15906 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/architecture
 -eps-converted-to.pdf imgs/drawings/architecture.eps>
 (epstopdf)             \includegraphics on input line 199.
@@ -3658,8 +3658,8 @@ mgs/drawings/architecture.eps)...executed safely (allowed).
 
 Package epstopdf Info: Result file: <imgs/drawings/architecture-eps-converted-t
 o.pdf>
-(epstopdf)                    date: 2023-05-19 16:27:08
-(epstopdf)                    size: 15906 bytes.
+(epstopdf)                    date: 2023-05-22 21:25:23
+(epstopdf)                    size: 15907 bytes.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/architecture-eps-converted-to.pd
@@ -4932,45 +4932,141 @@ Underfull \hbox (badness 10000) in paragraph at lines 75--76
  []
 
 (./code/set_timer.c)
-Underfull \hbox (badness 10000) in paragraph at lines 81--82
+Underfull \hbox (badness 10000) in paragraph at lines 77--80
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
 
  []
 
 (./code/set_sound_mode.c) [150]
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
 
  []
 
 (./code/timecount.c) [151]
-Underfull \hbox (badness 10000) in paragraph at lines 112--113
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 114--115
 
  []
 
-) [152] [153
 
-]pdfTeX warning (ext4): destination with the same identifier (name{page.153}) h
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+
+ []
+
+(./code/sound1.h) (./code/sound.h) [152]
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+
+ []
+
+(./code/muse_header.c) [153]
+Overfull \vbox (1.85622pt too high) has occurred while \output is active []
+
+
+[154]
+Underfull \hbox (badness 10000) in paragraph at lines 158--159
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+
+ []
+
+(./code/audio_ports.c)
+Underfull \hbox (badness 10000) in paragraph at lines 168--169
+
+ []
+
+(./code/adlib_wait.c) [155]
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--182
+
+ []
+
+<imgs/drawings/pwm/sinuois.png, id=2553, 872.25874pt x 95.35625pt>
+File: imgs/drawings/pwm/sinuois.png Graphic file (type png)
+<use imgs/drawings/pwm/sinuois.png>
+Package pdftex.def Info: imgs/drawings/pwm/sinuois.png  used on input line 187.
+
+(pdftex.def)             Requested size: 375.80377pt x 41.0824pt.
+<imgs/drawings/pwm/pwm_approximation.png, id=2554, 872.25874pt x 57.21375pt>
+File: imgs/drawings/pwm/pwm_approximation.png Graphic file (type png)
+<use imgs/drawings/pwm/pwm_approximation.png>
+Package pdftex.def Info: imgs/drawings/pwm/pwm_approximation.png  used on input
+ line 195.
+(pdftex.def)             Requested size: 375.80377pt x 24.64943pt.
+[156 <./imgs/drawings/pwm/sinuois.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 200--201
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+
+ []
+
+(./code/pwm.c)
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+
+ []
+
+(./code/pwm_code_header.c)
+Underfull \hbox (badness 10000) in paragraph at lines 231--232
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--234
+
+ []
+
+(./code/pwm_code.asm) [157 <./imgs/drawings/pwm/pwm_approximation.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
+
+ []
+
+(./code/pcSoundLookup.c)) [158] [159
+
+]pdfTeX warning (ext4): destination with the same identifier (name{page.159}) h
 as been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.114     \thispagestyle{plain} \blankpage
-                                           [153]pdfTeX warning (ext4): destinat
-ion with the same identifier (name{page.153}) has been already used, duplicate 
+                                           [159]pdfTeX warning (ext4): destinat
+ion with the same identifier (name{page.159}) has been already used, duplicate 
 ignored
 <to be read again> 
                    \relax 
 l.115     \thispagestyle{plain} \blankpage
-                                           [153]pdfTeX warning (ext4): destinat
-ion with the same identifier (name{page.153}) has been already used, duplicate 
+                                           [159]pdfTeX warning (ext4): destinat
+ion with the same identifier (name{page.159}) has been already used, duplicate 
 ignored
 <to be read again> 
                    \relax 
 l.116     \thispagestyle{plain} \blankpage
-                                           [153]
+                                           [159]
 
 Package scrextend Warning: odd/even page label number 1 undefined on input line
  117.
@@ -4990,15 +5086,21 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
- 52758 strings out of 494880
- 1129700 string characters out of 6179601
+ 53126 strings out of 494880
+ 1135409 string characters out of 6179601
  1502947 words of memory out of 5000000
- 53780 multiletter control sequences out of 15000+600000
+ 53972 multiletter control sequences out of 15000+600000
  587674 words of font info for 73 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  82i,16n,130p,10425b,2439s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.46} has been referenced but does not ex
+pdfTeX warning (dest): name{Hfootnote.48} has been referenced but does not ex
 ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.47} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.46} has been referenced but does not exis
+t, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.45} has been referenced but does not exis
 t, replaced by a fixed one
@@ -5150,10 +5252,10 @@ are/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 urw/helvetic/uhvro8a.pfb>
-Output written on book.pdf (156 pages, 16325324 bytes).
+Output written on book.pdf (162 pages, 16349179 bytes).
 PDF statistics:
- 3112 PDF objects out of 3580 (max. 8388607)
- 2470 compressed objects within 25 object streams
- 1174 named destinations out of 1200 (max. 500000)
- 1363 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3321 PDF objects out of 3580 (max. 8388607)
+ 2667 compressed objects within 27 object streams
+ 1319 named destinations out of 1440 (max. 500000)
+ 1389 words of extra memory for PDF output out of 10000 (max. 10000000)
 
