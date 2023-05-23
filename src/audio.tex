@@ -19,7 +19,7 @@ The idea is to configure the hardware to trigger a hardware interrupt at a regul
  Alternately, the ISR can decide not to mask other IRQs and do what it is supposed to do as fast as possible so as to not delay the firing of other important interrupts that may lose data if they aren't serviced quickly enough. Keen Dreams uses the latter approach and keeps tasks in its ISR very small and short. 
 
 \subsection{IRQs and ISRs}
-The IRQ and ISR system relies on two chips: the Intel 8254 which is a PIT\footnote{Programmable Interval Timer} and the Intel 8259 which is a PIC\footnote{Programmable Interrupt Controller}. The PIT features a crystal oscillating in square waves. On each period, it decrements its three counters. Counter \#2 is connected to the buzzer and generates sounds. Counter \#1 is connected to the RAM in order to automatically perform something called "memory refresh"\footnote{Without frequent refresh, DRAM will lose its content. This is one of the reasons it is slower and SRAM is preferred in the caching system.}. Counter \#0 is connected to the PIC. 
+The IRQ and ISR system relies on two chips: the Intel 8254 which is a PIT\footnote{Programmable Interval Timer} and the Intel 8259 which is a PIC\footnote{Programmable Interrupt Controller}. The PIT features a crystal oscillating in square waves. The PIT contains three channels, each connected with a counter. On each period, it decrements its three counters. Counter \#2 is connected to the buzzer and generates sounds. Counter \#1 is connected to the RAM in order to automatically perform something called "memory refresh"\footnote{Without frequent refresh, DRAM will lose its content. This is one of the reasons it is slower and SRAM is preferred in the caching system.}. Counter \#0 is connected to the PIC. 
 When counter \#0 hits zero it generates an IRQ\footnote{Interrupt Request Line: Hardware lines over which devices can send interrupt signals to the CPU.} and sends it to the PIC.\\
 
 \
@@ -197,7 +197,12 @@ The solution was to approximate a tune by placing the PC Speaker in repeat mode 
  \end{figure}
 \par
 
-To do this, the audio system once again relies on the PIT chipset. Counter 0 is used to trigger the audio system. Counter 1 is used to refresh the RAM periodically. Counter 2, however, is directly connected to the PC Speaker. The trick is to set this Counter 2 to square wave mode (Mode 3) so it will repeat after it triggers and program the desired square wave frequency. \\
+To do this, the audio system once again relies on the PIT chipset. Channel 0 is used to trigger the audio system. Channel 1 is used to refresh the RAM periodically. Channel 2, however, is directly connected to the PC Speaker. \\
+\par
+PICTURE\\
+\par
+
+Figure XXX is a diagram of the hardware for driving the built-in speaker. OUT2 is the output of Channel 2 of the PIT, GATE2 (= bit 1 of port \cw{0x61}) is the enable/trigger control for the Channel 2 counter, and SPEAKER (= bit 0 of port \cw{0x61}) to control the speaker volume. The trick is to set OUT2 to square wave mode so it will repeat after it triggers and program the desired square wave frequency. This can be done by setting MODE (port \cw{0x43}) to Mode 3.\\
 \par
 \begin{figure}[H]
 \centering
@@ -229,8 +234,7 @@ In the assembly, three I/O ports are accessed:\\
 \par
 
 While the end result was not great, it was better than a beep.\\
-\par
-\bu{Trivia :} LucasArts obtained surprisingly good results for their game Monkey Island. See the video "LGR - Evolution of PC Audio - As Told by Secret of Monkey Island"\footnote{https://www.youtube.com/watch?v=a324ykKV-7Y}.\\
+
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language={[x86masm]Assembler}]{code/pwm_code.asm}
