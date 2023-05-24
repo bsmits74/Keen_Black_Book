@@ -181,7 +181,7 @@ Every time the audio system wakes up via the timer interrupt, it checks if a sou
 The hardware chapter described a problem for sound effects: the default PC speaker could only generate square waves, resulting in long beeps which are not acceptable for gaming.\\
 \par
 The solution was to approximate a tune by placing the PC Speaker in repeat mode and make it change frequency every 1/140th of a second. It is simpler to understand when the signal is a simple sinusoid:
-\par
+\pagebreak
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/pwm/sinuois.png}
@@ -199,10 +199,15 @@ The solution was to approximate a tune by placing the PC Speaker in repeat mode 
 
 To do this, the audio system once again relies on the PIT chipset. Channel 0 is used to trigger the audio system. Channel 1 is used to refresh the RAM periodically. Channel 2, however, is directly connected to the PC Speaker. \\
 \par
-PICTURE\\
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{imgs/drawings/pc_speaker.eps}
+  \caption{Built-in speaker hardware diagram.}
+  \label{fig:pc_speaker}
+\end{figure}
 \par
 
-Figure XXX is a diagram of the hardware for driving the built-in speaker. OUT2 is the output of Channel 2 of the PIT, GATE2 (= bit 1 of port \cw{0x61}) is the enable/trigger control for the Channel 2 counter, and SPEAKER (= bit 0 of port \cw{0x61}) to control the speaker volume. The trick is to set OUT2 to square wave mode so it will repeat after it triggers and program the desired square wave frequency. This can be done by setting MODE (port \cw{0x43}) to Mode 3.\\
+OUT2 is the output of Channel 2 of the PIT, GATE2 is the enable/trigger control for the Channel 2 counter, and SPEAKER\_DATA to control the speaker volume. The trick is to set OUT2 to square wave mode so it will repeat after it triggers and program the desired square wave frequency. This can be done by setting MODE in the PIT Command register to Mode 3.\\
 \par
 \begin{figure}[H]
 \centering
@@ -226,18 +231,12 @@ When instructed to play a PC Speaker sound effect, the audio system sets itself 
 \lstinputlisting[language=C]{code/pwm.c}
 \end{minipage}
 \par
-In the assembly, three I/O ports are accessed:\\
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/pwm_code_header.c}
-\end{minipage}
-\par
 
 While the end result was not great, it was better than a beep.\\
 
 \par
 \begin{minipage}{\textwidth}
-\lstinputlisting[language={[x86masm]Assembler}]{code/pwm_code.asm}
+\lstinputlisting[language=C]{code/pwm_code.c}
 \end{minipage}
 \par
 
@@ -247,11 +246,11 @@ Notice how the \cw{* 60} is not calculated but looked up. Once again the engine 
 \lstinputlisting[language=C,morekeywords=word]{code/pcSoundLookup.c}
 \end{minipage}
 \par
-Notice how \cw{b6} (\cw{10110110}) is sent to the PIC Command register:
+Notice how \cw{0xb6} (\cw{10110110}) is sent to the PIC Command register:
 \begin{itemize}
 	\item \cw{10} = Target Counter 2.
  	\item \cw{11} = High \& low byte of counter updated.
-	\item \cw{011} = Square Wave Generator.
+	\item \cw{011} = (MODE) Square Wave Generator.
 	\item \cw{0} = 16-bit mode.
 \end{itemize}
 \par
