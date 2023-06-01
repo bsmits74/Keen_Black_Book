@@ -601,7 +601,7 @@ Before drawing a sprite on the screen, the engine determines if the boundaries o
 \end{figure}
 
 \par
-When a sprite, moving from the west, is hitting a wall on the left side, it will update the sprite movement to ensure the sprite clips to the eastwall of the left tile as illustrated in Figure \ref{fig:clipping_east}. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()} functions. \\
+When a sprite, moving from right to left, is hitting a wall on the left side, it will update the sprite movement to ensure the sprite clips to the eastwall of the left tile as illustrated in Figure \ref{fig:clipping_east}. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()} functions. \\
 
 \begin{figure}[H]
   \centering
@@ -648,7 +648,7 @@ For clipping top and bottom the engine also needs to take walking on slopes into
 \label{wallclip_array}
 \par
 
-\subsection{Layering tiles and sprites on screen}
+\subsection{Priority of tiles and sprites on screen}
 The normal screen build is as follows:
 \begin{enumerate}
   \item Draw the background tile.
