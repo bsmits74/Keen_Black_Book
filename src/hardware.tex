@@ -389,16 +389,17 @@ line during the horizontal retrace. This sequence continues until the last line,
 The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IBM PC 5150. It offered two colors, allowing 80 columns by 25 lines of text.  While not great, it was standard on every PC. Many other systems followed over the years, each of them preserving backward compatibility.
 
 \bigskip
-  
+\newcounter{mpFootnoteValueSaver}
  \begin{figure}[H]
 \centering  
+\setcounter{mpFootnoteValueSaver}{\value{footnote}} \centering
 \begin{tabularx}{\textwidth}{ l X l Y }
   \toprule
   \textbf{Name} &  \textbf{Year Released} & \textbf{Memory} & \textbf{Max Resolution}\\
   \toprule \codeword{MDA}
    (\textbf{M}onochrome
    \textbf{D}isplay
-   \textbf{A}dapter) & 1981 & 4KiB & 80x25\footnote{text mode only}
+   \textbf{A}dapter) & 1981 & 4KiB & 80x25\footnotemark 
    \\ \codeword{Hercules} & 1982 & 64KiB & 720x348
    \\ \codeword{CGA}
    (\textbf{C}olor
@@ -416,7 +417,11 @@ The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IB
   \toprule
 \end{tabularx}
 \caption{Video interface history.}\label{fig:vga_history}
+\stepcounter{mpFootnoteValueSaver}%
+   
 \end{figure}
+\footnote[\value{mpFootnoteValueSaver}]{%
+      Text mode only.}%
 
 Each iteration added new features and by 1990 the predominant graphic system was EGA, although the VGA system was rapidly becoming the new standard. All video cards installed on PCs had to follow the standard set by IBM. The universality of that system was a double-edged sword. While developers had to program for only one graphic system, there was no escaping its shortcomings.\\
 

@@ -1,0 +1,67 @@
+
+ \documentclass[book.tex]{subfiles}
+\begin{document}
+
+
+\section{User Inputs}
+In an era before Microsoft harnessed all inputs under DirectInput API with Windows 95, developers had to write drivers for each input type they wanted to support. This involved talking directly to the hardware in the vendor's protocol on a physical port. The keyboard is plugged into a PS/2 or AT port, the mouse to a serial port (DE9), and the joystick to a game port (DA-15).
+
+
+
+
+
+\subsection{Keyboard}
+
+As the keyboard is the standard and oldest input medium, it is fairly easy to access. When a key is pressed, the interrupt is routed to an ISR in the Vector Interrupt Table. The engine installs its own ISR there.\\
+
+
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/keyboard.c}
+\end{minipage}
+
+The state of the keyboard is maintained in a global array \cw{Keyboard}, available for the entire engine to lookup.\\
+\par
+
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/keyboard_array.c}
+\end{minipage}
+
+
+
+\subsection{Mouse}
+A driver has to be loaded at startup for the mouse to be accessible. DOS did not come with one. It was usually on a vendor provided floppy disk. \cw{MOUSE.COM} (or \cw{MOUSE.SYS}) had to be added to \cw{config.sys} so it would reside in RAM. It was usually stored in \cw{DOS} folder.\\
+\par 
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/mouse.sys.c}
+\end{minipage}
+The driver takes almost 5KiB of RAM. With the driver loaded all interactions happen with software interrupt \cw{0x33}. The interface works with requests issued in register AX and responses issued in registers CX, BX and DX. With Borland compiler syntactic sugar it is easy to write with almost no boilerplate (notice direct access to registers thanks to \_AX and co special keywords).\\
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/mouse_request.c}
+\end{minipage}
+\par
+\begin{minipage}{\textwidth}
+\begin{figure}[H]
+\centering
+\begin{tabularx}{\textwidth}{ >{\hsize=.5\hsize}X  >{\hsize=.5\hsize}X  X }
+  \toprule
+  \textbf{Request} & \textbf{Type} & \textbf{Response} \\ \bottomrule
+AX=0 & Get Status & AX = FFFFh : available. AX Value = 0 : not available\\
+AX=1 & Show Pointer & \\
+AX=2 & Hide Pointer & \\
+AX=3 & Mouse Position & CX = X Coordinate, DX = Y Coordinate\\
+AX=3 & Mouse Buttons & BX = 1 Left Pressed, BX = 2 Right Pressed, BX = 3 Center Button Pressed\\
+AX=7 & Set Horizontal Limit & CX=MaxX1 DX=MaxX2\\
+AX=8 & Set Vertical Limit & CX=MaxY1 DX=MaxY2\\
+AX=11 & Read Mouse Motion Counters & CX = horizontal mickey\footnote{values are 1/200 inch intervals (1/200 in. = 1 mickey)} count, DX = vertical mickey count\\
+\bottomrule
+\end{tabularx}
+\caption{Mouse request/response.}
+\end{figure}
+\end{minipage}
+\par
+
+
+
+\end{document}
