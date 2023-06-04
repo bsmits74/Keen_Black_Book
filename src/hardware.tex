@@ -389,10 +389,8 @@ line during the horizontal retrace. This sequence continues until the last line,
 The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IBM PC 5150. It offered two colors, allowing 80 columns by 25 lines of text.  While not great, it was standard on every PC. Many other systems followed over the years, each of them preserving backward compatibility.
 
 \bigskip
-\newcounter{mpFootnoteValueSaver}
  \begin{figure}[H]
 \centering  
-\setcounter{mpFootnoteValueSaver}{\value{footnote}} \centering
 \begin{tabularx}{\textwidth}{ l X l Y }
   \toprule
   \textbf{Name} &  \textbf{Year Released} & \textbf{Memory} & \textbf{Max Resolution}\\
@@ -417,11 +415,12 @@ The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IB
   \toprule
 \end{tabularx}
 \caption{Video interface history.}\label{fig:vga_history}
-\stepcounter{mpFootnoteValueSaver}%
    
 \end{figure}
-\footnote[\value{mpFootnoteValueSaver}]{%
-      Text mode only.}%
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{Text mode only.}
+
 
 Each iteration added new features and by 1990 the predominant graphic system was EGA, although the VGA system was rapidly becoming the new standard. All video cards installed on PCs had to follow the standard set by IBM. The universality of that system was a double-edged sword. While developers had to program for only one graphic system, there was no escaping its shortcomings.\\
 
@@ -769,6 +768,16 @@ Figure \ref{asb12} is the Sound Blaster model CT1350B. Notice the OPL2 chip (lab
 \par
 It was incredibly easy to set up, simple to program (it could only play one type of PCM and had no FM synthesizer), and very cheap compared to the other audio solutions (\$14). It would have made programmers and customers happy if not for one serious limitation. The parallel port bandwidth\footnote{The parallel port maximum bandwidth was 150 kbits/s at the time. Enhanced Parallel Port and later Enhanced Capability Port significantly increased the transfer rate necessary to scanner and laser printers.} allowed a sampling rate up to 18,750 Hz but the design of the DSS limited the PCM sampling rate to 7,000Hz. This was still enough to produce pleasant sounds, but fell short when compared to the 22kHz of a Sound Blaster.
   
+
+\section{Floppy Disk Drive}
+In the time before the internet, a floppy disk was the best medium to share and distribute applications and data.\\
+\begin{itemize}
+  \item 2 type of floppies
+  \item general working (reading electromagnatic schijf)
+  \item Reading from floppy (incl controller)
+\end{itemize}
+
+
 
 
 

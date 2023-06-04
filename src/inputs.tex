@@ -35,7 +35,7 @@ A driver has to be loaded at startup for the mouse to be accessible. DOS did not
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/mouse.sys.c}
 \end{minipage}
-The driver takes almost 5KiB of RAM. With the driver loaded all interactions happen with software interrupt \cw{0x33}. The interface works with requests issued in register AX and responses issued in registers CX, BX and DX. With Borland compiler syntactic sugar it is easy to write with almost no boilerplate (notice direct access to registers thanks to \_AX and co special keywords).\\
+The driver takes almost 5KiB of RAM. With the driver loaded all interactions happen with software interrupt \cw{0x33}. The interface works with requests issued in register AX\footnote{For a full overview of all mouse interrupt function, see https://www.stanislavs.org/helppc/int\_33.html.} and responses issued in registers CX, BX and DX. With Borland compiler syntactic sugar it is easy to write with almost no boilerplate (notice direct access to registers thanks to \_AX and co special keywords).\\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/mouse_request.c}
@@ -54,13 +54,83 @@ AX=3 & Mouse Position & CX = X Coordinate, DX = Y Coordinate\\
 AX=3 & Mouse Buttons & BX = 1 Left Pressed, BX = 2 Right Pressed, BX = 3 Center Button Pressed\\
 AX=7 & Set Horizontal Limit & CX=MaxX1 DX=MaxX2\\
 AX=8 & Set Vertical Limit & CX=MaxY1 DX=MaxY2\\
-AX=11 & Read Mouse Motion Counters & CX = horizontal mickey\footnote{values are 1/200 inch intervals (1/200 in. = 1 mickey)} count, DX = vertical mickey count\\
+AX=11 & Read Mouse Motion Counters & CX = horizontal mickey count\protect\footnotemark, DX = vertical mickey count\\
 \bottomrule
 \end{tabularx}
 \caption{Mouse request/response.}
 \end{figure}
 \end{minipage}
 \par
+
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{values are 1/200 inch intervals (1 mickey = 1/200 in.).}
+
+\subsection{Joystick}
+All interactions with the joystick happen over I/O port \cw{0x201}. Two joysticks can be chained together and the state of both of them fits in a byte.\\ 
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/joystick.c}
+\end{minipage}
+\par
+
+
+
+\begin{figure}[H]
+\centering
+\begin{tabularx}{\textwidth}{ >{\hsize=.5\hsize}X X  }
+  \toprule
+  \textbf{Bit Number} & \textbf{Meaning} \\ \bottomrule
+0 & Joystick A, X Axis \\
+1 & Joystick A, Y Axis \\
+2 & Joystick B, X Axis \\ 
+3 & Joystick B, Y Axis \\
+4 & Joystick A, Button 1 \\
+5 & Joystick A, Button 2 \\
+6 & Joystick B, Button 1 \\
+7 & Joystick B, Button 2 \\
+\bottomrule
+\end{tabularx}
+\caption{Joystick sampling bits and their meaning.}
+\end{figure}
+\par
+The API looks clean at first, with each button associated with a bit indicating whether it is pressed or not. But if you take a closer look you will notice there is only one bit of information per axis, which is not enough to encode the position of a stick. This bit is actually a flag allowing an analog input to be converted into a digital value. To better understand, let's dive into details.\\
+\par On the joystick side, each axis is connected to a 100k$\Omega$ potentiometer. An applied 5V voltage generates a variable current based on the stick position (from Ohm's law where $I = \frac{V}{R}$).\\ 
+\par
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{imgs/drawings/joystick_potentiometers.eps}
+\caption{Two joysticks and the four potentiometers connected to the game port pins.}
+\end{figure}
+\par
+On the joystick side each pin carrying the current is connected to monostable multivibrators (which is a complicated name for a capacitor able to output 1 when it is charged and 0 when it is charging). The idea is to infer the position of the stick by measuring how long the vibrator takes to charge (a strong current will charge the capacitor faster than a weak current).\\
+\par
+\par
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{imgs/drawings/joystick_gamecontroller.eps}
+\caption{Each potentiometer is connected to a capacitor able to output either 0 or 1 depending on its charging state.}
+\end{figure}
+\par
+On the CPU side, retrieving the stick position is a three-step process:
+
+\begin{enumerate}
+ \item Write \circled{W} any value to I/O port \cw{201h}. This will discharge all capacitors.
+ \item Initialize a counter to zero and read \circled{R} from \cw{201h}. At first all bits 0-4 will be equal to zero.
+ \item Loop forever (or until counter == 0xFFFF as a safety measure) increase counter on each iteration. Save the counter value for each bit when it is flipped to 1.
+\end{enumerate}
+\par
+On a 286 CPU the counter value can range from 7 to 900 depending on the stick/capacitor position. On a 386 CPU, which will run loops faster, these values would be higher. Hence the values measured can only be translated to a stick position if they are compared to a min and a max.\\
+\par 
+This explains why joysticks have to be calibrated. For the flight simulators of the 90s where accurate position was needed, the player would be asked to put the joystick in upper-left position (to set the potentiometers on both axis to minimum resistance) and press a button to read the "loop count". The player would then repeat the operation at the lower right position so that the system  would know the min and max "loop count" for this joystick/CPU combination.\footnote{The Mark-1 FCS by Thrustmaster and Flightstick Pro by CH were the best flight controllers of the 90s. They used all bits for one controller, offering a device with four buttons with the extra two axes serving as a four-way view hat.}\\
+\par
+\begin{figure}[H]
+\centering
+\fullimage{joystick_calibration.png}
+\caption{Strike Commander startup screen makes you calibrate your joystick.}
+\end{figure}
+\par
+There is no calibration process in Commander Keen because when the engine starts up it samples the loop count and assumes the joystick is in neutral position. When the game runs and joystick position is needed, the engine samples loop count and compares the count to what was measured with neutral. It is not enough to calculate the exact stick position on each axis but it is enough to determine up/down and left/right using >, == (with epsilon) and < comparison operations.
 
 
 
