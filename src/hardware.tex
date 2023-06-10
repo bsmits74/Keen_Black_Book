@@ -791,11 +791,18 @@ In the time before the internet, a floppy disk was the best medium to share and 
   \end{figure}
 \par
 
+
+A floppy disk is essentially a very flexible piece (hence the term floppy disk) of plastic coated on both sides in a magnetic material. This 'disk' of plastic is contained within a protective envelope or hard plastic case, which is then inserted into the drive and automatically locked onto a spindle. It is then rotated at a constant speed, 360 rpm for standard PC floppy drives. A head assembly consisting of two magnetic read/write heads, one in contact with the upper surface and one in contact with the lower surface of the disk, may be moved in discrete steps across the disk and read the data from the disk.\\
+\par
+The floppy disk is controlled via the Floppy Disk Controller (FDC), a typical read operation from the floppy disk contains the following steps:
 \begin{itemize}
-  \item general working (reading electromagnatic schijf)
-  \item Reading from floppy (incl controller)
+  \item Turn the disk motor on. When you turn a floppy drive motor on, it takes quite a few milliseconds to "spin up", to reach the (stabilized) speed needed for data transfer.
+  \item Perform seek operation, which moves the head to the correct location for reading the data.
+  \item Read the data from the floppy disk and store the data via the FDC to RAM memory.
+  \item Turn the disk motor off. 
 \end{itemize}
 
+You typically should wait a few seconds before turning the motor off. The reason to leave the motor on for a few seconds is that your driver may not know if there is a queue of sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
 
 
 

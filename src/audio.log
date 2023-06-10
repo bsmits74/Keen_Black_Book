@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  24 MAY 2023 21:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  10 JUN 2023 17:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1600,6 +1600,15 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count360
 \calc@Cskip=\skip175
 )
+(/usr/share/texlive/texmf-dist/tex/latex/tablefootnote/tablefootnote.sty
+Package: tablefootnote 2014/01/26 v1.1c Table foot notes (HMM)
+
+(/usr/share/texlive/texmf-dist/tex/latex/xifthen/xifthen.sty
+Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
+
+(/usr/share/texlive/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
+Package: ifmtarg 2009/09/02 v1.2a check for an empty argument
+)))
 \celldim=\skip176
 \fontheight=\skip177
 \extraheight=\skip178
@@ -1836,12 +1845,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--68
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 72--73
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
 
  []
 
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 75--76
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 71.
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) [3]
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 73.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
+File: omsphv.fd 
+)
+LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 73.
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--79
 
  []
 
@@ -1852,100 +1872,112 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 78.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 78.
+nput line 82.
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) (./code/set_timer.c)
-Underfull \hbox (badness 10000) in paragraph at lines 77--80
+(./code/disk_motor.c)
+Underfull \hbox (badness 10000) in paragraph at lines 81--84
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
+Underfull \hbox (badness 10000) in paragraph at lines 88--89
 
  []
 
-(./code/set_sound_mode.c) [4]
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
 
  []
 
-(./code/timecount.c) [5]
-Underfull \hbox (badness 10000) in paragraph at lines 114--115
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
+(./code/set_timer.c)
+Underfull \hbox (badness 10000) in paragraph at lines 93--96
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--121
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
 
  []
 
-(./code/sound1.h) (./code/sound.h) [6]
-Underfull \hbox (badness 10000) in paragraph at lines 131--132
+(./code/set_sound_mode.c) [5]
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
+
+ []
+
+(./code/timecount.c) [6]
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 142--143
+Underfull \hbox (badness 10000) in paragraph at lines 132--133
 
  []
 
-(./code/muse_header.c) [7]
-Overfull \vbox (1.85622pt too high) has occurred while \output is active []
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--137
+
+ []
+
+(./code/sound1.h) (./code/sound.h) [7]
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
+
+ []
 
 
-[8]
 Underfull \hbox (badness 10000) in paragraph at lines 158--159
 
  []
 
+(./code/muse_header.c) [8]
+Overfull \vbox (1.85622pt too high) has occurred while \output is active []
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--161
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--163
-
- []
-
-(./code/audio_ports.c)
-Underfull \hbox (badness 10000) in paragraph at lines 168--169
-
- []
-
-(./code/adlib_wait.c) [9]
 Underfull \hbox (badness 10000) in paragraph at lines 178--179
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 181--182
+(./code/audio_ports.c)
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
-<imgs/drawings/pwm/sinuois.png, id=250, 872.25874pt x 95.35625pt>
+(./code/adlib_wait.c) [10]
+Underfull \hbox (badness 10000) in paragraph at lines 194--195
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+
+ []
+
+<imgs/drawings/pwm/sinuois.png, id=281, 872.25874pt x 95.35625pt>
 File: imgs/drawings/pwm/sinuois.png Graphic file (type png)
 <use imgs/drawings/pwm/sinuois.png>
-Package pdftex.def Info: imgs/drawings/pwm/sinuois.png  used on input line 187.
+Package pdftex.def Info: imgs/drawings/pwm/sinuois.png  used on input line 203.
 
 (pdftex.def)             Requested size: 375.80377pt x 41.0824pt.
-[10]
-<imgs/drawings/pwm/pwm_approximation.png, id=283, 872.25874pt x 57.21375pt>
+[11]
+<imgs/drawings/pwm/pwm_approximation.png, id=313, 872.25874pt x 57.21375pt>
 File: imgs/drawings/pwm/pwm_approximation.png Graphic file (type png)
 <use imgs/drawings/pwm/pwm_approximation.png>
 Package pdftex.def Info: imgs/drawings/pwm/pwm_approximation.png  used on input
- line 195.
+ line 211.
 (pdftex.def)             Requested size: 375.80377pt x 24.64943pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 200--201
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
@@ -1958,66 +1990,60 @@ pdf>
 (epstopdf)                    size: 11639 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/pc_speaker-e
 ps-converted-to.pdf imgs/drawings/pc_speaker.eps>
-(epstopdf)             \includegraphics on input line 204.
+(epstopdf)             \includegraphics on input line 220.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/pc_speaker-eps-converted-to.pdf)
 : PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/pc_speaker-eps-converted-to.pdf, id=284, 597.23125pt x 460.72125
+<imgs/drawings/pc_speaker-eps-converted-to.pdf, id=314, 597.23125pt x 460.72125
 pt>
 File: imgs/drawings/pc_speaker-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/pc_speaker-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/pc_speaker-eps-converted-to.pdf  used on
- input line 204.
+ input line 220.
 (pdftex.def)             Requested size: 244.27016pt x 188.43997pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 210--211
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
 
  []
 
-[11 <./imgs/drawings/pwm/sinuois.png> <./imgs/drawings/pwm/pwm_approximation.pn
+[12 <./imgs/drawings/pwm/sinuois.png> <./imgs/drawings/pwm/pwm_approximation.pn
 g> <./imgs/drawings/pc_speaker-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 228--229
+Underfull \hbox (badness 10000) in paragraph at lines 244--245
 
  []
 
 (./code/pwm.c)
-Underfull \hbox (badness 10000) in paragraph at lines 235--236
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
  []
 
-(./code/pwm_code.c) [12]
-Underfull \hbox (badness 10000) in paragraph at lines 243--244
+(./code/pwm_code.c) [13]
+Underfull \hbox (badness 10000) in paragraph at lines 259--260
 
  []
 
-(./code/pcSoundLookup.c) [13]
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 251.
-
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
-File: omsphv.fd 
-)
-LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 251.
- [14]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 261.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 261.
+(./code/pcSoundLookup.c) [14] [15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 277.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 277.
  (./audio.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 261.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 261.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 277.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 277.
  ) 
 Here is how much of TeX's memory you used:
- 48995 strings out of 494880
- 1051069 string characters out of 6179601
- 1432260 words of memory out of 5000000
- 51228 multiletter control sequences out of 15000+600000
+ 49149 strings out of 494880
+ 1053770 string characters out of 6179601
+ 1434788 words of memory out of 5000000
+ 51341 multiletter control sequences out of 15000+600000
  563169 words of font info for 54 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 91i,12n,132p,10466b,1157s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.8} has been referenced but does not exi
+ 91i,12n,132p,10466b,1153s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{Hfootnote.9} has been referenced but does not exi
 st, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.8} has been referenced but does not exist
+, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.7} has been referenced but does not exist
 , replaced by a fixed one
@@ -2047,10 +2073,10 @@ ist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/hel
 vetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8
 a.pfb>
-Output written on audio.pdf (14 pages, 135319 bytes).
+Output written on audio.pdf (16 pages, 140800 bytes).
 PDF statistics:
- 533 PDF objects out of 1000 (max. 8388607)
- 395 compressed objects within 4 object streams
- 236 named destinations out of 1000 (max. 500000)
+ 575 PDF objects out of 1000 (max. 8388607)
+ 431 compressed objects within 5 object streams
+ 262 named destinations out of 1000 (max. 500000)
  210 words of extra memory for PDF output out of 10000 (max. 10000000)
 

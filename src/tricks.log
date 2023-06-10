@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  4 JUN 2023 14:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  10 JUN 2023 17:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1600,6 +1600,15 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count360
 \calc@Cskip=\skip175
 )
+(/usr/share/texlive/texmf-dist/tex/latex/tablefootnote/tablefootnote.sty
+Package: tablefootnote 2014/01/26 v1.1c Table foot notes (HMM)
+
+(/usr/share/texlive/texmf-dist/tex/latex/xifthen/xifthen.sty
+Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
+
+(/usr/share/texlive/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
+Package: ifmtarg 2009/09/02 v1.2a check for an empty argument
+)))
 \celldim=\skip176
 \fontheight=\skip177
 \extraheight=\skip178
@@ -1902,10 +1911,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 49186 strings out of 494880
- 1051771 string characters out of 6179601
- 1537840 words of memory out of 5000000
- 51537 multiletter control sequences out of 15000+600000
+ 49293 strings out of 494880
+ 1053807 string characters out of 6179601
+ 1540410 words of memory out of 5000000
+ 51632 multiletter control sequences out of 15000+600000
  566059 words of font info for 56 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,11n,132p,10467b,1574s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1919,7 +1928,7 @@ st/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helv
 etic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a
 .pfb>
-Output written on tricks.pdf (6 pages, 102128 bytes).
+Output written on tricks.pdf (6 pages, 100927 bytes).
 PDF statistics:
  359 PDF objects out of 1000 (max. 8388607)
  239 compressed objects within 3 object streams
