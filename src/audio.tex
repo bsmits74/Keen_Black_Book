@@ -66,12 +66,13 @@ Notice \#8 which is associated with the System timer and usually updates the ope
 \par
 Using these two chips and placing its own function at Interrupt Vector Table (IVT) \#8, the engine can stop its runtime at a regular interval, effectively implementing a subsystem running concurrently with everything else.\\
 \par
-IVT \#8 is also responsible for turning off the floppy disk motor after a disk read or write operation. But since IVT \#8 is hijacked, the floppy disk motor keeps running forever. Although this is not an issue, it might give the user the idea that the floppy is still transferring data.\\
+IVT \#8 is also responsible for turning off the floppy disk motor after a disk read or write operation. The timer interrupt maintains a disk motor shutoff counter which is decreased every time the timer interupt is called. When the counter reaches 0, the interrupt timer shuts off the disk motor. But since IVT \#8 is hijacked, this function is never called and the floppy disk motor keeps running forever. Although this is not an issue, it might give the user the idea that the floppy is still transferring data.\\
 \par
-Everytime the timer interrupt calls the subsytem, there is a check if any of the disk motors is still running. Checking the status of the disk motors can be done via the BIOS Data area, which is a section of memory located at segment \cw{0040h} and stores many variables indicating information about the state of the computer\footnote{For a full overview of BIOS Data Area see https://www.stanislavs.org/helppc/bios\_data\_area.html.}. Relevant BIOS data addresses for checking the disk motor are
+
+So solve the problem, the timer interrupt subsytem performs a check if any of the disk motors is still running. Checking the status of the disk motors can be done via the BIOS Data area, which is a section of memory located at segment \cw{0040h} and stores many variables indicating information about the state of the computer\footnote{For a full overview of BIOS Data Area see https://www.stanislavs.org/helppc/bios\_data\_area.html.}:
 \begin{itemize}
   \item BIOS data address \cw{40h:3Fh} contains the motor status, where bit 0 flags if the disk 1 motor is on and bit 1 if disk 2 motor is on.
-  \item BIOS data address \cw{40h:40h} holds the disk motor shutoff counter. It is decremented by the original timer interrupt and once the value reaches 0 the disk motor will be shut down.
+  \item BIOS data address \cw{40h:40h} holds the disk motor shutoff counter, used by the original timer interrupt.
 \end{itemize}
 
 The interrupt subsystem validates if any of the two disk motors is runnning and then checks and decrements the disk motor shutoff counter. In case the shutoff counter is 0 or 1 the original timer interrupt is being called, until both disk motors are turned off.

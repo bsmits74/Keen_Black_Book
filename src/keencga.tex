@@ -1,0 +1,40 @@
+ \documentclass[book.tex]{subfiles}
+\begin{document}
+
+The original Commander Keen, Commander Keen in Invasion of the Vorticons, was only released for the EGA videocard. Keen Dreams and later versions included a CGA version as well. The game play was exactly the same, sounds were the same, it was just that the graphics were CGA. Before diving into  the source code, let's first get a better understanding of the CGA video hardware.\\
+
+
+\begin{figure}[H] 
+  \centering 
+  \scaledimage{1.0}{game/Keen_EGA_CGA.png} 
+  \caption{Keen Dreams EGA and CGA version.}
+\end{figure}
+
+\par
+\textbf{\underline{Trivia :}} It's an ironic twist that Softdisk did not use the original Keen's engine, as the code violated the company policy by depending on 16-color EGA hardware without supporting older 4-color CGA cards!\\
+\par
+
+
+ 
+
+\section{CGA Videocard}
+The Color Graphics Adapter (CGA), originally also called the Color/Graphics Adapter or IBM Color/Graphics Monitor Adapter,introduced in 1981, was IBM's first color graphics card for the IBM XT.\\
+\par
+The CGA card can be summarized by the following hardware:
+\begin{itemize}
+  \item It was built around the Motorola 6845 display controller.
+  \item The framebuffer (the VRAM) contained two memory banks of 8 kilobytes each, resulting in 16 kilobytes total.
+  \item Character generator ROM, containing a 14-row font and two 8x8 fonts.
+\end{itemize}
+
+\begin{figure}[H] 
+  \centering 
+  \scaledimage{1.0}{hardware/IBM-CGA.jpg} 
+  \caption{The CGA is a full-length 8-bit ISA card.}
+\end{figure}
+
+
+\section{TO BE INCLULDED}
+The organization of the memory, 16K bytes by 8 bits, gave rise to one of the problems of CGA: In 80-column text mode, the adapter had to fetch 160 bytes per line- 80 characters and 80 attributes- leaving no time for the processor to read from or write to the display. Any program that went directly to the display memory quickly filled the screen with "snow." The read and write routines in the BIOS waited for horizontal retrace before accessing the memory. The scroll routine in the BIOS, which had to move lots of data, simply turned off the display, did the move, and then turned the display back on. There was a noticeable blink as the screen scrolled, but it was less objectionable than the blizzard that would have occurred otherwise.
+
+\end{document}
