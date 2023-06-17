@@ -478,7 +478,7 @@ Four memory banks grant enough throughput to reach high resolutions at 60Hz. How
 \par
 The first problem with this design is that it is unintuitive. There is no linear framebuffer and figuring out which byte corresponds to which pixel on screen is difficult.\\
 \par
- This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single colour. For EGA there are 4 planes: Red, Green, Blue and Intensity (RGBI). For example, if a bit is set in the blue plane as well as the red plane, that pixel will appear purple on-screen. Each of these banks is mapped to the same UMA memory address. This layout is better explained with a drawing.\\
+ This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single colour. For EGA there are 4 planes: Red, Green, Blue and Intensity (RGBI). For example, if a bit is set in the blue plane as well as the red plane, that pixel will appear purple on-screen. In total this results in 2\textsuperscript{4}=16 colors. Each of these banks is mapped to the same UMA memory address. This layout is better explained with a drawing.\\
 \par
 \begin{figure}[H]
 \centering
