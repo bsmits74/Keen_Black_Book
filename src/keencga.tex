@@ -33,7 +33,7 @@ The CGA card can be summarized by the following hardware:
   \caption{The CGA is a full-length 8-bit ISA card.}
 \end{figure}
 
-The CGA card contained the following modes:\\
+The CGA card has the following text and graphics modes:\\
 \vspace{-10pt}
 \begin{figure}[H]
 \centering
@@ -55,25 +55,60 @@ The CGA card contained the following modes:\\
 \label{ega-modes-available}
  \end{figure} 
 
-In the graphics mode 4, which is used by Commander Keen, each pixel is using 2 bits for color, resulting in only 4 colors could be displayed at a time. These four colors could not be freely chosen from the 16 CGA colors, there were only two official palettes for this mode:
+In the graphics mode 4, which is used by Commander Keen, each pixel is using 2 bits for color, resulting in only four colors being displayed at a time. These four colors could not be freely chosen from the 16 CGA colors, there were only two official palettes for this mode:
 \begin{enumerate}
   \item Magenta, cyan, white and background colour (black by default).
   \item Red, green, brown/yellow and background colour (black by default).
 \end{enumerate}
 The background color could be any of the 16 colors, but often it was kept black. For each mode there is a high- and low-intensity version of the palette.\\
 
-SHOW PALETTE\\
-SHOW CODE TO SELECT PALETTE\\
+\begin{figure}[H]
+\centering
+\begin{table}[H]
+\begin{tabularx}{\textwidth}[c]{|>{\hsize=.24\hsize}X |>{\hsize=.24\hsize}X |>{\hsize=.24\hsize}X |>{\hsize=.28\hsize}X |}
+\hline
+\multicolumn{2}{|c|}{\textbf{\color{black}Palette 1}} & \multicolumn{2}{|c|}{\textbf{\color{black}Palette 2}} 	\\ 
+\hline
+\textbf{\color{black} low intensity} & \textbf{\color{black} high intensity} & \textbf{\color{black} low intensity} & \textbf{\color{black} high intensity} \\
+\color{white}\cellcolor{CGA_Black}0 - Background & \color{white}\cellcolor{CGA_Black} - Background &\color{white}\cellcolor{CGA_Black}0 - Background & \color{white}\cellcolor{CGA_Black}0 - Background \\
+
+\color{black}\cellcolor{CGA_Green}2 - Green & \color{black}\cellcolor{CGA_Bright_Green}10 - Bright Green &\color{black}\cellcolor{CGA_Cyan}3 - Cyan & \color{black}\cellcolor{CGA_Bright_Cyan}11 - Bright Cyan \\
+
+\color{black}\cellcolor{CGA_Red}4 - Red & \color{black}\cellcolor{CGA_Bright_Red}12 - Bright Red &\color{black}\cellcolor{CGA_Magenta}5 - Magenta & \color{black}\cellcolor{CGA_Bright_Magenta}13 - Bright Magenta \\
+
+\color{black}\cellcolor{CGA_Brown}6 - Brown & \color{black}\cellcolor{CGA_Bright_Brown}14 - Yellow &\color{black}\cellcolor{CGA_Light_Grey}7 - Bright Grey & \color{black}\cellcolor{CGA_White}15 - White \\
+\hline
+
+\end{tabularx}
+\end{table}
+\caption{CGA color palettes.}
+\label{default_ega_palette}
+ \end{figure}
+ 
+The default palette when switching to Mode 4 is palette 2 with high intensity, which is used by Commander Keen. Beside the limiation in number of colors, there are several other challenges to overcome:
+\begin{itemize}
+  \item The display memory was interlaced.
+  \item The display memory was not sufficient to support double buffering. 
+\end{itemize}
+  
 
 
-
-In Commander Keen video mode 4 was used, with the palettee....
-
-\section {CGA Complications}
+\subsection {Memory architecture and Interlacing}
 The first complication of CGA is that the display memory in graphics modes was interlaced. Normally, video memory is strictly linear: the next row of display data corresponds to the next row of pixels. But with CGA, the next row of display data corresponded to the row of pixels two rows down. This continued until the end of the screen and only with the second half of display data were the in-between rows addressed. So the first half of display memory was for rows 0, 2, 4, etc., until the end of the screen and the second half of CGA RAM was for rows 1, 3, 5, etc. This added calculation steps to most CGA graphics operations if the programmer wanted to avoid visual artifacts when updating the screen.\\
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{imgs/drawings/cga_interlace.eps}
+\caption{CGA interlaced memory.}
+\label{fig:cga_interlaced}
+\end{figure}
+
 \par
-Another complication of CGA is the size of VRAM. Each graphics modes requires all 16KiB of memory, so it is not possible to have double buffering in VRAM. 
+Another complication of CGA is the size of VRAM. Each graphics modes requires all 16KiB of memory, so it is not possible to have double buffering in VRAM. \\
+
+
+\subsection{Double buffering}
+
 
 
 \section{TO BE INCLULDED}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.5.30)  1 JUN 2023 20:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  17 JUN 2023 19:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1600,6 +1600,15 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count360
 \calc@Cskip=\skip175
 )
+(/usr/share/texlive/texmf-dist/tex/latex/tablefootnote/tablefootnote.sty
+Package: tablefootnote 2014/01/26 v1.1c Table foot notes (HMM)
+
+(/usr/share/texlive/texmf-dist/tex/latex/xifthen/xifthen.sty
+Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
+
+(/usr/share/texlive/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
+Package: ifmtarg 2009/09/02 v1.2a check for an empty argument
+)))
 \celldim=\skip176
 \fontheight=\skip177
 \extraheight=\skip178
@@ -2675,10 +2684,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 50419 strings out of 494880
- 1076224 string characters out of 6179601
- 1430258 words of memory out of 5000000
- 52364 multiletter control sequences out of 15000+600000
+ 50526 strings out of 494880
+ 1078255 string characters out of 6179601
+ 1432848 words of memory out of 5000000
+ 52459 multiletter control sequences out of 15000+600000
  570548 words of font info for 59 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,12n,132p,10472b,1533s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2698,7 +2707,7 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/u
 hvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on software_2d.pdf (42 pages, 2418831 bytes).
+Output written on software_2d.pdf (42 pages, 2418841 bytes).
 PDF statistics:
  1100 PDF objects out of 1200 (max. 8388607)
  823 compressed objects within 9 object streams
