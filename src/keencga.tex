@@ -85,16 +85,16 @@ The background color could be any of the 16 colors, but often it was kept black.
 \label{default_ega_palette}
  \end{figure}
  
-The default palette when switching to Mode 4 is palette 2 with high intensity, which is used by Commander Keen. Beside the limiation in number of colors, there are several other challenges to overcome:
-\begin{itemize}
-  \item The display memory was interlaced.
-  \item The display memory was not sufficient to support double buffering. 
-\end{itemize}
-  
+The default palette when switching to Mode \cw{04h} is palette 2 with high intensity, which is used by Commander Keen.  
 
 
 \subsection {Memory architecture and Interlacing}
-The first complication of CGA is that the display memory in graphics modes was interlaced. Normally, video memory is strictly linear: the next row of display data corresponds to the next row of pixels. But with CGA, the next row of display data corresponded to the row of pixels two rows down. This continued until the end of the screen and only with the second half of display data were the in-between rows addressed. So the first half of display memory was for rows 0, 2, 4, etc., until the end of the screen and the second half of CGA RAM was for rows 1, 3, 5, etc. This added calculation steps to most CGA graphics operations if the programmer wanted to avoid visual artifacts when updating the screen.\\
+ 
+The CGA memory layout in graphics mode is different compared to EGA, as it is based on interlaced architecture.
+Normally, video memory is strictly linear: the next row of display data corresponds to the next row of pixels. But with CGA, the next row of display data corresponded to the row of pixels two rows down. This continued until the end of the screen and only with the second half of display data were the in-between rows addressed. So VRAM bank 0 was for even rows 0, 2, 4, etc., until the end of the screen and VRAM bank 1 was for odd rows 1, 3, 5, etc. This added calculation steps to most CGA graphics operations if the programmer wanted to avoid visual artifacts when updating the screen.\\
+
+
+
 
 \begin{figure}[H]
 \centering
@@ -103,11 +103,18 @@ The first complication of CGA is that the display memory in graphics modes was i
 \label{fig:cga_interlaced}
 \end{figure}
 
+
 \par
-Another complication of CGA is the size of VRAM. Each graphics modes requires all 16KiB of memory, so it is not possible to have double buffering in VRAM. \\
+The CGA card is also making use of memory mapping, just like EGA. In mode \cw{04h}, the VRAM bank 0 is mapped from 0xB0000 to 0xB1FFF and VRAM bank 1 is mapped from 0xB2000 to 0xB3FFF. Unlike EGA, the CGA memory model doesn't require masking as the total 16KiB VRAM fits easy in a 64KiB memory segment.\\ 
+
+\par
+\textbf{\underline{Trivia :}} Interesting enough, interlacing is never really implemented in CGA. When displaying the VRAM to screen it does a progressive (lineair) scan, where it alternately reads from bank 0 and bank 1.\\
+\par
 
 
 \subsection{Double buffering}
+A full picture in mode \cw{04h} requires 320 pixels * 2 bits per pixel * 200 lines = 16,000 bytes of memory. So the main screen requires all 16KiB memory and there is no capacity in VRAM for extra screens.   \\
+
 
 
 
