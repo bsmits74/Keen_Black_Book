@@ -300,6 +300,7 @@ To take full advantage of this optimization, the refresh algoritm maintains a li
 
 
 \subsection{Wrap around the EGA Memory}
+\label{section:wrap_ega_memory}
 In the later versions of Commander Keen, John Carmack explored what would happen if you push the virtual screen over de 64kB, or \cw{0xFFFF}, border in video memory. It turned out that the EGA continues the virtual screen at \cw{0x0000}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
 \par
 \begin{figure}[H]
