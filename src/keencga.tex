@@ -139,6 +139,14 @@ With the double buffering in place, the same algoritm as implemented for EGA can
 \par
 The second complication is tranforming the lineair buffer layout to the interlace VRAM layout. 
 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{imgs/drawings/cga_VRAM_copy.eps}
+\caption{CGA memory to VRAM copy.}
+\label{fig:cga_interlaced}
+\end{figure}
+
 \section{TO BE INCLULDED}
 The organization of the memory, 16K bytes by 8 bits, gave rise to one of the problems of CGA: In 80-column text mode, the adapter had to fetch 160 bytes per line- 80 characters and 80 attributes- leaving no time for the processor to read from or write to the display. Any program that went directly to the display memory quickly filled the screen with "snow." The read and write routines in the BIOS waited for horizontal retrace before accessing the memory. The scroll routine in the BIOS, which had to move lots of data, simply turned off the display, did the move, and then turned the display back on. There was a noticeable blink as the screen scrolled, but it was less objectionable than the blizzard that would have occurred otherwise.
 
