@@ -12,9 +12,9 @@
 \contentsline {subsection}{\numberline {2.3.2}History of Video Adapters}{29}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}EGA Architecture}{31}{subsection.2.3.3}
 \contentsline {subsection}{\numberline {2.3.4}EGA Planar Madness}{32}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}EGA Modes}{34}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.5}EGA Modes}{35}{subsection.2.3.5}
 \contentsline {subsection}{\numberline {2.3.6}EGA compatibility with 200-line CGA modes}{35}{subsection.2.3.6}
-\contentsline {subsection}{\numberline {2.3.7}EGA Color Palette}{35}{subsection.2.3.7}
+\contentsline {subsection}{\numberline {2.3.7}EGA Color Palette}{36}{subsection.2.3.7}
 \contentsline {subsection}{\numberline {2.3.8}EGA Programming: Memory Mapping}{37}{subsection.2.3.8}
 \contentsline {subsubsection}{\numberline {2.3.8.1}Setup}{39}{subsubsection.2.3.8.1}
 \contentsline {subsection}{\numberline {2.3.9}The Importance of Double-Buffering}{39}{subsection.2.3.9}
@@ -57,17 +57,18 @@
 \contentsline {subsection}{\numberline {4.6.7}Input Manager (IN)}{104}{subsection.4.6.7}
 \contentsline {subsection}{\numberline {4.6.8}Softdisk files}{104}{subsection.4.6.8}
 \contentsline {section}{\numberline {4.7}Startup}{105}{section.4.7}
-\contentsline {section}{\numberline {4.8}Action Phase: Adaptive Tile Refreshment}{106}{section.4.8}
+\contentsline {section}{\numberline {4.8}Action Phase: Smooth scrolling}{106}{section.4.8}
 \contentsline {subsection}{\numberline {4.8.1}EGA Virtual Screen}{108}{subsection.4.8.1}
 \contentsline {subsection}{\numberline {4.8.2}Horizontal Pel Panning}{109}{subsection.4.8.2}
 \contentsline {subsection}{\numberline {4.8.3}Smooth scrolling: Bring it all together}{110}{subsection.4.8.3}
 \contentsline {section}{\numberline {4.9}View Port and Buffer setup}{112}{section.4.9}
 \contentsline {section}{\numberline {4.10}Virtual screen buffer}{113}{section.4.10}
-\contentsline {section}{\numberline {4.11}Life of a 2D Frame}{114}{section.4.11}
-\contentsline {subsection}{\numberline {4.11.1}Adaptive tile refreshment in Commander Keen 1-3}{115}{subsection.4.11.1}
-\contentsline {subsection}{\numberline {4.11.2}Optimize tile updates}{122}{subsection.4.11.2}
-\contentsline {subsection}{\numberline {4.11.3}Wrap around the EGA Memory}{123}{subsection.4.11.3}
-\contentsline {subsection}{\numberline {4.11.4}Scroll and screen refresh in Keen Dreams}{130}{subsection.4.11.4}
+\contentsline {section}{\numberline {4.11}Adaptive Tile Refreshment}{114}{section.4.11}
+\contentsline {subsection}{\numberline {4.11.1}Life of a 2D Frame}{114}{subsection.4.11.1}
+\contentsline {subsection}{\numberline {4.11.2}Adaptive tile refreshment in Commander Keen 1-3}{115}{subsection.4.11.2}
+\contentsline {subsection}{\numberline {4.11.3}Optimize tile updates}{122}{subsection.4.11.3}
+\contentsline {subsection}{\numberline {4.11.4}Wrap around the EGA Memory}{123}{subsection.4.11.4}
+\contentsline {subsection}{\numberline {4.11.5}Scroll and screen refresh in Keen Dreams}{130}{subsection.4.11.5}
 \contentsline {section}{\numberline {4.12}Actors and sprites}{137}{section.4.12}
 \contentsline {subsection}{\numberline {4.12.1}A.I.}{137}{subsection.4.12.1}
 \contentsline {subsection}{\numberline {4.12.2}Drawing Sprites}{138}{subsection.4.12.2}
@@ -88,5 +89,11 @@
 \contentsline {section}{\numberline {4.15}Tricks}{167}{section.4.15}
 \contentsline {subsection}{\numberline {4.15.1}Bouncing Flower}{167}{subsection.4.15.1}
 \contentsline {subsection}{\numberline {4.15.2}Pseudo Random Generator}{170}{subsection.4.15.2}
+\contentsline {subsection}{\numberline {4.15.3}Screen fades}{172}{subsection.4.15.3}
 \contentsline {chapter}{\numberline {5}Keen Dreams in CGA}{173}{chapter.5}
-\contentsline {section}{\numberline {5.1}CGA Videocard}{173}{section.5.1}
+\contentsline {section}{\numberline {5.1}CGA Videocard}{174}{section.5.1}
+\contentsline {section}{\numberline {5.2}Memory architecture and Interlacing}{176}{section.5.2}
+\contentsline {section}{\numberline {5.3}Double buffering}{177}{section.5.3}
+\contentsline {section}{\numberline {5.4}Screen refresh}{178}{section.5.4}
+\contentsline {chapter}{Appendices}{183}{section*.152}
+\contentsline {chapter}{\numberline {A}Dangerous Dave in Copyright Infringement}{185}{appendix.A}

@@ -1,7 +1,7 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
 
-\section{Action Phase: Adaptive Tile Refreshment}
+\section{Action Phase: Smooth scrolling}
 \label{section:adaptive_tile_refresh}
 After the player is done setting up the game, it is time for the scrolling engine to shine. On bitmapped displays without hardware scrolling like the EGA card, the entire screen have to be erased and redrawn in the slightly shifted position whenever the player moved in any direction. This would kill the CPU as you need to update all pixels of all four planes on the EGA card (remember the planar mapping of section \ref{section:EGA_Planar_Madness}?).\\ 
 
@@ -144,9 +144,13 @@ The page that is actually displayed at any given time is selected by setting the
 
 
 
-\section{Life of a 2D Frame}
-The approach of refreshing the screen is different between the first Commander Keen games, Commander Keen 1-3, and the ones after. In the first games the algoritm keeps the view and buffer screen at fixed VRAM locations, where it performs a check which tiles are changed after the scroll. In the later games, it makes use of the moving the VRAM location and add a full row or column at the beginning or end of the view port. 
-\\
+\section{Adaptive Tile Refreshment}
+The approach of refreshing the screen is different between the first Commander Keen games, Commander Keen 1-3, and the ones after. In the first games the algoritm keeps the view and buffer screen at fixed VRAM locations, where it performs a check which tiles are changed after the scroll. In the later games, it makes use of the moving the VRAM location and add a full row or column at the beginning or end of the view port. \\
+
+
+\subsection{Life of a 2D Frame}
+Here explain TimeStamp.
+
 \subsection{Adaptive tile refreshment in Commander Keen 1-3}
 In the this section we explain how the first 3 versions of the game are working\footnote{We can only explain how the algoritm is working without code examples, since the only released code is Keen Dreams which is using the improved algoritm.}. Six stages are involved in drawing a 2D scene:
 \begin{enumerate}

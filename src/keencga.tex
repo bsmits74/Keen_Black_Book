@@ -24,7 +24,7 @@ The CGA card can be summarized by the following hardware:
 \begin{itemize}
   \item It was built around the Motorola 6845 display controller.
   \item The framebuffer (the VRAM) contained two memory banks of 8 kilobytes each, resulting in 16 kilobytes total.
-  \item Character generator ROM, containing a 14-row font and two 8x8 fonts (same as used on the MDA videocard).
+  \item Character generator ROM, containing a 14-row font and two 8x8 fonts. This is the same ROM as used on the MDA videocard.
 \end{itemize}
 
 \begin{figure}[H] 
@@ -88,7 +88,7 @@ The background color could be any of the 16 colors, but often it was kept black.
 The default palette when switching to Mode \cw{04h} is palette 2 with high intensity, which is used by Commander Keen.  
 
 
-\subsection {Memory architecture and Interlacing}
+\section{Memory architecture and Interlacing}
  
 The CGA memory layout in graphics mode is different compared to EGA, as it is based on interlaced architecture.
 Normally, video memory is strictly linear: the next row of display data corresponds to the next row of pixels. But with CGA, the next row of display data corresponded to the row of pixels two rows down. This continued until the end of the screen and only with the second half of display data were the in-between rows addressed. So VRAM bank 0 was for even rows 0, 2, 4, etc., until the end of the screen and VRAM bank 1 was for odd rows 1, 3, 5, etc. This added calculation steps to most CGA graphics operations if the programmer wanted to avoid visual artifacts when updating the screen.\\
@@ -116,7 +116,7 @@ The CGA card is making use of memory mapping, just like EGA. In mode \cw{04h}, t
 \par
 
 
-\subsection{Double buffering}
+\section{Double buffering}
 A full picture in mode \cw{04h} requires 320 pixels * 2 bits per pixel * 200 lines = 16,000 bytes of memory. This means the display screen requires all 16KiB memory and there is no capacity in VRAM for extra screens. The only way to introduce double buffering on CGA is by creating a 64 KiB buffer in conventional memory.  \\
 \par
 \begin{minipage}{\textwidth}
@@ -134,11 +134,26 @@ The memory buffer contains both the buffer page and the static master page, each
 \label{fig:cga_screenseg}
 \end{figure}
 
-\subsection{Screen refresh}
-With the double buffering in place, the same algoritm as implemented for EGA can be used. The final step of the algoritm is updating the screen display by copying the buffer page to the VRAM. However, there are two complications with CGA. The first complication is that the CGA card does not support pixel panning. So the smoothest pixel scroll is equal to scroll the screen with one byte. Since one byte represents 4 pixels, it means scrolling to left or right is in steps of 4 pixels.\\
-\par
-The second complication is tranforming the lineair buffer layout to the interlace VRAM layout. 
+\section{Screen refresh}
+With the double buffering in place, the same algoritm as implemented for EGA can be used. The final step of the algoritm is updating the screen display by copying the buffer page to the VRAM. However, there are two complications with CGA.\\
 
+\par
+The first complication is that the CGA card does not support pixel panning. So the smoothest pixel scroll is equal to scroll the screen with one byte. Since one byte represents 4 pixels, it means scrolling to left or right is in steps of 4 pixels.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.3\textwidth]{imgs/drawings/CGA_Tile_Refresh.eps}
+\label{fig:cga_tile_panning}
+\end{figure}
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/cga_calc_origin.c}
+\end{minipage}
+\label{state_type}
+\par
+
+The second complication involves copying the RAM buffer to the interlaced VRAM. This requires to split the lineair memory buffer into copying all even rows to VRAM bank 0 and odd rows to VRAM bank 1.\\
 
 \begin{figure}[H]
 \centering
@@ -147,7 +162,18 @@ The second complication is tranforming the lineair buffer layout to the interlac
 \label{fig:cga_interlaced}
 \end{figure}
 
-\section{TO BE INCLULDED}
-The organization of the memory, 16K bytes by 8 bits, gave rise to one of the problems of CGA: In 80-column text mode, the adapter had to fetch 160 bytes per line- 80 characters and 80 attributes- leaving no time for the processor to read from or write to the display. Any program that went directly to the display memory quickly filled the screen with "snow." The read and write routines in the BIOS waited for horizontal retrace before accessing the memory. The scroll routine in the BIOS, which had to move lots of data, simply turned off the display, did the move, and then turned the display back on. There was a noticeable blink as the screen scrolled, but it was less objectionable than the blizzard that would have occurred otherwise.
+\par
+To avoid screen tearing the system should wait for a vertical retrace, like it was done with EGA. The problem is that computers weren't fast enough to copy all bytes from RAM buffer to VRAM during the vertical retrace period. So in the CGA version of Commander Keen, it was not possible to avoid screen tearing.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/cga_screen_refresh.c}
+\end{minipage}
+\label{cga_screen_refresh}
+\par
+
+\par
+The original IBM CGA card could not handle writing and reading VRAM at the same time. Because video memory on the IBM CGA isn't dual-ported, when the CPU and the video card need access to the same byte of video RAM, the CPU wins; the card ends up reading a random value, causing "snow" on the screen. The only way to avoid the snow was, also in the case, to wait for the vertical retrace. Most CGA clones resolved the issue by enabling read/write VRAM at the same time, but if one would play Commander Keen on the original IBM CGA card you experience both screen tearing and snow.\\
+\par
 
 \end{document}
