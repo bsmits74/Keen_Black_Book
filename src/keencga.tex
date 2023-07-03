@@ -109,7 +109,7 @@ Each pair of 2 bits is one pixel with a color value of 0-3, referring to the CGA
 
 
 \par
-The CGA card is making use of memory mapping, just like EGA. In mode \cw{04h}, the VRAM bank 0 is mapped from 0xB0000 to 0xB1FFF and VRAM bank 1 is mapped from 0xB2000 to 0xB3FFF. Unlike EGA, the CGA memory model doesn't require masking as the total 16KiB VRAM fits easy in a 64KiB memory segment.\\ 
+The CGA card is making use of memory mapping, just like EGA. In mode 4, the VRAM bank 0 is mapped from 0xB0000 to 0xB1FFF and VRAM bank 1 is mapped from 0xB2000 to 0xB3FFF. Unlike EGA, the CGA memory model doesn't require masking as the total 16KiB VRAM fits easily in a 64KiB memory segment.\\ 
 
 \par
 \textbf{\underline{Trivia :}} Interesting enough, interlacing is never really implemented in CGA. When displaying the VRAM to screen it does a progressive (lineair) scan, where it alternately reads from bank 0 and bank 1.\\
@@ -117,14 +117,14 @@ The CGA card is making use of memory mapping, just like EGA. In mode \cw{04h}, t
 
 
 \section{Double buffering}
-A full picture in mode \cw{04h} requires 320 pixels * 2 bits per pixel * 200 lines = 16,000 bytes of memory. This means the display screen requires all 16KiB memory and there is no capacity in VRAM for extra screens. The only way to introduce double buffering on CGA is by creating a 64 KiB buffer in conventional memory.  \\
+A full picture in mode 4 requires 320 pixels * 2 bits per pixel * 200 lines = 16,000 bytes of memory. This means the display screen requires all 16KiB memory and there is no capacity in VRAM for extra screens. The only way to introduce double buffering on CGA is by creating a 64 KiB buffer in conventional memory.  \\
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/cga_init_buffer.c}
 \end{minipage}
 \label{state_type}
 \par
-The memory buffer contains both the buffer page and the static master page, each has a logical with of 512 pixels wide. The buffer page starts at offset \cw{0x0000h} and the master page start at \cw{0x8000h}. Both pages float around in the 64KiB memory segment, making use of the same memory wrapping as explained in section \ref{section:wrap_ega_memory}.
+The memory buffer contains both the buffer page and the static master page. The buffer page starts at offset \cw{0x0000h} and the master page start at \cw{0x8000h}. Both pages float around in the 64KiB memory segment, making use of the same memory wrapping as explained in section \ref{section:wrap_ega_memory}.
 
 
 \begin{figure}[H]
@@ -173,7 +173,7 @@ To avoid screen tearing the system should wait for a vertical retrace, like it w
 \par
 
 \par
-The original IBM CGA card could not handle writing and reading VRAM at the same time. Because video memory on the IBM CGA isn't dual-ported, when the CPU and the video card need access to the same byte of video RAM, the CPU wins; the card ends up reading a random value, causing "snow" on the screen. The only way to avoid the snow was, also in the case, to wait for the vertical retrace. Most CGA clones resolved the issue by enabling read/write VRAM at the same time, but if one would play Commander Keen on the original IBM CGA card you experience both screen tearing and snow.\\
+The original IBM CGA card could not handle writing and reading VRAM at the same time. Because video memory on the IBM CGA isn't dual-ported, when the CPU and the video card need access to the same byte of video RAM, the CPU wins; the card ends up reading a random value, causing "snow" on the screen. The only way to avoid the snow was, also in this case, to wait for the vertical retrace. Most CGA clones resolved the issue by enabling read/write VRAM at the same time, but if one would play Commander Keen on the original IBM CGA card you experience both screen tearing and snow on the screen.\\
 \par
 
 \end{document}
