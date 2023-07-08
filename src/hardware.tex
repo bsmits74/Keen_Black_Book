@@ -552,11 +552,12 @@ Although EGA supported high resolutions like 640x350 pixels, it required an expe
 
   
 \subsection{EGA Color Palette}
+\label{sec:ega_color_palette}
 For each pixel a number index is derived from the 4 planes, representing a color number. The default color palette are all 16 CGA colors, but it allows substitution of each of these colors with any one from a total of 64 colors.\\
 
-When selecting a color from the EGA palette, two bits are used for the red, green and blue channels. This allows each channel a value of 0, 1, 2 or 3. To select the color magenta, the red and blue values would be medium intensity (2, or 10 in binary) and the green value would be off (0). When calculating the intended value in the 64-color EGA palette, the binary number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity and an uppercase letter is the most significant bit. For magenta, the most significant bit in the red and blue values is a 1, so the uppercase R and B placeholders would become 1. All other digits are zeros, giving the binary number 000101 for the color magenta. This is 5 in decimal, so setting a palette entry to 5 would result in it being set to magenta. All the color values for the default colors are listed in the table below.\\
+When calculating the intended value in the 64-color EGA palette, the binary number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity (\(\frac{1}{3}\) color intensity) and an uppercase letter is the most significant bit of intensity (\(\frac{2}{3}\) color intensity). The more intensity, the brighter the color is. For example, \cw{02h} will produce green, \cw{10h} will produce dim green and \cw{12h} will produce bright green. The color magenta is created by setting both "R" and "B", which is color code \cw{05h}. Each of the 16 color indexes could be reassigned to one color from the "rgbRGB" palette.\\
 
-However, standard EGA monitors do not support use of the extended color palette in 200-line modes. The monitor cannot distinguish between being connected to a CGA card or being connected to an EGA card in a 200-line mode. Compared to CGA, EGA redefines some pins of the connector to carry the extended color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. For this reason, standard EGA monitors will use the CGA pin assignment in 200-line modes so the monitor can also be used with a CGA card. To keep  CGA compatibility most video games did not take advantage of the color palette and kept the 16 standard CGA colors.\\
+However, standard EGA monitors did not support use of the extended color palette in 200-line modes. The monitor cannot distinguish between being connected to a CGA card or being connected to an EGA card in a 200-line mode. Compared to CGA, EGA redefines some pins of the DE-9 connector to carry the extended color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. For this reason, standard EGA monitors will use the CGA pin assignment in 200-line modes so the monitor can also be used with a CGA card. To keep CGA compatibility most video games did not take advantage of the color palette and kept the 16 standard CGA colors.\\
 
 
 \begin{figure}[H]
@@ -565,22 +566,22 @@ However, standard EGA monitors do not support use of the extended color palette 
 \begin{tabularx}{\textwidth}[c]{+X +X +X +X }
 \hline
 \textbf{\color{black}Index Number} & \textbf{\color{black}Color} & \textbf{\color{black}rgbRGB} & \textbf{\color{black}Decimal} 	\\ 
-\rowcolor{CGA_Black}\rowstyle{\color{white}} 0 & Black          & 000000           & 0   			\\ 
-\rowcolor{CGA_Blue} 1 & Blue          & 000001           & 1   			\\ 
-\rowcolor{CGA_Green} 2 & Green          & 000010           & 2   			\\ 
-\rowcolor{CGA_Cyan} 3 & Cyan          & 000011           & 3   			\\
-\rowcolor{CGA_Red} 4 & Red          & 000100           & 4   				\\ 
-\rowcolor{CGA_Magenta} 5 & Magenta          & 000101           & 5   		\\ 
-\rowcolor{CGA_Brown} 6 & Brown          & 010100           & 20   		\\ 
-\rowcolor{CGA_Light_Grey} 7 & Ligh grey          & 000111           & 7   		\\ 
-\rowcolor{CGA_Dark_Grey} 8 & Dark grey          & 111000           & 56   		\\ 
-\rowcolor{CGA_Bright_Blue}\rowstyle{\color{black}} 9 & Bright blue          & 111001           & 57   			\\ 
-\rowcolor{CGA_Bright_Green} 10 & Bright green          & 111010           & 58   			\\ 
-\rowcolor{CGA_Bright_Cyan} 11 & Bright cyan          & 111011           & 59   			\\
-\rowcolor{CGA_Bright_Red} 12 & Bright red          & 111100           & 60   				\\ 
-\rowcolor{CGA_Bright_Magenta} 13 & Bright magenta          & 111101           & 61   		\\ 
-\rowcolor{CGA_Bright_Brown} 14 & Yellow          & 111101           & 62   		\\
-\rowcolor{CGA_White} 15 & White          & 111101           & 63   		\\
+\rowcolor{CGA_Black}\rowstyle{\color{white}} 00h & Black          & 000000           & 0   			\\ 
+\rowcolor{CGA_Blue} 01h & Blue          & 000001           & 1   			\\ 
+\rowcolor{CGA_Green} 02h & Green          & 000010           & 2   			\\ 
+\rowcolor{CGA_Cyan} 03h & Cyan          & 000011           & 3   			\\
+\rowcolor{CGA_Red} 04h & Red          & 000100           & 4   				\\ 
+\rowcolor{CGA_Magenta} 05h & Magenta          & 000101           & 5   		\\ 
+\rowcolor{CGA_Brown} 06h & Brown          & 010100           & 20   		\\ 
+\rowcolor{CGA_Light_Grey} 07h & Ligh grey          & 000111           & 7   		\\ 
+\rowcolor{CGA_Dark_Grey} 08h & Dark grey          & 111000           & 56   		\\ 
+\rowcolor{CGA_Bright_Blue}\rowstyle{\color{black}} 09h & Bright blue          & 111001           & 57   			\\ 
+\rowcolor{CGA_Bright_Green} 0Ah & Bright green          & 111010           & 58   			\\ 
+\rowcolor{CGA_Bright_Cyan} 0Bh & Bright cyan          & 111011           & 59   			\\
+\rowcolor{CGA_Bright_Red} 0Ch & Bright red          & 111100           & 60   				\\ 
+\rowcolor{CGA_Bright_Magenta} 0Dh & Bright magenta          & 111101           & 61   		\\ 
+\rowcolor{CGA_Bright_Brown} 0Eh & Yellow          & 111110           & 62   		\\
+\rowcolor{CGA_White} 0Fh & White          & 111111           & 63   		\\
 \end{tabularx}
 \end{table}
 \caption{Default EGA 16-color palette}
