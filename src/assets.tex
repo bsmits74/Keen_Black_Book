@@ -91,7 +91,7 @@ Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset fi
  \label{fig:asset-file}
 \end{figure}
 
-The \cw{pictable[]} contains the width and height in bytes for each picture in the asset file. Note that a width of 5 bytes means a size of 40 pixels on the screen. The same size structure is applied for mask pictures.\\
+The \cw{pictable[]} contains the width and height in bytes for each picture in the asset file. Note that a width of 5 bytes means a width of 40 pixels on the screen. The same size structure is applied for mask pictures.\\
 
   \begin{table}[H]
   \begin{tabularx}{0.8\textwidth}[c]{XXX}
@@ -108,12 +108,12 @@ The \cw{pictable[]} contains the width and height in bytes for each picture in t
   ...             & ...          & ...    \\
   64             & 5          & 24    \\
   \end{tabularx}
-  \caption{content of pictable[].}
+  \caption{content of \cw{pictable[]}.}
   \end{table}
 
 
 
-The \cw{spritetable[]} contains beside width and height in bytes also information on the sprite center, hit boundaries and number of shifted sprites, which will be explained in section \ref{section:draw_sprites} on page \pageref{section:draw_sprites}. \\
+The \cw{spritetable[]} contains, beside width and height, also information on the sprite center, hit boundaries and number of shifted sprites, which will be explained later (section \ref{section:draw_sprites} on page \pageref{section:draw_sprites}). \\
 \par
 
 
@@ -163,7 +163,7 @@ From \cw{STARTPICS} location onwards all graphical assets are stored. Each asset
 
 
 \section{Maps}
-Maps were created using an in-house editor called TED5, short for Tile EDitor. Over the years TED5 had improvements and the same tool is later used for creating maps of both side-scrolling games and top-down games like Wolf 3D.\\
+Maps were created using an in-house editor called TED5, short for Tile EDitor. Over the years TED5 had improvements and the same tool is later used for creating maps of both side-scrolling games and top-down games like \textit{Wolfenstein 3D}.\\
 \par
  TED5 is not stand-alone; in order to start, it needs an asset archive and the  associated header (as described in the graphic asset workflow Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, texture IDs are directly encoded in the map.\\
 
@@ -200,7 +200,7 @@ The header offset and header size refer to the location and size in the \cw{KDRE
  \end{minipage}
 
 \subsection{Background tile information}
-For background tile animation two information tables are required: tile animation and tile animation speed. The tile animation refers to the next tile in the animation sequence. So in case of tile \#90 in Table \ref{table:background tile anim}, the next animation tile is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in TimeCount, which is the number of ticks before the next tile is displayed. \\
+For background tile animation two information tables are required: tile animation and tile animation speed. The tile animation refers to the next tile in the animation sequence. So in case of tile \#90 (see Table \ref{table:background tile anim}), the next animation tile is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in TimeCount, which is the number of ticks before the next tile is displayed. \\
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXX}
   \hline
@@ -225,7 +225,7 @@ For background tile animation two information tables are required: tile animatio
 \label{section:foreground_tile_info}
 The foreground tiles contain, beside tile animation (similar like background tiles), also clipping and 'inside' tile information.\\
 \par
-The clipping tables contain how Commander Keen is clipped against foreground tiles. 'Inside' tile information is used to climb on a pole and mimics Commander Keen going through a floor opening ('inside' the tile). In section \ref{section:clipping} both the clipping and 'inside' logic is further explained.\\
+The clipping tables contain how Commander Keen is clipped against foreground tiles. 'Inside' tile information is used to climb on a pole and mimics Commander Keen going through a floor opening ('inside' the tile). In section \ref{section:clipping} (see page \pageref{section:clipping}) both the clipping and 'inside' logic is further explained.\\
 \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXXXXXX}
   \hline
@@ -259,7 +259,7 @@ The structure of \cw{KDREAMS.MAP} is explained in Figure \ref{fig:map-file}. For
 \par
 \begin{figure}[H]
 \centering
- \includegraphics[width=\textwidth]{imgs/drawings/kdreams_map.eps}
+ \includegraphics[width=0.85\textwidth]{imgs/drawings/kdreams_map.eps}
  \caption{File structure of \cw{KDREAMS.MAP} file.}
  \label{fig:map-file}
 \end{figure}
@@ -269,13 +269,13 @@ The structure of \cw{KDREAMS.MAP} is explained in Figure \ref{fig:map-file}. For
 The original Commander Keen Triology did only support the default PC Speaker. Only with the introduction of Commander Keen Dreams the team decided to support sound cards.\\
 
 \par
-\bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with Adlib support until Dark Ages in 1991. And even then it still had pc speaker music.\\
+\bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with Adlib support until \textit{Dark Ages} in 1991. And even then it still had pc speaker music.\\
 \par
 
 
 
 
-As mentioned in Chapter \ref{hardware-audio}, audio hardware was highly fragmented. id supported four sound cards and the default PC speaker, which meant generating assets multiple times for each and packing them together with an in-house tool called MUSE into an AUDIOT archive (an id software proprietary format):\\
+As mentioned in Chapter \ref{hardware-audio}, audio hardware was highly fragmented. Commander Keen supported three sound cards and the default PC speaker, which meant generating assets multiple times for each and packing them together with an in-house tool called MUSE into an AUDIOT archive (an id software proprietary format):\\
 \begin{figure}[H]
 \centering
 
@@ -355,10 +355,10 @@ What goes in the \cw{AUDIOT} archive is a music and sound effect format called I
 
 
 \section{Distribution}
-On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 are all published as shareware by Apogee Software. The game engine and first episode were given for free and encourages to be copied and distributed to a maximum number of people. To reveive the oher episodes, each player had to pay \$30 (for Episide 1-3) to ideas from the Deep.\\
+On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 are all published by Apogee Software. The game engine and first episode were given for free and encourages to be copied and distributed to a maximum number of people. To reveive the oher episodes, each player had to pay \$30 (for Episide 1-3) to \textit{ideas from the Deep}.\\
 
 \par
-Commander Keen in Keen Dreams was published as a retail title by Softdisk, as part of a settlement for using Softdisk resources to make their own game\footnote{The settlement with Softdisk is explained in detail on page XXXX}.\\
+Commander Keen in Keen Dreams was published as a retail title by Softdisk, as part of a settlement for using Softdisk resources to make their own game\footnote{The settlement with Softdisk is explained in Appendix \ref{sec:id_software}}.\\
 
 \par
 \begin{figure}[H]

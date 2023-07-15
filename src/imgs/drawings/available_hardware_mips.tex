@@ -13,13 +13,13 @@
       axis x line=bottom,
       axis y line=left,
       enlarge x limits=0.11,
-      symbolic x coords={MSX, 8088-10MHz, NES, Amiga 500, Genesis, 286-16MHz},
+      symbolic x coords={MSX, 8088-4.77MHz, NES, Amiga 500, Genesis, 286-16MHz},
       xticklabel style={anchor=base,yshift=-\baselineskip},
       nodes near coords={\pgfmathprintnumber\pgfplotspointmeta}
     ]
       \addplot[fill=black!20,draw=black] coordinates {
         (MSX, 0.54)
-        (8088-10MHz, 0.75)
+        (8088-4.77MHz, 0.71)
         (NES, 0.78)
         (Amiga 500,1.3)
         (Genesis,1.4)

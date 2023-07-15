@@ -93,10 +93,10 @@ The Intel 80286 chip, first introduced in 1982, is the CPU behind the original I
 When IBM developed the AT, it selected the 286 as the basis for the new system because the chip provided compatibility with the 8088 used in the PC and the XT. Therefore, software written for those chips should run on the 286. The 286 chip is many times faster than the 8088 used in the XT, and at the time it offered a major performance boost to PCs used in businesses. The processing speed, or throughput, of the original AT (which ran at 6MHz) is five times greater than that of the PC running at 4.77MHz.
 286 systems are faster than their predecessors for several reasons. The main reason is that 286 processors are much more efficient in executing instructions. An average instruction takes 12 clock cycles on the 8086 or 8088, but takes an average of only 4.5 cycles on the 286 processor. Additionally, the 286 chip can handle up to 16 bits of data at a time through an external data bus twice the size of the 8088.\\
 \par
-The 286 chip has two modes of operation: real mode and protected mode. The two modes are distinct enough to make the 286 resemble two chips in one. In real mode, a 286 acts essentially the same as an 8086 chip and is fully compatible with the 8086 and 8088. In the protected mode of operation, the 286 was truly something new. In this mode, a program designed to take advantage of the chip's capabilities believes that it has access to 1GB of memory (including virtual memory). The 286 chip, however, can address only 16MB of hardware memory. A significant failing of the 286 chip is that it cannot switch from protected mode to real mode without a hardware reset (a warm reboot) of the system. (It can, however, switch from real mode to protected mode without a reset.)\\
+The 286 chip has two modes of operation: real mode and protected mode. The two modes are distinct enough to make the 286 resemble two chips in one. In real mode, a 286 acts essentially the same as an 8086 chip and is fully compatible with the 8086 and 8088. In the protected mode of operation, the 286 was truly something new. In this mode, a program designed to take advantage of the chip's capabilities has access to 1GB of memory (including virtual memory). The 286 chip, however, can address only 16MB of hardware memory. A significant failing of the 286 chip is that it cannot switch from protected mode to real mode without a hardware reset (a warm reboot) of the system (It can, however, switch from real mode to protected mode without a reset).\\
 
 \par
-While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 on a 286 chip versus 29,000 on a 8088 chip.\\
+While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on a 8088 chip.\\
 
 
 \fullimage{286_layout_photo.png}
@@ -215,7 +215,7 @@ For compatibility reasons all PCs have to start in real mode. You may assume tha
 
 
   \subsection{DOS Limitations}
-  Microsoft Corporation highly valued the applications running on their operating systems. As a business priority, they were adamant to never break anything with a new system\footnote{"Tales of Application Compatibility", Old New Thing by Raymond Chen.}.  Since many applications were written during the 80s on machines having only real mode, DOS 4.01\footnote{Released in July 1989.} and even the later release DOS 5.0\footnote{Released in June 1991} kept running that way and as a result its routines and system calls were incompatible with protected mode. This created an awkward situation where the de-facto operating system delivered with every machine sold prevented programmers from using the machine at its full potential. Developers were forced to ignore all the features of a 1984 CPU and instead use it like a very fast Intel 8086 CPU from 1976. They were thus limited to the following characteristics:
+  Microsoft Corporation highly valued the applications running on their operating systems. As a business priority, they were adamant to never break anything with a new system\footnote{"Tales of Application Compatibility", Old New Thing by Raymond Chen.}.  Since many applications were written during the 80s on machines having only real mode, DOS 3.3\footnote{Released in April 1987.} and even the later release DOS 4.01\footnote{Released in July 1989} kept running that way and as a result its routines and system calls were incompatible with protected mode. This created an awkward situation where the de-facto operating system delivered with every machine sold prevented programmers from using the machine at its full potential. Developers were forced to ignore all the features of a 1984 CPU and instead use it like a very fast Intel 8086 CPU from 1976. They were thus limited to the following characteristics:
 \begin{itemize}
 \item ALU
 \item 14 registers:
@@ -365,8 +365,10 @@ The electron beam scans the phosphor-coated screen from left to right and
 top to bottom. The period during which the beams return to the left is known as
 the horizontal retrace. During most of the retrace, the guns must be turned off
 to prevent writing in the active display area (the area which contains the actual
-character and/or graphics data); this is known as horizontal blanking. The area
-immediately surrounding the display area, in which the beam may be turned on
+character and/or graphics data); this is known as horizontal blanking.\\
+
+\par
+The area immediately surrounding the display area, in which the beam may be turned on
 during the retrace interval, is called the overscan (or border). The active display
 area is the portion of the screen that contains characters and/or graphics. These
 components of the scan are shown in simplified form in Figure \ref{fig:monitor}.\\
@@ -380,7 +382,10 @@ components of the scan are shown in simplified form in Figure \ref{fig:monitor}.
 
 \par
 After a horizontal scan has been completed, the beam is moved to the next
-line during the horizontal retrace. This sequence continues until the last line, at which point the vertical retrace begins. The vertical retrace is similar to the horizontal retrace; the electron beam may be enabled through a small overscan area and then turned off (vertical blanking) as the beam returns to the top left comer of the screen. If the vertical refresh is too slow, the display will flicker. Most people can detect flicker when the refresh rate drops below 60 Hz, and thus most displays use vertical refresh frequencies of about 60Hz (EGA) to 70Hz (VGA). 
+line during the horizontal retrace. This sequence continues until the last line, at which point the vertical retrace begins. The vertical retrace is similar to the horizontal retrace; the electron beam may be enabled through a small overscan area and then turned off (vertical blanking) as the beam returns to the top left comer of the screen.\\
+
+\par
+If the vertical refresh is too slow, the display will flicker. Most people can detect flicker when the refresh rate drops below 60 Hz, and thus most displays use vertical refresh frequencies of about 60Hz (EGA) to 70Hz (VGA). 
 
 
 
@@ -445,7 +450,7 @@ Below an ATI EGA Wonder 800 (8-bit ISA). The eight chips on the left of the card
 EGA can be summarized as three major systems made of input, storage, and output:
 \begin{itemize}
 \item The Graphic Controller and Sequence Controller controlling how EGA RAM is accessed (the CPU-VRAM interface)
-\item The framebuffer (the VRAM) made of four memory banks with a minimum of 16KiB (rather than one bank of 64KiB). Via memory expansion each memory bank could be upgraded to 32KiB or 64KiB (resulting in 128KiB or 256KiB total VRAM). The original model from IBM came with 16KiB per plane, but almost all other EGA cards were equiped with the full 64KiB per plane. For the remainder of this book we will discuss only 256KiB EGA operations.
+\item The framebuffer (the VRAM) made of four memory banks with a minimum of 16KiB (rather than one bank of 64KiB). Via memory expansion each memory bank could be upgraded to 32KiB or 64KiB (resulting in 128KiB or 256KiB total VRAM). The original model from IBM came with 16KiB per memory bank, but almost all other EGA cards were equiped with the full 64KiB per memory bank. For the remainder of this book we will discuss only 256KiB EGA operations.
 \item The CRT Controller and the Attribute Controller taking care of converting the palette-indexed framebuffer to RGB and then to digital TTL\footnote{Transistor Transistor Logic} signal for display
 \end{itemize}
 
@@ -478,7 +483,7 @@ Four memory banks grant enough throughput to reach high resolutions at 60Hz. How
 \par
 The first problem with this design is that it is unintuitive. There is no linear framebuffer and figuring out which byte corresponds to which pixel on screen is difficult.\\
 \par
- This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single colour. For EGA there are 4 planes: Red, Green, Blue and Intensity (RGBI). For example, if a bit is set in the blue plane as well as the red plane, that pixel will appear purple on-screen. In total this results in 2\textsuperscript{4}=16 colors. Each of these banks is mapped to the same UMA memory address. This layout is better explained with a drawing.\\
+ This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single colour. For EGA there are 4 planes. Each pixel contains 1 bit per plane, in total this results in 2\textsuperscript{4}=16 colors. Each of these banks is mapped to the same UMA memory address. This layout is better explained with a drawing.\\
 \par
 \begin{figure}[H]
 \centering
@@ -592,7 +597,7 @@ However, standard EGA monitors did not support use of the extended color palette
 
  \subsection{EGA Programming: Memory Mapping}
  \label{section:ega_memmap}
-To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in table \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from 0xA0000 to 0xAFFFF. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
+To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from 0xA0000 to 0xAFFFF. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
 
 \par
  The most commonly considered mode for game programming is mode \cw{0Dh}. It offers a resolution of 320x200 at 60hz with 16 colors. Each pixel is encoded in 4 bits (a nibble) spread across the four banks.
@@ -803,7 +808,7 @@ The floppy disk is controlled via the Floppy Disk Controller (FDC), a typical re
   \item Turn the disk motor off. 
 \end{itemize}
 
-You typically should wait a few seconds before turning the motor off. The reason to leave the motor on for a few seconds is that your driver may not know if there is a queue of sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
+You should wait a few seconds before turning the motor off. The reason to leave the motor on for a few seconds is that your driver may not know if there is a queue of sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
 
 
 
@@ -834,12 +839,6 @@ It is also backward compatible and an 8-bit ISA card can be plugged into a 16-bi
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/isa.eps}
 \end{figure}
-
-\par
- In practice the effective bandwidth of the bus is divided by two due to packet overhead and interrupts. As a result, a PC equipped with an 8 bit ISA EGA card can push 19.1Mbits/s/2/8 = 1.1MB/s. In mode \cw{0Dh}, since a frame is 320x200/8 = 8,000 bytes, the theoretical maximum framerate with a CPU taking 0ms to render a frame is 1,100,000 / 8,000 = 138 frames per second. So the good part is that most likely the address bus is not the bottleneck in the entire process.\\
- \par
-
-
 
 
 
@@ -890,7 +889,7 @@ Finally, a SoundBlaster sound card connected via the ISA bus provided a Game Por
 \section{Summary}
 To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface didn't allow double buffering, the memory model only allowed 1 standard MiB with an address composed of two separate 16-bit registers, and the \cw{near}/\cw{far} pointers forbade using standard C. Last, but not least, the default sound system could only produce square waves.\\
 \par
-Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves Ideas From the Deep\footnote{They originally called themselves Ideas From the Deep but then decided to shorten it to simply id, which stands for "in demand", and is pronounced as in "did" or "kid." The name also refers to id, the part of the brain that behaves by the pleasure principle in Freudian psychology.}.
+Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves \textit{Ideas From the Deep}\footnote{They originally called themselves Ideas From the Deep but then decided to shorten it to simply id, which stands for "in demand", and is pronounced as in "did" or "kid." The name also refers to id, the part of the brain that behaves by the pleasure principle in Freudian psychology.}.
 \end{document}
 
 
