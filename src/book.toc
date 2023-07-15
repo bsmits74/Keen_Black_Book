@@ -60,35 +60,35 @@
 \contentsline {subsection}{\numberline {4.8.1}EGA Virtual Screen}{106}{subsection.4.8.1}
 \contentsline {subsection}{\numberline {4.8.2}Horizontal Pel Panning}{107}{subsection.4.8.2}
 \contentsline {subsection}{\numberline {4.8.3}Smooth scrolling: Bring it all together}{108}{subsection.4.8.3}
-\contentsline {section}{\numberline {4.9}View Port and Buffer setup}{110}{section.4.9}
-\contentsline {section}{\numberline {4.10}Virtual screen buffer}{111}{section.4.10}
-\contentsline {section}{\numberline {4.11}Adaptive Tile Refreshment}{112}{section.4.11}
-\contentsline {subsection}{\numberline {4.11.1}Adaptive tile refreshment in Commander Keen 1-3}{113}{subsection.4.11.1}
-\contentsline {subsection}{\numberline {4.11.2}Optimize tile updates}{120}{subsection.4.11.2}
-\contentsline {subsection}{\numberline {4.11.3}Wrap around the EGA Memory}{121}{subsection.4.11.3}
-\contentsline {subsection}{\numberline {4.11.4}Scroll and screen refresh in Keen Dreams}{128}{subsection.4.11.4}
-\contentsline {subsection}{\numberline {4.11.5}Manage refresh timing}{135}{subsection.4.11.5}
-\contentsline {section}{\numberline {4.12}Actors and sprites}{135}{section.4.12}
-\contentsline {subsection}{\numberline {4.12.1}A.I.}{135}{subsection.4.12.1}
-\contentsline {subsection}{\numberline {4.12.2}Drawing Sprites}{137}{subsection.4.12.2}
-\contentsline {subsection}{\numberline {4.12.3}Clipping}{139}{subsection.4.12.3}
-\contentsline {subsection}{\numberline {4.12.4}Priority of tiles and sprites on screen}{143}{subsection.4.12.4}
-\contentsline {section}{\numberline {4.13}Audio and Heartbeat}{146}{section.4.13}
-\contentsline {subsection}{\numberline {4.13.1}IRQs and ISRs}{147}{subsection.4.13.1}
-\contentsline {subsection}{\numberline {4.13.2}PIT and PIC}{149}{subsection.4.13.2}
-\contentsline {subsection}{\numberline {4.13.3}Interrupt Frequency}{150}{subsection.4.13.3}
-\contentsline {subsection}{\numberline {4.13.4}Heartbeats}{151}{subsection.4.13.4}
-\contentsline {subsection}{\numberline {4.13.5}Audio System}{152}{subsection.4.13.5}
-\contentsline {subsubsection}{\numberline {4.13.5.1}FM Synthesizer: OPL2/YM3812 Programming}{155}{subsubsection.4.13.5.1}
-\contentsline {subsection}{\numberline {4.13.6}PC Speaker: Square Waves}{156}{subsection.4.13.6}
-\contentsline {section}{\numberline {4.14}User Inputs}{160}{section.4.14}
-\contentsline {subsection}{\numberline {4.14.1}Keyboard}{160}{subsection.4.14.1}
-\contentsline {subsection}{\numberline {4.14.2}Mouse}{161}{subsection.4.14.2}
-\contentsline {subsection}{\numberline {4.14.3}Joystick}{162}{subsection.4.14.3}
-\contentsline {section}{\numberline {4.15}Tricks}{166}{section.4.15}
-\contentsline {subsection}{\numberline {4.15.1}Bouncing Flower}{166}{subsection.4.15.1}
-\contentsline {subsection}{\numberline {4.15.2}Pseudo Random Generator}{169}{subsection.4.15.2}
-\contentsline {subsection}{\numberline {4.15.3}Screen fades}{171}{subsection.4.15.3}
+\contentsline {section}{\numberline {4.9}Virtual screen buffer}{110}{section.4.9}
+\contentsline {section}{\numberline {4.10}Adaptive Tile Refreshment}{111}{section.4.10}
+\contentsline {subsection}{\numberline {4.10.1}Tile buffer and tile view layout}{111}{subsection.4.10.1}
+\contentsline {subsection}{\numberline {4.10.2}Adaptive tile refreshment in Commander Keen 1-3}{113}{subsection.4.10.2}
+\contentsline {subsection}{\numberline {4.10.3}Wrap around the EGA Memory}{120}{subsection.4.10.3}
+\contentsline {subsection}{\numberline {4.10.4}Scroll and screen refresh in Keen Dreams}{123}{subsection.4.10.4}
+\contentsline {subsection}{\numberline {4.10.5}Screen refresh}{130}{subsection.4.10.5}
+\contentsline {subsection}{\numberline {4.10.6}Manage refresh timing}{135}{subsection.4.10.6}
+\contentsline {section}{\numberline {4.11}Actors and sprites}{135}{section.4.11}
+\contentsline {subsection}{\numberline {4.11.1}A.I.}{135}{subsection.4.11.1}
+\contentsline {subsection}{\numberline {4.11.2}Drawing Sprites}{137}{subsection.4.11.2}
+\contentsline {subsection}{\numberline {4.11.3}Clipping}{139}{subsection.4.11.3}
+\contentsline {subsection}{\numberline {4.11.4}Priority of tiles and sprites on screen}{143}{subsection.4.11.4}
+\contentsline {section}{\numberline {4.12}Audio and Heartbeat}{146}{section.4.12}
+\contentsline {subsection}{\numberline {4.12.1}IRQs and ISRs}{147}{subsection.4.12.1}
+\contentsline {subsection}{\numberline {4.12.2}PIT and PIC}{149}{subsection.4.12.2}
+\contentsline {subsection}{\numberline {4.12.3}Interrupt Frequency}{150}{subsection.4.12.3}
+\contentsline {subsection}{\numberline {4.12.4}Heartbeats}{151}{subsection.4.12.4}
+\contentsline {subsection}{\numberline {4.12.5}Audio System}{152}{subsection.4.12.5}
+\contentsline {subsubsection}{\numberline {4.12.5.1}FM Synthesizer: OPL2/YM3812 Programming}{155}{subsubsection.4.12.5.1}
+\contentsline {subsection}{\numberline {4.12.6}PC Speaker: Square Waves}{156}{subsection.4.12.6}
+\contentsline {section}{\numberline {4.13}User Inputs}{160}{section.4.13}
+\contentsline {subsection}{\numberline {4.13.1}Keyboard}{160}{subsection.4.13.1}
+\contentsline {subsection}{\numberline {4.13.2}Mouse}{161}{subsection.4.13.2}
+\contentsline {subsection}{\numberline {4.13.3}Joystick}{162}{subsection.4.13.3}
+\contentsline {section}{\numberline {4.14}Tricks}{166}{section.4.14}
+\contentsline {subsection}{\numberline {4.14.1}Bouncing Flower}{166}{subsection.4.14.1}
+\contentsline {subsection}{\numberline {4.14.2}Pseudo Random Generator}{169}{subsection.4.14.2}
+\contentsline {subsection}{\numberline {4.14.3}Screen fades}{171}{subsection.4.14.3}
 \contentsline {chapter}{\numberline {5}Keen Dreams in CGA}{175}{chapter.5}
 \contentsline {section}{\numberline {5.1}CGA Videocard}{176}{section.5.1}
 \contentsline {section}{\numberline {5.2}Memory architecture and Interlacing}{178}{section.5.2}

@@ -3,11 +3,11 @@
 
 \section{Action Phase: Smooth scrolling}
 \label{section:adaptive_tile_refresh}
-After the player is done setting up the game, it is time for the scrolling engine to shine. On bitmapped displays without hardware scrolling like the EGA card, the entire screen have to be erased and redrawn in the slightly shifted position whenever the player moved in any direction. This would kill the CPU as you need to update all pixels of all four planes on the EGA card (remember the planar mapping of section \ref{section:EGA_Planar_Madness}?).\\ 
+After the player is done setting up the game, it is time for the scrolling engine to shine. On bitmapped displays without hardware scrolling like the EGA card, the entire screen have to be erased and redrawn in the slightly shifted position whenever the player moved in any direction. This would kill the CPU as you need to update all pixels of all four planes on the EGA card.\\ 
 
-So here John Carmack came with a smart solution. The scrolling engine is based on a simple yet powerful technology called Adaptive Tile Refreshment. The core idea is to  refresh only those areas on the screen that needed to change.\\
+So here John Carmack came with a smart solution. The scrolling engine is based on a simple yet powerful technology called \textit{Adaptive Tile Refreshment}. The core idea is to  refresh only those areas on the screen that needed to change.\\
 
-The visible screen is divided into tiles of 16x16 pixels. On a screen with 320x200 pixels, it means a grid of 20x13 tiles (actually it is 12.5 tiles high, but we need to round to integer). Let's look at \textit{Commander Keen 1: Marooned on Mars} in Figure \ref{fig:keen_difference}. This is the first level of Marooned, immediately to the right of the crashed Bean-with-Bacon Megarocket. The first figure is the start of the level, the second figure is after Keen has moved one tile (16 pixels) to the right through the world. They look almost identical to the naked eye, don't they? \\
+The screen is divided into tiles of 16x16 pixels. On a screen with 320x200 pixels, it means a grid of 20x13 tiles (actually it is 12.5 tiles high, but we round to full tiles). Let's look at \textit{Commander Keen 1: Marooned on Mars} in Figure \ref{fig:keen_difference}. This is the first level of Marooned, immediately to the right of the crashed Bean-with-Bacon Megarocket. The first figure is the start of the level, the second figure is after Keen has moved one tile (16 pixels) to the right through the world. They look almost identical to the naked eye, don't they? \\
 
 Now, if we perform a difference on both images you see which tiles needs to be changed upon screen refresh. The trick behind the scrolling in the first Commander Keen games was to only redraw tiles that actually changed after panning 16 pixels (one tile), since most maps had large swathes of constant background. In case of Figure \ref{fig:keen_difference} only 69 tiles of the total 260 tiles need to be refreshed, which is 27\% of the screen! 
 
@@ -91,7 +91,7 @@ So the smooth horizontal and vertical panning should be viewed as a series 16-pi
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/drawings/Tile_Refresh.eps}
+\includegraphics[width=0.8\textwidth]{imgs/drawings/Tile_Refresh.eps}
 \caption{Smooth scrolling in EGA.}
 \label{fig:tile_refresh}
 \end{figure}
@@ -100,34 +100,15 @@ So the smooth horizontal and vertical panning should be viewed as a series 16-pi
 
 
 
-\section{View Port and Buffer setup}
-Before explaining the scrolling algoritm, let's first explain how the view port and buffer layout are setup. The visible viewing screen on EGA has a resolution of 320x200 pixels. Translated in 16x16 pixel tiles, the screen view has a size of 20x13 tiles. By making the view port one tile higher and wider than the screen, the engine can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh, by means of adjusting the CRTC Start Address and Pel Pan registers. Finally, the buffer must have enough space to float the view port up to two tiles in all direction. At the end of Section \ref{section:scroll_refresh_dreams} it is explained why we need a spare buffer of 2 tiles.\\
-
-So summarized, as illustrated in Figure \ref{fig:screen_setup}, the following tile views are defined:
-\begin{itemize}
-\item Screen View size of 20x13 tiles and Port View size of 21x14 tiles.
-\item Buffer screen size of 22x14 tiles. This is one tile wider than the Port View, where the additional tile is used to mark a '0' at the end of each tile row. 
-\item Total buffer is the buffer screen plus two times a spare buffer to support floating the buffer screen two tiles in any direction.
-\end{itemize}
-\par
- 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/buffer_tile_layout.eps}
-\caption{View and buffer tile layout.}
-\label{fig:screen_setup}
-\end{figure}
-
-
 
 \section{Virtual screen buffer}
-Even if the screen is not scrolling, tile refreshes are required to support sprite animations. Since moving a sprite in this way involves first erasing it and then redrawing it, the image of the erased sprite may be visible briefly, causing flicker. This is where double buffering comes in: setting up a second buffer into which the code can draw while the first buffer is being shown on screen, which is then switched out during screen refresh. This ensures that no frame is ever displayed mid-drawing, which yields smooth, flicker-free animation.\\
+Even if the screen is not scrolling, tile refreshes are required to support sprite and tile animations. Since moving a sprite in this way involves first erasing it and then redrawing it, the image of the erased sprite may be visible briefly, causing flicker. This is where double buffering comes in: setting up a second buffer into which the code can draw while the first buffer is being shown on screen, which is then switched out during screen refresh. This ensures that no frame is ever displayed mid-drawing, which yields smooth, flicker-free animation.\\
 
-Now, let's have a closer look at the EGA memory setup. As explained in the previous section, the view port has a size of 21x14 tiles, which is 336x224 pixels. That means the logical width in VRAM must be at least 336 pixels (42 bytes) wide. In the file \cw{id\_vw.h} the VRAM screen buffer is defined by SCREENSPACE, which is set to 64x240 bytes, or 512x240 pixels. This is more than sufficient to update one virtual screen in VRAM.\\
+Now, let's have a closer look at the EGA memory setup. In the file \cw{id\_vw.h} the virtual screen in VRAM is defined by SCREENSPACE, which is set to 512x240 pixels (64x240 bytes). This is more than sufficient since the visible screen in mode \cw{0x0D} is 320x200 pixels.\\
 
 Since one screen only uses 15,360 bytes of VRAM (which is 3,840 bytes per plane), there is more than enough space to store more than two full screens of video data. The video memory is organized into three virtual screens:
 \begin{itemize}
-\item Page 0 and 1, which are used to switch between buffer and view screen
+\item Page 0 and 1, which are used to switch between buffer and visble screen
 \item A master page containing a static page, which is copied to the buffer memory when performing the screen refresh.
 \end{itemize}
 \par
@@ -142,33 +123,50 @@ Since one screen only uses 15,360 bytes of VRAM (which is 3,840 bytes per plane)
 The page that is actually displayed at any given time is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
 
 
-
-
 \section{Adaptive Tile Refreshment}
 The approach of refreshing the screen is different between the first Commander Keen games, Commander Keen 1-3, and the ones after. In the first games the algoritm keeps the view and buffer screen at fixed VRAM locations, where it performs a check which tiles are changed after the scroll. In the later games, it makes use of the moving the VRAM location and add a full row or column at the beginning or end of the view port. \\
+
+\subsection{Tile buffer and tile view layout}
+Before explaining the scrolling algoritm, let's first explain how the view port and buffer layout are setup. The visible viewing screen on EGA has a resolution of 320x200 pixels. Translated in 16x16 pixel tiles, the screen view has a size of 20x13 tiles. By making the view port one tile higher and wider than the screen, the engine can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh, by means of adjusting the CRTC Start Address and Pel Pan registers. Finally, the buffer must have enough space to float the view port up to two tiles in all direction. At the end of Section \ref{section:scroll_refresh_dreams} it is explained why we need a spare buffer of 2 tiles.\\
+
+So summarized, as illustrated in Figure \ref{fig:screen_setup}, the following tile views are defined:
+\begin{itemize}
+\item Screen View size of 20x13 tiles and Port View size of 21x14 tiles.
+\item Buffer screen size of 22x14 tiles. This is one tile wider than the Port View, where the additional tile is used to mark a '0' at the end of each tile row. 
+\item Total tile buffer is the buffer screen plus two times a spare buffer to support floating the buffer screen two tiles in any direction.
+\end{itemize}
+\par
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{imgs/drawings/buffer_tile_layout.eps}
+\caption{Tile view and tile buffer layout.}
+\label{fig:screen_setup}
+\end{figure}
+
+To keep track of the tile refresh process, the following variables are defined in the game:
+\begin{itemize}
+  \item \cw{screenstart[]} are pointers to the starting address (upper-left pixel) of the viewports in VRAM. As explained, we maintain three viewports in VRAM:
+  \begin{itemize}
+    \item screenpage, the active displayed screen on the monitor. Note that the engine never works or updates the active screen.
+    \item otherpage, which is the buffer screen. This screen is updated and will be switched with the screenpage upon next refresh.
+    \item masterpage, which stores a complete static background, without sprites. This page is used to update the buffer screen.
+  \end{itemize}
+  \item \cw{updatestart[]} are pointers to the tile arrays. It maintains which tiles needs to be updated upon next refresh. There are two tile buffer arrays; one for the screenpage and one for otherpage. 
+\end{itemize}
 
 \subsection{Adaptive tile refreshment in Commander Keen 1-3}
 In the this section we explain how the first 3 versions of the game are working\footnote{We can only explain how the algoritm is working without code examples, since the only released code is Keen Dreams which is using the improved algoritm.}. Six stages are involved in drawing a 2D scene:
 \begin{enumerate}
 \item Check if the player has moved one tile in any direction.
-\item Validate which tiles have changed (both from scrolling and animated tiles), copy these respective tiles to the Master screen and mark the tiles to be updated upon the next refresh for both pages (view and buffer screen).
+\item Validate which tiles have changed (both from scrolling and animated tiles), copy these respective tiles to the Master screen and mark the tiles in both tile arrays (view and buffer tile arrays).
 \item Refresh the buffer screen by scanning all tiles. If a tile needs to be updated, copy the tile from the master screen to the buffer screen.
 \item Iterate through the sprite removal list and copy corresponding image block from the master screen to buffer screen. 
 \item Iterate through the sprite list and copy corresponding sprite image block from asset location in RAM to buffer screen.
 \item Switch the view and buffer screen by adjusting the CRTC Start Address and Pel Panning registers.
 \end{enumerate}
 
-Before we start the explanation, let's first describe the most important variables and definitions used for the refresh process:
-\begin{itemize}
-  \item \cw{screenstart[]} is a pointer to the starting address (upper-left pixel) of the viewport in VRAM. As explained before we maintain three viewports in VRAM:
-  \begin{itemize}
-    \item screenpage, the active displayed screen on the monitor. Note that the engine never works or updates the active screen.
-    \item otherpage, which is the buffer screen. This screen is updated and will be switched with the screenpage upon next refresh.
-    \item masterpage, which stores a complete static background, without sprites. This page is used to update the buffer screen.
-  \end{itemize}
-  \item \cw{updatestart[]} is a pointer to the tile buffer array. It maintains which tiles needs to be updated upon next refresh. There are two tile buffer arrays; one for the screenpage and one for otherpage.
-  \item \cw{Visible screen}, which refers to the starting position of the visible screen on the monitor. This is done by setting both the \cw{CRTR} start address and \cw{Pel Panning}. 
-\end{itemize}
+
 
 In the next six screenshots, we take you step-by-step through each of the stages. The player has moved and forces the screen to scroll one tile to the right. \\
 
@@ -275,33 +273,13 @@ So the number of drawing operations required during each refresh is controllable
 
 \pagebreak
 
-\subsection{Optimize tile updates}
-\label{section:optimize_tile}
-The hardware chapter described Mode \cw{0Dh}, which despite being unfit for games, still has an interesting characteristic. As explained in Section \ref{section:ega_memmap} each pixel is encoded by four bits, which are spread across the four EGA banks. Since all write operations are one byte wide, it is not hard to imagine the difficulty in plotting a single pixel without changing the others stored in the same byte. One would have to do four read, four xor, and four writes.\\
-\par
- Since the designers of the EGA were not complete sadists, they added some circuitry to simplify this operation. For each bank, they created a latch placed in front of a configurable ALU.\\
-\par
- \begin{figure}[H]
-\centering
- \includegraphics[width=\textwidth]{imgs/drawings/latches.eps}
- \caption{Latches memorize read operations from each bank. The memorized value can be used for later writes.}
- \end{figure}
-With this architecture, each time the VRAM is read \circled{R}, the latch from the corresponding bank is loaded with the read value. Each time a value is written to the VRAM \circled{W}, it can be composited by the ALU using the latched value and the written value. This design allowed mode \cw{0Dh} programmers to plot a pixel easily with one read, one ALU setup, and one write instead of four reads, 4 xors, and 4 writes.\\
-\par
-By getting a little creative, the circuitry can be re-purposed. The ALU in front of each bank can be setup to use only the latch for writing. With such a setup, upon doing one read, four latches are populated at once and four bytes in the bank are written with only one write to the RAM. This system allows transfer from VRAM to VRAM 4 bytes at a time.\\
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/EGA_LATCH_COPY.ASM}
-  \end{minipage}
-  \label{ega_latch_copy}
-  \par
 
-To take full advantage of this optimization, the refresh algoritm maintains a list of tiles that are already copied on the masterpage via \cw{tilecache} variable. If a tile is already on the master screen the algoritm copies the tile from that location to its destination instead of the RAM location in memory, saving the four separated writes to each memory plane.
 
 
 \subsection{Wrap around the EGA Memory}
 \label{section:wrap_ega_memory}
-In the later versions of Commander Keen, John Carmack explored what would happen if you push the virtual screen over de 64kB, or \cw{0xFFFF}, border in video memory. It turned out that the EGA continues the virtual screen at \cw{0x0000}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
+\label{section:optimize_tile}
+John Carmack explored what would happen if you push the virtual screen over de 64kB border (address \cw{0xFFFF}) in video memory. It turned out that the EGA continues the virtual screen at \cw{0x0000}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
 \par
 \begin{figure}[H]
   \centering
@@ -319,72 +297,51 @@ Luckily there was a way to resolve this issue. As you can see in Figure \ref{fig
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.9\textwidth]{imgs/drawings/Page_down_switch.eps}
-  \caption{Virtual pages moved down}
+  \caption*{Virtual pages moved down}
   \label{fig:page0_down}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.9\textwidth]{imgs/drawings/Page_up_switch.eps}
-    \caption{Virtual pages moved up}
+    \caption*{Virtual pages moved up}
   \label{fig:page0_up}
 \end{subfigure}
 \caption{Move screen to opposite end of VRAM buffer}
 \label{fig:page_wrapping}
 \end{figure}
 \par
-The screen copy comes at the cost of some performance, but is not noticed during game play, also due to the fact that we can make use of copying 4 bytes in one cycle using the latches as explain in section \ref{section:optimize_tile}.\\
+
+The code verifies if any of the virtual pages is between the addresses \cw{0xC400} and \cw{0xFFFF} and, if this is the case, copies the entire VRAM to the opposite side.\\
+
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/wrap_page_buffer.c}
   \end{minipage}
   \label{ega_refresh}
   \par
-
-Flipping between the pages is as simple as setting the CRTC start address registers to page 0 or page 1 starting point, as explained in Section \ref{section:EGA_virtual_screen}. 
-However, there is one issue to solve. If you were to run it, every once in a while the expected screen shown below...
-
- \begin{figure}[H]
-\centering
- \scaledimage{0.95}{/game/full_screen.png}
- \end{figure}
-...would instead appear distorted:\\
+But how can we copy four VRAM planes fast enough, without noticing any performance hit? As explained in Section \ref{section:ega_memmap} each pixel is encoded by four bits, which are spread across the four EGA banks. Since all write operations are one byte wide, it is not hard to imagine the difficulty in plotting a single pixel without changing the others stored in the same byte. One would have to do four read, four xor, and four writes.\\
+\par
+ Since the designers of the EGA were not complete sadists, they added some circuitry to simplify this operation. For each bank, they created a latch placed in front of a configurable ALU.\\
 \par
  \begin{figure}[H]
 \centering
- \scaledimage{0.95}{/game/crtc_scanstart_problem.png}
+ \includegraphics[width=\textwidth]{imgs/drawings/latches.eps}
+ \caption{Latches memorize read operations from each bank. The memorized value can be used for later writes.}
  \end{figure}
+With this architecture, each time the VRAM is read \circled{R}, the latch from the corresponding bank is loaded with the read value. Each time a value is written to the VRAM \circled{W}, it can be composited by the ALU using the latched value and the written value. This design allowed mode \cw{0Dh} programmers to plot a pixel easily with one read, one ALU setup, and one write instead of four reads, 4 xors, and 4 writes.\\
 \par
-This glitch shows both misalignment and parts of two pages. This problem has to do with the timing between updating the CRTC starting address and screen refresh. The start address is latched by the EGA's internal circuitry exactly once per frame, typically at the start of the vertical retracement. The CRTC starting address is a 16-bit value but the \cw{out} instruction can only write 8 bits at a time. \\
-\par
-
-Now we have the following situation, where the current CRTC start address is pointing to 0x0000. We moved one tile to the left and now Page 0 is pointing at 0xFFFE in VRAM and Page 1 is at 0x3BFE. Page 1 is the updated buffer and will be displayed upon next refresh cycle. Poor timing of the vertical retracement and start address update results in the CRTC picking up a value of 0x3B00 instead of 0x3BFE:\\
-
+By getting a little creative, the circuitry can be re-purposed. The ALU in front of each bank can be setup to use only the latch for writing. With such a setup, upon doing one read, four latches are populated at once and four bytes in the bank are written with only one write to the RAM. This system allows transfer from VRAM to VRAM 4 bytes at a time. Now it is possible to copy the entire buffer fast enough, without notifying any peformance impact.\\
 \par
 \begin{minipage}{\textwidth}
-\lstinputlisting[language={[x86masm]Assembler}]{code/pageflip_error.c}
-\end{minipage}
-\par
+  \lstinputlisting[language=C]{code/EGA_LATCH_COPY.ASM}
+  \end{minipage}
+  \label{ega_latch_copy}
+  \par
 
-The most obvious option is to update the start address when we pick up the vertical retracement signal via the Input Status 1 Register (bit 3 of \cw{0x3DA}). Unfortunately, by the time the vertical retrace status is observed by a program, the start address for the next frame has already been latched, having happened the instant the vertical retrace pulse began.\\
+To take full advantage of this optimization, the refresh algoritm maintains a list of tiles that are already copied on the masterpage via \cw{tilecache} variable. If a tile is already on the master screen the algoritm copies the tile from that location to its destination instead of the RAM location in memory, saving the four separated writes to each memory plane.\\
 
-\par
-The trick is to update the start address sufficient far away from when the vertical retracement starts. So we're looking for a signal that tells us it just finished a horizontal or vertical retrace and started a scan line, far enough away from vertical retrace so we can be sure the new start address will get used at the next vertical sync. This signal is provided by the Display Enable status via the Input Status 1 Register, where a value of 1 indicates the display is in a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.
-\\
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/update_start_address.eps}
-  \label{fig:update_start_address}
-  \caption{Update CRTC start address at beginning of new scan line.}
-\end{figure}
-\par
 
-Once the Display Enable status is observed, the program sets the new start address, waits for vertical retrace to happen, sets the new pel panning state, and then continues drawing.\\
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language={[x86masm]Assembler}]{code/screen_refresh.c}
-\end{minipage}
-\par
 
 \subsection{Scroll and screen refresh in Keen Dreams} \label{section:scroll_refresh_dreams}
 
@@ -483,6 +440,55 @@ After the visible screen is swapped with the buffer screen, the \cw{*updatestart
 \end{figure}
 Now, if the screen is again scrolling to the top-left one can see why there is a need for the 2\textsuperscript{nd} row in the buffer. After this cycle the \cw{*update[otherpage]} pointer is cleared and resetted as shown in the last illustration of Figure \ref{fig:buffer_tile_move_1}.\\
 \pagebreak
+
+\subsection{Screen refresh}
+
+Flipping between the pages is as simple as setting the CRTC start address registers to page 0 or page 1 starting point, as explained in Section \ref{section:EGA_virtual_screen}. 
+However, there is one issue to solve. If you were to run it, every once in a while the expected screen shown below...
+
+ \begin{figure}[H]
+\centering
+ \scaledimage{0.95}{/game/full_screen.png}
+ \end{figure}
+...would instead appear distorted:\\
+\par
+ \begin{figure}[H]
+\centering
+ \scaledimage{0.95}{/game/crtc_scanstart_problem.png}
+ \end{figure}
+\par
+This glitch shows both misalignment and parts of two pages. This problem has to do with the timing between updating the CRTC starting address and screen refresh. The start address is latched by the EGA's internal circuitry exactly once per frame, typically at the start of the vertical retracement. The CRTC starting address is a 16-bit value but the \cw{out} instruction can only write 8 bits at a time. \\
+\par
+
+Now we have the following situation, where the current CRTC start address is pointing to 0x0000. We moved one tile to the left and now Page 0 is pointing at 0xFFFE in VRAM and Page 1 is at 0x3BFE. Page 1 is the updated buffer and will be displayed upon next refresh cycle. Poor timing of the vertical retracement and start address update results in the CRTC picking up a value of 0x3B00 instead of 0x3BFE:\\
+
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language={[x86masm]Assembler}]{code/pageflip_error.c}
+\end{minipage}
+\par
+
+The most obvious option is to update the start address when we pick up the vertical retracement signal via the Input Status 1 Register (bit 3 of \cw{0x3DA}). Unfortunately, by the time the vertical retrace status is observed by a program, the start address for the next frame has already been latched, having happened the instant the vertical retrace pulse began.\\
+
+\par
+The trick is to update the start address sufficient far away from when the vertical retracement starts. So we're looking for a signal that tells us it just finished a horizontal or vertical retrace and started a scan line, far enough away from vertical retrace so we can be sure the new start address will get used at the next vertical sync. This signal is provided by the Display Enable status via the Input Status 1 Register, where a value of 1 indicates the display is in a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.
+\\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/update_start_address.eps}
+  \label{fig:update_start_address}
+  \caption{Update CRTC start address at beginning of new scan line.}
+\end{figure}
+\par
+
+Once the Display Enable status is observed, the program sets the new start address, waits for vertical retrace to happen, sets the new pel panning state, and then continues drawing.\\
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language={[x86masm]Assembler}]{code/screen_refresh.c}
+\end{minipage}
+\par
+
 
 \subsection{Manage refresh timing}
 After each screen refresh a certain amount of time, which we call ticks, has passed. The amount of ticks depends on several factors like amount of tiles refreshed and waiting time for a screen vertical retrace. Since all actions and reactions rely on the amount ticks between two refreshes, it is important to keep the tick interval consistent between two refreshes. Without controlling the tick interval, the state and speed of actors could become unreliable, they could run faster and even can "warp" to an unpected location. To control refresh intervals, a minimum and maximum number of tics is defined in the play loop.\\
