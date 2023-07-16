@@ -104,7 +104,7 @@ So the smooth horizontal and vertical panning should be viewed as a series 16-pi
 \section{Virtual screen buffer}
 Even if the screen is not scrolling, tile refreshes are required to support sprite and tile animations. Since moving a sprite in this way involves first erasing it and then redrawing it, the image of the erased sprite may be visible briefly, causing flicker. This is where double buffering comes in: setting up a second buffer into which the code can draw while the first buffer is being shown on screen, which is then switched out during screen refresh. This ensures that no frame is ever displayed mid-drawing, which yields smooth, flicker-free animation.\\
 
-Now, let's have a closer look at the EGA memory setup. In the file \cw{id\_vw.h} the virtual screen in VRAM is defined by SCREENSPACE, which is set to 512x240 pixels (64x240 bytes). This is more than sufficient since the visible screen in mode \cw{0x0D} is 320x200 pixels.\\
+Now, let's have a closer look at the EGA memory setup. In the file \cw{id\_vw.h} the virtual screen in VRAM is defined by SCREENSPACE, which is set to 512x240 pixels (64x240 = 15,360 bytes). This is more than sufficient since the visible screen in mode \cw{0x0D} is 320x200 pixels.\\
 
 Since one screen only uses 15,360 bytes of VRAM (which is 3,840 bytes per plane), there is more than enough space to store more than two full screens of video data. The video memory is organized into three virtual screens:
 \begin{itemize}
@@ -429,7 +429,7 @@ The remaining steps are the same as before, meaning putting the sprites on the b
 
 \par
 
-Now we can also explain why the tile buffer and view arrays are 2 tiles wider on all sides than the tile view port (see Figure \ref{fig:screen_setup}). Let's take the situation where the screen scrolls to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated on places where the tile buffer array is marked '1'. \\
+Now it is also clear why the tile buffer and view arrays are 2 tiles wider on all sides than the tile view port (see Figure \ref{fig:screen_setup}). Let's take the situation where the screen scrolls to the top-left, meaning 1 tile left and 1 tile up as illustrated in Figure \ref{fig:buffer_tile_move_1}. Both \cw{*updatestart} pointers are updated and tiles are marked as '1'. After completing all tile refresh steps, the buffer screen is updated on places where the tile buffer array is marked '1'. \\
 \par
 After the visible screen is swapped with the buffer screen, the \cw{*updatestart[otherpage]} pointer is cleared and the pointer is resetted. However, the \cw{*updatestart[screenpage]} is not cleared nor resetted since we did not update the screenpage (we only updated the buffer screen).\\
 \begin{figure}[H]
@@ -443,7 +443,7 @@ Now, if the screen is again scrolling to the top-left one can see why there is a
 
 \subsection{Screen refresh}
 
-Flipping between the pages is as simple as setting the CRTC start address registers to page 0 or page 1 starting point, as explained in Section \ref{section:EGA_virtual_screen}. 
+Flipping between the pages is as simple as setting the CRTC start address registers to page 0 or page 1 starting point. 
 However, there is one issue to solve. If you were to run it, every once in a while the expected screen shown below...
 
  \begin{figure}[H]
@@ -460,7 +460,7 @@ However, there is one issue to solve. If you were to run it, every once in a whi
 This glitch shows both misalignment and parts of two pages. This problem has to do with the timing between updating the CRTC starting address and screen refresh. The start address is latched by the EGA's internal circuitry exactly once per frame, typically at the start of the vertical retracement. The CRTC starting address is a 16-bit value but the \cw{out} instruction can only write 8 bits at a time. \\
 \par
 
-Now we have the following situation, where the current CRTC start address is pointing to 0x0000. We moved one tile to the left and now Page 0 is pointing at 0xFFFE in VRAM and Page 1 is at 0x3BFE. Page 1 is the updated buffer and will be displayed upon next refresh cycle. Poor timing of the vertical retracement and start address update results in the CRTC picking up a value of 0x3B00 instead of 0x3BFE:\\
+Now we have the following situation, where the current CRTC start address (Page 0) is pointing to \cw{0x0000} and the buffer (Page 1) to \cw{0x3C00}. We moved one tile to the left and now Page 0 is pointing at 0xFFFE in VRAM and Page 1 is at 0x3BFE. Page 1 is the updated buffer and will be displayed upon next refresh cycle. Poor timing of the vertical retracement and start address update results in the CRTC only picking up the first byte of the address, \cw{0x3B}, and setting the new start address to \cw{0x3B00} instead of \cw{0x3BFE}.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -468,10 +468,10 @@ Now we have the following situation, where the current CRTC start address is poi
 \end{minipage}
 \par
 
-The most obvious option is to update the start address when we pick up the vertical retracement signal via the Input Status 1 Register (bit 3 of \cw{0x3DA}). Unfortunately, by the time the vertical retrace status is observed by a program, the start address for the next frame has already been latched, having happened the instant the vertical retrace pulse began.\\
+The most obvious solution to this isue is to update the start address when we pick up the vertical retracement signal via the Input Status 1 Register (bit 3 of \cw{0x3DA}). Unfortunately, by the time the vertical retrace status is observed by a program, the start address for the next frame has already been latched, having happened the instant the vertical retrace pulse began.\\
 
 \par
-The trick is to update the start address sufficient far away from when the vertical retracement starts. So we're looking for a signal that tells us it just finished a horizontal or vertical retrace and started a scan line, far enough away from vertical retrace so we can be sure the new start address will get used at the next vertical sync. This signal is provided by the Display Enable status via the Input Status 1 Register, where a value of 1 indicates the display is in a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.
+The trick is to update the start address sufficient far away from when the vertical retracement starts. So we're looking for a signal that tells us it just finished a horizontal or vertical retrace and started a scan line, far enough away from vertical retrace so we can be sure the new start address will get used at the next vertical sync. This signal is provided by the Display Enable status signal via the Input Status 1 Register, where a value of 1 indicates the display is in a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.
 \\
 
 \begin{figure}[H]
@@ -482,23 +482,13 @@ The trick is to update the start address sufficient far away from when the verti
 \end{figure}
 \par
 
-Once the Display Enable status is observed, the program sets the new start address, waits for vertical retrace to happen, sets the new pel panning state, and then continues drawing.\\
+Once the Display Enable status is observed, the program sets the new start address. Once the CRTC start address is updated, the game waits for vertical retrace to happen, sets the new pel panning state, and then continues drawing.\\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language={[x86masm]Assembler}]{code/screen_refresh.c}
 \end{minipage}
 \par
 
-
-\subsection{Manage refresh timing}
-After each screen refresh a certain amount of time, which we call ticks, has passed. The amount of ticks depends on several factors like amount of tiles refreshed and waiting time for a screen vertical retrace. Since all actions and reactions rely on the amount ticks between two refreshes, it is important to keep the tick interval consistent between two refreshes. Without controlling the tick interval, the state and speed of actors could become unreliable, they could run faster and even can "warp" to an unpected location. To control refresh intervals, a minimum and maximum number of tics is defined in the play loop.\\
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/time_ticks.c}
-\end{minipage}
-\label{time_ticks}
-\par
 
 
 
@@ -554,7 +544,7 @@ Unlike many game consoles such as Nintendo, the concept of sprites did not exist
   \label{fig:sprite_structure}
 \end{figure}
 
-All global movement takes place from the origin. The origin \cw{(orgx,orgy)} defines the top-left position of the sprite. Together with the width and height it defines the boundaries of the sprite. The parameters \cw{xl, xh, yl and yh} define the hit box of the sprite, which is used to detect collisions.\\
+All global movement takes place from the origin. The origin is offset by \cw{(orgx, orgy)} from the top-left location of the sprite. The parameters \cw{(xl, xh, yl, yh)} define the hit box of the sprite, which is used to detect collisions.\\
 
 \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{lXXXXXXXXX}
@@ -574,7 +564,7 @@ All global movement takes place from the origin. The origin \cw{(orgx,orgy)} def
   \label{table:spritetable}
 \end{table}
 
-As each sprite can float freely over the screen, here also bitshifted sprites are used to position the sprite on a byte-aligned memory layout (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift column defines the amount of steps the sprite has to be shifted within 8 pixels. A value of 4 means the sprite is shifted in 4 steps with a 2 pixel interval.\\ 
+As each sprite can float freely over the screen, here also bitshifted sprites are used to position the sprite on a byte-aligned memory layout (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift column defines the amount of steps the sprite has to be shifted within 8 pixels. A shift value of 4 means the sprite is shifted in 4 steps with a 2 pixel interval.\\ 
 
 \begin{figure}[H]
   \centering
@@ -616,7 +606,7 @@ Before drawing a sprite on the screen, the engine determines if the boundaries o
 \end{figure}
 
 \par
-When a sprite, moving from right to left, is hitting a wall on the left side, it will update the sprite movement to ensure the sprite clips to the eastwall of the left tile as illustrated in Figure \ref{fig:clipping_east}. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()} functions. \\
+As example, when a sprite, moving from right to left, is hitting a wall on the left side, it will update the sprite movement to ensure the sprite clips to the eastwall of the left tile as illustrated in Figure \ref{fig:clipping_east}. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()} functions. \\
 
 \begin{figure}[H]
   \centering
@@ -631,7 +621,7 @@ When a sprite, moving from right to left, is hitting a wall on the left side, it
 \end{minipage}
 \label{wallclip_array}
 \par
-For clipping top and bottom the engine also needs to take walking on slopes into account. After the sprite is clipped to the top or bottom of the wall tile, an offset can be applied to move a sprite up or down a slope. The offset is defined by a lookup table, where the midpoint pixel of the sprite (0-15) and the wall type from the map defines the offset.
+For clipping top and bottom the engine also needs to take clipping to slopes into account. After the sprite is clipped to the top or bottom of the wall tile, an offset can be applied to move a sprite up or down a slope. The offset is defined by a lookup table, where the midpoint of the sprite and the wall type from the foreground tile defines the offset.
 
 \begin{figure}[H]
   \centering
@@ -666,8 +656,8 @@ For clipping top and bottom the engine also needs to take walking on slopes into
 \subsection{Priority of tiles and sprites on screen}
 The normal screen build is as follows:
 \begin{enumerate}
-  \item Draw the background tile.
-  \item Draw the masked foreground tile.
+  \item Draw the background tiles.
+  \item Draw the masked foreground tiles.
   \item Draw the sprites on top of both the background and foreground tiles.
 \end{enumerate}
 
@@ -699,7 +689,7 @@ To draw sprites 'inside' a foreground tile, a small trick is used by introducing
   \item Draw the background tile.
   \item Draw the masked foreground tile.
   \item Draw sprites with priority 0, 1 and 2 (in that order) and mark the corresponding tile in the tile buffer array with '3' as illustrated in Figure \ref{fig:kc1_3_tile_update_sprite} on page \pageref{fig:kc1_3_tile_update_sprite}.
-  \item Scan the tile buffer array for tiles marked with '3'. If the corresponsing foreground INTILE high bit is set, redraw the masked foreground tile.
+  \item Scan the tile buffer array for tiles marked with '3'. If the corresponsing foreground INTILE high bit (\cw{80h}) is set, redraw the masked foreground tile.
   \item Finally, draw sprites with priority 3. These sprites are always on top of everything.
 \end{enumerate}
 \par
@@ -738,5 +728,17 @@ The priority foreground tiles are updated in the \cw{RFL\_MaskForegroundTiles()}
 \label{mask_foreground_tile}
 \par
 
+\subsection{Manage refresh timing}
+After each screen refresh a certain amount of time, which we call ticks, has passed. The amount of ticks depends on several factors like amount of tiles refreshed and waiting time for a screen vertical retrace. Since all game actions and reactions rely on the amount of ticks between two refreshes, it is important to keep the tick interval consistent.\\
+
+\par
+Without controlling the tick interval, the state and speed of actors could become unreliable, they could run faster and even can "warp" to an unpected location. To control refresh intervals, a minimum and maximum number of tics is defined in the refresh loop.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/time_ticks.c}
+\end{minipage}
+\label{time_ticks}
+\par
 
 \end{document}

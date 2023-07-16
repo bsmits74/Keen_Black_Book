@@ -185,13 +185,16 @@ The OPL2 is made of 9 channels capable of emulating instruments. Each channel is
 When the Adlib was first conceived in 1986, it was tested on IBM XTs and ATs, none of which exceeded a speed of 6 MHz. They wrote their specification based on this, writing that while the Adlib required a certain amount of "wait time" between commands, it was okay to send them as fast as possible because no PC was faster than the minimum wait time. They later found out that a Intel 386 was fast enough to send commands faster than the Adlib was expecting them, and they changed their specification to mention a minimum 35 microseconds wait time between commands.\\
 
 \par
-The Programming Guide was amended with reliable specs to wait 3.3 microseconds after a register select write, and 23 microseconds after a data write. Within the source code it is implemented as a 10 microseconds and 25 microseconds respectively.
+The Programming Guide was amended with reliable specs to wait 3.3 microseconds after a register select write, and 23 microseconds after a data write. For Keen Dreams it is implemented as a 10 microseconds and 25 microseconds respectively.
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/adlib_wait.c}
 \end{minipage}
 \par
 
+The engine does not know about any of the details of the OPL2. There is zero abstraction layer of transformation here. An IMF sound is made of a series of messages containing the values to write to the register and data ports of the OPL2.\\
+
+\par
 Every time the audio system wakes up via the timer interrupt, it checks if a sound effects should be sent, and plays the next sample out through the AdLib card.\\
 
 \subsection{PC Speaker: Square Waves}
@@ -257,13 +260,13 @@ While the end result was not great, it was better than a beep.\\
 \end{minipage}
 \par
 
-Notice how the \cw{* 60} is not calculated but looked up. Once again the engine tries to save as much CPU time as possible by using a bit of RAM. The frequency is read from a lookup table \cw{pcSoundLookup}.\\
+See how the \cw{* 60} is not calculated but looked up. Once again the engine tries to save as much CPU time as possible by using a bit of RAM. The frequency is read from a lookup table \cw{pcSoundLookup}.\\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords=word]{code/pcSoundLookup.c}
 \end{minipage}
 \par
-Notice how \cw{0xb6} (\cw{10110110}) is sent to the PIC Command register:
+Notice how \cw{0xb6} (\cw{10110110}) is sent to the PIC Command register\footnote{See https://wiki.osdev.org/Programmable\_Interval\_Timer for details.}
 \begin{itemize}
 	\item \cw{10} = Target Counter 2.
  	\item \cw{11} = High \& low byte of counter updated.

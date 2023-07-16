@@ -18,8 +18,8 @@
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="Scroll_KC1-4_6.svg"
    inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/Scroll_KC4_6_1.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96">
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
   <defs
      id="defs923">
     <pattern
@@ -156,9 +156,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="219.01182"
-     inkscape:cy="322.93215"
+     inkscape:zoom="2.8"
+     inkscape:cx="17.635422"
+     inkscape:cy="398.20591"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -273,7 +273,7 @@
            style="stroke-width:0.00901336">
           <tspan
              style="fill:#000000;stroke:none;stroke-width:0.00901336"
-             id="tspan474">PORT WIDTH = 21</tspan>
+             id="tspan474">PORT WIDTH = 21 TILES</tspan>
         </tspan>
       </tspan>
     </text>
@@ -2530,7 +2530,7 @@
            style="stroke-width:0.00901336">
           <tspan
              style="fill:#000000;stroke:none;stroke-width:0.00901336"
-             id="tspan474-7">PORT HEIGHT = 14</tspan>
+             id="tspan474-7">PORT HEIGHT = 14 TILES</tspan>
         </tspan>
       </tspan>
     </text>
@@ -2739,31 +2739,34 @@
        id="rect1478"
        width="172.17793"
        height="107.24934"
-       x="-29.115986"
+       x="-38.111828"
        y="100.55806" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:9.53913689px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23847845"
-       x="15.085776"
+       x="5.8282347"
        y="86.94973"
        id="text913-88-2"
        transform="scale(0.97173061,1.0290918)"><tspan
          sodipodi:role="line"
          id="tspan911-6-8"
-         x="15.085776"
+         x="5.8282347"
          y="86.94973"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.81565523px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.23847845">Visible Screen (CRTR start address and pel panning)</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.81565523px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.23847845">Visible Screen (CRTC start address and pel panning)</tspan></text>
     <path
        style="fill:none;stroke:#e521ab;stroke-width:0.30466786;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M -29.124771,100.11731 12.611065,88.370061"
+       d="M -38.12061,100.11731 3.6152299,88.370061"
        id="path2266-2"
        inkscape:connector-curvature="0" />
     <circle
        style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path1200-5"
-       cx="-28.977995"
+       cx="-37.973835"
        cy="100.14292"
-       r="0.8018086" />
+       r="0.8018086"
+       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/path1200-5.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.28200001;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect5826-5"
