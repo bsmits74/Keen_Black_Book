@@ -140,12 +140,6 @@ With the double buffering in place, the same algoritm as implemented for EGA can
 \par
 The first complication is that the CGA card does not support pixel panning. So the smoothest pixel scroll is equal to scroll the screen one byte. Since one byte represents 4 pixels, it means scrolling to left or right is in steps of 4 pixels. So the CGA implementation results in a more "choppy" scrolling compared with the EGA variant.\\
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.3\textwidth]{imgs/drawings/CGA_Tile_Refresh.eps}
-\label{fig:cga_tile_panning}
-\end{figure}
-
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/cga_calc_origin.c}

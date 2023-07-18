@@ -284,7 +284,7 @@ As some blocks are marked as \cw{LOCKED}, compacting can be disturbed. Upon enco
 The video manager features two parts:
 \begin{itemize}
 \item The \cw{VW\_*} layer is made of both C and ASM, where the C functions abstract away EGA register manipulation via assembly routines. 
-\item The \cw{RF\_*} layer is used to refresh tiles, and is also made of both C and ASM code.
+\item The \cw{RF\_*} layer is used to refresh the screen, and is also made of both C and ASM code.
 \end{itemize}
 The video manager is described extensively in section \ref{section:adaptive_tile_refresh} on page \pageref{section:adaptive_tile_refresh}.
 \par
@@ -463,7 +463,7 @@ Each bitshift table is generated in \cw{id\_vw\_a.asm}, see below bitshift 5. \\
 Now let's take the example of printing 'N', with an offset of 3 pixels. A simple lookup in \cw{shiftdata3} results in the 3-bit shifted 'N'. Note that you first display the low byte and then the high byte value. \\
 \begin{figure}[H]
 \centering
- \includegraphics[width=\textwidth]{imgs/drawings/text_bitshift_N.eps}
+ \includegraphics[width=0.8\textwidth]{imgs/drawings/text_bitshift_N.eps}
  \caption{Bitshift 'N' over 3 bits using bit shift tables.}
  \label{fig:text_bitshift_N}
  \end{figure}

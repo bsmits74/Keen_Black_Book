@@ -11,7 +11,7 @@ This section describes random tricks used to keep a smooth game play.
 \subsection{Bouncing Flower}
 When Keen throws a flower it bounces of the walls. For flat walls and floors the bounce can be easily calculated by reversing either the x-speed (for vertical walls) or y-speed (for horizontal walls). It becomes more complicated for slopes. Making an accurate calculation of the bounce on a slope requires expensive \cw{cos} and \cw{sin} methods. \\
 \par
-Instead, the game used a simple algorithm that approximates the angle to either 22$^{\circ}$, 45$^{\circ}$ or 90$^{\circ}$. Based on the ratio between the x- and y-speed it calculates the resulting speed and corresponding angle. \\
+Instead, the game used a simple algorithm that approximates the angle to either 22$^{\circ}$, 45$^{\circ}$, 67$^{\circ}$ or 90$^{\circ}$. Based on the ratio between the x- and y-speed it calculates the resulting speed and corresponding angle. \\
 \par
 \begin{figure}[H]
 \centering
@@ -87,8 +87,7 @@ The random number generator saves the last index in \cw{rndindex}. Upon request 
 \end{minipage}
 
 \subsection{Screen fades}
-When a new level is loaded, the screen fades from black to the default colors. CHECK WHEN SCREEN FADES TO WHITE.
-Here it makes use of reassigning the color palette. This can easily be done by calling BIOS software interrupt \cw{10h}.\\
+When a new level is loaded, the screen fades from black to the default colors. Here it makes use of reassigning the color palette. This can easily be done by calling BIOS software interrupt \cw{10h}.\\
 
 
 \par
@@ -163,7 +162,7 @@ The screen fading is defined by the \cw{colors[7][17]} scheme. Note that the "b"
 \caption{Color fading table.}
 \end{figure}
 
-Fading the screen from black to color is rather straight forward.\\
+Fading in the screen from black to color is rather straight forward.\\
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/ega_fade_in.c}
