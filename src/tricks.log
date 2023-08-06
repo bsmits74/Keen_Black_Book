@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  16 JUL 2023 13:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  6 AUG 2023 21:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1765,12 +1765,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--15
  []
 
 Package epstopdf Info: Source file: <imgs/drawings/angle_0.eps>
-(epstopdf)                    date: 2023-07-16 13:45:31
-(epstopdf)                    size: 90380 bytes
+(epstopdf)                    date: 2023-08-06 21:20:20
+(epstopdf)                    size: 73447 bytes
 (epstopdf)             Output file: <imgs/drawings/angle_0-eps-converted-to.pdf
 >
-(epstopdf)                    date: 2023-07-16 13:57:32
-(epstopdf)                    size: 75509 bytes
+(epstopdf)                    date: 2023-08-06 21:20:24
+(epstopdf)                    size: 60874 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/angle_0-eps-
 converted-to.pdf imgs/drawings/angle_0.eps>
 (epstopdf)             \includegraphics on input line 18.
@@ -1779,12 +1779,12 @@ Package epstopdf Info: Output file is already uptodate.
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/angle_0-eps-converted-to.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/angle_0-eps-converted-to.pdf, id=36, 428.60126pt x 353.32pt>
+<imgs/drawings/angle_0-eps-converted-to.pdf, id=36, 531.9875pt x 368.37625pt>
 File: imgs/drawings/angle_0-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/angle_0-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/angle_0-eps-converted-to.pdf  used on in
 put line 18.
-(pdftex.def)             Requested size: 225.48454pt x 185.87856pt.
+(pdftex.def)             Requested size: 300.64415pt x 208.18355pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
@@ -1872,7 +1872,7 @@ File: imgs/drawings/bounce_physics-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: imgs/drawings/bounce_physics-eps-converted-to.pdf  use
 d on input line 62.
 (pdftex.def)             Requested size: 150.31921pt x 101.89284pt.
-
+[4 <./imgs/drawings/bounce_physics-eps-converted-to.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 70--71
 
  []
@@ -1889,7 +1889,7 @@ File: lstlang3.sty 2015/06/04 1.6 listings language file
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 8.54997pt on input line 73.
 
-(./code/rndtable.asm) [4 <./imgs/drawings/bounce_physics-eps-converted-to.pdf>]
+(./code/rndtable.asm)
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 6.64998pt on input line 76.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
@@ -1907,86 +1907,92 @@ Underfull \hbox (badness 10000) in paragraph at lines 79--82
  []
 
 [5] (./code/US_RndT.asm) [6]
-Underfull \hbox (badness 10000) in paragraph at lines 90--92
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
  []
 
 (./code/ega_set_palette.c)
-Underfull \hbox (badness 10000) in paragraph at lines 101--102
-
- []
-
 
 LaTeX Warning: Reference `sec:ega_color_palette' on page 7 undefined on input l
-ine 104.
+ine 100.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 104--105
+Underfull \hbox (badness 10000) in paragraph at lines 100--101
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x18| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x19| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x1a| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x1b| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (1.60162pt too wide) in paragraph at lines 162--162
+[]|\T1/phv/m/n/9 0x1c| 
+ []
+
+
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x1d| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x1e| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x18| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x19| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x1a| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x1b| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (1.60162pt too wide) in paragraph at lines 162--162
+[]|\T1/phv/m/n/9 0x1c| 
+ []
+
+
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x1d| 
  []
 
 
-Overfull \hbox (0.85356pt too wide) in paragraph at lines 162--162
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 162--162
 []|\T1/phv/m/n/9 0x1e| 
  []
 
@@ -2010,11 +2016,11 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 49444 strings out of 494880
- 1055871 string characters out of 6179601
- 1542270 words of memory out of 5000000
- 51711 multiletter control sequences out of 15000+600000
- 567196 words of font info for 60 fonts, out of 8000000 for 9000
+ 49448 strings out of 494880
+ 1055919 string characters out of 6179601
+ 1540651 words of memory out of 5000000
+ 51713 multiletter control sequences out of 15000+600000
+ 569926 words of font info for 62 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,13n,132p,10467b,1574s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
@@ -2027,7 +2033,7 @@ st/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helv
 etic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a
 .pfb>
-Output written on tricks.pdf (10 pages, 178178 bytes).
+Output written on tricks.pdf (10 pages, 165557 bytes).
 PDF statistics:
  446 PDF objects out of 1000 (max. 8388607)
  315 compressed objects within 4 object streams

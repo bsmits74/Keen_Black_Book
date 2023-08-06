@@ -8,14 +8,14 @@ This section describes random tricks used to keep a smooth game play.
 
 
 
-\subsection{Bouncing Flower}
+\subsection{Bouncing Physics}
 When Keen throws a flower it bounces of the walls. For flat walls and floors the bounce can be easily calculated by reversing either the x-speed (for vertical walls) or y-speed (for horizontal walls). It becomes more complicated for slopes. Making an accurate calculation of the bounce on a slope requires expensive \cw{cos} and \cw{sin} methods. \\
 \par
 Instead, the game used a simple algorithm that approximates the angle to either 22$^{\circ}$, 45$^{\circ}$, 67$^{\circ}$ or 90$^{\circ}$. Based on the ratio between the x- and y-speed it calculates the resulting speed and corresponding angle. \\
 \par
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/drawings/angle_0.eps}
+\includegraphics[width=0.8\textwidth]{imgs/drawings/angle_0.eps}
 \label{fig:angles}
 \end{figure}
 \par
@@ -64,7 +64,7 @@ Notice that in several cases the bounce angle is not following the laws of physi
 \end{figure}
 \par
 
-
+\pagebreak
 
 \subsection{Pseudo Random Generator}
 Random numbers are necessary for many things during runtime, such as calculating whether an enemy is able to hit the player based on its accuracy. This is achieved with a precalculated pseudo-random series of 256 elements.\\
@@ -104,7 +104,7 @@ Earlier in the hardware chapter, Section \ref{sec:ega_color_palette}, it was exp
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{|>{\hsize=.16\hsize}X |>{\hsize=.42\hsize}X |>{\hsize=.42\hsize}X |}
 \hline
-\textbf{\color{black} Pin} & \textbf{\color{black} EGA modes (rgbRGB)} & \textbf{\color{black} CGA modes (IRGB)} \\
+\textbf{\color{black} Pin} & \textbf{\color{black} EGA modes (rgbRGB)} & \textbf{\color{black} CGA modes (RGBI)} \\
 \hline
 \color{black} 1 & \color{black} Ground &\color{black}Ground \\
 \hline
@@ -132,7 +132,7 @@ Earlier in the hardware chapter, Section \ref{sec:ega_color_palette}, it was exp
 \label{pin_signals}
  \end{figure}
  
-If one assigns the color brown (rgbRGB is \cw{010100b}) to one of the color indexes, the resulting color on the CGA pin assignment is light red; The secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, which results color red with intensity and not the expected brown color. So mapping the color to one of the indexes is based on "IRGB", using the Secondary Green ("r") for the  intensity. The "b" has no meaning and the "r" (Ground) is normally set to 0.\\
+If one assigns the color brown (rgbRGB is \cw{010100b}) to one of the color indexes, the resulting color on the CGA pin assignment is light red; The secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, which results color red with intensity and not the expected brown color. So mapping the color to one of the indexes is based on "RGBI", using the Secondary Green ("r") for the  intensity. The "b" has no meaning and the "r" (Ground) is normally set to 0.\\
 
 \par
 By calling \cw{\_AX=1002h} the entire palette can be reprogrammed. In this case \cw{ES:BX} points to 17 bytes; an rgbRGB value for each of 16 palette index plus one for the border.
@@ -142,20 +142,22 @@ The screen fading is defined by the \cw{colors[7][17]} scheme. Note that the "b"
 \centering
 \setlength{\tabcolsep}{2pt} % set border margin to 3
 \small
-\begin{tabularx}{\textwidth}[c]{|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|}  
+\begin{tabularx}{\textwidth}[c]{|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|}  
 \hline
 
-\rowcolor{CGA_Black}\rowstyle{\color{white}}  0& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ \hline
+\rowcolor{CGA_White}\rowstyle{\color{black}}  \textbf{\#} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} & \textbf{14} & \textbf{15} & \textbf{16} \\ \hline
 
-\rowcolor{CGA_Black}\rowstyle{\color{white}}  0& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{CGA_Blue} 1 & \cellcolor{CGA_Green}2 & \cellcolor{CGA_Cyan}3 & \cellcolor{CGA_Red}4 & \cellcolor{CGA_Magenta}5 & \cellcolor{CGA_Brown}6 & \cellcolor{CGA_Light_Grey}7  & 0\\ \hline
+\rowcolor{CGA_Black}\rowstyle{\color{white}}   \cellcolor{CGA_White}\color{black} 0 &0& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ \hline
 
-\rowcolor{CGA_Black}\rowstyle{\color{white}}  0& 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{CGA_Dark_Grey}0x18 & \cellcolor{CGA_Bright_Blue}0x19 & \cellcolor{CGA_Bright_Green}\color{black}0x1a & \cellcolor{CGA_Bright_Cyan}\color{black}0x1b & \cellcolor{CGA_Bright_Red}\color{black}0x1c & \cellcolor{CGA_Bright_Magenta}\color{black}0x1d & \cellcolor{CGA_Bright_Brown}\color{black}0x1e & \cellcolor{CGA_White}\color{black}0x1f & 0\\ \hline
+\rowcolor{CGA_Black}\rowstyle{\color{white}}  \cellcolor{CGA_White}\color{black} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{CGA_Blue} 1 & \cellcolor{CGA_Green}2 & \cellcolor{CGA_Cyan}3 & \cellcolor{CGA_Red}4 & \cellcolor{CGA_Magenta}5 & \cellcolor{CGA_Brown}6 & \cellcolor{CGA_Light_Grey}7  & 0\\ \hline
 
-\rowcolor{CGA_Black}\rowstyle{\color{white}}  0& \cellcolor{CGA_Blue} 1 & \cellcolor{CGA_Green}2 & \cellcolor{CGA_Cyan}3 & \cellcolor{CGA_Red}4 & \cellcolor{CGA_Magenta}5 & \cellcolor{CGA_Brown}6 & \cellcolor{CGA_Light_Grey}7 & \cellcolor{CGA_Dark_Grey}0x18 & \cellcolor{CGA_Bright_Blue}0x19 & \cellcolor{CGA_Bright_Green}\color{black}0x1a & \cellcolor{CGA_Bright_Cyan}\color{black}0x1b & \cellcolor{CGA_Bright_Red}\color{black}0x1c & \cellcolor{CGA_Bright_Magenta}\color{black}0x1d & \cellcolor{CGA_Bright_Brown}\color{black}0x1e & \cellcolor{CGA_White}\color{black}0x1f & 0\\ \hline
+\rowcolor{CGA_Black}\rowstyle{\color{white}}  \cellcolor{CGA_White}\color{black} 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{CGA_Dark_Grey}0x18 & \cellcolor{CGA_Bright_Blue}0x19 & \cellcolor{CGA_Bright_Green}\color{black}0x1a & \cellcolor{CGA_Bright_Cyan}\color{black}0x1b & \cellcolor{CGA_Bright_Red}\color{black}0x1c & \cellcolor{CGA_Bright_Magenta}\color{black}0x1d & \cellcolor{CGA_Bright_Brown}\color{black}0x1e & \cellcolor{CGA_White}\color{black}0x1f & 0\\ \hline
 
-\rowcolor{CGA_White}\rowstyle{\color{white}}  \cellcolor{CGA_Black}0& \cellcolor{CGA_Blue} 1 & \cellcolor{CGA_Green}2 & \cellcolor{CGA_Cyan}3 & \cellcolor{CGA_Red}4 & \cellcolor{CGA_Magenta}5 & \cellcolor{CGA_Brown}6 & \cellcolor{CGA_Light_Grey}7 & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \cellcolor{CGA_Black}0\\ \hline
+\rowcolor{CGA_Black}\rowstyle{\color{white}}  \cellcolor{CGA_White}\color{black} 3 & 0 & \cellcolor{CGA_Blue} 1 & \cellcolor{CGA_Green}2 & \cellcolor{CGA_Cyan}3 & \cellcolor{CGA_Red}4 & \cellcolor{CGA_Magenta}5 & \cellcolor{CGA_Brown}6 & \cellcolor{CGA_Light_Grey}7 & \cellcolor{CGA_Dark_Grey}0x18 & \cellcolor{CGA_Bright_Blue}0x19 & \cellcolor{CGA_Bright_Green}\color{black}0x1a & \cellcolor{CGA_Bright_Cyan}\color{black}0x1b & \cellcolor{CGA_Bright_Red}\color{black}0x1c & \cellcolor{CGA_Bright_Magenta}\color{black}0x1d & \cellcolor{CGA_Bright_Brown}\color{black}0x1e & \cellcolor{CGA_White}\color{black}0x1f & 0\\ \hline
 
-\rowcolor{CGA_White}\rowstyle{\color{black}}  0x1f& 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f\\ \hline
+\rowcolor{CGA_White}\rowstyle{\color{white}}  \cellcolor{CGA_White}\color{black} 4 & \cellcolor{CGA_Black}0& \cellcolor{CGA_Blue} 1 & \cellcolor{CGA_Green}2 & \cellcolor{CGA_Cyan}3 & \cellcolor{CGA_Red}4 & \cellcolor{CGA_Magenta}5 & \cellcolor{CGA_Brown}6 & \cellcolor{CGA_Light_Grey}7 & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \color{black}0x1f & \cellcolor{CGA_Black}0\\ \hline
+
+\rowcolor{CGA_White}\rowstyle{\color{black}}  5&0x1f& 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f & 0x1f\\ \hline
 
 \end{tabularx}\\
 \setlength{\tabcolsep}{6pt} % reset border margin

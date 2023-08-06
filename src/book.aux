@@ -315,253 +315,256 @@
 \newlabel{fig:tile_refresh}{{4.22}{110}{Smooth scrolling in EGA.\relax }{figure.caption.91}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.9}Virtual screen buffer}{110}{section.4.9}}
 \BKM@entry{id=63,open,dest={73656374696F6E2E342E3130},srcline={126}}{5C3337365C3337375C303030415C303030645C303030615C303030705C303030745C303030695C303030765C303030655C3030305C3034305C303030545C303030695C3030306C5C303030655C3030305C3034305C303030525C303030655C303030665C303030725C303030655C303030735C303030685C3030306D5C303030655C3030306E5C30303074}
-\BKM@entry{id=64,open,dest={73756273656374696F6E2E342E31302E31},srcline={129}}{5C3337365C3337375C303030545C303030695C3030306C5C303030655C3030305C3034305C303030625C303030755C303030665C303030665C303030655C303030725C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030745C303030695C3030306C5C303030655C3030305C3034305C303030765C303030695C303030655C303030775C3030305C3034305C3030306C5C303030615C303030795C3030306F5C303030755C30303074}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.23}{\ignorespaces Virtual screen layout on EGA card.\relax }}{111}{figure.caption.92}}
 \newlabel{fig:ega_ram_arch}{{4.23}{111}{Virtual screen layout on EGA card.\relax }{figure.caption.92}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.10}Adaptive Tile Refreshment}{111}{section.4.10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.1}Tile buffer and tile view layout}{111}{subsection.4.10.1}}
+\BKM@entry{id=64,open,dest={73756273656374696F6E2E342E31302E31},srcline={144}}{5C3337365C3337375C303030415C303030645C303030615C303030705C303030745C303030695C303030765C303030655C3030305C3034305C303030745C303030695C3030306C5C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030306D5C303030655C3030306E5C303030745C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C3030306F5C3030306D5C3030306D5C303030615C3030306E5C303030645C303030655C303030725C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030315C3030302D5C30303033}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.24}{\ignorespaces Tile view and tile buffer layout.\relax }}{112}{figure.caption.93}}
 \newlabel{fig:screen_setup}{{4.24}{112}{Tile view and tile buffer layout.\relax }{figure.caption.93}{}}
-\BKM@entry{id=65,open,dest={73756273656374696F6E2E342E31302E32},srcline={158}}{5C3337365C3337375C303030415C303030645C303030615C303030705C303030745C303030695C303030765C303030655C3030305C3034305C303030745C303030695C3030306C5C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030306D5C303030655C3030306E5C303030745C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C3030306F5C3030306D5C3030306D5C303030615C3030306E5C303030645C303030655C303030725C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030315C3030302D5C30303033}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.2}Adaptive tile refreshment in Commander Keen 1-3}{113}{subsection.4.10.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.25}{\ignorespaces Step 1: Scroll screen to the right\relax }}{114}{figure.caption.94}}
-\newlabel{fig:kc1_3_start}{{4.25}{114}{Step 1: Scroll screen to the right\relax }{figure.caption.94}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.26}{\ignorespaces Step 2: Update changed tiles in masterscreen, marked in dark grey\relax }}{115}{figure.caption.95}}
-\newlabel{fig:kc1_3_update_masterscreen}{{4.26}{115}{Step 2: Update changed tiles in masterscreen, marked in dark grey\relax }{figure.caption.95}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.27}{\ignorespaces Mark all changed tiles with '1' in both tile buffer and tile view array.\relax }}{115}{figure.caption.96}}
-\newlabel{fig:kc1_3_update_refresh_img_1}{{4.27}{115}{Mark all changed tiles with '1' in both tile buffer and tile view array.\relax }{figure.caption.96}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.28}{\ignorespaces Step 3 and 4: Copy tiles from master to buffer screen and remove sprites\relax }}{116}{figure.caption.97}}
-\newlabel{fig:kc1_3_update_remove}{{4.28}{116}{Step 3 and 4: Copy tiles from master to buffer screen and remove sprites\relax }{figure.caption.97}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.29}{\ignorespaces Mark removed sprites with '2' in tile buffer array only.\relax }}{116}{figure.caption.98}}
-\newlabel{fig:kc1_3_tile_update_remove}{{4.29}{116}{Mark removed sprites with '2' in tile buffer array only.\relax }{figure.caption.98}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.30}{\ignorespaces Step 5: Scan sprite list and copy sprite onto buffer screen\relax }}{117}{figure.caption.99}}
-\newlabel{fig:kc1_3_update_sprite}{{4.30}{117}{Step 5: Scan sprite list and copy sprite onto buffer screen\relax }{figure.caption.99}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.31}{\ignorespaces Mark new sprites locations with '3' in tile buffer array only.\relax }}{117}{figure.caption.100}}
-\newlabel{fig:kc1_3_tile_update_sprite}{{4.31}{117}{Mark new sprites locations with '3' in tile buffer array only.\relax }{figure.caption.100}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.32}{\ignorespaces Step 6: Swap buffer and screen page\relax }}{118}{figure.caption.101}}
-\newlabel{fig:kc1_3_update_final}{{4.32}{118}{Step 6: Swap buffer and screen page\relax }{figure.caption.101}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.33}{\ignorespaces Clear tile update array and swap arrays.\relax }}{118}{figure.caption.102}}
-\newlabel{fig:kc1_3_tile_final}{{4.33}{118}{Clear tile update array and swap arrays.\relax }{figure.caption.102}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.34}{\ignorespaces Step 6: Swap buffer and screen page\relax }}{119}{figure.caption.103}}
-\newlabel{fig:kc1_3_update_final}{{4.34}{119}{Step 6: Swap buffer and screen page\relax }{figure.caption.103}{}}
-\BKM@entry{id=66,open,dest={73756273656374696F6E2E342E31302E33},srcline={279}}{5C3337365C3337375C303030575C303030725C303030615C303030705C3030305C3034305C303030615C303030725C3030306F5C303030755C3030306E5C303030645C3030305C3034305C303030745C303030685C303030655C3030305C3034305C303030455C303030475C303030415C3030305C3034305C3030304D5C303030655C3030306D5C3030306F5C303030725C30303079}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.3}Wrap around the EGA Memory}{120}{subsection.4.10.3}}
-\newlabel{section:wrap_ega_memory}{{4.10.3}{120}{Wrap around the EGA Memory}{subsection.4.10.3}{}}
-\newlabel{section:optimize_tile}{{4.10.3}{120}{Wrap around the EGA Memory}{subsection.4.10.3}{}}
-\newlabel{fig:ega_wrapping}{{\caption@xref {fig:ega_wrapping}{ on input line 287}}{120}{Wrap around the EGA Memory}{figure.caption.104}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.35}{\ignorespaces Wrap virtual screen around the EGA memory\relax }}{120}{figure.caption.104}}
-\newlabel{fig:page0_down}{{\caption@xref {fig:page0_down}{ on input line 301}}{121}{Wrap around the EGA Memory}{figure.caption.105}{}}
-\newlabel{sub@fig:page0_down}{{}{121}{Wrap around the EGA Memory}{figure.caption.105}{}}
-\newlabel{fig:page0_up}{{\caption@xref {fig:page0_up}{ on input line 307}}{121}{Wrap around the EGA Memory}{figure.caption.105}{}}
-\newlabel{sub@fig:page0_up}{{}{121}{Wrap around the EGA Memory}{figure.caption.105}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.36}{\ignorespaces Move screen to opposite end of VRAM buffer\relax }}{121}{figure.caption.105}}
-\newlabel{fig:page_wrapping}{{4.36}{121}{Move screen to opposite end of VRAM buffer\relax }{figure.caption.105}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.1}Adaptive tile refreshment in Commander Keen 1-3}{112}{subsection.4.10.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.25}{\ignorespaces Step 1: Scroll screen to the right\relax }}{113}{figure.caption.94}}
+\newlabel{fig:kc1_3_start}{{4.25}{113}{Step 1: Scroll screen to the right\relax }{figure.caption.94}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.26}{\ignorespaces Step 2: Update changed tiles in master page, marked in dark grey\relax }}{114}{figure.caption.95}}
+\newlabel{fig:kc1_3_update_masterscreen}{{4.26}{114}{Step 2: Update changed tiles in master page, marked in dark grey\relax }{figure.caption.95}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.27}{\ignorespaces Mark all changed tiles with '1' in both tile buffer and tile view array.\relax }}{114}{figure.caption.96}}
+\newlabel{fig:kc1_3_update_refresh_img_1}{{4.27}{114}{Mark all changed tiles with '1' in both tile buffer and tile view array.\relax }{figure.caption.96}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.28}{\ignorespaces Step 3 and 4: Copy tiles from master to buffer page and remove sprites\relax }}{115}{figure.caption.97}}
+\newlabel{fig:kc1_3_update_remove}{{4.28}{115}{Step 3 and 4: Copy tiles from master to buffer page and remove sprites\relax }{figure.caption.97}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.29}{\ignorespaces Mark removed sprites with '2' in tile buffer array only.\relax }}{115}{figure.caption.98}}
+\newlabel{fig:kc1_3_tile_update_remove}{{4.29}{115}{Mark removed sprites with '2' in tile buffer array only.\relax }{figure.caption.98}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.30}{\ignorespaces Step 5: Scan sprite list and copy sprite onto buffer page\relax }}{116}{figure.caption.99}}
+\newlabel{fig:kc1_3_update_sprite}{{4.30}{116}{Step 5: Scan sprite list and copy sprite onto buffer page\relax }{figure.caption.99}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.31}{\ignorespaces Mark new sprites locations with '3' in tile buffer array only.\relax }}{116}{figure.caption.100}}
+\newlabel{fig:kc1_3_tile_update_sprite}{{4.31}{116}{Mark new sprites locations with '3' in tile buffer array only.\relax }{figure.caption.100}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.32}{\ignorespaces Step 6: Swap buffer and view page\relax }}{117}{figure.caption.101}}
+\newlabel{fig:kc1_3_update_final}{{4.32}{117}{Step 6: Swap buffer and view page\relax }{figure.caption.101}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.33}{\ignorespaces Clear tile buffer array and swap tile arrays.\relax }}{117}{figure.caption.102}}
+\newlabel{fig:kc1_3_tile_final}{{4.33}{117}{Clear tile buffer array and swap tile arrays.\relax }{figure.caption.102}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.34}{\ignorespaces Step 6: Swap buffer and screen page\relax }}{118}{figure.caption.103}}
+\newlabel{fig:kc1_3_update_final}{{4.34}{118}{Step 6: Swap buffer and screen page\relax }{figure.caption.103}{}}
+\BKM@entry{id=65,open,dest={73756273656374696F6E2E342E31302E32},srcline={265}}{5C3337365C3337375C303030575C303030725C303030615C303030705C3030305C3034305C303030615C303030725C3030306F5C303030755C3030306E5C303030645C3030305C3034305C303030745C303030685C303030655C3030305C3034305C303030455C303030475C303030415C3030305C3034305C3030304D5C303030655C3030306D5C3030306F5C303030725C30303079}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.2}Wrap around the EGA Memory}{119}{subsection.4.10.2}}
+\newlabel{section:wrap_ega_memory}{{4.10.2}{119}{Wrap around the EGA Memory}{subsection.4.10.2}{}}
+\newlabel{section:optimize_tile}{{4.10.2}{119}{Wrap around the EGA Memory}{subsection.4.10.2}{}}
+\newlabel{fig:ega_wrapping}{{\caption@xref {fig:ega_wrapping}{ on input line 273}}{119}{Wrap around the EGA Memory}{figure.caption.104}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.35}{\ignorespaces Wrap virtual screen around the EGA memory\relax }}{119}{figure.caption.104}}
+\newlabel{fig:page0_down}{{\caption@xref {fig:page0_down}{ on input line 313}}{120}{Wrap around the EGA Memory}{figure.caption.105}{}}
+\newlabel{sub@fig:page0_down}{{}{120}{Wrap around the EGA Memory}{figure.caption.105}{}}
+\newlabel{fig:page0_up}{{\caption@xref {fig:page0_up}{ on input line 319}}{120}{Wrap around the EGA Memory}{figure.caption.105}{}}
+\newlabel{sub@fig:page0_up}{{}{120}{Wrap around the EGA Memory}{figure.caption.105}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.36}{\ignorespaces Move screen to opposite end of VRAM buffer\relax }}{120}{figure.caption.105}}
+\newlabel{fig:page_wrapping}{{4.36}{120}{Move screen to opposite end of VRAM buffer\relax }{figure.caption.105}{}}
 \@writefile{lol}{\contentsline {lstlisting}{code/wrap\textunderscore page\textunderscore buffer.c}{121}{lstlisting.4.-31}}
-\newlabel{ega_refresh}{{4.10.3}{121}{Wrap around the EGA Memory}{lstnumber.-31.24}{}}
+\newlabel{ega_refresh}{{4.10.2}{121}{Wrap around the EGA Memory}{lstnumber.-31.24}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.37}{\ignorespaces Latches memorize read operations from each bank. The memorized value can be used for later writes.\relax }}{122}{figure.caption.106}}
-\BKM@entry{id=67,open,dest={73756273656374696F6E2E342E31302E34},srcline={346}}{5C3337365C3337375C303030535C303030635C303030725C3030306F5C3030306C5C3030306C5C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030695C3030306E5C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030445C303030725C303030655C303030615C3030306D5C30303073}
 \@writefile{lol}{\contentsline {lstlisting}{code/EGA\textunderscore LATCH\textunderscore COPY.ASM}{123}{lstlisting.4.-32}}
-\newlabel{ega_latch_copy}{{4.10.3}{123}{Wrap around the EGA Memory}{lstnumber.-32.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.4}Scroll and screen refresh in Keen Dreams}{123}{subsection.4.10.4}}
-\newlabel{section:scroll_refresh_dreams}{{4.10.4}{123}{Scroll and screen refresh in Keen Dreams}{subsection.4.10.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.38}{\ignorespaces Step 1: Scroll screen to the left\relax }}{124}{figure.caption.107}}
-\newlabel{fig:kc4_6_start}{{4.38}{124}{Step 1: Scroll screen to the left\relax }{figure.caption.107}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.39}{\ignorespaces Step 2 and 3: Shift screen pointer and add column to VRAM\relax }}{125}{figure.caption.108}}
-\newlabel{fig:kc4_6_add_column}{{4.39}{125}{Step 2 and 3: Shift screen pointer and add column to VRAM\relax }{figure.caption.108}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.40}{\ignorespaces Mark new column in both tile buffer and display array.\relax }}{125}{figure.caption.109}}
-\newlabel{fig:kc4_6_tile_final}{{4.40}{125}{Mark new column in both tile buffer and display array.\relax }{figure.caption.109}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.41}{\ignorespaces Step 4 and 5: Copy master to buffer screen and remove sprites\relax }}{126}{figure.caption.110}}
-\newlabel{fig:kc4_6_update_buffer}{{4.41}{126}{Step 4 and 5: Copy master to buffer screen and remove sprites\relax }{figure.caption.110}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.42}{\ignorespaces Tile buffer array with removed sprites marked with '2'.\relax }}{126}{figure.caption.111}}
-\newlabel{fig:kc4_6_update_array}{{4.42}{126}{Tile buffer array with removed sprites marked with '2'.\relax }{figure.caption.111}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.43}{\ignorespaces Step 7: Updated screen after swapping buffer and screen page\relax }}{127}{figure.caption.112}}
-\newlabel{fig:k4_6_update_final}{{4.43}{127}{Step 7: Updated screen after swapping buffer and screen page\relax }{figure.caption.112}{}}
+\newlabel{ega_latch_copy}{{4.10.2}{123}{Wrap around the EGA Memory}{lstnumber.-32.21}{}}
+\BKM@entry{id=66,open,dest={73756273656374696F6E2E342E31302E33},srcline={358}}{5C3337365C3337375C303030415C303030645C303030615C303030705C303030745C303030695C303030765C303030655C3030305C3034305C303030745C303030695C3030306C5C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030306D5C303030655C3030306E5C303030745C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C3030306F5C3030306D5C3030306D5C303030615C3030306E5C303030645C303030655C303030725C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030695C3030306E5C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030445C303030725C303030655C303030615C3030306D5C30303073}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.3}Adaptive tile refreshment in Commander Keen in Keen Dreams}{124}{subsection.4.10.3}}
+\newlabel{section:scroll_refresh_dreams}{{4.10.3}{124}{Adaptive tile refreshment in Commander Keen in Keen Dreams}{subsection.4.10.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.38}{\ignorespaces Step 1: Scroll screen to the left\relax }}{125}{figure.caption.107}}
+\newlabel{fig:kc4_6_start}{{4.38}{125}{Step 1: Scroll screen to the left\relax }{figure.caption.107}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.39}{\ignorespaces Step 2 and 3: Shift screen pointer and add column to VRAM\relax }}{126}{figure.caption.108}}
+\newlabel{fig:kc4_6_add_column}{{4.39}{126}{Step 2 and 3: Shift screen pointer and add column to VRAM\relax }{figure.caption.108}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.40}{\ignorespaces Mark new column in both tile buffer and display array.\relax }}{126}{figure.caption.109}}
+\newlabel{fig:kc4_6_tile_final}{{4.40}{126}{Mark new column in both tile buffer and display array.\relax }{figure.caption.109}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.41}{\ignorespaces Step 4 and 5: Copy master to buffer page and remove sprite blocks\relax }}{127}{figure.caption.110}}
+\newlabel{fig:kc4_6_update_buffer}{{4.41}{127}{Step 4 and 5: Copy master to buffer page and remove sprite blocks\relax }{figure.caption.110}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.42}{\ignorespaces Tile buffer array with removed sprites marked with '2'.\relax }}{127}{figure.caption.111}}
+\newlabel{fig:kc4_6_update_array}{{4.42}{127}{Tile buffer array with removed sprites marked with '2'.\relax }{figure.caption.111}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.43}{\ignorespaces Step 7: Updated screen after swapping buffer and screen page\relax }}{128}{figure.caption.112}}
+\newlabel{fig:k4_6_update_final}{{4.43}{128}{Step 7: Updated screen after swapping buffer and screen page\relax }{figure.caption.112}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.44}{\ignorespaces Clear and reset tile buffer array and swap arrays.\relax }}{128}{figure.caption.113}}
 \newlabel{fig:kc4_6_final}{{4.44}{128}{Clear and reset tile buffer array and swap arrays.\relax }{figure.caption.113}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.45}{\ignorespaces scroll to top-left tile\relax }}{129}{figure.caption.114}}
-\newlabel{fig:buffer_tile_move_1}{{4.45}{129}{scroll to top-left tile\relax }{figure.caption.114}{}}
-\BKM@entry{id=68,open,dest={73756273656374696F6E2E342E31302E35},srcline={444}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C30303068}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.5}Screen refresh}{130}{subsection.4.10.5}}
-\@writefile{lol}{\contentsline {lstlisting}{code/pageflip\textunderscore error.c}{132}{lstlisting.4.-33}}
-\newlabel{fig:update_start_address}{{\caption@xref {fig:update_start_address}{ on input line 480}}{133}{Screen refresh}{figure.caption.117}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.46}{\ignorespaces Update CRTC start address at beginning of new scan line.\relax }}{133}{figure.caption.117}}
-\BKM@entry{id=69,open,dest={73656374696F6E2E342E3131},srcline={495}}{5C3337365C3337375C303030415C303030635C303030745C3030306F5C303030725C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C30303073}
-\BKM@entry{id=70,open,dest={73756273656374696F6E2E342E31312E31},srcline={497}}{5C3337365C3337375C303030415C3030302E5C303030495C3030302E}
-\@writefile{lol}{\contentsline {lstlisting}{code/screen\textunderscore refresh.c}{134}{lstlisting.4.-34}}
+\@writefile{lol}{\contentsline {lstlisting}{code/refresh.c}{129}{lstlisting.4.-33}}
+\newlabel{state_type}{{4.10.3}{129}{Adaptive tile refreshment in Commander Keen in Keen Dreams}{lstnumber.-33.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.45}{\ignorespaces scroll to top-left tile.\relax }}{130}{figure.caption.114}}
+\newlabel{fig:buffer_tile_move_1}{{4.45}{130}{scroll to top-left tile.\relax }{figure.caption.114}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.46}{\ignorespaces scroll to top-left tile again.\relax }}{130}{figure.caption.115}}
+\newlabel{fig:buffer_tile_move_1}{{4.46}{130}{scroll to top-left tile again.\relax }{figure.caption.115}{}}
+\BKM@entry{id=67,open,dest={73756273656374696F6E2E342E31302E34},srcline={474}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C30303068}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10.4}Screen refresh}{131}{subsection.4.10.4}}
+\@writefile{lol}{\contentsline {lstlisting}{code/pageflip\textunderscore error.c}{132}{lstlisting.4.-34}}
+\newlabel{fig:update_start_address}{{\caption@xref {fig:update_start_address}{ on input line 510}}{133}{Screen refresh}{figure.caption.118}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.47}{\ignorespaces Update CRTC start address at beginning of new scan line.\relax }}{133}{figure.caption.118}}
+\BKM@entry{id=68,open,dest={73656374696F6E2E342E3131},srcline={525}}{5C3337365C3337375C303030415C303030635C303030745C3030306F5C303030725C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C30303073}
+\BKM@entry{id=69,open,dest={73756273656374696F6E2E342E31312E31},srcline={527}}{5C3337365C3337375C303030415C3030302E5C303030495C3030302E}
+\@writefile{lol}{\contentsline {lstlisting}{code/screen\textunderscore refresh.c}{134}{lstlisting.4.-35}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.11}Actors and sprites}{135}{section.4.11}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.11.1}A.I.}{135}{subsection.4.11.1}}
-\@writefile{lol}{\contentsline {lstlisting}{code/statetype.c}{135}{lstlisting.4.-35}}
-\newlabel{state_type}{{4.11.1}{135}{A.I}{lstnumber.-35.16}{}}
-\BKM@entry{id=71,open,dest={73756273656374696F6E2E342E31312E32},srcline={530}}{5C3337365C3337375C303030445C303030725C303030615C303030775C303030695C3030306E5C303030675C3030305C3034305C303030535C303030705C303030725C303030695C303030745C303030655C30303073}
-\@writefile{lol}{\contentsline {lstlisting}{code/s\textunderscore grdchase.c}{136}{lstlisting.4.-36}}
+\@writefile{lol}{\contentsline {lstlisting}{code/statetype.c}{135}{lstlisting.4.-36}}
+\newlabel{state_type}{{4.11.1}{135}{A.I}{lstnumber.-36.16}{}}
+\BKM@entry{id=70,open,dest={73756273656374696F6E2E342E31312E32},srcline={560}}{5C3337365C3337375C303030445C303030725C303030615C303030775C303030695C3030306E5C303030675C3030305C3034305C303030535C303030705C303030725C303030695C303030745C303030655C30303073}
+\@writefile{lol}{\contentsline {lstlisting}{code/s\textunderscore grdchase.c}{136}{lstlisting.4.-37}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.11.2}Drawing Sprites}{136}{subsection.4.11.2}}
 \newlabel{section:draw_sprites}{{4.11.2}{136}{Drawing Sprites}{subsection.4.11.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.47}{\ignorespaces sprite structure\relax }}{137}{figure.caption.118}}
-\newlabel{fig:sprite_structure}{{4.47}{137}{sprite structure\relax }{figure.caption.118}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces content of spritetable[] in the \texttt  {KDREAMS.EGA} asset file.\relax }}{137}{table.caption.119}}
-\newlabel{table:spritetable}{{4.1}{137}{content of spritetable[] in the \cw {KDREAMS.EGA} asset file.\relax }{table.caption.119}{}}
-\BKM@entry{id=72,open,dest={73756273656374696F6E2E342E31312E33},srcline={586}}{5C3337365C3337375C303030435C3030306C5C303030695C303030705C303030705C303030695C3030306E5C30303067}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.48}{\ignorespaces Sprite shifted in 4 steps.\relax }}{138}{figure.caption.120}}
-\newlabel{fig:sprite_shift}{{4.48}{138}{Sprite shifted in 4 steps.\relax }{figure.caption.120}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/sprite\textunderscore shift.c}{138}{lstlisting.4.-37}}
-\newlabel{state_type}{{4.11.2}{138}{Drawing Sprites}{lstnumber.-37.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.11.3}Clipping}{138}{subsection.4.11.3}}
-\newlabel{section:clipping}{{4.11.3}{138}{Clipping}{subsection.4.11.3}{}}
-\newlabel{fig:clip_tinf_n}{{4.49a}{138}{Wall type map NORTHWALL\relax }{figure.caption.121}{}}
-\newlabel{sub@fig:clip_tinf_n}{{a}{138}{Wall type map NORTHWALL\relax }{figure.caption.121}{}}
-\newlabel{fig:clip_tinf_e}{{4.49b}{138}{Wall type map EASTWALL\relax }{figure.caption.121}{}}
-\newlabel{sub@fig:clip_tinf_e}{{b}{138}{Wall type map EASTWALL\relax }{figure.caption.121}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.49}{\ignorespaces Foreground tile clipping information.\relax }}{138}{figure.caption.121}}
-\newlabel{fig:clip_tinf}{{4.49}{138}{Foreground tile clipping information.\relax }{figure.caption.121}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.50}{\ignorespaces Clipping to east wall when moving from the west.\relax }}{139}{figure.caption.122}}
-\newlabel{fig:clipping_east}{{4.50}{139}{Clipping to east wall when moving from the west.\relax }{figure.caption.122}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore east\textunderscore wall.c}{139}{lstlisting.4.-38}}
-\newlabel{wallclip_array}{{4.11.3}{139}{Clipping}{lstnumber.-38.20}{}}
-\newlabel{fig:clipping_north}{{\caption@xref {fig:clipping_north}{ on input line 629}}{140}{Clipping}{figure.caption.123}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.51}{\ignorespaces Clipping north wall with slope.\relax }}{140}{figure.caption.123}}
-\@writefile{lol}{\contentsline {lstlisting}{code/wallclip\textunderscore array.c}{140}{lstlisting.4.-39}}
-\newlabel{wallclip_array}{{4.11.3}{140}{Clipping}{lstnumber.-39.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.52}{\ignorespaces Eight different walltypes (slopes) defined.\relax }}{141}{figure.caption.124}}
-\newlabel{fig:walltype}{{4.52}{141}{Eight different walltypes (slopes) defined.\relax }{figure.caption.124}{}}
-\BKM@entry{id=73,open,dest={73756273656374696F6E2E342E31312E34},srcline={656}}{5C3337365C3337375C303030505C303030725C303030695C3030306F5C303030725C303030695C303030745C303030795C3030305C3034305C3030306F5C303030665C3030305C3034305C303030745C303030695C3030306C5C303030655C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C303030735C3030305C3034305C3030306F5C3030306E5C3030305C3034305C303030735C303030635C303030725C303030655C303030655C3030306E}
-\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore north\textunderscore wall.c}{142}{lstlisting.4.-40}}
-\newlabel{wallclip_array}{{4.11.3}{142}{Clipping}{lstnumber.-40.26}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.11.4}Priority of tiles and sprites on screen}{142}{subsection.4.11.4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.53}{\ignorespaces Unnatural situation where Commander Keen is in front of a hole.\relax }}{143}{figure.caption.125}}
-\newlabel{fig:draw_layers}{{4.53}{143}{Unnatural situation where Commander Keen is in front of a hole.\relax }{figure.caption.125}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.54}{\ignorespaces Draw sprite inside a tile, by redrawing foreground tile.\relax }}{143}{figure.caption.126}}
-\newlabel{fig:clip_tinf}{{4.54}{143}{Draw sprite inside a tile, by redrawing foreground tile.\relax }{figure.caption.126}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/mask\textunderscore foreground\textunderscore tile.asm}{144}{lstlisting.4.-41}}
-\BKM@entry{id=74,open,dest={73756273656374696F6E2E342E31312E35},srcline={731}}{5C3337365C3337375C3030304D5C303030615C3030306E5C303030615C303030675C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030745C303030695C3030306D5C303030695C3030306E5C30303067}
-\BKM@entry{id=75,open,dest={73656374696F6E2E342E3132},srcline={5}}{5C3337365C3337375C303030415C303030755C303030645C303030695C3030306F5C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030485C303030655C303030615C303030725C303030745C303030625C303030655C303030615C30303074}
-\newlabel{mask_foreground_tile}{{4.11.4}{145}{Priority of tiles and sprites on screen}{lstnumber.-41.44}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.11.5}Manage refresh timing}{145}{subsection.4.11.5}}
-\@writefile{lol}{\contentsline {lstlisting}{code/time\textunderscore ticks.c}{145}{lstlisting.4.-42}}
-\newlabel{time_ticks}{{4.11.5}{145}{Manage refresh timing}{lstnumber.-42.23}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.12}Audio and Heartbeat}{145}{section.4.12}}
-\newlabel{audio_and_heartbeat}{{4.12}{145}{Audio and Heartbeat}{section.4.12}{}}
-\BKM@entry{id=76,open,dest={73756273656374696F6E2E342E31322E31},srcline={21}}{5C3337365C3337375C303030495C303030525C303030515C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030495C303030535C303030525C30303073}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.55}{\ignorespaces Hardware interrupts are translated to software interrupt via the PIC.\relax }}{146}{figure.caption.127}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.1}IRQs and ISRs}{146}{subsection.4.12.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.56}{\ignorespaces Interactions between PIT and PIC.\relax }}{147}{figure.caption.128}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.57}{\ignorespaces The Interrupt Vector Table (entries 0 to 18).\relax }}{148}{figure.caption.129}}
-\BKM@entry{id=77,open,dest={73756273656374696F6E2E342E31322E32},srcline={88}}{5C3337365C3337375C303030505C303030495C303030545C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030505C303030495C30303043}
-\@writefile{lol}{\contentsline {lstlisting}{code/disk\textunderscore motor.c}{149}{lstlisting.4.-43}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.2}PIT and PIC}{149}{subsection.4.12.2}}
-\BKM@entry{id=78,open,dest={73756273656374696F6E2E342E31322E33},srcline={91}}{5C3337365C3337375C303030495C3030306E5C303030745C303030655C303030725C303030725C303030755C303030705C303030745C3030305C3034305C303030465C303030725C303030655C303030715C303030755C303030655C3030306E5C303030635C30303079}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.3}Interrupt Frequency}{150}{subsection.4.12.3}}
-\@writefile{lol}{\contentsline {lstlisting}{code/set\textunderscore timer.c}{150}{lstlisting.4.-44}}
-\BKM@entry{id=79,open,dest={73756273656374696F6E2E342E31322E34},srcline={124}}{5C3337365C3337375C303030485C303030655C303030615C303030725C303030745C303030625C303030655C303030615C303030745C30303073}
-\@writefile{lol}{\contentsline {lstlisting}{code/set\textunderscore sound\textunderscore mode.c}{151}{lstlisting.4.-45}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.4}Heartbeats}{151}{subsection.4.12.4}}
-\BKM@entry{id=80,open,dest={73756273656374696F6E2E342E31322E35},srcline={136}}{5C3337365C3337375C303030415C303030755C303030645C303030695C3030306F5C3030305C3034305C303030535C303030795C303030735C303030745C303030655C3030306D}
-\@writefile{lol}{\contentsline {lstlisting}{code/timecount.c}{152}{lstlisting.4.-46}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.5}Audio System}{152}{subsection.4.12.5}}
-\@writefile{lol}{\contentsline {lstlisting}{code/sound1.h}{152}{lstlisting.4.-47}}
-\@writefile{lol}{\contentsline {lstlisting}{code/sound.h}{153}{lstlisting.4.-48}}
-\@writefile{lol}{\contentsline {lstlisting}{code/muse\textunderscore header.c}{154}{lstlisting.4.-49}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.12.5.1}FM Synthesizer: OPL2/YM3812 Programming}{155}{subsubsection.4.12.5.1}}
-\newlabel{IMF_explanation}{{4.12.5.1}{155}{FM Synthesizer: OPL2/YM3812 Programming}{subsubsection.4.12.5.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/audio\textunderscore ports.c}{155}{lstlisting.4.-50}}
-\BKM@entry{id=81,open,dest={73756273656374696F6E2E342E31322E36},srcline={200}}{5C3337365C3337375C303030505C303030435C3030305C3034305C303030535C303030705C303030655C303030615C3030306B5C303030655C303030725C3030303A5C3030305C3034305C303030535C303030715C303030755C303030615C303030725C303030655C3030305C3034305C303030575C303030615C303030765C303030655C30303073}
-\@writefile{lol}{\contentsline {lstlisting}{code/adlib\textunderscore wait.c}{156}{lstlisting.4.-51}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.6}PC Speaker: Square Waves}{156}{subsection.4.12.6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.58}{\ignorespaces The original sound.\relax }}{157}{figure.caption.130}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.59}{\ignorespaces The same sound approximated with square wave and frequency changes.\relax }}{157}{figure.caption.131}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.60}{\ignorespaces Built-in speaker hardware diagram.\relax }}{157}{figure.caption.132}}
-\newlabel{fig:pc_speaker}{{4.60}{157}{Built-in speaker hardware diagram.\relax }{figure.caption.132}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.61}{\ignorespaces Available modes of a PIT counter.\relax }}{158}{figure.caption.133}}
-\@writefile{lol}{\contentsline {lstlisting}{code/pwm.c}{158}{lstlisting.4.-52}}
-\@writefile{lol}{\contentsline {lstlisting}{code/pwm\textunderscore code.c}{159}{lstlisting.4.-53}}
-\BKM@entry{id=82,open,dest={73656374696F6E2E342E3133},srcline={6}}{5C3337365C3337375C303030555C303030735C303030655C303030725C3030305C3034305C303030495C3030306E5C303030705C303030755C303030745C30303073}
-\BKM@entry{id=83,open,dest={73756273656374696F6E2E342E31332E31},srcline={13}}{5C3337365C3337375C3030304B5C303030655C303030795C303030625C3030306F5C303030615C303030725C30303064}
-\@writefile{lol}{\contentsline {lstlisting}{code/pcSoundLookup.c}{160}{lstlisting.4.-54}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.13}User Inputs}{160}{section.4.13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.13.1}Keyboard}{160}{subsection.4.13.1}}
-\BKM@entry{id=84,open,dest={73756273656374696F6E2E342E31332E32},srcline={32}}{5C3337365C3337375C3030304D5C3030306F5C303030755C303030735C30303065}
-\@writefile{lol}{\contentsline {lstlisting}{code/keyboard.c}{161}{lstlisting.4.-55}}
-\@writefile{lol}{\contentsline {lstlisting}{code/keyboard\textunderscore array.c}{161}{lstlisting.4.-56}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.13.2}Mouse}{161}{subsection.4.13.2}}
-\BKM@entry{id=85,open,dest={73756273656374696F6E2E342E31332E33},srcline={69}}{5C3337365C3337375C3030304A5C3030306F5C303030795C303030735C303030745C303030695C303030635C3030306B}
-\@writefile{lol}{\contentsline {lstlisting}{code/mouse.sys.c}{162}{lstlisting.4.-57}}
-\@writefile{lol}{\contentsline {lstlisting}{code/mouse\textunderscore request.c}{162}{lstlisting.4.-58}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.62}{\ignorespaces Mouse request/response.\relax }}{162}{figure.caption.134}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.13.3}Joystick}{162}{subsection.4.13.3}}
-\@writefile{lol}{\contentsline {lstlisting}{code/joystick.c}{163}{lstlisting.4.-59}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.63}{\ignorespaces Joystick sampling bits and their meaning.\relax }}{163}{figure.caption.135}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.64}{\ignorespaces Two joysticks and the four potentiometers connected to the game port pins.\relax }}{164}{figure.caption.136}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.65}{\ignorespaces Each potentiometer is connected to a capacitor able to output either 0 or 1 depending on its charging state.\relax }}{164}{figure.caption.137}}
-\BKM@entry{id=86,open,dest={73656374696F6E2E342E3134},srcline={4}}{5C3337365C3337375C303030545C303030725C303030695C303030635C3030306B5C30303073}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.66}{\ignorespaces Strike Commander startup screen makes you calibrate your joystick.\relax }}{165}{figure.caption.138}}
-\BKM@entry{id=87,open,dest={73756273656374696F6E2E342E31342E31},srcline={11}}{5C3337365C3337375C303030425C3030306F5C303030755C3030306E5C303030635C303030695C3030306E5C303030675C3030305C3034305C303030465C3030306C5C3030306F5C303030775C303030655C30303072}
-\@writefile{toc}{\contentsline {section}{\numberline {4.14}Tricks}{166}{section.4.14}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.14.1}Bouncing Flower}{166}{subsection.4.14.1}}
-\newlabel{fig:angles}{{\caption@xref {fig:angles}{ on input line 19}}{166}{Bouncing Flower}{figure.caption.139}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/calc\textunderscore angle.c}{167}{lstlisting.4.-60}}
-\newlabel{wallclip_array}{{4.14.1}{167}{Bouncing Flower}{lstnumber.-60.38}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/bounceangle\textunderscore lookup.c}{168}{lstlisting.4.-61}}
-\newlabel{wallclip_array}{{4.14.1}{168}{Bouncing Flower}{lstnumber.-61.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.67}{\ignorespaces Walltype 3 with incoming angle of 22$^{\circ }$ (angle=0).\relax }}{168}{figure.caption.140}}
-\newlabel{fig:bounce_angles}{{4.67}{168}{Walltype 3 with incoming angle of 22$^{\circ }$ (angle=0).\relax }{figure.caption.140}{}}
-\BKM@entry{id=88,open,dest={73756273656374696F6E2E342E31342E32},srcline={69}}{5C3337365C3337375C303030505C303030735C303030655C303030755C303030645C3030306F5C3030305C3034305C303030525C303030615C3030306E5C303030645C3030306F5C3030306D5C3030305C3034305C303030475C303030655C3030306E5C303030655C303030725C303030615C303030745C3030306F5C30303072}
-\@writefile{lol}{\contentsline {lstlisting}{code/angle.c}{169}{lstlisting.4.-62}}
-\newlabel{wallclip_array}{{4.14.1}{169}{Bouncing Flower}{lstnumber.-62.16}{}}
-\newlabel{fig:bounce_angles}{{\caption@xref {fig:bounce_angles}{ on input line 63}}{169}{Bouncing Flower}{figure.caption.141}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.14.2}Pseudo Random Generator}{169}{subsection.4.14.2}}
-\@writefile{lol}{\contentsline {lstlisting}{code/rndtable.asm}{170}{lstlisting.4.-63}}
-\@writefile{lol}{\contentsline {lstlisting}{code/US\textunderscore InitRndT.asm}{171}{lstlisting.4.-64}}
-\BKM@entry{id=89,open,dest={73756273656374696F6E2E342E31342E33},srcline={89}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030665C303030615C303030645C303030655C30303073}
-\@writefile{lol}{\contentsline {lstlisting}{code/US\textunderscore RndT.asm}{172}{lstlisting.4.-65}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.14.3}Screen fades}{172}{subsection.4.14.3}}
-\@writefile{lol}{\contentsline {lstlisting}{code/ega\textunderscore set\textunderscore palette.c}{172}{lstlisting.4.-66}}
-\newlabel{ega_set_palette}{{4.14.3}{172}{Screen fades}{lstnumber.-66.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.68}{\ignorespaces EGA and CGA DE-9 connector pin signals.\relax }}{173}{figure.caption.142}}
-\newlabel{pin_signals}{{4.68}{173}{EGA and CGA DE-9 connector pin signals.\relax }{figure.caption.142}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.69}{\ignorespaces Color fading table.\relax }}{174}{figure.caption.144}}
-\@writefile{lol}{\contentsline {lstlisting}{code/ega\textunderscore fade\textunderscore in.c}{174}{lstlisting.4.-67}}
-\newlabel{ega_fade_in}{{4.14.3}{174}{Screen fades}{lstnumber.-67.15}{}}
-\BKM@entry{id=90,open,dest={636861707465722E35},srcline={118}}{5C3337365C3337375C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030445C303030725C303030655C303030615C3030306D5C303030735C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C303030475C30303041}
-\BKM@entry{id=91,open,dest={73656374696F6E2E352E31},srcline={20}}{5C3337365C3337375C303030435C303030475C303030415C3030305C3034305C303030565C303030695C303030645C303030655C3030306F5C303030635C303030615C303030725C30303064}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Keen Dreams in CGA}{175}{chapter.5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.48}{\ignorespaces sprite structure\relax }}{137}{figure.caption.119}}
+\newlabel{fig:sprite_structure}{{4.48}{137}{sprite structure\relax }{figure.caption.119}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces content of spritetable[] in the \texttt  {KDREAMS.EGA} asset file.\relax }}{137}{table.caption.120}}
+\newlabel{table:spritetable}{{4.1}{137}{content of spritetable[] in the \cw {KDREAMS.EGA} asset file.\relax }{table.caption.120}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/sprite\textunderscore removal.c}{138}{lstlisting.4.-38}}
+\BKM@entry{id=71,open,dest={73756273656374696F6E2E342E31312E33},srcline={630}}{5C3337365C3337375C303030435C3030306C5C303030695C303030705C303030705C303030695C3030306E5C30303067}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.49}{\ignorespaces Sprite shifted in 4 steps.\relax }}{139}{figure.caption.121}}
+\newlabel{fig:sprite_shift}{{4.49}{139}{Sprite shifted in 4 steps.\relax }{figure.caption.121}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/sprite\textunderscore shift.c}{139}{lstlisting.4.-39}}
+\newlabel{state_type}{{4.11.2}{139}{Drawing Sprites}{lstnumber.-39.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.11.3}Clipping}{139}{subsection.4.11.3}}
+\newlabel{section:clipping}{{4.11.3}{139}{Clipping}{subsection.4.11.3}{}}
+\newlabel{fig:clip_tinf_n}{{4.50a}{140}{Wall type map NORTHWALL\relax }{figure.caption.122}{}}
+\newlabel{sub@fig:clip_tinf_n}{{a}{140}{Wall type map NORTHWALL\relax }{figure.caption.122}{}}
+\newlabel{fig:clip_tinf_e}{{4.50b}{140}{Wall type map EASTWALL\relax }{figure.caption.122}{}}
+\newlabel{sub@fig:clip_tinf_e}{{b}{140}{Wall type map EASTWALL\relax }{figure.caption.122}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.50}{\ignorespaces Foreground tile clipping information.\relax }}{140}{figure.caption.122}}
+\newlabel{fig:clip_tinf}{{4.50}{140}{Foreground tile clipping information.\relax }{figure.caption.122}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.51}{\ignorespaces Clipping to east wall when moving from the west.\relax }}{140}{figure.caption.123}}
+\newlabel{fig:clipping_east}{{4.51}{140}{Clipping to east wall when moving from the west.\relax }{figure.caption.123}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore east\textunderscore wall.c}{141}{lstlisting.4.-40}}
+\newlabel{wallclip_array}{{4.11.3}{141}{Clipping}{lstnumber.-40.20}{}}
+\newlabel{fig:clipping_north}{{\caption@xref {fig:clipping_north}{ on input line 673}}{141}{Clipping}{figure.caption.124}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.52}{\ignorespaces Clipping north wall with slope.\relax }}{141}{figure.caption.124}}
+\@writefile{lol}{\contentsline {lstlisting}{code/wallclip\textunderscore array.c}{142}{lstlisting.4.-41}}
+\newlabel{wallclip_array}{{4.11.3}{142}{Clipping}{lstnumber.-41.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.53}{\ignorespaces Eight different walltypes (slopes) defined.\relax }}{142}{figure.caption.125}}
+\newlabel{fig:walltype}{{4.53}{142}{Eight different walltypes (slopes) defined.\relax }{figure.caption.125}{}}
+\BKM@entry{id=72,open,dest={73756273656374696F6E2E342E31312E34},srcline={700}}{5C3337365C3337375C303030505C303030725C303030695C3030306F5C303030725C303030695C303030745C303030795C3030305C3034305C3030306F5C303030665C3030305C3034305C303030745C303030695C3030306C5C303030655C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C303030735C3030305C3034305C3030306F5C3030306E5C3030305C3034305C303030735C303030635C303030725C303030655C303030655C3030306E}
+\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore north\textunderscore wall.c}{143}{lstlisting.4.-42}}
+\newlabel{wallclip_array}{{4.11.3}{143}{Clipping}{lstnumber.-42.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.11.4}Priority of tiles and sprites on screen}{143}{subsection.4.11.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.54}{\ignorespaces Unnatural situation where Commander Keen is in front of a hole.\relax }}{144}{figure.caption.126}}
+\newlabel{fig:draw_layers}{{4.54}{144}{Unnatural situation where Commander Keen is in front of a hole.\relax }{figure.caption.126}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.55}{\ignorespaces Draw sprite inside a tile, by redrawing foreground tile.\relax }}{144}{figure.caption.127}}
+\newlabel{fig:clip_tinf}{{4.55}{144}{Draw sprite inside a tile, by redrawing foreground tile.\relax }{figure.caption.127}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/mask\textunderscore foreground\textunderscore tile.asm}{145}{lstlisting.4.-43}}
+\BKM@entry{id=73,open,dest={73756273656374696F6E2E342E31312E35},srcline={775}}{5C3337365C3337375C3030304D5C303030615C3030306E5C303030615C303030675C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030745C303030695C3030306D5C303030695C3030306E5C30303067}
+\newlabel{mask_foreground_tile}{{4.11.4}{146}{Priority of tiles and sprites on screen}{lstnumber.-43.44}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.11.5}Manage refresh timing}{146}{subsection.4.11.5}}
+\@writefile{lol}{\contentsline {lstlisting}{code/time\textunderscore ticks.c}{146}{lstlisting.4.-44}}
+\newlabel{time_ticks}{{4.11.5}{146}{Manage refresh timing}{lstnumber.-44.23}{}}
+\BKM@entry{id=74,open,dest={73656374696F6E2E342E3132},srcline={5}}{5C3337365C3337375C303030415C303030755C303030645C303030695C3030306F5C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030485C303030655C303030615C303030725C303030745C303030625C303030655C303030615C30303074}
+\BKM@entry{id=75,open,dest={73756273656374696F6E2E342E31322E31},srcline={21}}{5C3337365C3337375C303030495C303030525C303030515C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030495C303030535C303030525C30303073}
+\@writefile{toc}{\contentsline {section}{\numberline {4.12}Audio and Heartbeat}{147}{section.4.12}}
+\newlabel{audio_and_heartbeat}{{4.12}{147}{Audio and Heartbeat}{section.4.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.56}{\ignorespaces Hardware interrupts are translated to software interrupt via the PIC.\relax }}{147}{figure.caption.128}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.1}IRQs and ISRs}{147}{subsection.4.12.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.57}{\ignorespaces Interactions between PIT and PIC.\relax }}{148}{figure.caption.129}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.58}{\ignorespaces The Interrupt Vector Table (entries 0 to 18).\relax }}{149}{figure.caption.130}}
+\BKM@entry{id=76,open,dest={73756273656374696F6E2E342E31322E32},srcline={88}}{5C3337365C3337375C303030505C303030495C303030545C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030505C303030495C30303043}
+\@writefile{lol}{\contentsline {lstlisting}{code/disk\textunderscore motor.c}{150}{lstlisting.4.-45}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.2}PIT and PIC}{150}{subsection.4.12.2}}
+\BKM@entry{id=77,open,dest={73756273656374696F6E2E342E31322E33},srcline={91}}{5C3337365C3337375C303030495C3030306E5C303030745C303030655C303030725C303030725C303030755C303030705C303030745C3030305C3034305C303030465C303030725C303030655C303030715C303030755C303030655C3030306E5C303030635C30303079}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.3}Interrupt Frequency}{151}{subsection.4.12.3}}
+\@writefile{lol}{\contentsline {lstlisting}{code/set\textunderscore timer.c}{151}{lstlisting.4.-46}}
+\BKM@entry{id=78,open,dest={73756273656374696F6E2E342E31322E34},srcline={124}}{5C3337365C3337375C303030485C303030655C303030615C303030725C303030745C303030625C303030655C303030615C303030745C30303073}
+\@writefile{lol}{\contentsline {lstlisting}{code/set\textunderscore sound\textunderscore mode.c}{152}{lstlisting.4.-47}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.4}Heartbeats}{152}{subsection.4.12.4}}
+\BKM@entry{id=79,open,dest={73756273656374696F6E2E342E31322E35},srcline={136}}{5C3337365C3337375C303030415C303030755C303030645C303030695C3030306F5C3030305C3034305C303030535C303030795C303030735C303030745C303030655C3030306D}
+\@writefile{lol}{\contentsline {lstlisting}{code/timecount.c}{153}{lstlisting.4.-48}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.5}Audio System}{153}{subsection.4.12.5}}
+\@writefile{lol}{\contentsline {lstlisting}{code/sound1.h}{153}{lstlisting.4.-49}}
+\@writefile{lol}{\contentsline {lstlisting}{code/sound.h}{154}{lstlisting.4.-50}}
+\@writefile{lol}{\contentsline {lstlisting}{code/muse\textunderscore header.c}{155}{lstlisting.4.-51}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.12.5.1}FM Synthesizer: OPL2/YM3812 Programming}{156}{subsubsection.4.12.5.1}}
+\newlabel{IMF_explanation}{{4.12.5.1}{156}{FM Synthesizer: OPL2/YM3812 Programming}{subsubsection.4.12.5.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/audio\textunderscore ports.c}{156}{lstlisting.4.-52}}
+\BKM@entry{id=80,open,dest={73756273656374696F6E2E342E31322E36},srcline={200}}{5C3337365C3337375C303030505C303030435C3030305C3034305C303030535C303030705C303030655C303030615C3030306B5C303030655C303030725C3030303A5C3030305C3034305C303030535C303030715C303030755C303030615C303030725C303030655C3030305C3034305C303030575C303030615C303030765C303030655C30303073}
+\@writefile{lol}{\contentsline {lstlisting}{code/adlib\textunderscore wait.c}{157}{lstlisting.4.-53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.6}PC Speaker: Square Waves}{157}{subsection.4.12.6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.59}{\ignorespaces The original sound.\relax }}{158}{figure.caption.131}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.60}{\ignorespaces The same sound approximated with square wave and frequency changes.\relax }}{158}{figure.caption.132}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.61}{\ignorespaces Built-in speaker hardware diagram.\relax }}{158}{figure.caption.133}}
+\newlabel{fig:pc_speaker}{{4.61}{158}{Built-in speaker hardware diagram.\relax }{figure.caption.133}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.62}{\ignorespaces Available modes of a PIT counter.\relax }}{159}{figure.caption.134}}
+\@writefile{lol}{\contentsline {lstlisting}{code/pwm.c}{159}{lstlisting.4.-54}}
+\@writefile{lol}{\contentsline {lstlisting}{code/pwm\textunderscore code.c}{160}{lstlisting.4.-55}}
+\BKM@entry{id=81,open,dest={73656374696F6E2E342E3133},srcline={6}}{5C3337365C3337375C303030555C303030735C303030655C303030725C3030305C3034305C303030495C3030306E5C303030705C303030755C303030745C30303073}
+\BKM@entry{id=82,open,dest={73756273656374696F6E2E342E31332E31},srcline={13}}{5C3337365C3337375C3030304B5C303030655C303030795C303030625C3030306F5C303030615C303030725C30303064}
+\@writefile{lol}{\contentsline {lstlisting}{code/pcSoundLookup.c}{161}{lstlisting.4.-56}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.13}User Inputs}{161}{section.4.13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.13.1}Keyboard}{161}{subsection.4.13.1}}
+\BKM@entry{id=83,open,dest={73756273656374696F6E2E342E31332E32},srcline={32}}{5C3337365C3337375C3030304D5C3030306F5C303030755C303030735C30303065}
+\@writefile{lol}{\contentsline {lstlisting}{code/keyboard.c}{162}{lstlisting.4.-57}}
+\@writefile{lol}{\contentsline {lstlisting}{code/keyboard\textunderscore array.c}{162}{lstlisting.4.-58}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.13.2}Mouse}{162}{subsection.4.13.2}}
+\@writefile{lol}{\contentsline {lstlisting}{code/mouse.sys.c}{162}{lstlisting.4.-59}}
+\BKM@entry{id=84,open,dest={73756273656374696F6E2E342E31332E33},srcline={69}}{5C3337365C3337375C3030304A5C3030306F5C303030795C303030735C303030745C303030695C303030635C3030306B}
+\@writefile{lol}{\contentsline {lstlisting}{code/mouse\textunderscore request.c}{163}{lstlisting.4.-60}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.63}{\ignorespaces Mouse request/response.\relax }}{163}{figure.caption.135}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.13.3}Joystick}{163}{subsection.4.13.3}}
+\@writefile{lol}{\contentsline {lstlisting}{code/joystick.c}{164}{lstlisting.4.-61}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.64}{\ignorespaces Joystick sampling bits and their meaning.\relax }}{164}{figure.caption.136}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.65}{\ignorespaces Two joysticks and the four potentiometers connected to the game port pins.\relax }}{165}{figure.caption.137}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.66}{\ignorespaces Each potentiometer is connected to a capacitor able to output either 0 or 1 depending on its charging state.\relax }}{165}{figure.caption.138}}
+\BKM@entry{id=85,open,dest={73656374696F6E2E342E3134},srcline={4}}{5C3337365C3337375C303030545C303030725C303030695C303030635C3030306B5C30303073}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.67}{\ignorespaces Strike Commander startup screen makes you calibrate your joystick.\relax }}{166}{figure.caption.139}}
+\BKM@entry{id=86,open,dest={73756273656374696F6E2E342E31342E31},srcline={11}}{5C3337365C3337375C303030425C3030306F5C303030755C3030306E5C303030635C303030695C3030306E5C303030675C3030305C3034305C303030505C303030685C303030795C303030735C303030695C303030635C30303073}
+\@writefile{toc}{\contentsline {section}{\numberline {4.14}Tricks}{167}{section.4.14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.14.1}Bouncing Physics}{167}{subsection.4.14.1}}
+\newlabel{fig:angles}{{\caption@xref {fig:angles}{ on input line 19}}{167}{Bouncing Physics}{figure.caption.140}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/calc\textunderscore angle.c}{168}{lstlisting.4.-62}}
+\newlabel{wallclip_array}{{4.14.1}{168}{Bouncing Physics}{lstnumber.-62.38}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/bounceangle\textunderscore lookup.c}{169}{lstlisting.4.-63}}
+\newlabel{wallclip_array}{{4.14.1}{169}{Bouncing Physics}{lstnumber.-63.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.68}{\ignorespaces Walltype 3 with incoming angle of 22$^{\circ }$ (angle=0).\relax }}{169}{figure.caption.141}}
+\newlabel{fig:bounce_angles}{{4.68}{169}{Walltype 3 with incoming angle of 22$^{\circ }$ (angle=0).\relax }{figure.caption.141}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/angle.c}{170}{lstlisting.4.-64}}
+\newlabel{wallclip_array}{{4.14.1}{170}{Bouncing Physics}{lstnumber.-64.16}{}}
+\newlabel{fig:bounce_angles}{{\caption@xref {fig:bounce_angles}{ on input line 63}}{170}{Bouncing Physics}{figure.caption.142}{}}
+\BKM@entry{id=87,open,dest={73756273656374696F6E2E342E31342E32},srcline={69}}{5C3337365C3337375C303030505C303030735C303030655C303030755C303030645C3030306F5C3030305C3034305C303030525C303030615C3030306E5C303030645C3030306F5C3030306D5C3030305C3034305C303030475C303030655C3030306E5C303030655C303030725C303030615C303030745C3030306F5C30303072}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.14.2}Pseudo Random Generator}{171}{subsection.4.14.2}}
+\@writefile{lol}{\contentsline {lstlisting}{code/rndtable.asm}{171}{lstlisting.4.-65}}
+\@writefile{lol}{\contentsline {lstlisting}{code/US\textunderscore InitRndT.asm}{172}{lstlisting.4.-66}}
+\BKM@entry{id=88,open,dest={73756273656374696F6E2E342E31342E33},srcline={89}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030665C303030615C303030645C303030655C30303073}
+\@writefile{lol}{\contentsline {lstlisting}{code/US\textunderscore RndT.asm}{173}{lstlisting.4.-67}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.14.3}Screen fades}{173}{subsection.4.14.3}}
+\@writefile{lol}{\contentsline {lstlisting}{code/ega\textunderscore set\textunderscore palette.c}{173}{lstlisting.4.-68}}
+\newlabel{ega_set_palette}{{4.14.3}{173}{Screen fades}{lstnumber.-68.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.69}{\ignorespaces EGA and CGA DE-9 connector pin signals.\relax }}{174}{figure.caption.143}}
+\newlabel{pin_signals}{{4.69}{174}{EGA and CGA DE-9 connector pin signals.\relax }{figure.caption.143}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.70}{\ignorespaces Color fading table.\relax }}{175}{figure.caption.145}}
+\@writefile{lol}{\contentsline {lstlisting}{code/ega\textunderscore fade\textunderscore in.c}{175}{lstlisting.4.-69}}
+\newlabel{ega_fade_in}{{4.14.3}{175}{Screen fades}{lstnumber.-69.15}{}}
+\BKM@entry{id=89,open,dest={636861707465722E35},srcline={118}}{5C3337365C3337375C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030445C303030725C303030655C303030615C3030306D5C303030735C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C303030475C30303041}
+\BKM@entry{id=90,open,dest={73656374696F6E2E352E31},srcline={20}}{5C3337365C3337375C303030435C303030475C303030415C3030305C3034305C303030565C303030695C303030645C303030655C3030306F5C303030635C303030615C303030725C30303064}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Keen Dreams in CGA}{177}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Keen Dreams EGA and CGA version.\relax }}{175}{figure.caption.145}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}CGA Videocard}{176}{section.5.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces The CGA is a full-length 8-bit ISA card.\relax }}{176}{figure.caption.146}}
-\BKM@entry{id=92,open,dest={73656374696F6E2E352E32},srcline={91}}{5C3337365C3337375C3030304D5C303030655C3030306D5C3030306F5C303030725C303030795C3030305C3034305C303030615C303030725C303030635C303030685C303030695C303030745C303030655C303030635C303030745C303030755C303030725C303030655C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030495C3030306E5C303030745C303030655C303030725C3030306C5C303030615C303030635C303030695C3030306E5C30303067}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces EGA Modes available.\relax }}{177}{figure.caption.147}}
-\newlabel{ega-modes-available}{{5.3}{177}{EGA Modes available.\relax }{figure.caption.147}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces CGA color palettes.\relax }}{177}{figure.caption.149}}
-\newlabel{default_ega_palette}{{5.4}{177}{CGA color palettes.\relax }{figure.caption.149}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Memory architecture and Interlacing}{178}{section.5.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces CGA interlaced memory.\relax }}{178}{figure.caption.151}}
-\newlabel{fig:cga_interlaced}{{5.5}{178}{CGA interlaced memory.\relax }{figure.caption.151}{}}
-\BKM@entry{id=93,open,dest={73656374696F6E2E352E33},srcline={119}}{5C3337365C3337375C303030445C3030306F5C303030755C303030625C3030306C5C303030655C3030305C3034305C303030625C303030755C303030665C303030665C303030655C303030725C303030695C3030306E5C30303067}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Double buffering}{179}{section.5.3}}
-\@writefile{lol}{\contentsline {lstlisting}{code/cga\textunderscore init\textunderscore buffer.c}{179}{lstlisting.5.-68}}
-\newlabel{state_type}{{5.3}{179}{Double buffering}{lstnumber.-68.6}{}}
-\BKM@entry{id=94,open,dest={73656374696F6E2E352E34},srcline={137}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C30303068}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces CGA double buffering memory layout.\relax }}{180}{figure.caption.152}}
-\newlabel{fig:cga_screenseg}{{5.6}{180}{CGA double buffering memory layout.\relax }{figure.caption.152}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Screen refresh}{180}{section.5.4}}
-\@writefile{lol}{\contentsline {lstlisting}{code/cga\textunderscore calc\textunderscore origin.c}{181}{lstlisting.5.-69}}
-\newlabel{state_type}{{5.4}{181}{Screen refresh}{lstnumber.-69.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces CGA memory to VRAM copy.\relax }}{181}{figure.caption.153}}
-\newlabel{fig:cga_interlaced}{{5.7}{181}{CGA memory to VRAM copy.\relax }{figure.caption.153}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/cga\textunderscore screen\textunderscore refresh.c}{182}{lstlisting.5.-70}}
-\newlabel{cga_screen_refresh}{{5.4}{182}{Screen refresh}{lstnumber.-70.38}{}}
-\BKM@entry{id=95,open,dest={73656374696F6E2A2E313534},srcline={122}}{5C3337365C3337375C303030415C303030705C303030705C303030655C3030306E5C303030645C303030695C303030635C303030655C30303073}
-\@writefile{toc}{\contentsline {chapter}{Appendices}{185}{section*.154}}
-\BKM@entry{id=96,open,dest={617070656E6469782E41},srcline={124}}{5C3337365C3337375C303030445C303030615C3030306E5C303030675C303030655C303030725C3030306F5C303030755C303030735C3030305C3034305C303030445C303030615C303030765C303030655C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C3030306F5C303030705C303030795C303030725C303030695C303030675C303030685C303030745C3030305C3034305C303030495C3030306E5C303030665C303030725C303030695C3030306E5C303030675C303030655C3030306D5C303030655C3030306E5C30303074}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Dangerous Dave in Copyright Infringement}{187}{appendix.A}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Keen Dreams EGA and CGA version.\relax }}{177}{figure.caption.146}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}CGA Videocard}{178}{section.5.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces The CGA is a full-length 8-bit ISA card.\relax }}{178}{figure.caption.147}}
+\BKM@entry{id=91,open,dest={73656374696F6E2E352E32},srcline={91}}{5C3337365C3337375C3030304D5C303030655C3030306D5C3030306F5C303030725C303030795C3030305C3034305C303030615C303030725C303030635C303030685C303030695C303030745C303030655C303030635C303030745C303030755C303030725C303030655C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030495C3030306E5C303030745C303030655C303030725C3030306C5C303030615C303030635C303030695C3030306E5C30303067}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces EGA Modes available.\relax }}{179}{figure.caption.148}}
+\newlabel{ega-modes-available}{{5.3}{179}{EGA Modes available.\relax }{figure.caption.148}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces CGA color palettes.\relax }}{179}{figure.caption.150}}
+\newlabel{default_ega_palette}{{5.4}{179}{CGA color palettes.\relax }{figure.caption.150}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Memory architecture and Interlacing}{180}{section.5.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces CGA interlaced memory.\relax }}{180}{figure.caption.152}}
+\newlabel{fig:cga_interlaced}{{5.5}{180}{CGA interlaced memory.\relax }{figure.caption.152}{}}
+\BKM@entry{id=92,open,dest={73656374696F6E2E352E33},srcline={119}}{5C3337365C3337375C303030445C3030306F5C303030755C303030625C3030306C5C303030655C3030305C3034305C303030625C303030755C303030665C303030665C303030655C303030725C303030695C3030306E5C30303067}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Double buffering}{181}{section.5.3}}
+\@writefile{lol}{\contentsline {lstlisting}{code/cga\textunderscore init\textunderscore buffer.c}{181}{lstlisting.5.-70}}
+\newlabel{state_type}{{5.3}{181}{Double buffering}{lstnumber.-70.6}{}}
+\BKM@entry{id=93,open,dest={73656374696F6E2E352E34},srcline={137}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C30303068}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces CGA double buffering memory layout.\relax }}{182}{figure.caption.153}}
+\newlabel{fig:cga_screenseg}{{5.6}{182}{CGA double buffering memory layout.\relax }{figure.caption.153}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Screen refresh}{182}{section.5.4}}
+\@writefile{lol}{\contentsline {lstlisting}{code/cga\textunderscore calc\textunderscore origin.c}{183}{lstlisting.5.-71}}
+\newlabel{state_type}{{5.4}{183}{Screen refresh}{lstnumber.-71.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces CGA memory to VRAM copy.\relax }}{183}{figure.caption.154}}
+\newlabel{fig:cga_interlaced}{{5.7}{183}{CGA memory to VRAM copy.\relax }{figure.caption.154}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/cga\textunderscore screen\textunderscore refresh.c}{184}{lstlisting.5.-72}}
+\newlabel{cga_screen_refresh}{{5.4}{184}{Screen refresh}{lstnumber.-72.38}{}}
+\BKM@entry{id=94,open,dest={73656374696F6E2A2E313535},srcline={122}}{5C3337365C3337375C303030415C303030705C303030705C303030655C3030306E5C303030645C303030695C303030635C303030655C30303073}
+\@writefile{toc}{\contentsline {chapter}{Appendices}{187}{section*.155}}
+\BKM@entry{id=95,open,dest={617070656E6469782E41},srcline={124}}{5C3337365C3337375C303030445C303030615C3030306E5C303030675C303030655C303030725C3030306F5C303030755C303030735C3030305C3034305C303030445C303030615C303030765C303030655C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C3030306F5C303030705C303030795C303030725C303030695C303030675C303030685C303030745C3030305C3034305C303030495C3030306E5C303030665C303030725C303030695C3030306E5C303030675C303030655C3030306D5C303030655C3030306E5C30303074}
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Dangerous Dave in Copyright Infringement}{189}{appendix.A}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces Dangerous Dave in Copyright Infringement demo\relax }}{188}{figure.caption.155}}
-\newlabel{fig:ddici}{{A.1}{188}{Dangerous Dave in Copyright Infringement demo\relax }{figure.caption.155}{}}
-\BKM@entry{id=97,open,dest={617070656E6469782E42},srcline={127}}{5C3337365C3337375C303030465C3030306F5C303030755C3030306E5C303030645C303030695C3030306E5C303030675C3030305C3034305C3030306F5C303030665C3030305C3034305C303030695C303030645C3030305C3034305C303030535C3030306F5C303030665C303030745C303030775C303030615C303030725C30303065}
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}Founding of id Software}{189}{appendix.B}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces Dangerous Dave in Copyright Infringement demo\relax }}{190}{figure.caption.156}}
+\newlabel{fig:ddici}{{A.1}{190}{Dangerous Dave in Copyright Infringement demo\relax }{figure.caption.156}{}}
+\BKM@entry{id=96,open,dest={617070656E6469782E42},srcline={127}}{5C3337365C3337375C303030465C3030306F5C303030755C3030306E5C303030645C303030695C3030306E5C303030675C3030305C3034305C3030306F5C303030665C3030305C3034305C303030695C303030645C3030305C3034305C303030535C3030306F5C303030665C303030745C303030775C303030615C303030725C30303065}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Founding of id Software}{191}{appendix.B}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:id_software}{{B}{189}{Founding of id Software}{appendix.B}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {B.1}{\ignorespaces Commander Keen Episode 1-6.\relax }}{190}{figure.caption.156}}
-\newlabel{fig:keen_episodes}{{B.1}{190}{Commander Keen Episode 1-6.\relax }{figure.caption.156}{}}
+\newlabel{sec:id_software}{{B}{191}{Founding of id Software}{appendix.B}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.1}{\ignorespaces Commander Keen Episode 1-6.\relax }}{192}{figure.caption.157}}
+\newlabel{fig:keen_episodes}{{B.1}{192}{Commander Keen Episode 1-6.\relax }{figure.caption.157}{}}
