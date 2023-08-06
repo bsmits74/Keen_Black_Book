@@ -56,7 +56,7 @@ The area of the virtual screen displayed at any given time is selected by settin
 Smooth pixel scrolling of the screen is provided by the Horizontal Pel Panning register in the Attribute Controller (ATC). Up to 7 pixels' worth of single pixel panning of the displayed image to the left is performed by increasing the register from 0 to 7. \\
 \par
 
-There is one annoying quirk about programming the Attribute Controller: when the ATC Index register is set, only the lower five bits (bits 0-4) are used as the internal index. The next most significant bit, bit 5, controls the source of the video data send to the monitor by the EGA card. When bit 5 is set to 1, the ouput of the palette RAM controls the displayed pixels; this is normal operation. When bit 5 is 0, video data doesn't come from the palette RAM, and the screen becomes a solid color. To ensure the ATC index register is restored to normal video, we must set bit 5 to 1 by writing \cw{20h} to the register.\\ 
+There is one annoying quirk about programming the Attribute Controller: when the ATC Index register is set, only the lower five bits (bits 0-4) are used as the internal index. The next most significant bit, bit 5, controls the source of the video data send to the monitor by the EGA card. When bit 5 is set to 1, the ouput of the color palette controls the displayed pixels; this is normal operation. When bit 5 is 0, video data doesn't come from the color palette, and the screen becomes a solid color. To ensure the ATC index register is restored to normal video, we must set bit 5 to 1 by writing \cw{20h} to the register.\\ 
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/EGA_PELPAN.ASM}
@@ -126,15 +126,8 @@ The page that is actually displayed at any given time is selected by setting the
 \section{Adaptive Tile Refreshment}
 The approach of refreshing the screen is different between the first Commander Keen games, Commander Keen 1-3, and the ones after. In the first games the algoritm keeps the view and buffer screen at fixed VRAM locations, where it performs a check which tiles are changed after the scroll. In the later games, it makes use of the moving the VRAM location and add a full row or column at the beginning or end of the view port. \\
 
-\subsection{Tile buffer and tile view layout}
-Before explaining the scrolling algoritm, let's first explain how the view port and buffer layout are setup. The visible viewing screen on EGA has a resolution of 320x200 pixels. Translated in 16x16 pixel tiles, the screen view has a size of 20x13 tiles. By making the view port one tile higher and wider than the screen, the engine can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh, by means of adjusting the CRTC Start Address and Pel Pan registers. Finally, the buffer must have enough space to float the view port up to two tiles in all direction. At the end of Section \ref{section:scroll_refresh_dreams} it is explained why we need a spare buffer of 2 tiles.\\
-
-So summarized, as illustrated in Figure \ref{fig:screen_setup}, the following tile views are defined:
-\begin{itemize}
-\item Screen View size of 20x13 tiles and Port View size of 21x14 tiles.
-\item Buffer screen size of 22x14 tiles. This is one tile wider than the Port View, where the additional tile is used to mark a '0' at the end of each tile row. 
-\item Total tile buffer is the buffer screen plus two times a spare buffer to support floating the buffer screen two tiles in any direction.
-\end{itemize}
+\par
+Before explaining the scrolling algoritm, let's first explain how the tile layout is organized. The EGA screen in mode \cw{0xD} has a resolution of 320x200 pixels. Translated in 16x16 pixel tiles, the screen view has a size of 20x13 tiles (actually 12.5 tiles high, but we round up to 13 tiles). By making the port view one tile higher and wider than the screen, the engine can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh, by means of adjusting the CRTC Start Address and Pel Pan registers. Finally, the buffer must have enough space to float the view port up to two tiles in all directions (This is required for later versions of Commander Keen, which will be explained in Section \ref{section:scroll_refresh_dreams}). In total two tile arrays are maintained; one for the view screen and one for the buffer screen.\\
 \par
  
 \begin{figure}[H]
@@ -144,26 +137,19 @@ So summarized, as illustrated in Figure \ref{fig:screen_setup}, the following ti
 \label{fig:screen_setup}
 \end{figure}
 
-To keep track of the tile refresh process, the following variables are defined in the game:
-\begin{itemize}
-  \item \cw{screenstart[]} are pointers to the starting address (upper-left pixel) of the viewports in VRAM. As explained, we maintain three viewports in VRAM:
-  \begin{itemize}
-    \item screenpage, the active displayed screen on the monitor. Note that the engine never works or updates the active screen.
-    \item otherpage, which is the buffer screen. This screen is updated and will be switched with the screenpage upon next refresh.
-    \item masterpage, which stores a complete static background, without sprites. This page is used to update the buffer screen.
-  \end{itemize}
-  \item \cw{updatestart[]} are pointers to the tile arrays. It maintains which tiles needs to be updated upon next refresh. There are two tile buffer arrays; one for the screenpage and one for otherpage. 
-\end{itemize}
+
+
+
 
 \subsection{Adaptive tile refreshment in Commander Keen 1-3}
 In the this section we explain how the first 3 versions of the game are working\footnote{We can only explain how the algoritm is working without code examples, since the only released code is Keen Dreams which is using the improved algoritm.}. Six stages are involved in drawing a 2D scene:
 \begin{enumerate}
 \item Check if the player has moved one tile in any direction.
-\item Validate which tiles have changed (both from scrolling and animated tiles), copy these respective tiles to the Master screen and mark the tiles in both tile arrays (view and buffer tile arrays).
-\item Refresh the buffer screen by scanning all tiles. If a tile needs to be updated, copy the tile from the master screen to the buffer screen.
-\item Iterate through the sprite removal list and copy corresponding image block from the master screen to buffer screen. 
-\item Iterate through the sprite list and copy corresponding sprite image block from asset location in RAM to buffer screen.
-\item Switch the view and buffer screen by adjusting the CRTC Start Address and Pel Panning registers.
+\item Validate which tiles have changed (both from scrolling and animated tiles), copy these respective tiles to the master page and mark the tiles in both tile arrays (view and buffer tile arrays).
+\item Refresh the buffer page by scanning all tiles. If a tile needs to be updated, copy the tile from the master page to the buffer page.
+\item Iterate through the sprite removal list and copy corresponding image block from the master page to buffer page. 
+\item Iterate through the sprite list and copy corresponding sprite image block from RAM to buffer page.
+\item Switch the view and buffer page by adjusting the CRTC Start Address and Pel Panning registers.
 \end{enumerate}
 
 
@@ -180,13 +166,13 @@ In the next six screenshots, we take you step-by-step through each of the stages
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC1-3_1-mem2master.png}
- \caption{Step 2: Update changed tiles in masterscreen, marked in dark grey}
+ \caption{Step 2: Update changed tiles in master page, marked in dark grey}
  \label{fig:kc1_3_update_masterscreen}
 \end{figure}
 
-Each tile of the buffer screen is compared with the corresponsing tile on the view screen. If the tile number has changed, the tile needs to be updated by copying tile data from the asset location into the corresponding location of the masterpage.\\
+The engine keeps track of which tile IDs are in the virtual screen. Since the engine only jolts at tiles size granularity, it can determine extremely fast what has changed on the screen by comparing tile IDs. If the tile number has changed, the tile is updated by copying tile data from RAM into the corresponding location of the VRAM master page.\\
 \par
-In parallel both the tile buffer and tile view array the changed tiles are marked with a '1', which means it needs to be updated upon next refresh.
+The changed tiles are marked with a '1' in both tile arrays, which means it needs to be updated upon next refresh.
 
 \begin{figure}[H]
 \centering
@@ -201,13 +187,13 @@ In parallel both the tile buffer and tile view array the changed tiles are marke
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC1-3_1-master2buffer.png}
- \caption{Step 3 and 4: Copy tiles from master to buffer screen and remove sprites}
+ \caption{Step 3 and 4: Copy tiles from master to buffer page and remove sprites}
  \label{fig:kc1_3_update_remove}
 \end{figure}
 
-The next step is to scan all tiles in the tile buffer array and for each tile marked as '1', copy the tile from master to buffer screen.\\
+The next step is to scan all tiles in the tile buffer array and for each tile marked as '1', copy the tile from master to buffer page.\\
 \par
-If a sprite has moved, the previous sprite location is added to the block removal list. For each block in this removal list, erase the sprite by copying the width and height of the sprite block (marked in green in Figure \ref{fig:kc1_3_update_remove}) from the master screen to the buffer screen, and mark the corresponding tiles only in the tile buffer array with a '2'.
+If a sprite has moved or disappeared, the latest sprite location is added to the block removal list. For each block in this removal list, erase the sprite by copying the width and height of the sprite block (marked in green in Figure \ref{fig:kc1_3_update_remove}) from the master to the buffer page, and mark the corresponding tiles only in the tile buffer array with a '2'.
 
 \begin{figure}[H]
 \centering
@@ -222,11 +208,11 @@ If a sprite has moved, the previous sprite location is added to the block remova
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC1-3_1-sprite2buffer.png}
- \caption{Step 5: Scan sprite list and copy sprite onto buffer screen}
+ \caption{Step 5: Scan sprite list and copy sprite onto buffer page}
  \label{fig:kc1_3_update_sprite}
 \end{figure}
 
-Next, the engine scans the sprite list. Validate if the sprite is in the visible part of the view port and copy the sprite image to the buffer screen. Mark the corresponding tiles in the tile buffer array with a '3'.
+Next, the engine scans the sprite list. Validate if the sprite is in the visible part of the view port and copy the sprite image to the buffer page. Mark the corresponding tiles in the tile buffer array with a '3'.
 
 \begin{figure}[H]
 \centering
@@ -242,19 +228,19 @@ Next, the engine scans the sprite list. Validate if the sprite is in the visible
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC1-3_1-final.png}
- \caption{Step 6: Swap buffer and screen page}
+ \caption{Step 6: Swap buffer and view page}
  \label{fig:kc1_3_update_final}
 \end{figure}
 
 
-As the final step, point the visible screen to the buffer screen by updating the CRTR start address and horizontal Pel Panning register. The entire tile buffer array is then cleared to '0'. Finally the otherpage and screenpage of both the \cw{screenstart[]} and \cw{update[]} are swapped. Then step 1 is repeated. \\
+In the last step, point the visible screen to the buffer page by updating the CRTR start address and horizontal Pel Panning register. Finally, the tile buffer array is cleared to '0' and both arrays are swapped (so tile buffer becomes the tile view). Then step 1 is repeated. \\
 \par
-Note that after swapping, the tile buffer array still has marked all tiles that have changed from scrolling the screen. This makes sense as the current buffer screen is not yet updated (it was displayed in the previous cycle, and we never update the view screen). 
+Note that after swapping, the tile buffer array has marked all tiles that have changed from scrolling the screen. This makes sense, as the current buffer page is not yet refreshed (it was displayed in the previous refresh cycle, and we never update the view page). 
 
 \begin{figure}[H]
 \centering
  \fullimage{/game/Scroll_KC1-3_1-tile_final.png}
- \caption{Clear tile update array and swap arrays.}
+ \caption{Clear tile buffer array and swap tile arrays.}
  \label{fig:kc1_3_tile_final}
 \end{figure}
 
@@ -287,10 +273,36 @@ John Carmack explored what would happen if you push the virtual screen over de 6
   \label{fig:ega_wrapping}
   \caption{Wrap virtual screen around the EGA memory}
 \end{figure}
+
 \par
+\begin{fancyquotes}
+I finally asked what actually happens if you just go off the edge [OF THE VRAM]?\\
+
+If you take your [CRTC] start and you say OK, I can move over and I get to what should be the bottom of the memory window. [...] What happens if I start at 0xFFFE at the very end of the 64k block? It turns out it just wraps back around to the top of the block.\\
+
+I'm like oh well this makes everything easy. You can just scroll the screen everywhere and all you have to draw is just one new line of tiles.\\
+
+It just works. We no longer had the problem of having fields of similar colors. It doesn't matter what you're doing, you could be having a completely unique world and you're just drawing the new strip.\\
+\par
+\textbf{John Carmack\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{An explanation further elaborated during an interview with Lex Fridman in 2022.}
+\par
+
 There was however an issue with the introduction of Super VGA cards, which had typically more than 256kB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring at least 256kB RAM, which from a hardware constraint resulted in 512kB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{0xFFFF} did not work anymore on these cards. \\
 \par
-Luckily there was a way to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} on page \pageref{fig:ega_ram_arch}, the space between \cw{0xB400} and \cw{0xFFFF} is not used and contains enough space for another virtual screen. Each screen buffer has a size of \cw{0x3C00} in each memory bank. In case the start address is between \cw{0xC400} and \cw{0xFFFF} the corresponsing screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
+There is a simple way to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} on page \pageref{fig:ega_ram_arch}, the space between \cw{0xB400} and \cw{0xFFFF} is not used and contains enough space for another virtual screen. Each screen buffer has a size of \cw{0x3C00} in each memory bank. In case the start address is between \cw{0xC400} and \cw{0xFFFF} the corresponsing screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
+
+\par
+
+\begin{fancyquotes}
+I was in a tough position. Do I have to track every single one of these [SUPER VGA CARDS] and it was a madhouse back then with 20 different video card vendors with all slightly different implementations of their non-standard functionality. Either I needed to natively program all of the cards or I kind of punt. I took the easy solution of when you finally did run to the edge of the screen I accepted a hitch and just copied the whole screen up.\\
+\par
+\textbf{John Carmack}
+\end{fancyquotes}\\
+
 \par
 \begin{figure}[H]
 \centering
@@ -309,9 +321,8 @@ Luckily there was a way to resolve this issue. As you can see in Figure \ref{fig
 \caption{Move screen to opposite end of VRAM buffer}
 \label{fig:page_wrapping}
 \end{figure}
-\par
 
-The code verifies if any of the virtual pages is between the addresses \cw{0xC400} and \cw{0xFFFF} and, if this is the case, copies the entire VRAM to the opposite side.\\
+
 
 \par
 \begin{minipage}{\textwidth}
@@ -338,25 +349,37 @@ By getting a little creative, the circuitry can be re-purposed. The ALU in front
   \label{ega_latch_copy}
   \par
 
-To take full advantage of this optimization, the refresh algoritm maintains a list of tiles that are already copied on the masterpage via \cw{tilecache} variable. If a tile is already on the master screen the algoritm copies the tile from that location to its destination instead of the RAM location in memory, saving the four separated writes to each memory plane.\\
+To take full advantage of this optimization, the refresh algoritm maintains a list of tiles that are already copied on the master page via \cw{tilecache} variable. If a tile is already on the master page the algoritm copies the tile from that location to its destination instead of the RAM location in memory, saving the four separated writes to each memory plane.\\
 
 
 
 
 \subsection{Scroll and screen refresh in Keen Dreams} \label{section:scroll_refresh_dreams}
 
-The EGA memory wrapping results in the following improved algoritm to scroll and refresh the screen for Keen Dreams:
+Before explaining the improved Adaptive Tile Refreshment engine, let's first look at some important variables:
+\begin{itemize}
+  \item \cw{*screenstart[]} are pointers to the starting address (upper-left pixel) of the viewports in VRAM. As explained, we maintain three viewports in VRAM:
+  \begin{itemize}
+    \item screenpage, the active displayed page on the monitor. Note that the engine never works or updates the active page.
+    \item otherpage, which is the buffer page. This page is updated and will be switched with the screenpage upon next refresh.
+    \item masterpage, which stores a complete static background, without sprites. This page is used to update the buffer page.
+  \end{itemize}
+  \item \cw{*updatestart[]} are pointers to the tile arrays. It maintains which tiles needs to be updated upon next refresh. There are two tile buffer arrays; one for the screenpage and one for otherpage. 
+\end{itemize}
+
+The EGA memory wrapping results in the following improved Adaptive Tile Refeshment algorithm to scroll and refresh the screen for Keen Dreams:
 \begin{enumerate}
 \item Check if the player has moved one tile in any direction.
-\item In case the player moved one tile, move the \cw{screenstart[]} pointers accordingly. 
-\item Copy the new introduced column or row of tiles to the Master screen and flag this new column/row of tiles to be updated in the next refresh for both pages. 
-\item Refresh the buffer screen by scanning all tiles in the tile buffer array. If a tile is flagged for update, copy the tile from the master screen to the buffer screen.
-\item Iterate through the sprite removal list and copy corresponding image block from master screen to buffer screen. 
-\item Iterate through the sprite list and copy corresponding sprite image block from asset location in RAM to buffer screen.
-\item Switch the view screen and buffer screen by adjusting the CRTC Start Address and Pel Panning register.
+\item In case the player moved one tile, move the \cw{*screenstart[]} and \cw{*update[]} pointers accordingly. 
+\item Copy the new column or row of tiles to the master page and flag this new column/row of tiles to be updated in the next refresh for both pages. 
+\item Refresh the buffer page by scanning all tiles in the tile buffer array. If a tile is flagged for update, copy the tile from the master page to the buffer page.
+\item Iterate through the sprite removal list and copy corresponding image block from master page to buffer page. 
+\item Iterate through the sprite list and copy corresponding sprite image block from RAM to buffer page.
+\item Switch the view and buffer page by adjusting the CRTC Start Address and Pel Panning register.
 \end{enumerate}
 
-As you can see, step 2 to 4 are different from Commander Keen 1-3, the rest of the steps are the same. In the example below the screen is forced to scroll to the left.
+As you can see, only step 2 and 3 are different from Commander Keen 1-3, the rest of the steps are the same.
+In the example below the screen is forced to scroll to the left.
 \\
 
 \begin{figure}[H]

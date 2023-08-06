@@ -46,126 +46,124 @@
 \newlabel{fig:tile_refresh}{{2}{7}{Smooth scrolling in EGA.\relax }{figure.caption.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {0.2}Virtual screen buffer}{7}{section.0.2}}
 \BKM@entry{id=6,open,dest={73656374696F6E2E302E33},srcline={126}}{5C3337365C3337375C303030415C303030645C303030615C303030705C303030745C303030695C303030765C303030655C3030305C3034305C303030545C303030695C3030306C5C303030655C3030305C3034305C303030525C303030655C303030665C303030725C303030655C303030735C303030685C3030306D5C303030655C3030306E5C30303074}
-\BKM@entry{id=7,open,dest={73756273656374696F6E2E302E332E31},srcline={129}}{5C3337365C3337375C303030545C303030695C3030306C5C303030655C3030305C3034305C303030625C303030755C303030665C303030665C303030655C303030725C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030745C303030695C3030306C5C303030655C3030305C3034305C303030765C303030695C303030655C303030775C3030305C3034305C3030306C5C303030615C303030795C3030306F5C303030755C30303074}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Virtual screen layout on EGA card.\relax }}{8}{figure.caption.5}}
 \newlabel{fig:ega_ram_arch}{{3}{8}{Virtual screen layout on EGA card.\relax }{figure.caption.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {0.3}Adaptive Tile Refreshment}{8}{section.0.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.1}Tile buffer and tile view layout}{8}{subsection.0.3.1}}
+\BKM@entry{id=7,open,dest={73756273656374696F6E2E302E332E31},srcline={144}}{5C3337365C3337375C303030415C303030645C303030615C303030705C303030745C303030695C303030765C303030655C3030305C3034305C303030745C303030695C3030306C5C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030306D5C303030655C3030306E5C303030745C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C3030306F5C3030306D5C3030306D5C303030615C3030306E5C303030645C303030655C303030725C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030315C3030302D5C30303033}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Tile view and tile buffer layout.\relax }}{9}{figure.caption.6}}
 \newlabel{fig:screen_setup}{{4}{9}{Tile view and tile buffer layout.\relax }{figure.caption.6}{}}
-\BKM@entry{id=8,open,dest={73756273656374696F6E2E302E332E32},srcline={158}}{5C3337365C3337375C303030415C303030645C303030615C303030705C303030745C303030695C303030765C303030655C3030305C3034305C303030745C303030695C3030306C5C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030306D5C303030655C3030306E5C303030745C3030305C3034305C303030695C3030306E5C3030305C3034305C303030435C3030306F5C3030306D5C3030306D5C303030615C3030306E5C303030645C303030655C303030725C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030315C3030302D5C30303033}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.2}Adaptive tile refreshment in Commander Keen 1-3}{10}{subsection.0.3.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Step 1: Scroll screen to the right\relax }}{11}{figure.caption.7}}
-\newlabel{fig:kc1_3_start}{{5}{11}{Step 1: Scroll screen to the right\relax }{figure.caption.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Step 2: Update changed tiles in masterscreen, marked in dark grey\relax }}{12}{figure.caption.8}}
-\newlabel{fig:kc1_3_update_masterscreen}{{6}{12}{Step 2: Update changed tiles in masterscreen, marked in dark grey\relax }{figure.caption.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Mark all changed tiles with '1' in both tile buffer and tile view array.\relax }}{12}{figure.caption.9}}
-\newlabel{fig:kc1_3_update_refresh_img_1}{{7}{12}{Mark all changed tiles with '1' in both tile buffer and tile view array.\relax }{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Step 3 and 4: Copy tiles from master to buffer screen and remove sprites\relax }}{13}{figure.caption.10}}
-\newlabel{fig:kc1_3_update_remove}{{8}{13}{Step 3 and 4: Copy tiles from master to buffer screen and remove sprites\relax }{figure.caption.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Mark removed sprites with '2' in tile buffer array only.\relax }}{13}{figure.caption.11}}
-\newlabel{fig:kc1_3_tile_update_remove}{{9}{13}{Mark removed sprites with '2' in tile buffer array only.\relax }{figure.caption.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Step 5: Scan sprite list and copy sprite onto buffer screen\relax }}{14}{figure.caption.12}}
-\newlabel{fig:kc1_3_update_sprite}{{10}{14}{Step 5: Scan sprite list and copy sprite onto buffer screen\relax }{figure.caption.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Mark new sprites locations with '3' in tile buffer array only.\relax }}{14}{figure.caption.13}}
-\newlabel{fig:kc1_3_tile_update_sprite}{{11}{14}{Mark new sprites locations with '3' in tile buffer array only.\relax }{figure.caption.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Step 6: Swap buffer and screen page\relax }}{15}{figure.caption.14}}
-\newlabel{fig:kc1_3_update_final}{{12}{15}{Step 6: Swap buffer and screen page\relax }{figure.caption.14}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Clear tile update array and swap arrays.\relax }}{15}{figure.caption.15}}
-\newlabel{fig:kc1_3_tile_final}{{13}{15}{Clear tile update array and swap arrays.\relax }{figure.caption.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Step 6: Swap buffer and screen page\relax }}{16}{figure.caption.16}}
-\newlabel{fig:kc1_3_update_final}{{14}{16}{Step 6: Swap buffer and screen page\relax }{figure.caption.16}{}}
-\BKM@entry{id=9,open,dest={73756273656374696F6E2E302E332E33},srcline={279}}{5C3337365C3337375C303030575C303030725C303030615C303030705C3030305C3034305C303030615C303030725C3030306F5C303030755C3030306E5C303030645C3030305C3034305C303030745C303030685C303030655C3030305C3034305C303030455C303030475C303030415C3030305C3034305C3030304D5C303030655C3030306D5C3030306F5C303030725C30303079}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.3}Wrap around the EGA Memory}{17}{subsection.0.3.3}}
-\newlabel{section:wrap_ega_memory}{{0.3.3}{17}{Wrap around the EGA Memory}{subsection.0.3.3}{}}
-\newlabel{section:optimize_tile}{{0.3.3}{17}{Wrap around the EGA Memory}{subsection.0.3.3}{}}
-\newlabel{fig:ega_wrapping}{{\caption@xref {fig:ega_wrapping}{ on input line 287}}{17}{Wrap around the EGA Memory}{figure.caption.17}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Wrap virtual screen around the EGA memory\relax }}{17}{figure.caption.17}}
-\newlabel{fig:page0_down}{{\caption@xref {fig:page0_down}{ on input line 301}}{18}{Wrap around the EGA Memory}{figure.caption.18}{}}
-\newlabel{sub@fig:page0_down}{{}{18}{Wrap around the EGA Memory}{figure.caption.18}{}}
-\newlabel{fig:page0_up}{{\caption@xref {fig:page0_up}{ on input line 307}}{18}{Wrap around the EGA Memory}{figure.caption.18}{}}
-\newlabel{sub@fig:page0_up}{{}{18}{Wrap around the EGA Memory}{figure.caption.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Move screen to opposite end of VRAM buffer\relax }}{18}{figure.caption.18}}
-\newlabel{fig:page_wrapping}{{16}{18}{Move screen to opposite end of VRAM buffer\relax }{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.1}Adaptive tile refreshment in Commander Keen 1-3}{9}{subsection.0.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Step 1: Scroll screen to the right\relax }}{10}{figure.caption.7}}
+\newlabel{fig:kc1_3_start}{{5}{10}{Step 1: Scroll screen to the right\relax }{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Step 2: Update changed tiles in master page, marked in dark grey\relax }}{11}{figure.caption.8}}
+\newlabel{fig:kc1_3_update_masterscreen}{{6}{11}{Step 2: Update changed tiles in master page, marked in dark grey\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Mark all changed tiles with '1' in both tile buffer and tile view array.\relax }}{11}{figure.caption.9}}
+\newlabel{fig:kc1_3_update_refresh_img_1}{{7}{11}{Mark all changed tiles with '1' in both tile buffer and tile view array.\relax }{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Step 3 and 4: Copy tiles from master to buffer page and remove sprites\relax }}{12}{figure.caption.10}}
+\newlabel{fig:kc1_3_update_remove}{{8}{12}{Step 3 and 4: Copy tiles from master to buffer page and remove sprites\relax }{figure.caption.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Mark removed sprites with '2' in tile buffer array only.\relax }}{12}{figure.caption.11}}
+\newlabel{fig:kc1_3_tile_update_remove}{{9}{12}{Mark removed sprites with '2' in tile buffer array only.\relax }{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Step 5: Scan sprite list and copy sprite onto buffer page\relax }}{13}{figure.caption.12}}
+\newlabel{fig:kc1_3_update_sprite}{{10}{13}{Step 5: Scan sprite list and copy sprite onto buffer page\relax }{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Mark new sprites locations with '3' in tile buffer array only.\relax }}{13}{figure.caption.13}}
+\newlabel{fig:kc1_3_tile_update_sprite}{{11}{13}{Mark new sprites locations with '3' in tile buffer array only.\relax }{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Step 6: Swap buffer and view page\relax }}{14}{figure.caption.14}}
+\newlabel{fig:kc1_3_update_final}{{12}{14}{Step 6: Swap buffer and view page\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Clear tile buffer array and swap tile arrays.\relax }}{14}{figure.caption.15}}
+\newlabel{fig:kc1_3_tile_final}{{13}{14}{Clear tile buffer array and swap tile arrays.\relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Step 6: Swap buffer and screen page\relax }}{15}{figure.caption.16}}
+\newlabel{fig:kc1_3_update_final}{{14}{15}{Step 6: Swap buffer and screen page\relax }{figure.caption.16}{}}
+\BKM@entry{id=8,open,dest={73756273656374696F6E2E302E332E32},srcline={265}}{5C3337365C3337375C303030575C303030725C303030615C303030705C3030305C3034305C303030615C303030725C3030306F5C303030755C3030306E5C303030645C3030305C3034305C303030745C303030685C303030655C3030305C3034305C303030455C303030475C303030415C3030305C3034305C3030304D5C303030655C3030306D5C3030306F5C303030725C30303079}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.2}Wrap around the EGA Memory}{16}{subsection.0.3.2}}
+\newlabel{section:wrap_ega_memory}{{0.3.2}{16}{Wrap around the EGA Memory}{subsection.0.3.2}{}}
+\newlabel{section:optimize_tile}{{0.3.2}{16}{Wrap around the EGA Memory}{subsection.0.3.2}{}}
+\newlabel{fig:ega_wrapping}{{\caption@xref {fig:ega_wrapping}{ on input line 273}}{16}{Wrap around the EGA Memory}{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Wrap virtual screen around the EGA memory\relax }}{16}{figure.caption.17}}
+\newlabel{fig:page0_down}{{\caption@xref {fig:page0_down}{ on input line 313}}{17}{Wrap around the EGA Memory}{figure.caption.18}{}}
+\newlabel{sub@fig:page0_down}{{}{17}{Wrap around the EGA Memory}{figure.caption.18}{}}
+\newlabel{fig:page0_up}{{\caption@xref {fig:page0_up}{ on input line 319}}{17}{Wrap around the EGA Memory}{figure.caption.18}{}}
+\newlabel{sub@fig:page0_up}{{}{17}{Wrap around the EGA Memory}{figure.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Move screen to opposite end of VRAM buffer\relax }}{17}{figure.caption.18}}
+\newlabel{fig:page_wrapping}{{16}{17}{Move screen to opposite end of VRAM buffer\relax }{figure.caption.18}{}}
 \@writefile{lol}{\contentsline {lstlisting}{code/wrap\textunderscore page\textunderscore buffer.c}{18}{lstlisting.0.-5}}
-\newlabel{ega_refresh}{{0.3.3}{18}{Wrap around the EGA Memory}{lstnumber.-5.24}{}}
+\newlabel{ega_refresh}{{0.3.2}{18}{Wrap around the EGA Memory}{lstnumber.-5.24}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Latches memorize read operations from each bank. The memorized value can be used for later writes.\relax }}{19}{figure.caption.19}}
-\BKM@entry{id=10,open,dest={73756273656374696F6E2E302E332E34},srcline={346}}{5C3337365C3337375C303030535C303030635C303030725C3030306F5C3030306C5C3030306C5C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030695C3030306E5C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030445C303030725C303030655C303030615C3030306D5C30303073}
+\BKM@entry{id=9,open,dest={73756273656374696F6E2E302E332E33},srcline={357}}{5C3337365C3337375C303030535C303030635C303030725C3030306F5C3030306C5C3030306C5C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030695C3030306E5C3030305C3034305C3030304B5C303030655C303030655C3030306E5C3030305C3034305C303030445C303030725C303030655C303030615C3030306D5C30303073}
 \@writefile{lol}{\contentsline {lstlisting}{code/EGA\textunderscore LATCH\textunderscore COPY.ASM}{20}{lstlisting.0.-6}}
-\newlabel{ega_latch_copy}{{0.3.3}{20}{Wrap around the EGA Memory}{lstnumber.-6.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.4}Scroll and screen refresh in Keen Dreams}{20}{subsection.0.3.4}}
-\newlabel{section:scroll_refresh_dreams}{{0.3.4}{20}{Scroll and screen refresh in Keen Dreams}{subsection.0.3.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Step 1: Scroll screen to the left\relax }}{21}{figure.caption.20}}
-\newlabel{fig:kc4_6_start}{{18}{21}{Step 1: Scroll screen to the left\relax }{figure.caption.20}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Step 2 and 3: Shift screen pointer and add column to VRAM\relax }}{22}{figure.caption.21}}
-\newlabel{fig:kc4_6_add_column}{{19}{22}{Step 2 and 3: Shift screen pointer and add column to VRAM\relax }{figure.caption.21}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Mark new column in both tile buffer and display array.\relax }}{22}{figure.caption.22}}
-\newlabel{fig:kc4_6_tile_final}{{20}{22}{Mark new column in both tile buffer and display array.\relax }{figure.caption.22}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Step 4 and 5: Copy master to buffer screen and remove sprites\relax }}{23}{figure.caption.23}}
-\newlabel{fig:kc4_6_update_buffer}{{21}{23}{Step 4 and 5: Copy master to buffer screen and remove sprites\relax }{figure.caption.23}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Tile buffer array with removed sprites marked with '2'.\relax }}{23}{figure.caption.24}}
-\newlabel{fig:kc4_6_update_array}{{22}{23}{Tile buffer array with removed sprites marked with '2'.\relax }{figure.caption.24}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Step 7: Updated screen after swapping buffer and screen page\relax }}{24}{figure.caption.25}}
-\newlabel{fig:k4_6_update_final}{{23}{24}{Step 7: Updated screen after swapping buffer and screen page\relax }{figure.caption.25}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Clear and reset tile buffer array and swap arrays.\relax }}{25}{figure.caption.26}}
-\newlabel{fig:kc4_6_final}{{24}{25}{Clear and reset tile buffer array and swap arrays.\relax }{figure.caption.26}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces scroll to top-left tile\relax }}{26}{figure.caption.27}}
-\newlabel{fig:buffer_tile_move_1}{{25}{26}{scroll to top-left tile\relax }{figure.caption.27}{}}
-\BKM@entry{id=11,open,dest={73756273656374696F6E2E302E332E35},srcline={444}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C30303068}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.5}Screen refresh}{27}{subsection.0.3.5}}
-\@writefile{lol}{\contentsline {lstlisting}{code/pageflip\textunderscore error.c}{29}{lstlisting.0.-7}}
-\newlabel{fig:update_start_address}{{\caption@xref {fig:update_start_address}{ on input line 480}}{30}{Screen refresh}{figure.caption.30}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Update CRTC start address at beginning of new scan line.\relax }}{30}{figure.caption.30}}
-\BKM@entry{id=12,open,dest={73656374696F6E2E302E34},srcline={495}}{5C3337365C3337375C303030415C303030635C303030745C3030306F5C303030725C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C30303073}
-\BKM@entry{id=13,open,dest={73756273656374696F6E2E302E342E31},srcline={497}}{5C3337365C3337375C303030415C3030302E5C303030495C3030302E}
-\@writefile{lol}{\contentsline {lstlisting}{code/screen\textunderscore refresh.c}{31}{lstlisting.0.-8}}
-\@writefile{toc}{\contentsline {section}{\numberline {0.4}Actors and sprites}{32}{section.0.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.1}A.I.}{32}{subsection.0.4.1}}
-\@writefile{lol}{\contentsline {lstlisting}{code/statetype.c}{32}{lstlisting.0.-9}}
-\newlabel{state_type}{{0.4.1}{32}{A.I}{lstnumber.-9.16}{}}
-\BKM@entry{id=14,open,dest={73756273656374696F6E2E302E342E32},srcline={530}}{5C3337365C3337375C303030445C303030725C303030615C303030775C303030695C3030306E5C303030675C3030305C3034305C303030535C303030705C303030725C303030695C303030745C303030655C30303073}
-\@writefile{lol}{\contentsline {lstlisting}{code/s\textunderscore grdchase.c}{33}{lstlisting.0.-10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.2}Drawing Sprites}{33}{subsection.0.4.2}}
-\newlabel{section:draw_sprites}{{0.4.2}{33}{Drawing Sprites}{subsection.0.4.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces sprite structure\relax }}{34}{figure.caption.31}}
-\newlabel{fig:sprite_structure}{{27}{34}{sprite structure\relax }{figure.caption.31}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces content of spritetable[] in the \texttt  {KDREAMS.EGA} asset file.\relax }}{34}{table.caption.32}}
-\newlabel{table:spritetable}{{1}{34}{content of spritetable[] in the \cw {KDREAMS.EGA} asset file.\relax }{table.caption.32}{}}
-\BKM@entry{id=15,open,dest={73756273656374696F6E2E302E342E33},srcline={586}}{5C3337365C3337375C303030435C3030306C5C303030695C303030705C303030705C303030695C3030306E5C30303067}
-\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Sprite shifted in 4 steps.\relax }}{35}{figure.caption.33}}
-\newlabel{fig:sprite_shift}{{28}{35}{Sprite shifted in 4 steps.\relax }{figure.caption.33}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/sprite\textunderscore shift.c}{35}{lstlisting.0.-11}}
-\newlabel{state_type}{{0.4.2}{35}{Drawing Sprites}{lstnumber.-11.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.3}Clipping}{35}{subsection.0.4.3}}
-\newlabel{section:clipping}{{0.4.3}{35}{Clipping}{subsection.0.4.3}{}}
-\newlabel{fig:clip_tinf_n}{{29a}{35}{Wall type map NORTHWALL\relax }{figure.caption.34}{}}
-\newlabel{sub@fig:clip_tinf_n}{{a}{35}{Wall type map NORTHWALL\relax }{figure.caption.34}{}}
-\newlabel{fig:clip_tinf_e}{{29b}{35}{Wall type map EASTWALL\relax }{figure.caption.34}{}}
-\newlabel{sub@fig:clip_tinf_e}{{b}{35}{Wall type map EASTWALL\relax }{figure.caption.34}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Foreground tile clipping information.\relax }}{35}{figure.caption.34}}
-\newlabel{fig:clip_tinf}{{29}{35}{Foreground tile clipping information.\relax }{figure.caption.34}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces Clipping to east wall when moving from the west.\relax }}{36}{figure.caption.35}}
-\newlabel{fig:clipping_east}{{30}{36}{Clipping to east wall when moving from the west.\relax }{figure.caption.35}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore east\textunderscore wall.c}{36}{lstlisting.0.-12}}
-\newlabel{wallclip_array}{{0.4.3}{36}{Clipping}{lstnumber.-12.20}{}}
-\newlabel{fig:clipping_north}{{\caption@xref {fig:clipping_north}{ on input line 629}}{37}{Clipping}{figure.caption.36}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces Clipping north wall with slope.\relax }}{37}{figure.caption.36}}
-\@writefile{lol}{\contentsline {lstlisting}{code/wallclip\textunderscore array.c}{37}{lstlisting.0.-13}}
-\newlabel{wallclip_array}{{0.4.3}{37}{Clipping}{lstnumber.-13.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {32}{\ignorespaces Eight different walltypes (slopes) defined.\relax }}{38}{figure.caption.37}}
-\newlabel{fig:walltype}{{32}{38}{Eight different walltypes (slopes) defined.\relax }{figure.caption.37}{}}
-\BKM@entry{id=16,open,dest={73756273656374696F6E2E302E342E34},srcline={656}}{5C3337365C3337375C303030505C303030725C303030695C3030306F5C303030725C303030695C303030745C303030795C3030305C3034305C3030306F5C303030665C3030305C3034305C303030745C303030695C3030306C5C303030655C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C303030735C3030305C3034305C3030306F5C3030306E5C3030305C3034305C303030735C303030635C303030725C303030655C303030655C3030306E}
-\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore north\textunderscore wall.c}{39}{lstlisting.0.-14}}
-\newlabel{wallclip_array}{{0.4.3}{39}{Clipping}{lstnumber.-14.26}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.4}Priority of tiles and sprites on screen}{39}{subsection.0.4.4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {33}{\ignorespaces Unnatural situation where Commander Keen is in front of a hole.\relax }}{40}{figure.caption.38}}
-\newlabel{fig:draw_layers}{{33}{40}{Unnatural situation where Commander Keen is in front of a hole.\relax }{figure.caption.38}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {34}{\ignorespaces Draw sprite inside a tile, by redrawing foreground tile.\relax }}{40}{figure.caption.39}}
-\newlabel{fig:clip_tinf}{{34}{40}{Draw sprite inside a tile, by redrawing foreground tile.\relax }{figure.caption.39}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/mask\textunderscore foreground\textunderscore tile.asm}{41}{lstlisting.0.-15}}
-\BKM@entry{id=17,open,dest={73756273656374696F6E2E302E342E35},srcline={731}}{5C3337365C3337375C3030304D5C303030615C3030306E5C303030615C303030675C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030745C303030695C3030306D5C303030695C3030306E5C30303067}
-\newlabel{mask_foreground_tile}{{0.4.4}{42}{Priority of tiles and sprites on screen}{lstnumber.-15.44}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.5}Manage refresh timing}{42}{subsection.0.4.5}}
-\@writefile{lol}{\contentsline {lstlisting}{code/time\textunderscore ticks.c}{42}{lstlisting.0.-16}}
-\newlabel{time_ticks}{{0.4.5}{42}{Manage refresh timing}{lstnumber.-16.23}{}}
-\new@tpo@label{1}{42}
+\newlabel{ega_latch_copy}{{0.3.2}{20}{Wrap around the EGA Memory}{lstnumber.-6.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.3}Scroll and screen refresh in Keen Dreams}{20}{subsection.0.3.3}}
+\newlabel{section:scroll_refresh_dreams}{{0.3.3}{20}{Scroll and screen refresh in Keen Dreams}{subsection.0.3.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Step 1: Scroll screen to the left\relax }}{22}{figure.caption.20}}
+\newlabel{fig:kc4_6_start}{{18}{22}{Step 1: Scroll screen to the left\relax }{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Step 2 and 3: Shift screen pointer and add column to VRAM\relax }}{23}{figure.caption.21}}
+\newlabel{fig:kc4_6_add_column}{{19}{23}{Step 2 and 3: Shift screen pointer and add column to VRAM\relax }{figure.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Mark new column in both tile buffer and display array.\relax }}{23}{figure.caption.22}}
+\newlabel{fig:kc4_6_tile_final}{{20}{23}{Mark new column in both tile buffer and display array.\relax }{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Step 4 and 5: Copy master to buffer screen and remove sprites\relax }}{24}{figure.caption.23}}
+\newlabel{fig:kc4_6_update_buffer}{{21}{24}{Step 4 and 5: Copy master to buffer screen and remove sprites\relax }{figure.caption.23}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Tile buffer array with removed sprites marked with '2'.\relax }}{24}{figure.caption.24}}
+\newlabel{fig:kc4_6_update_array}{{22}{24}{Tile buffer array with removed sprites marked with '2'.\relax }{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Step 7: Updated screen after swapping buffer and screen page\relax }}{25}{figure.caption.25}}
+\newlabel{fig:k4_6_update_final}{{23}{25}{Step 7: Updated screen after swapping buffer and screen page\relax }{figure.caption.25}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Clear and reset tile buffer array and swap arrays.\relax }}{26}{figure.caption.26}}
+\newlabel{fig:kc4_6_final}{{24}{26}{Clear and reset tile buffer array and swap arrays.\relax }{figure.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces scroll to top-left tile\relax }}{27}{figure.caption.27}}
+\newlabel{fig:buffer_tile_move_1}{{25}{27}{scroll to top-left tile\relax }{figure.caption.27}{}}
+\BKM@entry{id=10,open,dest={73756273656374696F6E2E302E332E34},srcline={467}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C30303068}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.4}Screen refresh}{28}{subsection.0.3.4}}
+\@writefile{lol}{\contentsline {lstlisting}{code/pageflip\textunderscore error.c}{30}{lstlisting.0.-7}}
+\newlabel{fig:update_start_address}{{\caption@xref {fig:update_start_address}{ on input line 503}}{31}{Screen refresh}{figure.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Update CRTC start address at beginning of new scan line.\relax }}{31}{figure.caption.30}}
+\BKM@entry{id=11,open,dest={73656374696F6E2E302E34},srcline={518}}{5C3337365C3337375C303030415C303030635C303030745C3030306F5C303030725C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C30303073}
+\BKM@entry{id=12,open,dest={73756273656374696F6E2E302E342E31},srcline={520}}{5C3337365C3337375C303030415C3030302E5C303030495C3030302E}
+\@writefile{lol}{\contentsline {lstlisting}{code/screen\textunderscore refresh.c}{32}{lstlisting.0.-8}}
+\@writefile{toc}{\contentsline {section}{\numberline {0.4}Actors and sprites}{33}{section.0.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.1}A.I.}{33}{subsection.0.4.1}}
+\@writefile{lol}{\contentsline {lstlisting}{code/statetype.c}{33}{lstlisting.0.-9}}
+\newlabel{state_type}{{0.4.1}{33}{A.I}{lstnumber.-9.16}{}}
+\BKM@entry{id=13,open,dest={73756273656374696F6E2E302E342E32},srcline={553}}{5C3337365C3337375C303030445C303030725C303030615C303030775C303030695C3030306E5C303030675C3030305C3034305C303030535C303030705C303030725C303030695C303030745C303030655C30303073}
+\@writefile{lol}{\contentsline {lstlisting}{code/s\textunderscore grdchase.c}{34}{lstlisting.0.-10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.2}Drawing Sprites}{34}{subsection.0.4.2}}
+\newlabel{section:draw_sprites}{{0.4.2}{34}{Drawing Sprites}{subsection.0.4.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces sprite structure\relax }}{35}{figure.caption.31}}
+\newlabel{fig:sprite_structure}{{27}{35}{sprite structure\relax }{figure.caption.31}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces content of spritetable[] in the \texttt  {KDREAMS.EGA} asset file.\relax }}{35}{table.caption.32}}
+\newlabel{table:spritetable}{{1}{35}{content of spritetable[] in the \cw {KDREAMS.EGA} asset file.\relax }{table.caption.32}{}}
+\BKM@entry{id=14,open,dest={73756273656374696F6E2E302E342E33},srcline={609}}{5C3337365C3337375C303030435C3030306C5C303030695C303030705C303030705C303030695C3030306E5C30303067}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Sprite shifted in 4 steps.\relax }}{36}{figure.caption.33}}
+\newlabel{fig:sprite_shift}{{28}{36}{Sprite shifted in 4 steps.\relax }{figure.caption.33}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/sprite\textunderscore shift.c}{36}{lstlisting.0.-11}}
+\newlabel{state_type}{{0.4.2}{36}{Drawing Sprites}{lstnumber.-11.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.3}Clipping}{36}{subsection.0.4.3}}
+\newlabel{section:clipping}{{0.4.3}{36}{Clipping}{subsection.0.4.3}{}}
+\newlabel{fig:clip_tinf_n}{{29a}{36}{Wall type map NORTHWALL\relax }{figure.caption.34}{}}
+\newlabel{sub@fig:clip_tinf_n}{{a}{36}{Wall type map NORTHWALL\relax }{figure.caption.34}{}}
+\newlabel{fig:clip_tinf_e}{{29b}{36}{Wall type map EASTWALL\relax }{figure.caption.34}{}}
+\newlabel{sub@fig:clip_tinf_e}{{b}{36}{Wall type map EASTWALL\relax }{figure.caption.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Foreground tile clipping information.\relax }}{36}{figure.caption.34}}
+\newlabel{fig:clip_tinf}{{29}{36}{Foreground tile clipping information.\relax }{figure.caption.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces Clipping to east wall when moving from the west.\relax }}{37}{figure.caption.35}}
+\newlabel{fig:clipping_east}{{30}{37}{Clipping to east wall when moving from the west.\relax }{figure.caption.35}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore east\textunderscore wall.c}{37}{lstlisting.0.-12}}
+\newlabel{wallclip_array}{{0.4.3}{37}{Clipping}{lstnumber.-12.20}{}}
+\newlabel{fig:clipping_north}{{\caption@xref {fig:clipping_north}{ on input line 652}}{38}{Clipping}{figure.caption.36}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {31}{\ignorespaces Clipping north wall with slope.\relax }}{38}{figure.caption.36}}
+\@writefile{lol}{\contentsline {lstlisting}{code/wallclip\textunderscore array.c}{38}{lstlisting.0.-13}}
+\newlabel{wallclip_array}{{0.4.3}{38}{Clipping}{lstnumber.-13.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {32}{\ignorespaces Eight different walltypes (slopes) defined.\relax }}{39}{figure.caption.37}}
+\newlabel{fig:walltype}{{32}{39}{Eight different walltypes (slopes) defined.\relax }{figure.caption.37}{}}
+\BKM@entry{id=15,open,dest={73756273656374696F6E2E302E342E34},srcline={679}}{5C3337365C3337375C303030505C303030725C303030695C3030306F5C303030725C303030695C303030745C303030795C3030305C3034305C3030306F5C303030665C3030305C3034305C303030745C303030695C3030306C5C303030655C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C303030735C3030305C3034305C3030306F5C3030306E5C3030305C3034305C303030735C303030635C303030725C303030655C303030655C3030306E}
+\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore north\textunderscore wall.c}{40}{lstlisting.0.-14}}
+\newlabel{wallclip_array}{{0.4.3}{40}{Clipping}{lstnumber.-14.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.4}Priority of tiles and sprites on screen}{40}{subsection.0.4.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {33}{\ignorespaces Unnatural situation where Commander Keen is in front of a hole.\relax }}{41}{figure.caption.38}}
+\newlabel{fig:draw_layers}{{33}{41}{Unnatural situation where Commander Keen is in front of a hole.\relax }{figure.caption.38}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {34}{\ignorespaces Draw sprite inside a tile, by redrawing foreground tile.\relax }}{41}{figure.caption.39}}
+\newlabel{fig:clip_tinf}{{34}{41}{Draw sprite inside a tile, by redrawing foreground tile.\relax }{figure.caption.39}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/mask\textunderscore foreground\textunderscore tile.asm}{42}{lstlisting.0.-15}}
+\BKM@entry{id=16,open,dest={73756273656374696F6E2E302E342E35},srcline={754}}{5C3337365C3337375C3030304D5C303030615C3030306E5C303030615C303030675C303030655C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030745C303030695C3030306D5C303030695C3030306E5C30303067}
+\newlabel{mask_foreground_tile}{{0.4.4}{43}{Priority of tiles and sprites on screen}{lstnumber.-15.44}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.5}Manage refresh timing}{43}{subsection.0.4.5}}
+\@writefile{lol}{\contentsline {lstlisting}{code/time\textunderscore ticks.c}{43}{lstlisting.0.-16}}
+\newlabel{time_ticks}{{0.4.5}{43}{Manage refresh timing}{lstnumber.-16.23}{}}
+\new@tpo@label{1}{43}

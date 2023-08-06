@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="404.49417mm"
-   height="148.80244mm"
-   viewBox="0 0 404.49416 148.80246"
+   width="404.58331mm"
+   height="135.07237mm"
+   viewBox="0 0 404.5833 135.07239"
    version="1.1"
    id="svg929"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -178,6 +178,21 @@
          transform="scale(0.8)"
          inkscape:connector-curvature="0" />
     </marker>
+    <marker
+       inkscape:stockid="TriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutM-0"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4681-4"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.4)"
+         inkscape:connector-curvature="0" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -186,9 +201,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="713.6358"
-     inkscape:cy="337.94576"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="282.47648"
+     inkscape:cy="581.49969"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -203,8 +218,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid1476"
-       originx="37.880012"
-       originy="-84.938425" />
+       originx="37.969152"
+       originy="-70.861235" />
   </sodipodi:namedview>
   <metadata
      id="metadata926">
@@ -222,7 +237,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(37.88002,-63.259196)">
+     transform="translate(37.969161,-91.06646)">
     <image
        y="91.06646"
        x="185.4595"
@@ -234,28 +249,6 @@
        inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1.96500003;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM)"
-       d="m 150.9388,151.07523 h 25.70238"
-       id="path4534"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="41.703671"
-       y="155.32532"
-       id="text2278"
-       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         sodipodi:role="line"
-         id="tspan2276"
-         x="41.703671"
-         y="155.32532"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">RAM</tspan></text>
     <image
        y="91.388054"
        x="-37.880016"
@@ -3219,16 +3212,6 @@
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <rect
-       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect2274"
-       width="180.71007"
-       height="120.47359"
-       x="-37.780018"
-       y="91.488052"
-       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <rect
        style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.21620153;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect861-4-9-7-0-7-2"
        width="7.0694385"
@@ -3288,47 +3271,39 @@
        inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.00947228"
-       inkscape:connector-curvature="0"
-       id="path472-5"
-       d="m 185.6095,91.216461 -8.34802,-0.0193"
-       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
     <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.282;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect5826-5"
-       width="105.77755"
-       height="16.16198"
-       x="176.14748"
-       y="63.392277"
-       ry="2.98434"
-       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+       style="opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.17828996;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2274-0"
+       width="143.58131"
+       height="120.4953"
+       x="-37.880016"
+       y="91.388054" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.89999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleOutM-0)"
+       d="m 114.69913,151.07523 h 61.94205"
+       id="path4534-0"
+       inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23847845"
-       x="190.78871"
-       y="71.593887"
-       id="text913"
-       transform="scale(0.97173061,1.0290918)"
-       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="21.185629"
+       y="224.08418"
+       id="text2278"><tspan
          sodipodi:role="line"
-         id="tspan911"
-         x="190.78871"
-         y="71.593887"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.23847845">screenstart[otherpage]</tspan></text>
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.54723775;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1450)"
-       d="m 185.6095,79.567086 v 8.553935"
-       id="path1185"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/bas/environment/latex/keen/src/screenshots_300dpi/game/rect861-5-4.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+         id="tspan2276"
+         x="21.185629"
+         y="224.08418"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">RAM</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="236.1864"
+       y="224.08418"
+       id="text2278-3"><tspan
+         sodipodi:role="line"
+         id="tspan2276-5"
+         x="236.1864"
+         y="224.08418"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777805px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332">Buffer Page VRAM</tspan></text>
   </g>
 </svg>
