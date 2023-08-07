@@ -34,7 +34,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 
   In 1989 around 15\% of the households owned a computer\footnote{https://www.statista.com/statistics/184685/percentage-of-households-with-computer-in-the-united-states-since-1984/}. The performance of these machines was so overwhelmingly determined by the CPU that a PC was referred to not by its brand or GPU\footnote{There was no GPU yet. The term was coined by Nvidia in 1999, who marketed the GeForce 256 as "the world's first GPU", or Graphics Processing Unit.}, but by the main chip inside. If a PC had an Intel 8088 or equivalent, it was called a "XT" . If it had an Intel 80286, it was a "286" or "AT".\\
 \subsection{Overview}
-  Intel released the 8086 in 1979, which was the first microchip of the succesfull x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
+  Intel released the 8086 in 1979, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
   In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12.5-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen could run on a 8088, but an Intel 286 was recommended.\\   
 
@@ -430,7 +430,8 @@ The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IB
 Each iteration added new features and by 1990 the predominant graphic system was EGA, although the VGA system was rapidly becoming the new standard. All video cards installed on PCs had to follow the standard set by IBM. The universality of that system was a double-edged sword. While developers had to program for only one graphic system, there was no escaping its shortcomings.\\
 
 The EGA palette allows 16  colors to be used simultaneously, and it allows substitution of each of these colors with any one from a total of 64 colors, at a resolution of 640 x 350.\\
-\par
+
+\pagebreak
 Below an ATI EGA Wonder 800 (8-bit ISA). The eight chips on the left of the card form the VRAM where the framebuffers are stored\protect\footnotemark. 
 
 \begin{figure}[H] 
@@ -450,7 +451,7 @@ Below an ATI EGA Wonder 800 (8-bit ISA). The eight chips on the left of the card
 EGA can be summarized as three major systems made of input, storage, and output:
 \begin{itemize}
 \item The Graphic Controller and Sequence Controller controlling how EGA RAM is accessed (the CPU-VRAM interface)
-\item The framebuffer (the VRAM) made of four memory banks with a minimum of 16KiB (rather than one bank of 64KiB). Via memory expansion each memory bank could be upgraded to 32KiB or 64KiB (resulting in 128KiB or 256KiB total VRAM). The original model from IBM came with 16KiB per memory bank, but almost all other EGA cards were equiped with the full 64KiB per memory bank. For the remainder of this book we will discuss only 256KiB EGA operations.
+\item The framebuffer (the VRAM) made of four memory banks with a minimum of 16KiB (rather than one bank of 64KiB). Via memory expansion each memory bank could be upgraded to 32KiB or 64KiB (resulting in 128KiB or 256KiB total VRAM). The original model from IBM came with 16KiB per memory bank, but almost all other EGA cards were equipped with the full 64KiB per memory bank\footnote{PC Tech Journal Oct 1986 (page 82-83) and Nov 1986 (page 148-149)}. 
 \item The CRT Controller and the Attribute Controller taking care of converting the palette-indexed framebuffer to RGB and then to digital TTL\footnote{Transistor Transistor Logic} signal for display
 \end{itemize}
 
@@ -483,13 +484,13 @@ Four memory banks grant enough throughput to reach high resolutions at 60Hz. How
 \par
 The first problem with this design is that it is unintuitive. There is no linear framebuffer and figuring out which byte corresponds to which pixel on screen is difficult.\\
 \par
- This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single colour. For EGA there are 4 planes. Each pixel contains 1 bit per plane, in total this results in 2\textsuperscript{4}=16 colors. Each of these banks is mapped to the same UMA memory address. This layout is better explained with a drawing.\\
+ This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single color. For EGA there are 4 planes. Each pixel contains 1 bit per plane, in total this results in 2\textsuperscript{4}=16 colors. Each of these banks is mapped to the same UMA memory address. This layout is better explained with a drawing.\\
 \par
 \begin{figure}[H]
 \centering
 \includegraphics[width=.57\textwidth]{imgs/drawings/ega_ram_screen_layout.eps}
 \label{fig:ega_layout_banks}
-\caption{EGA mode 0Dh, How bank layout appears on screen.}
+\caption{EGA mode 0Dh, how bank layout appears on screen.}
 \end{figure}
 
  
@@ -554,7 +555,7 @@ The EGA uses a female nine-pin D-subminiature (DE-9) connector for output, ident
 
 Although EGA supported high resolutions like 640x350 pixels, it required an expensive high resolution EGA monitor. For reasons of the compatibility with CGA and avoid acquiring an expensive EGA monitor most game programmers used  mode \cw{0Dh}, using the 320x200 resolution with 16 colors.
 
-
+\pagebreak
   
 \subsection{EGA Color Palette}
 \label{sec:ega_color_palette}
@@ -578,7 +579,7 @@ However, standard EGA monitors did not support use of the extended color palette
 \rowcolor{CGA_Red} 04h & Red          & 000100           & 4   				\\  \hline
 \rowcolor{CGA_Magenta} 05h & Magenta          & 000101           & 5   		\\ \hline
 \rowcolor{CGA_Brown} 06h & Brown          & 010100           & 20   		\\ \hline
-\rowcolor{CGA_Light_Grey} 07h & Ligh grey          & 000111           & 7   		\\ \hline
+\rowcolor{CGA_Light_Grey} 07h & Light grey          & 000111           & 7   		\\ \hline
 \rowcolor{CGA_Dark_Grey} 08h & Dark grey          & 111000           & 56   		\\ \hline
 \rowcolor{CGA_Bright_Blue}\rowstyle{\color{black}} 09h & Bright blue          & 111001           & 57   			\\ \hline
 \rowcolor{CGA_Bright_Green} 0Ah & Bright green          & 111010           & 58   			\\ \hline
@@ -612,7 +613,7 @@ To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indica
   \label{ram_to_ega_mapping_label}
 \end{figure}
 \par
- To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0 (R), the second in plane 1 (G), the third in plane 2 (B) and the fourth in plane 3 (I). The CRT Controller then reads 4 bytes at a time (one from each plane) resulting in 8 pixels on screen. So in figure \ref{fig:ega_bank_layout} the first pixel has color magenta(\cw{05h}), second pixel  dark grey (\cw{08h}) and third pixel  bright yellow(\cw{0Eh}).
+ To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) resulting in 8 pixels on screen. So in figure \ref{fig:ega_bank_layout} the first pixel has color magenta(\cw{05h}), second pixel  dark grey (\cw{08h}) and third pixel  bright yellow(\cw{0Eh}).
  
 
 
@@ -745,8 +746,8 @@ Although adoption was growing (Creative would go on to sell one million SoundBla
   
 
 
-  \subsection{Sound Blaster}
-  The Sound Blaster 1.0 (code named "Killer Kard"), was released in 1989 by Creative. It was a smart product which was clearly targeting AdLib's dominant position.\\ 
+  \subsection{SoundBlaster}
+  The SoundBlaster 1.0 (code named "Killer Kard"), was released in 1989 by Creative. It was a smart product which was clearly targeting AdLib's dominant position.\\ 
 \par
 
 \begin{figure}[H] 
@@ -758,9 +759,9 @@ Although adoption was growing (Creative would go on to sell one million SoundBla
 \par
 Not only was it equipped with the same OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".}  allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.\\
 \par
-Figure \ref{asb12} is the Sound Blaster model CT1350B. Notice the OPL2 chip (labeled FM1312), the big CT1336 bus interface (labeled "CREATIVE") on the center left, the CT1351 DSP on the upper left, and the 8-bit ISA bus connector.\\
+Figure \ref{asb12} is the SoundBlaster model CT1350B. Notice the OPL2 chip (labeled FM1312), the big CT1336 bus interface (labeled "CREATIVE") on the center left, the CT1351 DSP on the upper left, and the 8-bit ISA bus connector.\\
 \par
-  \bu{Trivia :} The numerous advantages of the Sound Blaster card over the AdLib made it the de-facto standard shortly after its release and eventually brought AdLib to bankruptcy\footnote{The reign of the Sound Blaster came to an end with Windows 95, which standardized the programming interface at application level and eliminated the importance of compatibility with Sound Blaster}.
+  \bu{Trivia :} The numerous advantages of the SoundBlaster card over the AdLib made it the de-facto standard shortly after its release and eventually brought AdLib to bankruptcy\footnote{The reign of the SoundBlaster came to an end with Windows 95, which standardized the programming interface at application level and eliminated the importance of compatibility with SoundBlaster}.
 
 
   \subsection{Disney Sound Source}
@@ -772,11 +773,11 @@ Figure \ref{asb12} is the Sound Blaster model CT1350B. Notice the OPL2 chip (lab
     \caption{The speaker box (DAC not shown).}
   \end{figure}
 \par
-It was incredibly easy to set up, simple to program (it could only play one type of PCM and had no FM synthesizer), and very cheap compared to the other audio solutions (\$14). It would have made programmers and customers happy if not for one serious limitation. The parallel port bandwidth\footnote{The parallel port maximum bandwidth was 150 kbits/s at the time. Enhanced Parallel Port and later Enhanced Capability Port significantly increased the transfer rate necessary to scanner and laser printers.} allowed a sampling rate up to 18,750 Hz but the design of the DSS limited the PCM sampling rate to 7,000Hz. This was still enough to produce pleasant sounds, but fell short when compared to the 22kHz of a Sound Blaster.
+It was incredibly easy to set up, simple to program (it could only play one type of PCM and had no FM synthesizer), and very cheap compared to the other audio solutions (\$14). It would have made programmers and customers happy if not for one serious limitation. The parallel port bandwidth\footnote{The parallel port maximum bandwidth was 150 kbits/s at the time. Enhanced Parallel Port and later Enhanced Capability Port significantly increased the transfer rate necessary to scanner and laser printers.} allowed a sampling rate up to 18,750 Hz but the design of the DSS limited the PCM sampling rate to 7,000Hz. This was still enough to produce pleasant sounds, but fell short when compared to the 22kHz of a SoundBlaster.
   
 
 \section{Floppy Disk Drive}
-In the time before the internet, a floppy disk was the best medium to share and distribute software and data. The orginal XT systems were equiped with 5\nicefrac{1}{4}-inch floppy disk with a capacity of 360Kb. In 1984, IBM introduced with its PC AT the 1.2 MB dual-sided 5\nicefrac{1}{4}-inch floppy disk, but it never became very popular. IBM started using the 720 KB double density 3\nicefrac{1}{2}-inch floppy disk in 1986 and the 1.44 MB high-density version in 1987. The advantages of the 3\nicefrac{1}{2}-inch disk were its higher capacity, its smaller physical size, and its rigid case which provided better protection from dirt and other environmental risks. By the mid-1990s, 5\nicefrac{1}{4}-inch drives had virtually disappeared, as the 3\nicefrac{1}{2}-inch disk became the predominant floppy disk. \\
+In the time before the internet, a floppy disk was the best medium to share and distribute software and data. The original XT systems were equipped with 5\nicefrac{1}{4}-inch floppy disk with a capacity of 360Kb. In 1984, IBM introduced with its PC AT the 1.2 MB dual-sided 5\nicefrac{1}{4}-inch floppy disk, but it never became very popular. IBM started using the 720 KB double density 3\nicefrac{1}{2}-inch floppy disk in 1986 and the 1.44 MB high-density version in 1987. The advantages of the 3\nicefrac{1}{2}-inch disk were its higher capacity, its smaller physical size, and its rigid case which provided better protection from dirt and other environmental risks. By the mid-1990s, 5\nicefrac{1}{4}-inch drives had virtually disappeared, as the 3\nicefrac{1}{2}-inch disk became the predominant floppy disk. \\
 
 \vspace{10pt}
 \bu{Trivia :} An USB stick of 128GB contains 91.000 high-density 3\nicefrac{1}{2}-inch (1.44MB) floppy disks.\\

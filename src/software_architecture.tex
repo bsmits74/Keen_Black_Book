@@ -138,7 +138,7 @@ The first thing the program does is set the text color to light grey and backgro
 \par
 
 \par
-In \cw{InitGame}, a valdation is performed to check if suficient memory is available and brings up all the managers.\\
+In \cw{InitGame}, a validation is performed to check if sufficient memory is available and brings up all the managers.\\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/unrolled_loop_init.c}
@@ -287,11 +287,9 @@ The video manager features two parts:
 \item The \cw{RF\_*} layer is used to refresh the screen, and is also made of both C and ASM code.
 \end{itemize}
 The video manager is described extensively in section \ref{section:adaptive_tile_refresh} on page \pageref{section:adaptive_tile_refresh}.
-\par
 
 
-
-
+\pagebreak
 
 \subsection{Cache Manager (CA)}
 The cache manager is a small but critical component. It loads and decompresses maps, graphics and audio resources stored on the filesystem and makes them available in RAM. Assets of each kind are stored into three files: 
@@ -303,7 +301,7 @@ The cache manager is a small but critical component. It loads and decompresses m
  \par
  
 Details of each asset file are explained in chapter \ref{section:programming}. The header and dictionary files are provided with the source code in the \cw{static} folder and contain \cw{*.KDR} extension. Both file types are hardcoded and required during compilation (they are converted into an \cw{OBJ} file using \cw{makeobj.c}). The data file containing the assets is not part of the source code and must be acquired via downloading the shareware version.
- All resources are compressed using a traditional huffman method for (de-)compression. \\
+ All resources are compressed using a traditional Huffman method for (de-)compression. \\
  \par
 \begin{figure}[H]
 \centering
@@ -312,7 +310,7 @@ Details of each asset file are explained in chapter \ref{section:programming}. T
 \pagebreak
 
 
-To manage and keep track of the assets to be loaded into memory, an array \cw{gr\_needed[]} is maintained to mark if an asset needs to be loaded from disk. The index of this array refers to the enum of the graphic assets. By using the eight bits the array can maintain the required assets for different levels.
+To manage and keep track of the assets to be loaded into memory, an array \cw{gr\_needed[]} is maintained to mark if an asset needs to be loaded from disk. The index of this array refers to the graphic asset IDs. By using the eight bits the array can maintain the required assets for different levels.
 The cache manager starts with an empty \cw{gr\_needed[]} array.\\
 \par
 
@@ -376,7 +374,7 @@ When new resources needs to be cached in memory, all required assets are marked 
 \end{figure}
 
 
-The function \cw{CA\_CacheMarks()} loads and decompress all required graphical assets from disk to memory for the current bit level. Now if during playing the game we open the control panel (e.g. to pause the game), the assets for the control panel needs to be cached. By increasing the bit level we keep the assets for control panel separated from the map.\\
+The function \cw{CA\_CacheMarks()} loads and decompress all required graphical assets from disk to memory for the current bit level. If, during playing the game, we open the control panel (e.g. to pause the game), the assets for the control panel needs to be cached. By increasing the bit level we keep the assets for control panel separated from the map.\\
 
 \par
 \lstinputlisting[language=C]{code/CA_level_up.c}
@@ -425,8 +423,7 @@ If the control panel is closed again, it simply lowers the bit level and calls t
 The user manager is responsible for text layout and control panels like loading and saving games, configure controls and setting sound device.\\
 \par
 
-Once we start the game, we move the display to EGA graphic mode \cw{0x0D}. Here we can't directly print characters on the screen anymore. So a key function of the User Manager is to print text on a given pixel location. When a high-level routine needs to draw a string, it is first passed to \cw{USL\_MeasureString} which does all measurement (e.g. height and total width of string) and then to \cw{USL\_DrawString} which passes this information to the Video Manager (\cw{VW\_DrawPropString}), which takes care of rendition.
-In the graphic assets file the complete font is stored with the following information for each character:
+Once we start the game, we move the display to EGA graphic mode \cw{0x0D}. Here we can't directly print characters on the screen anymore. So a key function of the User Manager is to print text on a given pixel location. In the graphic assets file the complete font is stored with the following information for each character:
 \begin{itemize}
   \item The width of the character
   \item The location in memory where each character is stored as a bitmap
@@ -440,10 +437,10 @@ Each character has the same height of 10 pixels, but the character width could v
  \end{figure}
  \par
  
-As explained in section \ref{section:ega_memmap} on page \pageref{section:ega_memmap}, each 8 pixels are represented by 1 byte per memory bank. So how do we print a character which is not perfectly aligned with the memory layout? Here a trick of bitshift tabels is being used. \\
+As explained in section \ref{section:ega_memmap} on page \pageref{section:ega_memmap}, each 8 pixels are represented by 1 byte per memory bank. So how do we print a character which is not perfectly aligned with the memory layout? Here a trick of bitshift tables is being used. \\
 \par
 
-The default table (\cw{shiftdata0}) is defined as integer (16 bits) and contains all values from 0-255. Now, we shift this entire table 1 bit to the right. We can translate the bit shift back into an integer and store these values again in a table (\cw{shiftdata1}). We can do this again when we shift another bit, until we cycled through the 8-bits. So at the end we have created 7 shift tables to fully cycle through 8-bits. In Figure \ref{fig:shiftttable} the bitshift for the values '198' is illustrated.
+The default table (\cw{shiftdata0}) is defined as integer (16 bits) and contains all values from 0-255. Now, we shift this entire table 1 bit to the right. We can translate the bit shift back into an integer and store these values again in a table (\cw{shiftdata1}). We can do this again when we shift another bit, until we cycled through the 8-bits. So at the end we have created 8 shift tables to fully cycle through 8-bits. In Figure \ref{fig:shiftttable} the bitshift for the values '198' is illustrated.
 \begin{figure}[H]
 \centering
  \includegraphics[width=0.8\textwidth]{imgs/drawings/shift_tables.eps}
@@ -469,7 +466,7 @@ Now let's take the example of printing 'N', with an offset of 3 pixels. A simple
  \end{figure}
  \par
 
-Once both bytes are copied to the data buffer, the buffer pointer is increased with the character width and then the next character is copied.\\
+Once both bytes are copied to the data buffer, the buffer pointer is increased with the character width and then the next character is copied. Finally, the data buffer is copied to VRAM, so it gets displayed on the screen.\\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language={[x86masm]Assembler}]{code/unrolled_ShiftPropChar.asm}
@@ -494,7 +491,7 @@ The sound manager is described extensively in the "Sound and Music" section.
 The input manager abstracts interactions with joystick, keyboard, and mouse. It features the boring boilerplate code to deal with PS/2, Serial, and DA-15 ports, with each using their own I/O addresses.
 
 \subsection{Softdisk files}
-The only function for the softdisk files is to load and show the intro screen bitmap, using \cw{LoadLIBShape} from soft.c. Most of the functions in these files are actually not used and therefor not further discussed in this book.
+The only function for the Softdisk files is to load and show the intro screen bitmap, using \cw{LoadLIBShape} from soft.c. Most of the functions in these files are actually not used and therefor not further discussed in this book.
 \pagebreak
 
 
@@ -502,7 +499,7 @@ The only function for the softdisk files is to load and show the intro screen bi
 \section{Startup}
 As the game engine starts, it will first load the memory manager. Then it will check if there is at least 335KiB of RAM available. If not, it gives  a warning, but you can continue with the game. But most likely somewhere soon the game will either crash or receives an "Out of memory" error.\\
 \par
-After succesfully starting the game the intro image is diplayed, which is a Deluxe PaintBitmap image (*.LBM). After the user has hit any key, the intro image is unloaded from RAM to make more room for runtime and the control panel is shown.\\
+After successfully starting the game the intro image is displayed, which is a Deluxe PaintBitmap image (*.LBM). After the user has hit any key, the intro image is unloaded from RAM to make more room for runtime and the control panel is shown.\\
 \begin{figure}[H]
 \centering
 \fullimage{Keen_intro_screen.png}

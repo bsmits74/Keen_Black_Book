@@ -79,24 +79,26 @@ After the graphic assets were generated, a tool (IGRAB) packed all ILBMs togethe
  \lstinputlisting[language=C]{code/assets_header.c}\par
  \end{minipage}
  
- In the engine code, asset usage is hardcoded via an enum. This enum is an offset into the \cw{HEAD} table which contains an offset in the \cw{DATA} archive. The \cw{HEAD} table files are stored in the \cw{\textbackslash static} folder as \cw{*.KDR} files.\\
+ In the engine code, asset usage is hard-coded via an enum. This enum is an offset into the \cw{HEAD} table which contains an offset in the \cw{DATA} archive. The \cw{HEAD} table files are stored in the \cw{\textbackslash static} folder as \cw{*.KDR} files.\\
+
+\pagebreak
 
 \subsection{Assets file structure}
 \label{section:asset_file_structure}
 Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset file.
 \begin{figure}[H]
 \centering
- \includegraphics[width=.5\textwidth]{imgs/drawings/graphic_assets.eps}
+ \includegraphics[width=.4\textwidth]{imgs/drawings/graphic_assets.eps}
  \caption{File structure of \cw{KDREAMS.EGA} asset file.}
  \label{fig:asset-file}
 \end{figure}
 
-The \cw{pictable[]} contains the width and height in bytes for each picture in the asset file. Note that a width of 5 bytes means a width of 40 pixels on the screen. The same size structure is applied for mask pictures.\\
+The \cw{pictable[]} contains the width and height in bytes for each picture in the asset file. Note that a width of 5 bytes means a width of 40 pixels on the screen. The same structure is applied for mask pictures.\\
 
   \begin{table}[H]
   \begin{tabularx}{0.8\textwidth}[c]{XXX}
   \hline
-  \textbf{index} & \textbf{width} & \textbf{height}   \\ \hline
+  \textbf{picture index} & \textbf{width} & \textbf{height}   \\ \hline
   0             & 5          & 32    \\
   1             & 5          & 32    \\
   2             & 5          & 32    \\
@@ -266,10 +268,10 @@ The structure of \cw{KDREAMS.MAP} is explained in Figure \ref{fig:map-file}. For
 
 \section{Audio}
 \subsection{Sounds}
-The original Commander Keen Triology did only support the default PC Speaker. Only with the introduction of Commander Keen Dreams the team decided to support sound cards.\\
+The original Commander Keen Trilogy did only support the default PC Speaker. Only with the introduction of Commander Keen Dreams the team decided to support sound cards.\\
 
 \par
-\bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with Adlib support until \textit{Dark Ages} in 1991. And even then it still had pc speaker music.\\
+\bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with AdLib support until \textit{Dark Ages} in 1991. And even then it still had pc speaker music.\\
 \par
 
 
@@ -284,7 +286,7 @@ As mentioned in Chapter \ref{hardware-audio}, audio hardware was highly fragment
  \end{figure}
  \par
  
-id Software intended for Keen Dreams to have music and digital effects support for the Sound Blaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360K floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute. The team didn't even have time to remove the music setup menu.\\
+id Software intended for Keen Dreams to have music and digital effects support for the SoundBlaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360K floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute. The team didn't even have time to remove the music setup menu.\\
 
 \par
 \par
@@ -300,7 +302,7 @@ id Software intended for Keen Dreams to have music and digital effects support f
 \bu{Trivia :} The song "You've Got to Eat Your Vegetables!!" would finally make its debut in Commander Keen IV: Secret of the Oracle.\\
 \par
 
- Two sets of each audio effect shipped with the game:
+As a consequence, only two sets of each audio effect are shipped with the game:
 \begin{enumerate}
 \item For PC Speaker
 \item For AdLib
@@ -355,7 +357,7 @@ What goes in the \cw{AUDIOT} archive is a music and sound effect format called I
 
 
 \section{Distribution}
-On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 are all published by Apogee Software. The game engine and first episode were given for free and encourages to be copied and distributed to a maximum number of people. To reveive the oher episodes, each player had to pay \$30 (for Episide 1-3) to \textit{ideas from the Deep}.\\
+On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 are all published by Apogee Software. The game engine and first episode were given for free and encourages to be copied and distributed to a maximum number of people. To receive the other episodes, each player had to pay \$30 (for Episode 1-3) to \textit{ideas from the Deep}.\\
 
 \par
 Commander Keen in Keen Dreams was published as a retail title by Softdisk, as part of a settlement for using Softdisk resources to make their own game\footnote{The settlement with Softdisk is explained in Appendix \ref{sec:id_software}}.\\
@@ -382,10 +384,10 @@ In 1990, the Internet was still in its infancy and the best medium was the 3\nic
  \item Softdisk Help Library files, which are text screens, shown when starting the game
  \begin{itemize}
    \item START.EXE: Decompress and show user guide, and then start the game.
-   \item LOADSCN.EXE: Shows the closing screen when quiting the game. Decompresses the ENDSCN.SCN chunk in LAST.SHL
+   \item LOADSCN.EXE: Shows the closing screen when quitting the game. Decompresses the ENDSCN.SCN chunk in LAST.SHL
    \item *.SHL: Text user guide assets. 
  \end{itemize}
- \item Several *.TXT files which can be read in DOS by typing the corresponsing *.BAT file. 
+ \item Several *.TXT files which can be read in DOS by typing the corresponding *.BAT file. 
 
 \end{itemize}
 

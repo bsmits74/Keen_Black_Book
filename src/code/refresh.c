@@ -9,7 +9,7 @@ void RF_Refresh (void)
     // from the master to buffer screen
     EGAWRITEMODE(1);
     EGAMAPMASK(15);     // write 4 bytes of VRAM at once
-    RFL_UpdateTiles ();
+    RFL_UpdateTiles (); // copy from master to buffer page
     RFL_EraseBlocks (); // remove sprites
 
     // update sprites
