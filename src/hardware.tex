@@ -542,10 +542,36 @@ The BIOS can be called to configure the EGA as follows.
 \label{ega-modes-available}
  \end{figure}
  
- 
-\subsection{EGA compatibility with 200-line CGA modes}
-The EGA uses a female nine-pin D-subminiature (DE-9) connector for output, identical to the CGA connector, and the signal standard and pinout is backwards-compatible with CGA, allowing EGA monitors to be used on CGA cards and vice versa. When operating in 200-line CGA modes, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it was able to show all 16 CGA colors simultaneously, instead of only 4 colors when using a CGA card.\\
+  
+\subsection{EGA Color Palette}
+\label{sec:ega_color_palette}
+The EGA CRTC does not expect RGB values to generate pixels. Instead it is based on an index-based color palette system. Each pixel is a 4-bit index number, assigned to a color from the Attribute Controller. The default color palette are all 16 CGA colors, but it allows substitution of each of these colors with any one from a total of 64 colors.\\
 
+When calculating the intended value in the 64-color EGA palette, the 6-bit number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity (\(\frac{1}{3}\) color intensity) and an uppercase letter is the most significant bit of intensity (\(\frac{2}{3}\) color intensity). The more intensity, the brighter the color is. For example, \cw{02h} will produce green, \cw{10h} will produce dim green and \cw{12h} will produce bright green. The color magenta is created by setting both "R" and "B", which is color code \cw{05h}. Each of the 16 color indexes could be reassigned to one color from the "rgbRGB" palette.\\
+
+
+\begin{figure}[H]
+\centering
+\setlength{\tabcolsep}{2.8pt} % set border margin to 0
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline 
+ & 00h & 01h & 02h & 03h & 04h & 05h & 06h & 07h & 08h & 09h & 0Ah & 0Bh & 0Ch & 0Dh & 0Eh & 0Fh \\ \hline
+ 00h & \cellcolor{CGA_Black} & \cellcolor{CGA_Blue} & \cellcolor{CGA_Green} & \cellcolor{CGA_Cyan} & \cellcolor{CGA_Red} & \cellcolor{CGA_Magenta} & \cellcolor{EGA_06} & \cellcolor{CGA_Light_Grey} & \cellcolor{EGA_08} & \cellcolor{EGA_09} & \cellcolor{EGA_0A} & \cellcolor{EGA_0B} & \cellcolor{EGA_0C} & \cellcolor{EGA_0D} & \cellcolor{EGA_0E} & \cellcolor{EGA_0F} \\ \hline
+
+10h & \cellcolor{EGA_10} & \cellcolor{EGA_11} & \cellcolor{EGA_12} & \cellcolor{EGA_13} & \cellcolor{CGA_Brown} & \cellcolor{EGA_15} & \cellcolor{EGA_16} & \cellcolor{EGA_17} & \cellcolor{EGA_18} & \cellcolor{EGA_19} & \cellcolor{EGA_1A} & \cellcolor{EGA_1B} & \cellcolor{EGA_1C} & \cellcolor{EGA_1D} & \cellcolor{EGA_1E} & \cellcolor{EGA_1F} \\ \hline
+
+20h & \cellcolor{EGA_20} & \cellcolor{EGA_21} & \cellcolor{EGA_22} & \cellcolor{EGA_23} & \cellcolor{EGA_24} & \cellcolor{EGA_25} & \cellcolor{EGA_26} & \cellcolor{EGA_27} & \cellcolor{EGA_28} & \cellcolor{EGA_29} & \cellcolor{EGA_2A} & \cellcolor{EGA_2B} & \cellcolor{EGA_2C} & \cellcolor{EGA_2D} & \cellcolor{EGA_2E} & \cellcolor{EGA_2F} \\ \hline
+
+30h & \cellcolor{EGA_30} & \cellcolor{EGA_31} & \cellcolor{EGA_32} & \cellcolor{EGA_33} & \cellcolor{EGA_34} & \cellcolor{EGA_35} & \cellcolor{EGA_36} & \cellcolor{EGA_37} & \cellcolor{CGA_Dark_Grey} & \cellcolor{CGA_Bright_Blue} & \cellcolor{CGA_Bright_Green} & \cellcolor{CGA_Bright_Cyan} & \cellcolor{CGA_Bright_Red} & \cellcolor{CGA_Bright_Magenta} & \cellcolor{CGA_Bright_Brown} & \cellcolor{CGA_White} \\ \hline
+
+
+\end{tabular}\\
+\setlength{\tabcolsep}{6pt} % reset border margin
+\caption{EGA "rgbRGB" color palette (64 values from 00h to 3Fh)}
+\end{figure}
+
+
+However, standard EGA monitors did not support use of the extended color palette in 200-line modes. Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output. The monitor cannot distinguish between being connected to a CGA or an EGA card in the 200-line mode. \\
  \begin{figure}[H]
 \centering
 \includegraphics[width=0.14\textwidth]{imgs/drawings/ports/DE9_serial_port.eps}
@@ -553,17 +579,47 @@ The EGA uses a female nine-pin D-subminiature (DE-9) connector for output, ident
 \label{fig:egaPort}
 \end{figure}
 
-Although EGA supported high resolutions like 640x350 pixels, it required an expensive high resolution EGA monitor. For reasons of the compatibility with CGA and avoid acquiring an expensive EGA monitor most game programmers used  mode \cw{0Dh}, using the 320x200 resolution with 16 colors.
 
-\pagebreak
-  
-\subsection{EGA Color Palette}
-\label{sec:ega_color_palette}
-For each pixel a number index is derived from the 4 planes, representing a color number. The default color palette are all 16 CGA colors, but it allows substitution of each of these colors with any one from a total of 64 colors.\\
+The CGA color output is based on the form "RGBI", where the 'I' stands for Intensity and adds brightness to the RGB color. Compared to CGA, EGA redefines some pins of the DE-9 connector to carry the extended rgbRGB-color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. \\
 
-When calculating the intended value in the 64-color EGA palette, the binary number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity (\(\frac{1}{3}\) color intensity) and an uppercase letter is the most significant bit of intensity (\(\frac{2}{3}\) color intensity). The more intensity, the brighter the color is. For example, \cw{02h} will produce green, \cw{10h} will produce dim green and \cw{12h} will produce bright green. The color magenta is created by setting both "R" and "B", which is color code \cw{05h}. Each of the 16 color indexes could be reassigned to one color from the "rgbRGB" palette.\\
+\begin{figure}[H]
+\centering
+\begin{table}[H]
+\begin{tabularx}{\textwidth}[c]{|>{\hsize=.16\hsize}X |>{\hsize=.42\hsize}X |>{\hsize=.42\hsize}X |}
+\hline
+\textbf{\color{black} Pin} & \textbf{\color{black} EGA modes (rgbRGB)} & \textbf{\color{black} CGA modes (RGBI)} \\
+\hline
+\color{black} 1 & \color{black} Ground &\color{black} Shield Ground \\
+\hline
+\color{black} 2 & \color{white}\cellcolor{EGA_I_Red} Secondary Red (Intensity) &\color{black}Signal Ground \\
+\hline
+\color{black} 3 & \color{white}\cellcolor{CGA_Red} Primary Red &\color{white}\cellcolor{CGA_Red} Red \\
+\hline
+\color{black} 4 & \color{black}\cellcolor{CGA_Green} Primary Green &\color{black}\cellcolor{CGA_Green} Green \\
+\hline
+\color{black} 5 & \color{white}\cellcolor{CGA_Blue} Primary Blue &\color{white}\cellcolor{CGA_Blue} Blue \\
+\hline
+\color{black} 6 & \color{black}\cellcolor{EGA_I_Green} Secondary Green (Intensity) &\color{white}\cellcolor{CGA_Dark_Grey}Intensity \\
+\hline
+\color{black} 7 & \color{white}\cellcolor{EGA_I_Blue} Secondary Blue (Intensity) &\color{black}Reserved \\
+\hline
+\color{black} 8 & \color{black} Horizontal Sync &\color{black}Horizontal Sync \\
+\hline
+\color{black} 9 & \color{black} Vertical Sync &\color{black}Vertical Sync \\
 
-However, standard EGA monitors did not support use of the extended color palette in 200-line modes. The monitor cannot distinguish between being connected to a CGA card or being connected to an EGA card in a 200-line mode. Compared to CGA, EGA redefines some pins of the DE-9 connector to carry the extended color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. For this reason, standard EGA monitors will use the CGA pin assignment in 200-line modes so the monitor can also be used with a CGA card. To keep CGA compatibility most video games did not take advantage of the color palette and kept the 16 standard CGA colors.\\
+\hline
+
+\end{tabularx}
+\end{table}
+\caption{EGA and CGA DE-9 connector pin signals.}
+\label{pin_signals}
+ \end{figure}
+ 
+
+Suppose one assigns the color brown (rgbRGB is \cw{010100b}) to one of the color indexes, the resulting color on the CGA pin assignment is light red; The secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, which results to the color red with intensity and not the expected brown color. \\
+
+\par
+For this reason, EGA monitors will use the CGA pin assignment in 200-line modes so the monitor can also be used with a CGA card and vice versa. Therefore, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, instead of only 4 colors when using a CGA card.  \\
 
 
 \begin{figure}[H]
@@ -571,28 +627,29 @@ However, standard EGA monitors did not support use of the extended color palette
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{+X +X +X +X }
 \hline
-\textbf{\color{black}Index Number} & \textbf{\color{black}Color} & \textbf{\color{black}rgbRGB} & \textbf{\color{black}Decimal} 	\\ \hline
-\rowcolor{CGA_Black}\rowstyle{\color{white}} 00h & Black          & 000000           & 0 	\\ \hline
-\rowcolor{CGA_Blue} 01h & Blue          & 000001           & 1   			\\ \hline
-\rowcolor{CGA_Green} 02h & Green          & 000010           & 2   			\\ \hline
-\rowcolor{CGA_Cyan} 03h & Cyan          & 000011           & 3   			\\ \hline
-\rowcolor{CGA_Red} 04h & Red          & 000100           & 4   				\\  \hline
-\rowcolor{CGA_Magenta} 05h & Magenta          & 000101           & 5   		\\ \hline
-\rowcolor{CGA_Brown} 06h & Brown          & 010100           & 20   		\\ \hline
-\rowcolor{CGA_Light_Grey} 07h & Light grey          & 000111           & 7   		\\ \hline
-\rowcolor{CGA_Dark_Grey} 08h & Dark grey          & 111000           & 56   		\\ \hline
-\rowcolor{CGA_Bright_Blue}\rowstyle{\color{black}} 09h & Bright blue          & 111001           & 57   			\\ \hline
-\rowcolor{CGA_Bright_Green} 0Ah & Bright green          & 111010           & 58   			\\ \hline
-\rowcolor{CGA_Bright_Cyan} 0Bh & Bright cyan          & 111011           & 59   			\\ \hline
-\rowcolor{CGA_Bright_Red} 0Ch & Bright red          & 111100           & 60   				\\ \hline
-\rowcolor{CGA_Bright_Magenta} 0Dh & Bright magenta          & 111101           & 61   		\\ \hline
-\rowcolor{CGA_Bright_Brown} 0Eh & Yellow          & 111110           & 62   		\\ \hline
-\rowcolor{CGA_White} 0Fh & White          & 111111           & 63   		\\ \hline
+\textbf{\color{black}Index Number} & \textbf{\color{black}Color} & \textbf{\color{black}rgbRGB} & \textbf{\color{black}RGBI} 	\\ \hline
+\rowcolor{CGA_Black}\rowstyle{\color{white}} 00h & Black          & 000000b           & 0000b 	\\ \hline
+\rowcolor{CGA_Blue} 01h & Blue          & 000001b           &  0010b  			\\ \hline
+\rowcolor{CGA_Green} 02h & Green          & 000010b           & 0100b   			\\ \hline
+\rowcolor{CGA_Cyan} 03h & Cyan          & 000011b           & 0110b   			\\ \hline
+\rowcolor{CGA_Red} 04h & Red          & 000100b           & 1000b   				\\  \hline
+\rowcolor{CGA_Magenta} 05h & Magenta          & 000101b           & 1010b   		\\ \hline
+\rowcolor{CGA_Brown} 06h & Brown          & 010100b           & 1100b   		\\ \hline
+\rowcolor{CGA_Light_Grey} 07h & Light grey          & 000111b           & 1110b	\\ \hline
+\rowcolor{CGA_Dark_Grey} 08h & Dark grey          & 111000b           & 0001b   		\\ \hline
+\rowcolor{CGA_Bright_Blue}\rowstyle{\color{black}} 09h & Bright blue          & 111001b           & 0011b   			\\ \hline
+\rowcolor{CGA_Bright_Green} 0Ah & Bright green          & 111010b   & 0101b	\\ \hline
+\rowcolor{CGA_Bright_Cyan} 0Bh & Bright cyan          & 111011b     & 0111b   			\\ \hline
+\rowcolor{CGA_Bright_Red} 0Ch & Bright red          & 111100b           & 1001b			\\ \hline
+\rowcolor{CGA_Bright_Magenta} 0Dh & Bright magenta          & 111101b           & 1011b   		\\ \hline
+\rowcolor{CGA_Bright_Brown} 0Eh & Yellow          & 111110b           & 1101b	\\ \hline
+\rowcolor{CGA_White} 0Fh & White          & 111111b           & 1111b   		\\ \hline
 \end{tabularx}
 \end{table}
 \caption{Default EGA 16-color palette}
 \label{default_ega_palette}
  \end{figure}
+
 
 
 
@@ -777,10 +834,10 @@ It was incredibly easy to set up, simple to program (it could only play one type
   
 
 \section{Floppy Disk Drive}
-In the time before the internet, a floppy disk was the best medium to share and distribute software and data. The original XT systems were equipped with 5\nicefrac{1}{4}-inch floppy disk with a capacity of 360Kb. In 1984, IBM introduced with its PC AT the 1.2 MB dual-sided 5\nicefrac{1}{4}-inch floppy disk, but it never became very popular. IBM started using the 720 KB double density 3\nicefrac{1}{2}-inch floppy disk in 1986 and the 1.44 MB high-density version in 1987. The advantages of the 3\nicefrac{1}{2}-inch disk were its higher capacity, its smaller physical size, and its rigid case which provided better protection from dirt and other environmental risks. By the mid-1990s, 5\nicefrac{1}{4}-inch drives had virtually disappeared, as the 3\nicefrac{1}{2}-inch disk became the predominant floppy disk. \\
+In the time before the internet, a floppy disk was the main medium to share and distribute software and data. The original XT systems were equipped with 5\nicefrac{1}{4}-inch floppy disk with a capacity of 360Kb. In 1984, IBM introduced with its PC AT the 1.2 MB dual-sided 5\nicefrac{1}{4}-inch floppy disk, but it never became very popular. IBM started using the 720 KB double density 3\nicefrac{1}{2}-inch floppy disk in 1986 and the 1.44 MB high-density version in 1987. The advantages of the 3\nicefrac{1}{2}-inch disk were its higher capacity, its smaller physical size, and its rigid case which provided better protection from dirt and other environmental risks. By the mid-1990s, 5\nicefrac{1}{4}-inch drives had virtually disappeared, as the 3\nicefrac{1}{2}-inch disk became the predominant floppy disk. \\
 
 \vspace{10pt}
-\bu{Trivia :} An USB stick of 128GB contains 91.000 high-density 3\nicefrac{1}{2}-inch (1.44MB) floppy disks.\\
+\bu{Trivia :} An USB stick of 128GB contains more than 91K high-density 3\nicefrac{1}{2}-inch (1.44MB) floppy disks.\\
 \par
 
 \begin{figure}
