@@ -1,5 +1,6 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
+\chapter{Hardware}
 \label{chapter_hardware}
 To study the IBM PC, it is easiest to first break it down to small parts. Five sub-systems form a pipeline: Inputs, CPU, RAM, Video, and Audio.\\
 \begin{figure}[H]
@@ -36,7 +37,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 \subsection{Overview}
   Intel released the 8086 in 1979, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12.5-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen could run on a 8088, but an Intel 286 was recommended.\\   
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen could run on a 8088, but an Intel 286 was recommended.\\   
 
 \par
 
@@ -46,7 +47,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
   \begin{tikzpicture}[font=\small]
     \begin{axis}[
       width=1.0\textwidth,
-      height=0.6\textwidth,
+      height=0.4\textwidth,
       ybar,
       bar width=20pt,
       ylabel={MIPS},
@@ -56,16 +57,16 @@ A lot of friction was present since manufacturers had not embraced the gaming in
       axis x line=bottom,
       axis y line=left,
       enlarge x limits=0.11,
-      symbolic x coords={8088 10Mhz, 286 8MHz,286 16MHz,386SX 16,386SX 33,386DX 33},
+      symbolic x coords={8088 4.8Mhz, 8088 10Mhz, 286 8MHz,286 10MHz,286 16MHz,386DX 33},
       xticklabel style={anchor=base,yshift=-\baselineskip},
       nodes near coords={\pgfmathprintnumber\pgfplotspointmeta}
     ]
       \addplot[fill=black!20,draw=black] coordinates {
+		(8088 4.8Mhz,0.2)      	
       	(8088 10Mhz,0.75)
         (286 8MHz,1.5)
+        (286 10MHz,1.7)
         (286 16MHz,2.5)
-        (386SX 16,2.5)
-        (386SX 33,5.1)
         (386DX 33,8)
       };
     \end{axis}
@@ -75,7 +76,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
  \end{figure}
  \par
  % \addtocounter{footnote}{0}
-  \footnotetext{Roy Longbottom's PC Benchmark Collection: http://www.roylongbottom.org.uk/mips.htm\#anchorIntel2.}
+  \footnotetext{Roy Longbottom's PC Benchmark Collection: http://www.roylongbottom.org.uk/mips.htm.}
    % \stepcounter{footnote}
  \par
   \textbf{\underline{Trivia :}} A modern processor such as the Intel Core i7 3.33 GHz operates at close to 180,000 MIPS.\\
@@ -251,12 +252,12 @@ The memory layout is as follows:
 
 
 \bigskip
-Out of the original 1024KiB, only 640KiB (called Conventional Memory) was accessible to a program. 384KiB was reserved for the UMA and every single driver installed (\codeword{.SYS} and \codeword{.COM}) took away from the remaining 640KiB.
+Out of the original 1024KiB, only 640KiB (called Conventional Memory) was accessible to a program. 384KiB was reserved for the UMA and every single driver installed (\codeword{.SYS} and \codeword{.COM}) took away from the remaining 640KiB.\\
 
 \par
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{imgs/drawings/real_mode_v2.eps}
+\includegraphics[width=0.6\textwidth]{imgs/drawings/real_mode_v2.eps}
 \caption{First 1MiB of RAM layout.}
 \label{fig:fp_internals}
 \end{figure}
@@ -319,18 +320,6 @@ Will output:\\
 \par
 
 With this system, pointer arithmetic must also receive careful consideration. A \cw{far} pointer increment only increments the offset, not the segment. If you iterate on an array larger than 64KiB you will end up wrapping around. You could use yet another type of pointer \cw{int huge*} to make pointer arithmetic work beyond 64KiB but really, nobody wants to go there.\\
-
-
-\par
-
-\textbf{\underline{Trivia :}}  As of 2017, more than thirty five years after the introduction of the 8086, in the name of backward compatibility, all PCs in the world still start in real mode. A bootloader switches them to protected mode, loads the kernel, and then actual startup can begin.
-
-
-
-
-
-
-
 
 
 
@@ -429,17 +418,47 @@ The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IB
 
 Each iteration added new features and by 1990 the predominant graphic system was EGA, although the VGA system was rapidly becoming the new standard. All video cards installed on PCs had to follow the standard set by IBM. The universality of that system was a double-edged sword. While developers had to program for only one graphic system, there was no escaping its shortcomings.\\
 
-The EGA palette allows 16  colors to be used simultaneously, and it allows substitution of each of these colors with any one from a total of 64 colors, at a resolution of 640 x 350.\\
 
-\pagebreak
-Below an ATI EGA Wonder 800 (8-bit ISA). The eight chips on the left of the card form the VRAM where the framebuffers are stored\protect\footnotemark. 
+\subsection{Introduction of EGA Video Card}
+
+IBM introduced the Enhanced Graphics Adapter (EGA) in 1985 as the successor of CGA. The standard card was shipped with only 64KiB video memory, but it had the option to expand the memory using the onboard graphics memory expansion card.
+Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast full of discrete components. The memory consists out of TMS4416 RAM, a common memory chip for (home) computers around that period. Each chip contains 16KiB of 4-bits memory, so one needs two chips to end up having 16KiB of 8-bit memory and eight chips for 64KiB of 8-bit memory. \\
+
+\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still it took until 1983-1984 until they became widely available and lower priced than four TMS 4116 (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where 4416 would have been a cost saver - were already on the way out.}\\
+
+\par
+To add additional video memory to the IBM EGA card a Graphics Memory Expansion Card could be purchased. By default only the bottom row of memory was populated with chips, expanding the total EGA video memory to 128KiB. The expansion card provided DIP (dual in-line package) sockets for further memory expansion. Populating the DIP sockets with a Graphics Memory Module Kit adds two additional rows of 64KiB, bringing the EGA memory to its maximum of 256KiB. \\
+
+
+\begin{figure}[H]
+  \centering 
+  \includegraphics[width=1.0\textwidth]{screenshots_300dpi/hardware/ibm_ega_graphics_memory_expansion_card.png} 
+  \caption{EGA Graphics Memory Expansion Card, bottom row populated with chips.}
+  \label{fig:ibm_ega_card}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering 
+  \includegraphics[width=1.3\textwidth, angle =90 ]{screenshots_300dpi/hardware/ibm_ega_card.png} 
+  \caption{Original IBM EGA card}
+  \label{fig:ibm_ega_card}
+\end{figure}
+
+
+
+
+\par
+The EGA clones that started coming along in 1986-87 were based on integrated chipsets, and the vast majority of them came with the maximum of 256KiB on board. When Commander Keen came out, the headcount of EGA cards with less than 256KiB would've been practically negligible\footnote{PC Tech Journal Oct 1986 (page 82-83) and PC Tech Journal Nov 1986 (page 148-149)}.\\
+
+\par
+Below an ATI EGA Wonder 800 (8-bit ISA). The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
 
 \begin{figure}[H] 
   \centering 
   \scaledimage{0.9}{hardware/EGA-ATI-800.png} 
   
 \end{figure}
-\footnotetext{Each VRAM chip from this ATI EGA cards can store 32KiB, accounting for a total of 256KiB VRAM.}
 \par
 \pagebreak
 
@@ -451,7 +470,7 @@ Below an ATI EGA Wonder 800 (8-bit ISA). The eight chips on the left of the card
 EGA can be summarized as three major systems made of input, storage, and output:
 \begin{itemize}
 \item The Graphic Controller and Sequence Controller controlling how EGA RAM is accessed (the CPU-VRAM interface)
-\item The framebuffer (the VRAM) made of four memory banks with a minimum of 16KiB (rather than one bank of 64KiB). Via memory expansion each memory bank could be upgraded to 32KiB or 64KiB (resulting in 128KiB or 256KiB total VRAM). The original model from IBM came with 16KiB per memory bank, but almost all other EGA cards were equipped with the full 64KiB per memory bank\footnote{PC Tech Journal Oct 1986 (page 82-83) and Nov 1986 (page 148-149)}. 
+\item The framebuffer (the VRAM) made of four memory banks with 64KiB (rather than one bank of 256KiB).  
 \item The CRT Controller and the Attribute Controller taking care of converting the palette-indexed framebuffer to RGB and then to digital TTL\footnote{Transistor Transistor Logic} signal for display
 \end{itemize}
 
@@ -524,14 +543,14 @@ The BIOS can be called to configure the EGA as follows.
 \begin{tabularx}{\textwidth}[c]{llllcr}
 \hline
 \textbf{Mode} & \textbf{Type} & \textbf{Format} & \textbf{Colors} & \hspace{10pt}\textbf{RAM Mapping}\hspace{10pt} & \textbf{Hz}        \\ \hline
-0             & text          & 40x25           & 16 (monochrome) & B8000h     & 60                           \\ \hline
-1             & text          & 40x25           & 16              & B8000h    & 60                            \\ \hline
-2             & text          & 80x25           & 16 (monochrome) & B8000h    & 60                            \\ \hline
-3             & text          & 80x25           & 16              & B8000h    & 60                            \\ \hline
-4             & CGA Graphics  & 320x200         & 4               & B8000h    & 60                            \\ \hline
-5             & CGA Graphics  & 320x200         & 4 (monochrome)  & B8000h    & 60                            \\ \hline
-6             & CGA Graphics  & 640x200         & 2               & B8000h    & 60                            \\ \hline
-7             & MDA text      & 9x14            & 3 (monochrome)  & B0000h    & 60                            \\ \hline
+00h             & text          & 40x25           & 16 (monochrome) & B8000h     & 60                           \\ \hline
+01h             & text          & 40x25           & 16              & B8000h    & 60                            \\ \hline
+02h             & text          & 80x25           & 16 (monochrome) & B8000h    & 60                            \\ \hline
+03h             & text          & 80x25           & 16              & B8000h    & 60                            \\ \hline
+04h             & CGA Graphics  & 320x200         & 4               & B8000h    & 60                            \\ \hline
+05h             & CGA Graphics  & 320x200         & 4 (monochrome)  & B8000h    & 60                            \\ \hline
+06h             & CGA Graphics  & 640x200         & 2               & B8000h    & 60                            \\ \hline
+07h             & MDA text      & 9x14            & 3 (monochrome)  & B0000h    & 60                            \\ \hline
 0Dh           & EGA graphic   & 320x200         & 16              & A0000h    & 60                            \\ \hline
 0Eh           & EGA graphic   & 640x200         & 16              & A0000h    & 60                            \\ \hline
 0Fh           & EGA graphic   & 640x350         & 3               & A0000h    & 60                            \\ \hline
@@ -570,8 +589,10 @@ When calculating the intended value in the 64-color EGA palette, the 6-bit numbe
 \caption{EGA "rgbRGB" color palette (64 values from 00h to 3Fh)}
 \end{figure}
 
-
+\medskip
+\par
 However, standard EGA monitors did not support use of the extended color palette in 200-line modes. Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output. The monitor cannot distinguish between being connected to a CGA or an EGA card in the 200-line mode. \\
+
  \begin{figure}[H]
 \centering
 \includegraphics[width=0.14\textwidth]{imgs/drawings/ports/DE9_serial_port.eps}
@@ -580,14 +601,17 @@ However, standard EGA monitors did not support use of the extended color palette
 \end{figure}
 
 
+
+\par
 The CGA color output is based on the form "RGBI", where the 'I' stands for Intensity and adds brightness to the RGB color. Compared to CGA, EGA redefines some pins of the DE-9 connector to carry the extended rgbRGB-color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. \\
 
 \begin{figure}[H]
+\renewcommand{\arraystretch}{0.95}
 \centering
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{|>{\hsize=.16\hsize}X |>{\hsize=.42\hsize}X |>{\hsize=.42\hsize}X |}
 \hline
-\textbf{\color{black} Pin} & \textbf{\color{black} EGA modes (rgbRGB)} & \textbf{\color{black} CGA modes (RGBI)} \\
+\textbf{\color{black} Pin} & \textbf{\color{black} EGA mode (rgbRGB)} & \textbf{\color{black} CGA mode (RGBI)} \\
 \hline
 \color{black} 1 & \color{black} Ground &\color{black} Shield Ground \\
 \hline
@@ -615,14 +639,18 @@ The CGA color output is based on the form "RGBI", where the 'I' stands for Inten
 \label{pin_signals}
  \end{figure}
  
-
+\par
 Suppose one assigns the color brown (rgbRGB is \cw{010100b}) to one of the color indexes, the resulting color on the CGA pin assignment is light red; The secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, which results to the color red with intensity and not the expected brown color. \\
+
 
 \par
 For this reason, EGA monitors will use the CGA pin assignment in 200-line modes so the monitor can also be used with a CGA card and vice versa. Therefore, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, instead of only 4 colors when using a CGA card.  \\
 
+\trivia{The EGA monitor could only distinct EGA and CGA cards based on the Vertical Sync signal, which is either 200- or 350-line mode. If the Vertical Sync was 350-line mode, the monitor switched to Mode 2 operations which supported the extended rgbRGB-color information\footnote{IBM Enhanced Color Display documentation.}.}\\
+
 
 \begin{figure}[H]
+\renewcommand{\arraystretch}{0.9}
 \centering
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{+X +X +X +X }
@@ -670,17 +698,17 @@ To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indica
   \label{ram_to_ega_mapping_label}
 \end{figure}
 \par
- To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) resulting in 8 pixels on screen. So in figure \ref{fig:ega_bank_layout} the first pixel has color magenta(\cw{05h}), second pixel  dark grey (\cw{08h}) and third pixel  bright yellow(\cw{0Eh}).
+ To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) resulting in 8 pixels on screen. So in Figure \ref{fig:ega_bank_layout} the first pixel has color magenta, second pixel dark grey and third pixel yellow.
  
 
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=.8\textwidth]{imgs/drawings/mode12h.eps}
+ \includegraphics[width=1.0\textwidth]{imgs/drawings/mode12h.eps}
 \caption{EGA bank layout}
 \label{fig:ega_bank_layout}
 \end{figure}
-\pagebreak
+
 
 
 
@@ -723,7 +751,7 @@ If the CPU is faster than the frequency of the CRT (60Hz), it can write the fram
 With two buffers (a.k.a double buffering) the CPU can start writing in the second framebuffer without messing with the framebuffer being scanned to the screen\footnote{Now the CPU speed is capped by the CRT refresh rate. Triple buffering can solve this at the price of frame latency.}. No more tearing!\\
 
 \par
-Note that creating 320x200 picture with 16 colors on the screen requires 8KiB of VRAM (4 planes, each 2KiB). 
+A full screen of 320x200 pixels with 16 colors requires 320x200/8 = 8KB of VRAM (spread over 4 planes, each 2KB), so there is plenty of video memory left to keep multiple screens.
 
 
 
