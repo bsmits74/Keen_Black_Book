@@ -424,7 +424,7 @@ Each iteration added new features and by 1990 the predominant graphic system was
 IBM introduced the Enhanced Graphics Adapter (EGA) in 1985 as the successor of CGA. The standard card was shipped with only 64KiB video memory, but it had the option to expand the memory using the onboard graphics memory expansion card.
 Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast full of discrete components. The memory consists out of TMS4416 RAM, a common memory chip for (home) computers around that period. Each chip contains 16KiB of 4-bits memory, so one needs two chips to end up having 16KiB of 8-bit memory and eight chips for 64KiB of 8-bit memory. \\
 
-\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still it took until 1983-1984 until they became widely available and lower priced than four TMS 4116 (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where 4416 would have been a cost saver - were already on the way out.}\\
+\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still it took until 1983-84 until they became widely available and lower priced than four TMS 4116 (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where 4416 would have been a cost saver - were already on the way out.}\\
 
 \par
 To add additional video memory to the IBM EGA card a Graphics Memory Expansion Card could be purchased. By default only the bottom row of memory was populated with chips, expanding the total EGA video memory to 128KiB. The expansion card provided DIP (dual in-line package) sockets for further memory expansion. Populating the DIP sockets with a Graphics Memory Module Kit adds two additional rows of 64KiB, bringing the EGA memory to its maximum of 256KiB. \\
@@ -530,12 +530,9 @@ In order to configure this mess of planes and the controllers, 50 poorly documen
 \bigskip
 
 
-
-To compensate for the complexity, IBM provided a routine to initialize all the registers via one BIOS call. One mode can be selected out of 12 available with an associated resolution, number of colors, and memory layout.
-
 \subsection{EGA Modes}
 
-The BIOS can be called to configure the EGA as follows.
+To compensate for the complexity, IBM provided a routine to initialize all the registers via one BIOS call. One mode can be selected out of 12 available with an associated resolution, number of colors, and memory layout. The BIOS can be called to configure the EGA as follows:
 \vspace{-10pt}
 \begin{figure}[H]
 \centering
@@ -561,6 +558,7 @@ The BIOS can be called to configure the EGA as follows.
 \label{ega-modes-available}
  \end{figure}
  
+\trivia{The Modes 08h-0Ah  are reserved for PCjr (or Tandy Graphics Adapter) graphics modes, which offered 160x200 with 16 colors, 320x200 with 16 colors and 640x200 with 4 colors. Modes 0Bh and 0Ch are reserved for internal EGA BIOS.}\\
   
 \subsection{EGA Color Palette}
 \label{sec:ega_color_palette}
@@ -606,12 +604,12 @@ However, standard EGA monitors did not support use of the extended color palette
 The CGA color output is based on the form "RGBI", where the 'I' stands for Intensity and adds brightness to the RGB color. Compared to CGA, EGA redefines some pins of the DE-9 connector to carry the extended rgbRGB-color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. \\
 
 \begin{figure}[H]
-\renewcommand{\arraystretch}{0.95}
+\renewcommand{\arraystretch}{0.7}
 \centering
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{|>{\hsize=.16\hsize}X |>{\hsize=.42\hsize}X |>{\hsize=.42\hsize}X |}
 \hline
-\textbf{\color{black} Pin} & \textbf{\color{black} EGA mode (rgbRGB)} & \textbf{\color{black} CGA mode (RGBI)} \\
+\color{black} \textbf{Pin} & \color{black} \textbf{EGA mode (rgbRGB)} & \color{black} \textbf{CGA mode (RGBI)} \\
 \hline
 \color{black} 1 & \color{black} Ground &\color{black} Shield Ground \\
 \hline
@@ -650,7 +648,7 @@ For this reason, EGA monitors will use the CGA pin assignment in 200-line modes 
 
 
 \begin{figure}[H]
-\renewcommand{\arraystretch}{0.9}
+\renewcommand{\arraystretch}{0.7}
 \centering
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{+X +X +X +X }
@@ -747,22 +745,9 @@ In this example the CPU has finished writing the framebuffer (on the left) and t
 \end{figure}
 \par
 If the CPU is faster than the frequency of the CRT (60Hz), it can write the framebuffer again, before the scan is completed. This is what happened here. The next frame was drawn with the circle moved to the right. The electron beam did not know that and kept on scanning the framebuffer. The result on screen is now a composite of two frames. It looks like two frames were torn and taped back together. Hence the name "tearing".\\
-\par
-With two buffers (a.k.a double buffering) the CPU can start writing in the second framebuffer without messing with the framebuffer being scanned to the screen\footnote{Now the CPU speed is capped by the CRT refresh rate. Triple buffering can solve this at the price of frame latency.}. No more tearing!\\
 
 \par
-A full screen of 320x200 pixels with 16 colors requires 320x200/8 = 8KB of VRAM (spread over 4 planes, each 2KB), so there is plenty of video memory left to keep multiple screens.
-
-
-
-
-
-
-
-
-
-
-
+With two buffers (a.k.a double buffering) the CPU can start writing in the second framebuffer without messing with the framebuffer being scanned to the screen\footnote{Now the CPU speed is capped by the CRT refresh rate. Triple buffering can solve this at the price of frame latency.}. No more tearing! A full screen of 320x200 pixels with 16 colors requires 320x200x 4-bits = 32KB of VRAM (spread over 4 planes, each 8KB), so there is plenty of video memory left to keep up to eight screens in an EGA card with 256KiB memory.
 
 
 
@@ -817,34 +802,34 @@ Although adoption was growing (Creative would go on to sell one million SoundBla
  \subsection{AdLib}
   AdLib's music card was first on the market. The company was founded in 1988 by Martin Prevel, a former professor of music from Quebec. After an initial struggle to get game developers to use their card (the SDK was \$300), AdLib managed to convince Taito, Velocity, and Sierra On-Line to support their hardware. Sierra in particular did much to increase adoption with King's Quest IV selling close to 3 million copies. Soon after, all games supported the "music card".\\
   \par
+        Equipped with a Yamaha YM3812, also known as the OPL2, the card can produce 9 channels of sound, each capable of simulating an instrument. Based on FM synthesis, the channels were limited but allowed for pleasant music.\\
 
+\par
   \begin{figure}[H] 
     \centering 
     \scaledimage{.8}{hardware/adlib.png} 
     \caption{An AdLib sound card. Notice the big YM3812 chip and the 8-bit ISA connector.}
   \end{figure}
-   \par
-      Equipped with a Yamaha YM3812, also known as the OPL2, the card can produce 9 channels of sound, each capable of simulating an instrument. Based on FM synthesis, the channels were limited but allowed for pleasant music.\\
-\par
-\bu{Trivia :} Canadian companies, and especially those from Quebec, were prevalent in the early 90s due to their technological prowess. AdLib manufactured Sound Cards, Matrox made a killing with its Millenium Graphics Card, and Watcom sold the best DOS C compiler\footnote{Watcom's compiler was so good id would use it to compile Doom.}. ATI\footnote{History would repeat itself in the late 90s in the field of graphic cards: Nvidia vs ATI.} would later emerge as a major GPU innovator in the 2000s.\\
-  
+
+
+ 
   
 
 
   \subsection{SoundBlaster}
   The SoundBlaster 1.0 (code named "Killer Kard"), was released in 1989 by Creative. It was a smart product which was clearly targeting AdLib's dominant position.\\ 
 \par
-
+Not only was it equipped with the same OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".}  allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.\\
+\par
+Figure \ref{asb12} is the SoundBlaster model CT1350B. Notice the OPL2 chip (labeled FM1312), the big CT1336 bus interface (labeled "CREATIVE") on the center left, the CT1351 DSP on the upper left, and the 8-bit ISA bus connector.\\
 \begin{figure}[H] 
   \centering 
   \fullimage{hardware/sb.png} 
   \caption{A SoundBlaster (v1.2). }
   \label{asb12}
 \end{figure}
-\par
-Not only was it equipped with the same OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".}  allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.\\
-\par
-Figure \ref{asb12} is the SoundBlaster model CT1350B. Notice the OPL2 chip (labeled FM1312), the big CT1336 bus interface (labeled "CREATIVE") on the center left, the CT1351 DSP on the upper left, and the 8-bit ISA bus connector.\\
+
+
 \par
   \bu{Trivia :} The numerous advantages of the SoundBlaster card over the AdLib made it the de-facto standard shortly after its release and eventually brought AdLib to bankruptcy\footnote{The reign of the SoundBlaster came to an end with Windows 95, which standardized the programming interface at application level and eliminated the importance of compatibility with SoundBlaster}.
 
@@ -894,7 +879,7 @@ The floppy disk is controlled via the Floppy Disk Controller (FDC), a typical re
   \item Turn the disk motor off. 
 \end{itemize}
 
-You should wait a few seconds before turning the motor off. The reason to leave the motor on for a few seconds is that your driver may not know if there is a queue of sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
+The controller waited a few seconds before turning off the motor. The reason to leave the motor on for a few seconds is that the controller may not know if there is a queue of sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
 
 
 
@@ -973,7 +958,7 @@ Finally, a SoundBlaster sound card connected via the ISA bus provided a Game Por
 
 
 \section{Summary}
-To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface didn't allow double buffering, the memory model only allowed 1 standard MiB with an address composed of two separate 16-bit registers, and the \cw{near}/\cw{far} pointers forbade using standard C. Last, but not least, the default sound system could only produce square waves.\\
+To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface didn't allow double buffering, and the memory model only allowed 1 MiB with an address composed of two separate 16-bit registers. Last, but not least, the default sound system could only produce square waves.\\
 \par
 Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves \textit{Ideas From the Deep}\footnote{They originally called themselves Ideas From the Deep but then decided to shorten it to simply id, which stands for "in demand", and is pronounced as in "did" or "kid." The name also refers to id, the part of the brain that behaves by the pleasure principle in Freudian psychology.}.
 \end{document}
