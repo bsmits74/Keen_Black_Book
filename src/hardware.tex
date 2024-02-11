@@ -2,7 +2,7 @@
 \begin{document}
 \chapter{Hardware}
 \label{chapter_hardware}
-To study the IBM PC, it is easiest to first break it down to small parts. Five sub-systems form a pipeline: Inputs, CPU, RAM, Video, and Audio.\\
+To study the IBM PC, it is easiest to first break it down to small parts. Six sub-systems form a pipeline: Inputs, CPU, RAM, Disk, Video, and Audio.\\
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/fun_pipeline.eps}
@@ -22,7 +22,8 @@ A lot of friction was present since manufacturers had not embraced the gaming in
   Video & Impossible \\ 
   Audio & Very Poor \\ 
   Inputs & Ok \\ 
-  CPU & Very Poor \\ \bottomrule
+  CPU & Very Poor \\ 
+  Disk & Ok \\ \bottomrule
 \end{tabularx}
 \caption{Component quality for a game engine.}
 \end{figure}
@@ -197,51 +198,89 @@ Despite its pipeline design, the 286 cannot do an operation in less than two cyc
 \footnotetext{Intel 80286 programmer's reference manual - 1987.}
 
 
+\subsection{16-bit Data alignment}
+Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus where the 8088 only had a 8-bit bus. Thanks to its 16-bit bus, the 286 can access and write word-sized memory variables just as fast as byte-sized variables. There's a catch, however: That's only true for word-sized variables that start at even memory addresses. When the 286 is asked to perform a word-sized access starting at an odd memory address, it actually performs two separate accesses, each of which fetches 1 byte, just as the 8088 does for all word-sized accesses. In other words, the effective capacity of the 286's external data bus is halved when a word-sized access to an odd address is performed\footnote{See Michael Abrash's Graphics Programming Black Book Special Edition, chapter 11.}.\\
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{imgs/drawings/data_alignment.eps}\\
+\end{figure}
+\par
+
+\par
+The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized accesses to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying a large memory blocks. In Commander Keen several memory-intensive functions, like copying screen memory, are optimized for word-sized memory reading and writing. A simple way to check an even or odd address is using the carry flag:\\
+
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[ language={[x86masm]Assembler}]{code/DATA_ALIGNMENT}
+\end{minipage}\\
 
 
 
 
 \section{RAM}
-The first CPUs in the Intel x86 family were designed in 1976. At a time when RAM was very expensive, the 8086 and 8088 had 16-bit registers with a 20-bit-wide address bus capable of addressing 1MiB\footnote{This book uses IEC notation where MiB is $2^{20}$ and MB is $10^6$.} of RAM. It is difficult to stress how big 1MiB of RAM was in the 70's but as an example the Apple II and the Commodore 64 both shipped with 64KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.} which was enough to write and run amazing things. Sixteen-bit registers and a 20-bit address bus were plenty even though programming was difficult and required combining two registers to build a pointer.\\
+The first CPUs in the Intel x86 family were designed in 1976. It was introduced at a time when the largest register in a CPU was only 16-bits long which meant it could address only 65,536 bytes (64 KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}) of memory, directly. As example both  the Apple II and the Commodore 64 both shipped with 64KiB which was enough to write and run amazing things.\\
+
 \par
-By 1986, hardware had gotten cheaper and Intel made a departure from the old architecture with its 286. This new CPU could be put in what is called "protected mode" featuring a 24-bit-wide address bus for up to 16 MiB of flat RAM protectable with a MMU\footnote{Memory Management Unit}. To make sure old programs could still run, the 286 processor could be put in "real mode" which replicates how the Intel 8086 and 8088 operated: 16-bit registers, 20-bit address bus giving 1MiB addressable RAM with segmented addressing.\\
+But everyone was hungry for a way to run much larger programs. Rather than create a CPU with larger register sizes, the designers at Intel decided to keep the 16-bit registers for their new 8086 and 8088 CPU and added a different way to access more memory: They expanded the instruction set, so programs could tell the CPU to group  two 16-bit registers together whenever they needed to refer to an absolute memory location beyond 64 KiB.\\
+
+\subsection{Memory addressing mystery}
+If the designers had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data\footnote{We've often heard that Bill Gates said something to the effect: '640K of memory should be enough for anyone.' Though many of us no longer believe he ever said those exact words, he did, however, during a video interview with David Allison in 1993 for the National Museum of American History, Smithsonian Institution, say: "I laid out memory so the bottom 640KiB was general purpose RAM and the upper 384KiB I reserved for video and ROM, and things like that."}. So, instead of dealing with whatever problems a linear addressing scheme of 32-bits would have produced, they created the Segment:Offset scheme 
+which allows a CPU to effectively address about 1 MiB\footnote{This book uses IEC notation where MiB is $2^{20}$ and MB is $10^6$.} of memory. The Segment:Offset schema combines two 16-bit registers, one designating a segment and the other an offset within that segment.
+\\
+
 \par
-For compatibility reasons all PCs have to start in real mode. You may assume that programmers of the late 80s promptly switched the CPU to protected mode to unleash the full potential of the machines and ditch the 20-year-old real mode. Unfortunately, there was a major obstacle: the operating system MS-DOS by Microsoft Corporation.
-  
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{imgs/drawings/register_combination_20_bits_address.eps}
+\caption{How registers are combined to address memory.}
+\label{fig:register_comb_to_20_bits}
+\end{figure}
+\par
 
 
 
+The absolute (or lineair) 20-bit memory address can be calculated by\\
+
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[ language={[x86masm]Assembler}]{code/segment_offset}
+\end{minipage}\\
+
+\par
+So as example the absolute address of \cw{47BE:002A} is \cw{47BE0h} + \cw{002Ah} = \cw{47C0Ah}.
+One of the downsides in using Segment:Offset  is the fact that a large number of these pairs refer to the same exact memory locations. For example, both \cw{47BE:002A} and \cw{4202:5BEA} result in the same absolute address \cw{47C0Ah}.\\
+
+\par
+Since there are so many different ways that a single byte in memory might be referenced using Segment:Offset pairs, most programmers have agreed to use the same convention to normalize all such pairs into values that will always be unique. These unique pairs are called a \textit{Normalized Address}. 
+By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all Segment:Offset memory pair locations. To convert an arbitrary Segment:Offset pair into a normalized address is a two-step process that's quite easy for an assembly programmer:\\
+
+\begin{enumerate}
+  \item Convert the Segment:Offset pair into a single absolute address.
+  \item Then simply insert the colon (:) between the last two hex digits
+\end{enumerate}
+
+ 
+The absolute address for \cw{A800:32A5} is \cw{AB2A5h}, which results in the normalized address of \cw{AB2A:0005}.\\
 
 
+\trivia{Since the normalized form will always have three leading zero bytes in its offset, programmers often write it with just the digit that counts: \cw{AB2A:5}}
 
-  \subsection{DOS Limitations}
-  Microsoft Corporation highly valued the applications running on their operating systems. As a business priority, they were adamant to never break anything with a new system\footnote{"Tales of Application Compatibility", Old New Thing by Raymond Chen.}.  Since many applications were written during the 80s on machines having only real mode, DOS 3.3\footnote{Released in April 1987.} and even the later release DOS 4.01\footnote{Released in July 1989} kept running that way and as a result its routines and system calls were incompatible with protected mode. This created an awkward situation where the de-facto operating system delivered with every machine sold prevented programmers from using the machine at its full potential. Developers were forced to ignore all the features of a 1984 CPU and instead use it like a very fast Intel 8086 CPU from 1976. They were thus limited to the following characteristics:
-\begin{itemize}
-\item ALU
-\item 14 registers:
-\begin{itemize}
-  \item 16-bit General Purpose Registers: AX, BX, CX, DX
-  \item 16-bit Index Registers: SI, DI, BP, SP
-  \item 16-bit Program Counter: IP
-  \item 16-bit Segment Registers: CS, DS, ES, SS
-  \item 16-bit Status Register
-\end{itemize}
-\item Up to 1MiB of RAM
-\end{itemize}
+\subsection{80286 Real and Protected mode}
+By 1986, hardware had gotten cheaper and Intel made a departure from the old architecture
+with its 286. This new CPU could be put in what is called "protected mode" featuring
+a 24-bit-wide address bus for up to 16 MiB of flat RAM protectable with a MMU\footnote{Memory Management Unit}. To make sure old programs could still run, the 286 processor could be put in "real mode" which replicates how the Intel 8086 and 8088 operated: 16-bit registers, 20-bit address bus giving 1MiB addressable RAM with segmented addressing.\\
+
+\par
+For compatibility reasons all PCs have to start in real mode. You may assume that programmers
+of the late 80s promptly switched the CPU to protected mode to unleash the full
+potential of the machines and ditch the 20-year-old real mode. It would have worked out if the operating system had been able to run in protected mode.
+However, in the name of backward compatibility, Microsoft's DOS could only handle real
+mode which effectively locked developers into 16-bit programming\footnote{16-bit programming and memory managers were covered in Game Engine Black Book: Wolfenstein 3D.}.\\
 
 
-\bigskip
-
-\textbf{\underline{Trivia :}} Only a small amount of software that took advantage of the 286 chip was sold until Windows 3.0 offered standard mode for 286 compatibility; by that time, the hottest-selling chip was the 386. Still, the 286 was Intel's first attempt to produce a CPU chip that supported multitasking, in which multiple programs run at the same time.\\
-
-
-
-  \subsection{The Infamous Real Mode: 1MiB RAM limit}
-  With protected mode unavailable, 1990 developers programmed like it was 1976: with a 20-bit-wide address bus offering only 1MiB of addressable RAM. Regardless how much memory was installed on the machine, only 1MiB could be addressed. To top it all off, addressing had to be done by combining two 16-bit registers. One was the segment, the other an offset within that segment. Hence the name: '16-bit segmented programming'.
-
-  \pagebreak
-The memory layout is as follows:
+\par
+  With protected mode unavailable, 1990 developers programmed like it was 1976: with a 20-bit-wide address bus offering only 1MiB of addressable RAM. Regardless how much memory was installed on the machine, only 1MiB could be addressed. The memory layout for the real mode is as follows:
 \begin{itemize}
 \item From 00000h to 003FFh : the Interrupt Vector Table.
 \item From 00400h to 004FFh : BIOS data.
@@ -257,72 +296,11 @@ Out of the original 1024KiB, only 640KiB (called Conventional Memory) was access
 \par
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/drawings/real_mode_v2.eps}
+\includegraphics[width=0.8\textwidth]{imgs/drawings/real_mode_v2.eps}
 \caption{First 1MiB of RAM layout.}
 \label{fig:fp_internals}
 \end{figure}
 \pagebreak
-
-
-
-
-
-\subsection{The Infamous Real Mode: 16-bit Segmented addressing}
-With a 20-bit address bus and registers too small to contain a whole address (16-bit wide), Intel had to come up with an addressing system. Their solution was to combine two 16-bit registers, one designating a segment and the other an offset within that segment.\\
-\par
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/register_combination_20_bits_address.eps}
-\caption{How registers are combined to address memory.}
-\label{fig:register_comb_to_20_bits}
-\end{figure}
-\par
-There are two kinds of pointers: \cw{near} and \cw{far}. A \cw{near} pointer is 16 bits and considered \emph{fast} because it can be used as is (but it only allows a \cw{jmp} in the current code segment). A \cw{far} pointer can access anything and allows a \cw{jmp} anywhere but is slower since a 16-bit segment register has to be shifted left 4 bits and combined with the other 16-bit-offset register to form a 20-bit address.\\
-
-That may not sound too bad, but in practice this segmented addressing leads to many issues.
-The least problematic is about the language. Since C was invented on a flat memory machine, it had to be augmented by PC compiler manufacturers. That is how the \codeword{near} and \codeword{far} keywords came into existence. Macro \codeword{MK\_FP} built them and \codeword{FP\_SEG/FP\_OFF} accessed individual components. \cw{libc} is also "different": \cw{malloc} returns a \cw{near} pointer and therefore can only allocate up to 64KiB. To get more than 64KiB, \cw{farmalloc} is needed.\\
-\par
-The larger issue is that two pointers referring to the same address can fail an equality test. In this model, the 1MiB of RAM is divided in 65536 paragraphs by the segment pointer. A paragraph is 16 bytes but an offset can be up to 65536 bytes which results in many overlaps. This can be explained with the following examples.\\
-\par
-Pointer A defined as:\\
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/pointer_madness1}
-\end{minipage}
-
-\bigskip
-
-Pointer B defined as:\\
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/pointer_madness2}
-\end{minipage}
-
-\bigskip
-
-Pointer C defined as:\\
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/pointer_madness3}
-\end{minipage}
-
-As defined, A, B, and C all point to the same memory location however they will fail a comparison test.\\
-
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/pointer_madness.c}
-\end{minipage}
-\par
-Will output:\\
-
-\begin{minipage}{\textwidth}
-\lstinputlisting{code/pointer_madness_output.txt}
-\end{minipage}
-\par
-
-With this system, pointer arithmetic must also receive careful consideration. A \cw{far} pointer increment only increments the offset, not the segment. If you iterate on an array larger than 64KiB you will end up wrapping around. You could use yet another type of pointer \cw{int huge*} to make pointer arithmetic work beyond 64KiB but really, nobody wants to go there.\\
-
-
-
 
 
 
@@ -499,22 +477,22 @@ Keep in mind that this architecture reduced the penalty of read operations, but 
 \subsection{EGA Planar Madness}
 \label{section:EGA_Planar_Madness}
 
-Four memory banks grant enough throughput to reach high resolutions at 60Hz. However, the price for this solution is complexity of programming. \\
+Four memory banks grant enough throughput to reach high resolutions at 60Hz. This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single color. For EGA there are 4 planes, where combining one bit from each plane results in a color index. This color index is then via the attribute controller translated into a color to the screen. This layout is better explained with a drawing.\\
+
 \par
-The first problem with this design is that it is unintuitive. There is no linear framebuffer and figuring out which byte corresponds to which pixel on screen is difficult.\\
-\par
- This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single color. For EGA there are 4 planes. Each pixel contains 1 bit per plane, in total this results in 2\textsuperscript{4}=16 colors. Each of these banks is mapped to the same UMA memory address. This layout is better explained with a drawing.\\
-\par
+To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) and converts them via the Attribute Controller into 8 pixels on screen. \\
+
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=.57\textwidth]{imgs/drawings/ega_ram_screen_layout.eps}
-\label{fig:ega_layout_banks}
+ \includegraphics[width=1.0\textwidth]{imgs/drawings/mode0Dh.eps}
 \caption{EGA mode 0Dh, how bank layout appears on screen.}
+\label{fig:ega_bank_layout}
 \end{figure}
-
  
 
-\par
+
+\subsection{EGA Modes}
 In order to configure this mess of planes and the controllers, 50 poorly documented internal registers must be set. Needless to say few programmers dove into the internals of the EGA.\\
 \par
   Figure \ref{fig:vga_arch}, which described the architecture, was actually deceptively simplified. Figure \ref{fig:ibm_ega} shows how IBM's reference documentation explained the EGA. The maze of wire showcases well the actual complexity of the system.\\
@@ -527,11 +505,7 @@ In order to configure this mess of planes and the controllers, 50 poorly documen
 \label{fig:ibm_ega}
 \end{figure}
 
-\bigskip
-
-
-\subsection{EGA Modes}
-
+\par
 To compensate for the complexity, IBM provided a routine to initialize all the registers via one BIOS call. One mode can be selected out of 12 available with an associated resolution, number of colors, and memory layout. The BIOS can be called to configure the EGA as follows:
 \vspace{-10pt}
 \begin{figure}[H]
@@ -559,6 +533,29 @@ To compensate for the complexity, IBM provided a routine to initialize all the r
  \end{figure}
  
 \trivia{The Modes \cw{08h-0Ah}  are reserved for PCjr (or Tandy Graphics Adapter) graphics modes, which offered 160x200 with 16 colors, 320x200 with 16 colors and 640x200 with 4 colors. Modes \cw{0Bh} and \cw{0Ch} are reserved for internal EGA BIOS.}\\
+
+\par
+To setup the EGA in Mode \cw{0Dh} using the BIOS is incredibly easy. It can be done with only two instructions:\\
+  \par
+  \lstinputlisting[ language={[x86masm]Assembler}]{code/ega_mode0d.c}
+  
+  \par
+  The \codeword{geninterrupt (0x10)} instruction is a software interrupt caught by the BIOS routine in charge of graphic setup. It looks up the \codeword{ax} register, which can be set in the Borland Compiler by \codeword{\_AX}, to setup all EGA registers with the corresponding mode.\\
+  
+  \subsection{EGA Programming: Memory Mapping}
+ \label{section:ega_memmap}
+To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from 0xA0000 to 0xAFFFF. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
+
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\textwidth]{imgs/drawings/ram_to_ega_mapping.eps}
+  \caption{Mapping PC RAM to EGA VRAM banks.}
+  \label{ram_to_ega_mapping_label}
+\end{figure}
+\par
+ 
   
 \subsection{EGA Color Palette}
 \label{sec:ega_color_palette}
@@ -606,7 +603,7 @@ The CGA color output is based on the form "RGBI", where the 'I' stands for Inten
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{|>{\hsize=.16\hsize}X |>{\hsize=.42\hsize}X |>{\hsize=.42\hsize}X |}
 \hline
-\color{black} \textbf{Pin} & \color{black} \textbf{EGA mode (rgbRGB)} & \color{black} \textbf{CGA mode (RGBI)} \\
+\color{black} \textbf{Pin} & \color{black} \textbf{Mode 2: EGA mode (rgbRGB)} & \color{black} \textbf{Mode 1: CGA mode (RGBI)} \\
 \hline
 \color{black} 1 & \color{black} Ground &\color{black} Shield Ground \\
 \hline
@@ -639,7 +636,7 @@ The CGA color output is based on the form "RGBI", where the 'I' stands for Inten
 Suppose one assigns the color brown (rgbRGB is \cw{010100b}) to one of the color indexes, the resulting color on the CGA pin assignment is light red; The secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, which results to the color red with intensity and not the expected brown color. \\
 
 \par
-For this reason, EGA monitors will use the CGA pin assignment in 200-line modes so the monitor can also be used with a CGA card and vice versa. Therefore, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, instead of only 4 colors when using a CGA card.  \\
+For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-line modes so the monitor can also be used with a CGA card and vice versa. Therefore, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, instead of only 4 colors when using a CGA card.  \\
 
 
 
@@ -676,54 +673,10 @@ For this reason, EGA monitors will use the CGA pin assignment in 200-line modes 
 
 
 
- \subsection{EGA Programming: Memory Mapping}
- \label{section:ega_memmap}
-To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from 0xA0000 to 0xAFFFF. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
-
-\par
- The most commonly considered mode for game programming is mode \cw{0Dh}. It offers a resolution of 320x200 at 60hz with 16 colors. Each pixel is encoded in 4 bits (a nibble) spread across the four banks.
-\par
-
-
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.8\textwidth]{imgs/drawings/ram_to_ega_mapping.eps}
-  \caption{Mapping PC RAM to EGA VRAM banks.}
-  \label{ram_to_ega_mapping_label}
-\end{figure}
-\par
- To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) resulting in 8 pixels on screen. So in Figure \ref{fig:ega_bank_layout} the first pixel has color magenta, second pixel dark grey and third pixel yellow.
  
 
-
-\begin{figure}[H]
-\centering
- \includegraphics[width=1.0\textwidth]{imgs/drawings/mode12h.eps}
-\caption{EGA bank layout}
-\label{fig:ega_bank_layout}
-\end{figure}
-
-
-
-
-
-
-   \subsubsection{Setup}
-  To setup the EGA in Mode \cw{0Dh} using the BIOS is incredibly easy. It can be done with only two instructions:\\
-  \par
-  \lstinputlisting[ language={[x86masm]Assembler}]{code/ega_mode0d.c}
   
-  \par
-  The \codeword{geninterrupt (0x10)} instruction is a software interrupt caught by the BIOS routine in charge of graphic setup. It looks up the \codeword{ax} register, which can be set in the Borland Compiler by \codeword{\_AX}, to setup all EGA registers with the corresponding mode.\\
-  \par After the EGA is initialized one can write to the mapped memory at \cw{0xA0000}. This can be demonstrated with a code sample; here is some code to clear the screen to black.\\
-  
-  \begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/clear_ega.c}
-  \end{minipage}
-  \label{clearvga}
-  \par
-  
+
 
 
 \subsection{The Importance of Double-Buffering}
@@ -801,7 +754,7 @@ The IBM Music Feature Card was launched in March 1987 as a collaboration between
 AdLib was the other company, beside Roland, that struck a deal with Sierra as a reseller. The company was founded in 1987 by Martin Prevel, a former professor of music from Quebec. The AdLib soundcard used a technology called FM synthesis. The technology is based on the idea of generating superimposing waveforms to create a sound. This technology was much less expensive than Roland's Wavetable technology.\\
 
 \par
-The AdLib card was built around the Yamaha YM3812, also known as the OPL2 chip, and could produce either 9 sound channels or 6 sound channels plus 5 hit instruments simultaneously using Frequency Modulation (FM). Ideally, if you have enough generators and can fine tune the waveforms well enough, you can create a realistic sound. However, to reach this ideal, you need lots of skilled people, lots of money for equipment, and lots of time to develop. The reality is, this is a cheap PC soundcard offering a better alternative than the PC Speaker. Thus, FM synthesis sounded very artificial. However, this was a great improvement over the PC Speaker. With a price tag of \$219.99, it was much cheaper than the Roland MT-32 and IBM Music Feature Card, and soon ruled at the top of the early PC sound card market.\\
+The AdLib card was built around the Yamaha YM3812, also known as the OPL2 chip, and could produce either 9 sound channels or 6 sound channels plus 5 hit instruments simultaneously using Frequency Modulation (FM). Ideally, if you have enough generators and can fine tune the waveforms well enough, you can create a realistic sound. However, to reach this ideal, you need lots of skilled people, lots of money for equipment, and lots of time to develop. The reality is, this is a cheap PC soundcard offering a better alternative than the PC Speaker. Thus, FM synthesis sounded very artificial. Still, this was a great improvement over the PC Speaker. With a price tag of \$219.99, it was much cheaper than the Roland MT-32 and IBM Music Feature Card, and soon ruled at the top of the early PC sound card market.\\
 
 \par
   \begin{figure}[H] 
@@ -864,7 +817,7 @@ Figure \ref{asb15} is the SoundBlaster model CT1320B. Notice the OPL2 chip (labe
 The Disney Sound Source came out around 1990 and fixed multiple issues: It contained a small buffer, so even an unsteady data stream resulted in a good audio signal. It also allowed to pass through the printer port, so there's no need to switch cables to print. And at \$14 it was dirt cheap! It came with its own amplifier, which ran with a 9 Volt battery. 
 
 
-It would have made programmers and customers happy if not for one serious limitation: The buffer was fixed at a 7,000Hz, which is about the quality you get from an old fashioned phone. This was still enough to produce pleasant sounds, but fell short when compared to the 22kHz of a Sound Blaster.
+It would have made programmers and customers happy if not for one serious limitation: The buffer was fixed at a 7,000Hz, which is about the quality you get from an old fashioned phone. This was still enough to produce pleasant music, but fell short for sound effects when compared to AdLib and Sound Blaster.
 
 \par
  \begin{figure}[H]
