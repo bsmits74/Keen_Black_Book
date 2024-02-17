@@ -309,7 +309,7 @@ Details of each asset file are explained in chapter \ref{section:programming}. T
  \end{figure}
 \pagebreak
 
-
+\subsubsection{Asset caching}
 To manage and keep track of the assets to be loaded into memory, an array \cw{gr\_needed[]} is maintained to mark if an asset needs to be loaded from disk. The index of this array refers to the graphic asset IDs. By using the eight bits the array can maintain the required assets for different levels.
 The cache manager starts with an empty \cw{gr\_needed[]} array.\\
 \par
@@ -410,13 +410,107 @@ The \cw{gr\_needed[]} array looks as follows
 \end{figure}
 \par
 
-If the control panel is closed again, it simply lowers the bit level and calls the function \cw{CA\_CacheMarks()} to reload any map assets removed from memory. \\
+If the control panel is closed again, it lowers the bit level of \cw{gr\_needed[]} to 1, where all required assets for playing the level are memorized. It simply calls the function \cw{CA\_CacheMarks()} to reload any map assets removed from memory. \\
 
 \par
 \lstinputlisting[language=C]{code/CA_level_down.c}
 \par
  
+
+\subsubsection{Asset compression}
+As the floppy disk is both limited in speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), it was important to use file compression. This ensures that the game takes up less space and loads faster. id Software used Huffman compression for all asset files and an additional RLE compression to further shrink map files.\\
+
+\begin{figure}[H]
+\centering
+{\renewcommand{\arraystretch}{1.2} %<- modify value to suit your needs
+\begin{tabularx}{\textwidth}[c]{|>{\hsize=.4\hsize}X |>{\hsize=.3\hsize}X |>{\hsize=.3\hsize}X |}
+  \hline
+  \textbf{Asset} & \textbf{Uncompressed file\protect\footnotemark} & \textbf{Compressed file}\\ \hline
+  Graphics (KDREAMS.EGA) & 360KB & 213KB \\ 
+  Game maps (KDREAMS.MAP) & 210KB & 66KB \\ \hline
+  Total & 570KB & 279KB \\ \hline
+\end{tabularx}
+}
+\caption{Compressed versus uncompressed asset files.}
+\end{figure}
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{The uncompressed size is an estimation based on the expanded size of each asset.}
+
+\par
+Huffman compression involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. \\
+
+
+\par
+To illustrate the various aspects of Huffman compression, the following text, where each character is one byte, will be Huffman compressed. \\
+
+
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/huffman_text}\par
+ \end{minipage}
+
+\par
+The first step is to make a character frequency table.
+
+\begin{figure}[H]
+\centering
+{\renewcommand{\arraystretch}{1.2} %<- modify value to suit your needs
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\begin{tabularx}{\textwidth}[c]{|>{\hsize=.22\hsize}Y |>{\hsize=.22\hsize}Y |>{\hsize=.12\hsize}Y |>{\hsize=.22\hsize}Y |>{\hsize=.22\hsize}Y |}
+  \cline{0-1}\cline{4-5}
+  \textbf{Character} & \textbf{Frequency} & & \textbf{Character} & \textbf{Frequency} \\ 
+  \cline{0-1}\cline{4-5}
+  e & 6 & & K & 2 \\ 
+  n & 4 & & D & 1 \\ 
+  space & 4 & & C & 1 \\
+  m & 3 & & o & 1 \\
+  a & 2 & & i & 1 \\ 
+  d & 2 & & s & 1 \\
+  r & 2 & & & \\ 
+  \cline{0-1}\cline{4-5}
+\end{tabularx}
+}
+\caption{Character frequency table.}
+\end{figure}
+
+The next step is to create an optimal binary tree, or dictionary. This is done by starting with the most common character and checking if it occurs more frequently than all the other characters combined. If not, then the second most common character is added, and so on. In our example, four characters make up more than half of the total number of characters: 'e', 'n', space, and 'm'. All of these characters are placed on the left side of the root node, while the remaining characters are placed on the right side.\\
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=0.5\textwidth]{imgs/drawings/huffman_tree_1.eps}
+ \end{figure}
+ \par
+
+The next step involves creating a new node with left and right branches and repeating the process. The two most common characters in the left node, 'e' and 'n', are assigned to the left branch of this new node. A third node is created, and since there are only two options, each is given a branch. The same process applies to the remaining characters of the left node, resulting in:\\
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=0.6\textwidth]{imgs/drawings/huffman_tree_2.eps}
+ \end{figure}
+ \par
  
+ Then we do the same for the right node, where 'a', 'd', 'r' and 'K' make up more than half of the total number of characters in the right node. After following the same steps, the final binary tree looks as follows\\
+ 
+\begin{figure}[H]
+\centering
+ \includegraphics[width=0.9\textwidth]{imgs/drawings/huffman_tree_3.eps}
+ \end{figure}
+ \par
+
+
+Now we can encode the entire text moving left (bit 0) and right (bit 1) in the tree, starting from the top node. For example, the character 'e' is \cw{000}, 'm' is \cw{011} and 'o' is \cw{11100}. The complete compressed message in bit form is now\\
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=\textwidth]{imgs/drawings/huffman_decode.eps}
+ \end{figure}
+ \par
+
+This is a total of 13 bytes used for a 31 byte message, more than 50\% reduction. 
+In Commander Keen, the dictionary is part of the source code. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files of the source code (note: That’s why we needed a specific source code version as mention in section xxx). 
+Reading the Huffman-compressed asset file is straightforward. You just read bit by bit from the asset file and follow the dictionary starting from the top node until you hit an end-node. Write the byte to memory and start at the top node in the dictionary again for the next bit in the file.
+
  
 \subsection{User Manager (US)} 
 \label{section:bitshifting}
