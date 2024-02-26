@@ -67,7 +67,7 @@ All graphic assets were produced by Adrian Carmack. All of the work was done wit
 
 
 \subsection{Assets Workflow}
-After the graphic assets were generated, a tool (IGRAB) packed all ILBMs together in an archive and generated a header table file (\cw{KDR}-format) and C header file with asset IDs. The engine references an asset directly by using these IDs.\\
+After the graphic assets were generated, a tool (IGRAB) packed all ILBMs together in a compressed archive and generated a header table and dictionary file (\cw{KDR}-format\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}) and C header file with asset IDs. The engine references an asset directly by using these IDs.\\
 \begin{figure}[H]
 \centering
  \includegraphics[width=.9\textwidth]{imgs/drawings/drawing_plain.eps}
@@ -79,13 +79,13 @@ After the graphic assets were generated, a tool (IGRAB) packed all ILBMs togethe
  \lstinputlisting[language=C]{code/assets_header.c}\par
  \end{minipage}
  
- In the engine code, asset usage is hard-coded via an enum. This enum is an offset into the \cw{HEAD} table which contains an offset in the \cw{DATA} archive. The \cw{HEAD} table files are stored in the \cw{\textbackslash static} folder as \cw{*.KDR} files.\\
+ In the engine code, asset usage is hard-coded via an enum. This enum is an offset into the \cw{HEAD} table which contains an offset in the \cw{DATA} archive. 
 
 \pagebreak
 
-\subsection{Assets file structure}
+\subsection{Assets archive file structure}
 \label{section:asset_file_structure}
-Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset file.
+Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset archive file. The first sections contain data tables for pictures and sprites, followed by the font and finally all graphs.\\
 \begin{figure}[H]
 \centering
  \includegraphics[width=.4\textwidth]{imgs/drawings/graphic_assets.eps}
@@ -93,12 +93,12 @@ Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset fi
  \label{fig:asset-file}
 \end{figure}
 
-The \cw{pictable[]} contains the width and height in bytes for each picture in the asset file. Note that a width of 5 bytes means a width of 40 pixels on the screen. The same structure is applied for mask pictures.\\
+Boh the \textbf{pictable[]} and \textbf{picmtable[]} contain the width and height for each (masked) picture in the asset file.\\
 
   \begin{table}[H]
   \begin{tabularx}{0.8\textwidth}[c]{XXX}
   \hline
-  \textbf{picture index} & \textbf{width} & \textbf{height}   \\ \hline
+  \textbf{picture index} & \textbf{width (bytes)} & \textbf{height (bytes)}   \\ \hline
   0             & 5          & 32    \\
   1             & 5          & 32    \\
   2             & 5          & 32    \\
@@ -110,16 +110,16 @@ The \cw{pictable[]} contains the width and height in bytes for each picture in t
   ...             & ...          & ...    \\
   64             & 5          & 24    \\
   \end{tabularx}
-  \caption{content of \cw{pictable[]}.}
+  %\caption{content of \cw{pictable[]} and \cw{picmtable[]}.}
   \end{table}
 
 
 
-The \cw{spritetable[]} contains, beside width and height, also information on the sprite center, hit boundaries and number of bitshifted sprites, which will be explained later (section \ref{section:draw_sprites} on page \pageref{section:draw_sprites}). \\
+The \textbf{spritetable[]} contains, beside width and height, also information on the sprite center, hit boundaries and number of bitshifts. Sprites will be explained in detail in section \ref{section:draw_sprites} (page \pageref{section:draw_sprites}). \\
 \par
 
 
-The font segment contains a table for the height (same for all characters) and width of the font, as well as a reference where the character data is located.\\
+The \textbf{font} segment contains a table for the height (same for all characters) and width of the font, as well as a reference where the character data is located.\\
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/font_structure.c}\par
@@ -131,33 +131,32 @@ The font segment contains a table for the height (same for all characters) and w
   \label{fig:font_assets}
 \end{figure} 
 
-Since all tiles have fixed dimension (either 8 or 16 pixels), there is no need to store any tile size table structure. \\
-
 \par
-From \cw{STARTPICS} location onwards all graphical assets are stored. Each asset contains four planes, aligned with the EGA architecture. Foreground tiles and sprites include a mask plane as well.
+After the (mask) pictures and sprites graphs, starting \cw{STARTPICS}, the 8- and 16-bit size (masked) tiles are stored. Each asset contains four planes, aligned with the EGA architecture. All masked tiles and sprites include an additional mask plane as well.
  
 \begin{figure}[H] 
   \centering 
-  \includegraphics[width=1.0\textwidth, frame]{screenshots_300dpi/pics_assets.png}
+  \includegraphics[width=0.7\textwidth, frame]{screenshots_300dpi/pics_assets.png}
   \caption{Picture asset data.}
   \label{fig:picture_assets}
 \end{figure} 
 
 \begin{figure}[H] 
   \centering 
-  \includegraphics[width=1.0\textwidth, frame]{screenshots_300dpi/sprite_assets.png}
+  \includegraphics[width=0.7\textwidth, frame]{screenshots_300dpi/sprite_assets.png}
   \caption{Sprite asset data.}
   \label{fig:sprite_assets}
 \end{figure} 
 
+\pagebreak
 \begin{figure}[H] 
   \centering 
-  \includegraphics[width=\textwidth, frame]{screenshots_300dpi/tile16_assets.png}
-\end{figure} 
+  \includegraphics[width=0.9\textwidth, frame]{screenshots_300dpi/tile16_assets.png}
+\end{figure}  
 
 \begin{figure}[H] 
   \centering 
-  \includegraphics[width=\textwidth, frame]{screenshots_300dpi/tile16M_assets.png}
+  \includegraphics[width=0.9\textwidth, frame]{screenshots_300dpi/tile16M_assets.png}
   \caption{Background (Tile16) and foreground (masked Tile16) assets data.}
   \label{fig:tile16_assets}
 \end{figure} 
@@ -190,10 +189,10 @@ A level is created by placing tiles on each of these three layers. Each foregrou
  
  \par
 
-Just like IGRAB, the TED5 tool generated a header file (\cw{KDR}-format), a compressed \cw{*.MAP} file containing the levels and a dictionary to decode the Huffman compression. \\
+Just like IGRAB, the TED5 tool packed all levels together in a compressed \cw{MAP} archive and generated a header and dictionary file (\cw{KDR}-format). \\
  
-\subsection{Map file header}
-The header structure is part of the engine code and is rather straight forward. The header offset and header size refer to the location and size in the \cw{KDREAMS.MAP} file. \\
+\subsection{Map header structure}
+The map header structure is part of the engine code and contains a header offset and size, which refers to the location and size in the \cw{KDREAMS.MAP} archive file. \\
 
 \par
 \begin{minipage}{\textwidth}
@@ -212,7 +211,7 @@ A maximum of 100 maps is supported in the game. The \cw{tileinfo[]} data contain
 \end{figure}
 \par
 
-For background tile animation two information tables are defined: \textbf{tile animation} and \textbf{tile animation speed}. The tile animation refers which tile, relative to this tile, the tile will animate to. So in case of tile \#90 (see Table \ref{table:background tile anim}), the next animation tile is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in TimeCount, which is the number of ticks before the next tile is displayed. \\
+For background tile animation two information tables are defined: \textbf{tile animation} and \textbf{tile animation speed}. The tile animation refers which tile, relative to this tile, the tile will animate to. So in case of tile \#90 (see Table \ref{table:background tile anim}), the next animation tile is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in \cw{TimeCount}, which is the number of ticks before the next tile is displayed. \\
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXX}
   \hline
@@ -229,7 +228,7 @@ For background tile animation two information tables are defined: \textbf{tile a
   93             & -3          & 8    \\
   ...             & ...          & ...    \\
   \end{tabularx}
-  \caption{Background tile animation.}
+  %\caption{Background tile animation.}
   \label{table:background tile anim}
   \end{table}
   
@@ -251,14 +250,14 @@ The clipping tables contain how Commander Keen is clipped against foreground til
   244    & 0       & 0      & 2     & 0       & 0       \\
   ...    & ...     & ...    & ...   & ...     & ...     \\
   \end{tabularx}
-  \caption{Foreground tile clipping and 'inside' tile information.}
+  %\caption{Foreground tile clipping and 'inside' tile information.}
   \end{table}
 
 
 \pagebreak
  
-\subsection{Map file structure}
-The structure of \cw{KDREAMS.MAP} is explained in Figure \ref{fig:map-file}. For each map there is a small header containing the width, height and name of the map as well as a reference pointer to each of the three planes. Each plane exists out of a map of tile numbers for foreground, background and info.\\
+\subsection{Map archive structure}
+The structure of \cw{KDREAMS.MAP} archive is explained in Figure \ref{fig:map-file}. For each map there is a small header containing the width, height and name of the map as well as a reference pointer to each of the three planes. Each plane exists out of a map of tile numbers for background, foreground and info.\\
 
 
 

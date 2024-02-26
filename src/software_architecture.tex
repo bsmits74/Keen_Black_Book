@@ -292,16 +292,16 @@ The video manager is described extensively in section \ref{section:adaptive_tile
 \pagebreak
 
 \subsection{Cache Manager (CA)}
-The cache manager is a small but critical component. It loads and decompresses maps, graphics and audio resources stored on the filesystem and makes them available in RAM. Assets of each kind are stored into three files: 
+The cache manager is a small but critical component. It loads and decompresses maps, graphics and audio resources stored on the filesystem and makes them available in RAM. Assets are stored into three files: 
 \begin{itemize}
 	\item A header file containing the offset to allow translation from asset ID to byte offset in the data file.
-	\item A compression dictionary to decompress each asset
+	\item A compression dictionary to decompress each asset.
 	\item The data file containing the assets
 \end{itemize}
  \par
  
-Details of each asset file are explained in chapter \ref{section:programming}. The header and dictionary files are provided with the source code in the \cw{static} folder and contain \cw{*.KDR} extension. Both file types are hardcoded and required during compilation (they are converted into an \cw{OBJ} file using \cw{makeobj.c}). The data file containing the assets is not part of the source code and must be acquired via downloading the shareware version.
- All resources are compressed using a traditional Huffman method for (de-)compression. \\
+Details of each asset file are explained in chapter \ref{section:programming}. The header and dictionary files are provided with the source code in the \cw{static} folder and contain \cw{*.KDR} extension. Both file types are integrated in the engine code and required during compilation (they are converted into an \cw{OBJ} file using \cw{makeobj.c}). The data file containing the assets is not part of the source code and must be acquired via downloading the shareware version.
+ All resources are compressed using a traditional Huffman method for (de-)compression, and the maps have an additional RLEW compression. \\
  \par
 \begin{figure}[H]
 \centering
@@ -461,20 +461,20 @@ The first step is to make a character frequency table.
   \cline{0-1}\cline{4-5}
   \textbf{Character} & \textbf{Frequency} & & \textbf{Character} & \textbf{Frequency} \\ 
   \cline{0-1}\cline{4-5}
-  e & 6 & & K & 2 \\ 
+  e & 6 & & d & 1 \\ 
   n & 4 & & D & 1 \\ 
   space & 4 & & C & 1 \\
   m & 3 & & o & 1 \\
   a & 2 & & i & 1 \\ 
-  d & 2 & & s & 1 \\
-  r & 2 & & & \\ 
+  r & 2 & & s & 1 \\
+  K & 2 & & & \\ 
   \cline{0-1}\cline{4-5}
 \end{tabularx}
 }
 \caption{Character frequency table.}
 \end{figure}
 
-The next step is to create an optimal binary tree, or dictionary. This is done by starting with the most common character and checking if it occurs more frequently than all the other characters combined. If not, then the second most common character is added, and so on. In our example, four characters make up more than half of the total number of characters: 'e', 'n', space, and 'm'. All of these characters are placed on the left side of the root node, while the remaining characters are placed on the right side.\\
+The next step is to create an optimal binary tree, also called a dictionary. This is done by starting with the most common character and checking if it occurs more frequently than all the other characters combined. If not, then the second most common character is added, and so on. In our example, four characters make up more than half of the total number of characters: 'e', 'n', space, and 'm'. All of these characters are placed on the left side of the root node, while the remaining characters are placed on the right side.\\
 
 \begin{figure}[H]
 \centering
@@ -508,8 +508,30 @@ Now we can encode the entire text moving left (bit 0) and right (bit 1) in the t
  \par
 
 This is a total of 13 bytes used for a 31 byte message, more than 50\% reduction. 
-In Commander Keen, the dictionary is part of the source code. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files of the source code (note: That’s why we needed a specific source code version as mention in section xxx). 
-Reading the Huffman-compressed asset file is straightforward. You just read bit by bit from the asset file and follow the dictionary starting from the top node until you hit an end-node. Write the byte to memory and start at the top node in the dictionary again for the next bit in the file.
+In Commander Keen, the dictionary is part of the source code. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files of the source code\footnote{That's why a specific source code version is mention in section xxx).}. 
+Reading the Huffman-compressed asset file is straightforward. You just read bit by bit from the asset file and follow the dictionary starting from the top node until you hit an end-node. Write the byte to memory and start at the top node in the dictionary again for the next bit in the file.\\
+
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/huffman_struct.c}\par
+ \end{minipage}\\
+
+\par
+The tile map asset files use a second compression, on top of Huffman. Upon closer inspection of a level, you'll notice large chunks of the same tile. For example, consider the first level you enter (Horse Radish Hill), which contains extensive areas of blue sky. Here, RLE compression comes in useful.\\
+
+\par
+The essence of this compression method is to compress data by saving the "run-length" of the encountered values, essentially storing the data as a collection of length/value pairs. To illustrate, the string 'aaaaaaaabbb' could be compressed to '8a3b' (8 bytes of 'a', 3 bytes of 'b'). The trick with RLE is to ensure that the data does not end up becoming larger after processing. For instance, using pure length/value pairs, 'abracadabra' would become '1a1b1r1a1c1a1d1a1b1r1a'.\\
+
+\par
+In Commander Keen this is solved by using a 'flag'. This special value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE flag value is encountered. When this flag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on 16-bits (word), and therefore is named RLEW, where the 'W' stands for word. The RLE flag is defined as 0xABCD.\\
+
+
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/RLEWexpand.c}\par
+ \end{minipage}\\
+
+\par
 
  
 \subsection{User Manager (US)} 

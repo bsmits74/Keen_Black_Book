@@ -208,7 +208,7 @@ Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus whe
 \par
 
 \par
-The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized accesses to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying a large memory blocks. In Commander Keen several memory-intensive functions, like copying screen memory, are optimized for word-sized memory reading and writing. A simple way to check an even or odd address is using the carry flag:\\
+The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized accesses to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying large memory blocks. In Commander Keen several memory-intensive functions, like copying screen memory, are optimized for word-sized memory reading and writing. A simple way to check an even or odd address is using the carry flag:\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -238,9 +238,34 @@ which allows a CPU to effectively address about 1 MiB\footnote{This book uses IE
 \end{figure}
 \par
 
+There are two kinds of pointers: \cw{near} and \cw{far}. A \cw{near} pointer is 16 bits and considered \emph{fast} because arithmetic manipulation (such as addition) can be done without worrying about the segment. A \cw{far} pointer can access anything and allows programs and data larger than 64KiB, but is slower since a 16-bit segment register has to be shifted left 4 bits and combined with the other 16-bit-offset register to form a 20-bit address. Another issue with a \cw{far} pointer is that it only increments the offset, not the segment. If you iterate on an array larger than 64KiB there will be no overflow handling and you will be only able to handle 64KiB of memory.\\
 
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/far_pointer.c}\par
+ \end{minipage}\\
+\par
+Will output:\\
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/far_pointer_out.c}\par
+ \end{minipage}\\
+\par
 
-The absolute (or lineair) 20-bit memory address can be calculated by\\
+You could use yet another type of pointer named \cw{huge*} to make pointer arithmetic work beyond 64KiB. \\
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/huge_pointer.c}\par
+ \end{minipage}\\
+\par
+Will output the normalized address:\\
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/huge_pointer_out.c}\par
+ \end{minipage}\\
+\par
+
+The \cw{huge*} pointer is based on the absolute (or lineair) 20-bit memory location and Segment:Offset normalized address. The absolute memory address can be calculated by\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -248,8 +273,9 @@ The absolute (or lineair) 20-bit memory address can be calculated by\\
 \end{minipage}\\
 
 \par
-So as example the absolute address of \cw{47BE:002A} is \cw{47BE0h} + \cw{002Ah} = \cw{47C0Ah}.
-One of the downsides in using Segment:Offset  is the fact that a large number of these pairs refer to the same exact memory locations. For example, both \cw{47BE:002A} and \cw{4202:5BEA} result in the same absolute address \cw{47C0Ah}.\\
+For example the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}.
+One of the downsides in using Segment:Offset is the fact that a large number of these pairs refer to the same exact absolute memory locations. For example, both \cw{A000:002B} and \cw{9F00:102F} result in the same absolute address \cw{A002Fh}.\\
+
 
 \par
 Since there are so many different ways that a single byte in memory might be referenced using Segment:Offset pairs, most programmers have agreed to use the same convention to normalize all such pairs into values that will always be unique. These unique pairs are called a \textit{Normalized Address}. 
@@ -260,11 +286,24 @@ By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, 
   \item Then simply insert the colon (:) between the last two hex digits
 \end{enumerate}
 
- 
-The absolute address for \cw{A800:32A5} is \cw{AB2A5h}, which results in the normalized address of \cw{AB2A:0005}.\\
+For example, the normalized address for \cw{A000:002F} is \cw{A002:000F}. A \cw{huge*} pointer is normalized when pointer arithmetic is performed on it. \\
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/huge_pointer_normalized.c}\par
+ \end{minipage}\\
+\par
+Will output:\\
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/huge_pointer_norm_out.c}\par
+ \end{minipage}\\
+\par
 
 
-\trivia{Since the normalized form will always have three leading zero bytes in its offset, programmers often write it with just the digit that counts: \cw{AB2A:5}}
+
+\trivia{Since the normalized form will always have three leading zero bytes in its offset, programmers often write it with just the digit that counts: \cw{AFFF:F}}\\
+
+Unfortunately, the \cw{huge*} pointer is even slower than the \cw{far*} pointer as it comes with additional overhead to update the segment and normalize the address after every arithmetic manipulation. So most programmers avoided the \cw{huge*} pointer, unless really needed.\\
 
 \subsection{80286 Real and Protected mode}
 By 1986, hardware had gotten cheaper and Intel made a departure from the old architecture
@@ -697,7 +736,7 @@ In this example the CPU has finished writing the framebuffer (on the left) and t
 If the CPU is faster than the frequency of the CRT (60Hz), it can write the framebuffer again, before the scan is completed. This is what happened here. The next frame was drawn with the circle moved to the right. The electron beam did not know that and kept on scanning the framebuffer. The result on screen is now a composite of two frames. It looks like two frames were torn and taped back together. Hence the name "tearing".\\
 
 \par
-With two buffers (a.k.a double buffering) the CPU can start writing in the second framebuffer without messing with the framebuffer being scanned to the screen\footnote{Now the CPU speed is capped by the CRT refresh rate. Triple buffering can solve this at the price of frame latency.}. No more tearing! A full screen of 320x200 pixels with 16 colors requires 320x200x 4-bits = 32KB of VRAM (spread over 4 planes, each 8KB), so there is plenty of video memory left to keep up to eight screens in an EGA card with 256KiB memory.
+With two buffers (a.k.a double buffering) the CPU can start writing in the second framebuffer without messing with the framebuffer being scanned to the screen\footnote{Now the CPU speed is capped by the CRT refresh rate. Triple buffering can solve this at the price of frame latency.}. No more tearing! A full screen of 320x200 pixels with 16 colors requires 320x200x 4-bits = 32KB of VRAM (spread over 4 planes, each 8KB), so there is plenty of video memory left to keep multiple screens in an EGA card with 256KiB memory.
 
 
 
@@ -782,7 +821,7 @@ The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor 
 
 \par
 \bu{Trivia:}
-Creative Labs boasts in their own advert AdLib compatibility and even uses an image of AdLib Inc's product! On the other hand they sued every company that tried to market a 'Sound Blaster compatible' product for using the name of their product.\\
+Creative Labs boasts in their own advert AdLib compatibility and even uses an image of AdLib Inc's product\footnote{Advert p20 in Compute!, April 1990.}! On the other hand they sued every company that tried to market a 'Sound Blaster compatible' product for using the name of their product.\\
 
 
 \begin{figure}[H] 
