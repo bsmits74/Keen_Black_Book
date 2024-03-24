@@ -508,7 +508,7 @@ Now we can encode the entire text moving left (bit 0) and right (bit 1) in the t
  \par
 
 This is a total of 13 bytes used for a 31 byte message, more than 50\% reduction. 
-In Commander Keen, the dictionary is part of the source code. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files of the source code\footnote{That's why a specific source code version is mention in section xxx).}. 
+In Commander Keen, the dictionary is part of the source code. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files of the source code\footnote{That's why a specific source code version is mention in section xxx.}. 
 Reading the Huffman-compressed asset file is straightforward. You just read bit by bit from the asset file and follow the dictionary starting from the top node until you hit an end-node. Write the byte to memory and start at the top node in the dictionary again for the next bit in the file.\\
 
 \par
@@ -523,7 +523,7 @@ The tile map asset files use a second compression, on top of Huffman. Upon close
 The essence of this compression method is to compress data by saving the "run-length" of the encountered values, essentially storing the data as a collection of length/value pairs. To illustrate, the string 'aaaaaaaabbb' could be compressed to '8a3b' (8 bytes of 'a', 3 bytes of 'b'). The trick with RLE is to ensure that the data does not end up becoming larger after processing. For instance, using pure length/value pairs, 'abracadabra' would become '1a1b1r1a1c1a1d1a1b1r1a'.\\
 
 \par
-In Commander Keen this is solved by using a 'flag'. This special value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE flag value is encountered. When this flag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on 16-bits (word), and therefore is named RLEW, where the 'W' stands for word. The RLE flag is defined as 0xABCD.\\
+In Commander Keen this is solved by using a 'flag'. This special value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE flag value is encountered. When this flag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on 16-bits (word), and therefore is named RLEW, where the 'W' stands for word. The RLEW flag is defined as \cw{0xABCD}.\\
 
 
 \par

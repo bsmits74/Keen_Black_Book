@@ -208,13 +208,7 @@ Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus whe
 \par
 
 \par
-The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized accesses to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying large memory blocks. In Commander Keen several memory-intensive functions, like copying screen memory, are optimized for word-sized memory reading and writing. A simple way to check an even or odd address is using the carry flag:\\
-
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[ language={[x86masm]Assembler}]{code/DATA_ALIGNMENT}
-\end{minipage}\\
-
+The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized accesses to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying large memory blocks. 
 
 
 
@@ -225,7 +219,7 @@ The first CPUs in the Intel x86 family were designed in 1976. It was introduced 
 But everyone was hungry for a way to run much larger programs. Rather than create a CPU with larger register sizes, the designers at Intel decided to keep the 16-bit registers for their new 8086 and 8088 CPU and added a different way to access more memory: They expanded the instruction set, so programs could tell the CPU to group  two 16-bit registers together whenever they needed to refer to an absolute memory location beyond 64 KiB.\\
 
 \subsection{Memory addressing mystery}
-If the designers had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data\footnote{We've often heard that Bill Gates said something to the effect: '640K of memory should be enough for anyone.' Though many of us no longer believe he ever said those exact words, he did, however, during a video interview with David Allison in 1993 for the National Museum of American History, Smithsonian Institution, say: "I laid out memory so the bottom 640KiB was general purpose RAM and the upper 384KiB I reserved for video and ROM, and things like that."}. So, instead of dealing with whatever problems a linear addressing scheme of 32-bits would have produced, they created the Segment:Offset scheme 
+If the designers had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data\footnote{We've often heard that Bill Gates said something to the effect: "640K of memory should be enough for anyone.". Though many of us no longer believe he ever said those exact words, he did, however, during a video interview with David Allison in 1993 for the National Museum of American History, Smithsonian Institution, say: "I laid out memory so the bottom 640KiB was general purpose RAM and the upper 384KiB I reserved for video and ROM, and things like that."}. So, instead of dealing with whatever problems a linear addressing scheme of 32-bits would have produced, they created the Segment:Offset scheme 
 which allows a CPU to effectively address about 1 MiB\footnote{This book uses IEC notation where MiB is $2^{20}$ and MB is $10^6$.} of memory. The Segment:Offset schema combines two 16-bit registers, one designating a segment and the other an offset within that segment.
 \\
 
@@ -238,7 +232,10 @@ which allows a CPU to effectively address about 1 MiB\footnote{This book uses IE
 \end{figure}
 \par
 
-There are two kinds of pointers: \cw{near} and \cw{far}. A \cw{near} pointer is 16 bits and considered \emph{fast} because arithmetic manipulation (such as addition) can be done without worrying about the segment. A \cw{far} pointer can access anything and allows programs and data larger than 64KiB, but is slower since a 16-bit segment register has to be shifted left 4 bits and combined with the other 16-bit-offset register to form a 20-bit address. Another issue with a \cw{far} pointer is that it only increments the offset, not the segment. If you iterate on an array larger than 64KiB there will be no overflow handling and you will be only able to handle 64KiB of memory.\\
+In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: \cw{near} and \cw{far}. A \cw{near} pointer is 16 bits and considered \emph{fast} because arithmetic manipulation (such as addition) can be done without worrying about the segment. The downside of a \cw{near} pointer is that is can only handle up to 64KiB of memory.\\
+
+\par
+A \cw{far} pointer can access anything and allows programs and data larger than 64KiB, but is slower since a 16-bit segment register has to be shifted left 4 bits and combined with the other 16-bit-offset register to form a 20-bit address. Another issue with a \cw{far} pointer is that it only increments the offset, not the segment. If you iterate on an array larger than 64KiB there will be no overflow handling and you will be only able to handle 64KiB of memory.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -258,7 +255,7 @@ You could use yet another type of pointer named \cw{huge*} to make pointer arith
  \lstinputlisting[language=C]{code/huge_pointer.c}\par
  \end{minipage}\\
 \par
-Will output the normalized address:\\
+Will output the address:\\
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/huge_pointer_out.c}\par
@@ -303,7 +300,7 @@ Will output:\\
 
 \trivia{Since the normalized form will always have three leading zero bytes in its offset, programmers often write it with just the digit that counts: \cw{AFFF:F}}\\
 
-Unfortunately, the \cw{huge*} pointer is even slower than the \cw{far*} pointer as it comes with additional overhead to update the segment and normalize the address after every arithmetic manipulation. So most programmers avoided the \cw{huge*} pointer, unless really needed.\\
+Unfortunately, the \cw{huge*} pointer is even slower than the \cw{far*} pointer as it comes with additional overhead to update the segment and address normalization after every arithmetic manipulation. So most programmers avoided the \cw{huge*} pointer, unless really needed.\\
 
 \subsection{80286 Real and Protected mode}
 By 1986, hardware had gotten cheaper and Intel made a departure from the old architecture
@@ -443,6 +440,14 @@ Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast fu
 
 \trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still it took until 1983-84 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
 
+
+\begin{figure}[H]
+  \centering 
+  \includegraphics[width=1.3\textwidth, angle =90 ]{screenshots_300dpi/hardware/ibm_ega_card.png} 
+  \caption{Original IBM EGA card}
+  \label{fig:ibm_ega_card}
+\end{figure}
+
 \par
 To add additional video memory to the IBM EGA card a Graphics Memory Expansion Card could be purchased. By default only the bottom row of memory was populated with chips, expanding the total EGA video memory to 128KiB. The expansion card provided DIP (dual in-line package) sockets for further memory expansion. Populating the DIP sockets with a Graphics Memory Module Kit adds two additional rows of 64KiB, bringing the EGA memory to its maximum of 256KiB. \\
 
@@ -455,12 +460,6 @@ To add additional video memory to the IBM EGA card a Graphics Memory Expansion C
 \end{figure}
 
 
-\begin{figure}[H]
-  \centering 
-  \includegraphics[width=1.3\textwidth, angle =90 ]{screenshots_300dpi/hardware/ibm_ega_card.png} 
-  \caption{Original IBM EGA card}
-  \label{fig:ibm_ega_card}
-\end{figure}
 
 
 
@@ -519,7 +518,7 @@ Keep in mind that this architecture reduced the penalty of read operations, but 
 Four memory banks grant enough throughput to reach high resolutions at 60Hz. This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single color. For EGA there are 4 planes, where combining one bit from each plane results in a color index. This color index is then via the attribute controller translated into a color to the screen. This layout is better explained with a drawing.\\
 
 \par
-To write the color of the first pixel, a developer has to write the first bit of the nibble in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) and converts them via the Attribute Controller into 8 pixels on screen. \\
+To write the color of the first pixel, a developer has to write the first bit of the first byte in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) and converts them via the Attribute Controller into 8 pixels on screen. \\
 
 
 \begin{figure}[H]
@@ -765,7 +764,7 @@ The introduction of real game music and sounds on the PC started with Sierra bac
 Sierra struck a deal with two companies, Roland and AdLib, where Sierra would also become a reseller for these soundcards. \\
 
 \par
-The Roland MT-32 was the higher end of these music devices. In today's terminology, it would be labeled a "Wavetable Synthesizer". A wavetable synthesizer usually implies that real instrument sounds are recorded into the hardware of the device. This device can then manipulate them to play them back at the various notes you need. This may not be the most accurate description as the MT-32 had the ability to manipulate parts of its built in sounds using something called "Linear Arithmetic (LA)" synthesis. It was a very good device that can rival even today's sound cards. To connect the MT-32 to a PC required what Roland called an MPU-401\footnote{Midi Processing Unit-401} in one of the PC's expansion slots. Sierra sold The MT-32 with a necessary MPU-401 interface for \$550. The high price prevented it from dominating the end-user market of players.\\
+The Roland MT-32 was the higher end of these music devices. In today's terminology, it would be labeled a "Wavetable Synthesizer". A wavetable synthesizer usually implies that real instrument sounds are recorded into the hardware of the device. This device can then manipulate them to play them back at the various notes you need. The MT-32 had the ability to manipulate parts of its built in sounds using something called "Linear Arithmetic (LA)" synthesis. It was a very good device that can rival even today's sound cards. To connect the MT-32 to a PC required, what Roland called an MPU-401\footnote{Midi Processing Unit-401}, in one of the PC's expansion slots. Sierra sold The MT-32 with a necessary MPU-401 interface for \$550. The high price prevented it from dominating the end-user market of players.\\
 
 \par
   \begin{figure}[H] 

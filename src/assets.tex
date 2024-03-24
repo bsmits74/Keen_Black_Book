@@ -292,7 +292,7 @@ A maximum of 100 maps is supported in the game. The \cw{tileinfo[]} data contain
 \end{figure}
 \par
 
-For background tile animation two information tables are defined: \textbf{tile animation} and \textbf{tile animation speed}. The tile animation refers which tile, relative to this tile, the tile will animate to. In Table \ref{table:background tile anim} the next animation after tile \#90 is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in \cw{TimeCount}, which is the number of ticks before the next tile is displayed. \\
+For background tile animation two information tables are defined: \textbf{tile animation} and \textbf{tile animation speed}. The tile animation refers which tile, relative to this tile, the tile will animate to. In Table \ref{table:background tile anim} the next animation after tile \#90 is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in number of ticks before the next tile is displayed. \\
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXX}
   \hline
@@ -357,24 +357,12 @@ The structure of \cw{KDREAMS.MAP} archive is explained in Figure \ref{fig:map-fi
 
 \section{Audio}
 \subsection{Sounds}
-The original Commander Keen Trilogy did only support the default PC Speaker. Only with the introduction of Commander Keen Dreams the team decided to support sound cards.\\
+The original Commander Keen Trilogy did only support the default PC Speaker. With the introduction of Commander Keen in Keen Dreams the team decided to support sound cards as well.\\
 
 \par
 \bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with AdLib support until \textit{Dark Ages} in 1991. And even then it still had pc speaker music.\\
 \par
 
-
-
-
-As mentioned in Chapter \ref{hardware-audio}, audio hardware was highly fragmented. Commander Keen supported three sound cards and the default PC speaker, which meant generating assets multiple times for each and packing them together with an in-house tool called MUSE into an AUDIOT archive (an id software proprietary format):\\
-\begin{figure}[H]
-\centering
-
-   \fullimage{muse.png}
-  \caption{MUSE splash screen.}
- \end{figure}
- \par
- 
 id Software intended for Keen Dreams to have music and digital effects support for the SoundBlaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360K floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute. The team didn't even have time to remove the music setup menu.\\
 
 \par
@@ -386,8 +374,8 @@ id Software intended for Keen Dreams to have music and digital effects support f
 \end{figure}
 \par
 
+\pagebreak
 
-\par
 \bu{Trivia :} The song "You've Got to Eat Your Vegetables!!" would finally make its debut in Commander Keen IV: Secret of the Oracle.\\
 \par
 
@@ -397,50 +385,11 @@ As a consequence, only two sets of each audio effect are shipped with the game:
 \item For AdLib
 \end{enumerate}
 
+Game music was not introduced until Commander Keen IV.  \\
 
-
-\subsection{Sound effects}
-All sound effects are done by Robert Prince. In the early days of the OPL soundcards, the "gold standard" sequencing software was Sequencer Plus Gold ("SPG") by Voyetra. The reason for this was it had an OPL instrument/instrument bank editor. To rough out compositions, Robert used Cakewalk ("CW").\\
- \par
-\begin{figure}[H]
-\centering
-
- \includegraphics[width=0.9\textwidth]{imgs/drawings/music_pipelione.eps}
- \caption{Music and sound effect pipeline as used by Bobby Prince.}
-\end{figure}
 \par
-
-
-\begin{figure}[H]
-\centering
-      \scaledimage{1}{music_editor.png}
-\caption{Sequencer Plus Gold ("SPG") by Voyetra.}
-\end{figure}
-
-
-What goes in the \cw{AUDIOT} archive is a music and sound effect format called IMF\footnote{Id software Music File.}. As it supports only the YM3812, it is tailored for the chip with zero abstraction layers. It consists of a stream of machine language commands with associated delays\footnote{IMF format is explained in detail on page \pageref{IMF_explanation}}.\\
-\par
- The stream pilots the nine channels in the OPL2. A channel is able to simulate an instrument and play notes thanks to two oscillators, one playing the role of a modulator and the other the role of a carrier. There are many other ways to control a channel such as envelope, frequency or octave.\\
-\par The way a channel is programmed is described in detail in Section \ref{IMF_explanation}, "\nameref{IMF_explanation}" on page \pageref{IMF_explanation}.\\
-\par
-
-\pagebreak
-
-
-\begin{figure}[H]
-\centering
- \includegraphics[width=\textwidth]{imgs/drawings/channel.eps}
- \caption{Architecture of a YM3812 channel.}
-\end{figure}
-\par
-\bu{Trivia :}  The YM3812's unmistakable sonority is due to its peculiar set of waveform transformers (they are right after the output of each oscillator in the drawing). Four waveforms are available on the OPL2: Sin \circled{1}, Abs-sin\circled{2}, Pulse-sin \circled{3}, and Half-sin \circled{4}.
-\par
-\begin{figure}[H]
-\centering
- \includegraphics[width=\textwidth]{imgs/drawings/wave_transform.eps}
- \caption{The four waveform transforms available.}
-\end{figure}
-
+All sound effects are done by Robert Prince. Sound effects are created using Cakewalk and inhouse MUSE tool, which is  extensively described in \textit{Wolfenstein 3D}\footnote{See Wolfenstein 3D Blackbook, section 3.6 on page 94.}
+Just like described before, the MUSE tool packed all sound effects together in a compressed \cw{SOUND} archive and generated a \cw{HEAD}, \cw{DICT} file and a C header file with asset IDs.\\
 
 
 
