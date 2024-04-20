@@ -218,7 +218,7 @@ The first CPUs in the Intel x86 family were designed in 1976. It was introduced 
 \par
 But everyone was hungry for a way to run much larger programs. Rather than create a CPU with larger register sizes, the designers at Intel decided to keep the 16-bit registers for their new 8086 and 8088 CPU and added a different way to access more memory: They expanded the instruction set, so programs could tell the CPU to group  two 16-bit registers together whenever they needed to refer to an absolute memory location beyond 64 KiB.\\
 
-\subsection{Memory addressing mystery}
+\subsection{Memory addressing}
 If the designers had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data\footnote{We've often heard that Bill Gates said something to the effect: "640K of memory should be enough for anyone.". Though many of us no longer believe he ever said those exact words, he did, however, during a video interview with David Allison in 1993 for the National Museum of American History, Smithsonian Institution, say: "I laid out memory so the bottom 640KiB was general purpose RAM and the upper 384KiB I reserved for video and ROM, and things like that."}. So, instead of dealing with whatever problems a linear addressing scheme of 32-bits would have produced, they created the Segment:Offset scheme 
 which allows a CPU to effectively address about 1 MiB\footnote{This book uses IEC notation where MiB is $2^{20}$ and MB is $10^6$.} of memory. The Segment:Offset schema combines two 16-bit registers, one designating a segment and the other an offset within that segment.
 \\
@@ -232,10 +232,25 @@ which allows a CPU to effectively address about 1 MiB\footnote{This book uses IE
 \end{figure}
 \par
 
-In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: \cw{near} and \cw{far}. A \cw{near} pointer is 16 bits and considered \emph{fast} because arithmetic manipulation (such as addition) can be done without worrying about the segment. The downside of a \cw{near} pointer is that is can only handle up to 64KiB of memory.\\
+To support this architecture, the CPU keeps track of four different segments. Each of these segments has its own purpose and segment register:
+\begin{itemize}
+  \item CS segment register, where the machine instructions resides.
+  \item DS segment register, where the data resides.
+  \item SS segment register, where the stack resides.
+  \item ES segment register, which is used as extra data segment.
+\end{itemize}
 
 \par
-A \cw{far} pointer can access anything and allows programs and data larger than 64KiB, but is slower since a 16-bit segment register has to be shifted left 4 bits and combined with the other 16-bit-offset register to form a 20-bit address. Another issue with a \cw{far} pointer is that it only increments the offset, not the segment. If you iterate on an array larger than 64KiB there will be no overflow handling and you will be only able to handle 64KiB of memory.\\
+In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: \cw{near} and \cw{far}. \\
+
+\par
+A \cw{near} pointer refers to a function or data object that is within the current segment. It is 16 bits long and contains an offset into the current data segment if it's a data pointer, or into the current code segment if it's a function pointer. A \cw{far} pointer refers to a function or data that is in a different segment than the current, default one. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
+
+\par
+Accessing code or data with a \cw{near} reference is much quicker than accessing it with a \cw{far} pointer. When you use a \cw{far} reference, your program must first find the segment and then find the code or data within that segment. When you use a \cw{near} reference, your program only needs to find the code or data via the offset. For a faster program, one should make as many \cw{near} references as possible. The downside of using \cw{near} pointers only is that it can handle not more than 64KiB of memory for the program or data.\\
+
+
+Note that a \cw{far} pointer only increments the offset, not the segment. If you iterate on a data array larger than 64KiB there will be no overflow handling, so you will be able to handle only 64KiB of memory.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -247,9 +262,9 @@ Will output:\\
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/far_pointer_out.c}\par
  \end{minipage}\\
-\par
 
-You could use yet another type of pointer named \cw{huge*} to make pointer arithmetic work beyond 64KiB. \\
+\par
+You could use yet another type of pointer named \cw{huge} to make pointer arithmetic work beyond 64KiB. \\
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/huge_pointer.c}\par
@@ -262,7 +277,7 @@ Will output the address:\\
  \end{minipage}\\
 \par
 
-The \cw{huge*} pointer is based on the absolute (or lineair) 20-bit memory location and Segment:Offset normalized address. The absolute memory address can be calculated by\\
+The \cw{huge} pointer is based on the absolute (or lineair) 20-bit memory location and Segment:Offset normalized address. The absolute memory address can be calculated by\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -270,20 +285,14 @@ The \cw{huge*} pointer is based on the absolute (or lineair) 20-bit memory locat
 \end{minipage}\\
 
 \par
-For example the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}.
-One of the downsides in using Segment:Offset is the fact that a large number of these pairs refer to the same exact absolute memory locations. For example, both \cw{A000:002B} and \cw{9F00:102F} result in the same absolute address \cw{A002Fh}.\\
-
-
-\par
-Since there are so many different ways that a single byte in memory might be referenced using Segment:Offset pairs, most programmers have agreed to use the same convention to normalize all such pairs into values that will always be unique. These unique pairs are called a \textit{Normalized Address}. 
-By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all Segment:Offset memory pair locations. To convert an arbitrary Segment:Offset pair into a normalized address is a two-step process that's quite easy for an assembly programmer:\\
+For example the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}. By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all Segment:Offset memory pair locations. To convert an arbitrary Segment:Offset pair into a normalized address is a two-step process that's quite easy for an assembly programmer:\\
 
 \begin{enumerate}
   \item Convert the Segment:Offset pair into a single absolute address.
-  \item Then simply insert the colon (:) between the last two hex digits
+  \item Then simply insert the colon (:) between the last two hex digits and add three zeros before the last hex digit.
 \end{enumerate}
 
-For example, the normalized address for \cw{A000:002F} is \cw{A002:000F}. A \cw{huge*} pointer is normalized when pointer arithmetic is performed on it. \\
+For example, the normalized address for \cw{A000:002F} is \cw{A002:000F}. A \cw{huge} pointer is normalized when pointer arithmetic is performed on it. \\
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/huge_pointer_normalized.c}\par
@@ -300,7 +309,8 @@ Will output:\\
 
 \trivia{Since the normalized form will always have three leading zero bytes in its offset, programmers often write it with just the digit that counts: \cw{AFFF:F}}\\
 
-Unfortunately, the \cw{huge*} pointer is even slower than the \cw{far*} pointer as it comes with additional overhead to update the segment and address normalization after every arithmetic manipulation. So most programmers avoided the \cw{huge*} pointer, unless really needed.\\
+\par
+A \cw{huge} reference is even slower than the \cw{far} reference as it comes with additional overhead to update the segment and address normalization after every arithmetic manipulation. So, most programmers avoided the \cw{huge} pointer, unless really needed.\\
 
 \subsection{80286 Real and Protected mode}
 By 1986, hardware had gotten cheaper and Intel made a departure from the old architecture
@@ -338,7 +348,95 @@ Out of the original 1024KiB, only 640KiB (called Conventional Memory) was access
 \end{figure}
 \pagebreak
 
+\subsection{Real mode: Memory models}
+The x86 real mode provided different memory segment layouts which are called \textit{memory models}. Each memory model controls how the segment registers are organized as well as defining the default pointer type to \cw{near} or \cw{far}. Functions and pointers within a given program default to \cw{near} or \cw{far}, depending on the memory model you select. If the function or data pointer is \cw{near}, it is automatically associated with either the CS or DS register.\\
 
+\par
+In total six different memory models are defined, making trade-offs between minimum system requirements, maximizing code efficiency, and gaining access to every available memory location\footnote{See Borland C++ 3.1 Programmer's guide, section DOS Memory management.}. 
+
+\begin{figure}[H]
+\renewcommand{\arraystretch}{1.2}
+\centering
+\begin{tabularx}{\textwidth}{|X|X|X|X|X|>{\hsize=.3\textwidth}Y|} \hline
+  &  \multicolumn{2}{c|}{\textbf{Default pointer type}} & \multicolumn{2}{c|}{\textbf{Size}} &  \\ \cline{2-5}
+ \textbf{Model}   & \textbf{Code} & \textbf{Data} & \textbf{Code} & \textbf{Data} & \textbf{Definition} \\ \hline
+ Tiny & near & near & \multicolumn{2}{c|}{<64KiB} & CS=DS=SS \\ \hline
+ Small & near & near & <64KiB & <64KiB & DS=SS \\ \hline
+ Medium & far & near & >64KiB & >64KiB & DS=SS, multiple CS \\ \hline
+ Compact & near & fear & <64KiB & >64KiB & DS only global/static data\\ \hline
+ Large & far & far & >64KiB & >64KiB & multiple CS,  DS only global/static data \\ \hline
+ Huge & far & far & >64KiB & >64KiB & multiple CS and DS, DS only global/static data \\ \hline
+ 
+
+\end{tabularx}\\
+\end{figure}
+
+As memory is scarce and every CPU cycle counts, a game developer needed a good understanding of each memory model and each compications. Each application consists out of the following building blocks:
+\begin{itemize}
+  \item code block where all C-functions and routines reside.
+  \item static data block which contains all global and static variables. 
+  \item the stack, which contains mainly local and temporarily data.
+  \item the heap, which contains dynamic allocated memory via \cw{malloc()} function
+\end{itemize}
+
+\pagebreak
+Let's start to understand how the first, tiny memory model, is organized. All three segment registers, CS, DS and SS, point to the same memory location. The first part of the segment is used for all machine instructions, followed by the static and global data. The heap is starting directly after the static and global data and grows upwards. Finally, the stack is starting at the opposite side of the segment and is growing downwards. Both heap and stack can grow/shrink dynamically during program execution. When both the heap and stack continue to grow, ultimately they collide which results in an unwanted \cw{"memory error"}.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{imgs/drawings/tiny_mm.eps}
+\caption{Tiny memory model.}
+\label{fig:mm_tiny}
+\end{figure}
+\par
+
+All function and data pointers are accessed via a \cw{near} reference, which means they are automatically associated with either the CS or DS segment register. Since only \cw{near} references are used the program execution is very efficient, but there is also a downside: The instructions, data and stack all share the same segment of maximum 64KiB.\\
+
+\par
+The next model, the small memory model, separates the instructions from the data, each having their own 64KiB segment. The code segment has a maximum size of 64KiB for instructions, and the data, stack and heap share a separated 64KiB segment. The code remains executed efficient as all functions and data pointers are accessible via a \cw{near} reference.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{imgs/drawings/small_mm.eps}
+\caption{Small memory model, code and data each have 64KiB.}
+\label{fig:mm_small}
+\end{figure}
+\par
+
+If the function code requires more than 64KiB, the medium memory model is an outcome. Now each C source file has its own code segment.  A table with all code segment references is maintained and the CS register points to only one segment at the time. There is no default CS segment, and functions must be reached using a \cw{far} reference. The code is executed less efficient compared to the tiny and small memory models.\\
+
+\trivia{When you compile a source file, the resulting code for that file cannot be greater than 64KiB, since it must all fit inside one code segment. If the source file is too big to fit into one (64KiB) code segment, the programmer must break it up into different source code files, compile each file separately.}\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{imgs/drawings/medium_mm.eps}
+\caption{Medium memory model, code can be larger than 64KiB.}
+\label{fig:mm_medium}
+\end{figure}
+\par
+
+\par
+Most games rely on dynamic memory allocation to load data like graphics and levels. Game data is loaded from disk when starting a level, so the size is not known when the game is initially executed. Loading all data for a level often requires a large portion of dynamic memory. As the heap is using the same default DS segment as global data and the stack, it most likely won't fit and results in a \cw{out of memory} error. \\
+
+\par
+Luckily, in both the small and medium model, the memory between the stack and \cw{A0000h} is available to the game developer. It is called the \textit{farheap}, and can be allocated using the \cw{farmalloc()} function. The memory can only be accessed using a \cw{far} or \cw{huge} pointer reference. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{imgs/drawings/farheap_mm.eps}
+\caption{farheap memory between stack and \cw{A0000}.}
+\label{fig:mm_farheap}
+\end{figure}
+\par
+
+The opposite of the medium model is the compact model. Here the total function code is smaller than 64KiB, but data can exceed 64KiB. Both the large and huge model can deal with function code and data larger than 64KiB, but are slow in execution as they cannot use \cw{near} references.\\  
+
+\par
+Commander Keen is, like many games during that period, making ise of the medium memory model. It provides the best trade-off between code size (more than 64Kib), efficient access to global data using \cw{near} pointers and sufficient memory for dynamic allocation. \\
+
+<<PICTURE OF BORLAND>>\\
+
+\pagebreak
 
 
 \section{Video}

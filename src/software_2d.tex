@@ -20,7 +20,7 @@ So how did they create a smooth scrolling game with these limitations? By using 
 \subsection{EGA Virtual Screen and Pel Panning}
 \label{section:EGA_virtual_screen}
 
-The EGA adds a powerful twist to linear addressing: the logical width of the virtual screen in VRAM memory need not to be the same as the physical width of the screen display. The programmer is free to define a virtual screen width of up to 4096 pixels and then use the physical screen as a window onto any part of the virtual screen. What's more, a virtual screen can have any logical height up to the capacity of the VRAM memory. The code below illustrates how to change the logical width.\\
+The EGA card adds a powerful twist to linear addressing: the logical width of the virtual screen in VRAM memory need not to be the same as the physical width of the screen display. The programmer is free to define a virtual screen width of up to 4096 pixels and then use the physical screen as a window onto any part of the virtual screen. What's more, a virtual screen can have any logical height up to the capacity of the VRAM memory. The code below illustrates how to change the logical width.\\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/SCREEN_WIDTH.ASM}
