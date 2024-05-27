@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  20 APR 2024 16:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  27 MAY 2024 21:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2245,153 +2245,209 @@ Package pdftex.def Info: imgs/drawings/real_mode_v2-eps-converted-to.pdf  used
 on input line 345.
 (pdftex.def)             Requested size: 300.64415pt x 411.38579pt.
 [13] [14 <./imgs/drawings/real_mode_v2-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <imgs/drawings/memory/x86_mm_layout.eps>
+(epstopdf)                    date: 2024-05-26 14:14:23
+(epstopdf)                    size: 21701 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/x86_mm_layout-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2024-05-26 14:14:27
+(epstopdf)                    size: 10505 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/x86_m
+m_layout-eps-converted-to.pdf imgs/drawings/memory/x86_mm_layout.eps>
+(epstopdf)             \includegraphics on input line 362.
+Package epstopdf Info: Output file is already uptodate.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/x86_mm_layout-eps-convert
+ed-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> a
+llowed
+<imgs/drawings/memory/x86_mm_layout-eps-converted-to.pdf, id=244, 582.175pt x 3
+83.4325pt>
+File: imgs/drawings/memory/x86_mm_layout-eps-converted-to.pdf Graphic file (typ
+e pdf)
+<use imgs/drawings/memory/x86_mm_layout-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/x86_mm_layout-eps-converted-to.pd
+f  used on input line 362.
+(pdftex.def)             Requested size: 300.64415pt x 198.01112pt.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 352.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 369.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 352.
+(Font)              scaled to size 9.49997pt on input line 369.
 
-Underfull \hbox (badness 10000) in paragraph at lines 352--353
-
- []
-
-
-Overfull \hbox (0.8564pt too wide) in paragraph at lines 371--371
+Overfull \hbox (0.8564pt too wide) in paragraph at lines 385--385
 []|\T1/phv/m/n/10 Compact| 
  []
 
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 383--384
-
- []
-
-Package epstopdf Info: Source file: <imgs/drawings/tiny_mm.eps>
-(epstopdf)                    date: 2024-04-20 14:36:12
-(epstopdf)                    size: 24276 bytes
-(epstopdf)             Output file: <imgs/drawings/tiny_mm-eps-converted-to.pdf
->
-(epstopdf)                    date: 2024-04-20 14:41:21
-(epstopdf)                    size: 11345 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/tiny_mm-eps-
-converted-to.pdf imgs/drawings/tiny_mm.eps>
-(epstopdf)             \includegraphics on input line 387.
+[15 <./imgs/drawings/memory/x86_mm_layout-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <imgs/drawings/memory/tiny_mm.eps>
+(epstopdf)                    date: 2024-05-26 14:11:48
+(epstopdf)                    size: 23816 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/tiny_mm-eps-converted
+-to.pdf>
+(epstopdf)                    date: 2024-05-26 14:12:08
+(epstopdf)                    size: 11209 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/tiny_
+mm-eps-converted-to.pdf imgs/drawings/memory/tiny_mm.eps>
+(epstopdf)             \includegraphics on input line 394.
 Package epstopdf Info: Output file is already uptodate.
 
 
-pdfTeX warning: pdflatex (file ./imgs/drawings/tiny_mm-eps-converted-to.pdf): P
-DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/tiny_mm-eps-converted-to.pdf, id=252, 540.0175pt x 382.42876pt>
-File: imgs/drawings/tiny_mm-eps-converted-to.pdf Graphic file (type pdf)
-<use imgs/drawings/tiny_mm-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/tiny_mm-eps-converted-to.pdf  used on in
-put line 387.
-(pdftex.def)             Requested size: 263.0615pt x 186.29466pt.
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/tiny_mm-eps-converted-to.
+pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-Underfull \hbox (badness 10000) in paragraph at lines 393--394
+<imgs/drawings/memory/tiny_mm-eps-converted-to.pdf, id=259, 525.965pt x 382.428
+76pt>
+File: imgs/drawings/memory/tiny_mm-eps-converted-to.pdf Graphic file (type pdf)
 
- []
+<use imgs/drawings/memory/tiny_mm-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/tiny_mm-eps-converted-to.pdf  use
+d on input line 394.
+(pdftex.def)             Requested size: 281.85283pt x 204.94456pt.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 396--397
+Underfull \hbox (badness 10000) in paragraph at lines 401--402
 
  []
 
-Package epstopdf Info: Source file: <imgs/drawings/small_mm.eps>
-(epstopdf)                    date: 2024-04-20 14:36:53
-(epstopdf)                    size: 24758 bytes
-(epstopdf)             Output file: <imgs/drawings/small_mm-eps-converted-to.pd
-f>
-(epstopdf)                    date: 2024-04-20 14:41:21
-(epstopdf)                    size: 11440 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/small_mm-eps
--converted-to.pdf imgs/drawings/small_mm.eps>
-(epstopdf)             \includegraphics on input line 400.
+[16 <./imgs/drawings/memory/tiny_mm-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 403--404
+
+ []
+
+Package epstopdf Info: Source file: <imgs/drawings/memory/small_mm.eps>
+(epstopdf)                    date: 2024-05-26 14:19:35
+(epstopdf)                    size: 24544 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/small_mm-eps-converte
+d-to.pdf>
+(epstopdf)                    date: 2024-05-26 14:19:38
+(epstopdf)                    size: 11422 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/small
+_mm-eps-converted-to.pdf imgs/drawings/memory/small_mm.eps>
+(epstopdf)             \includegraphics on input line 410.
 Package epstopdf Info: Output file is already uptodate.
 
 
-pdfTeX warning: pdflatex (file ./imgs/drawings/small_mm-eps-converted-to.pdf): 
-PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/small_mm-eps-converted-to.pdf, id=253, 512.91624pt x 419.5675pt>
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/small_mm-eps-converted-to
+.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowe
+d
+<imgs/drawings/memory/small_mm-eps-converted-to.pdf, id=272, 496.85625pt x 382.
+42876pt>
+File: imgs/drawings/memory/small_mm-eps-converted-to.pdf Graphic file (type pdf
+)
+<use imgs/drawings/memory/small_mm-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/small_mm-eps-converted-to.pdf  us
+ed on input line 410.
+(pdftex.def)             Requested size: 263.0615pt x 202.48203pt.
 
-File: imgs/drawings/small_mm-eps-converted-to.pdf Graphic file (type pdf)
-<use imgs/drawings/small_mm-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/small_mm-eps-converted-to.pdf  used on i
-nput line 400.
-(pdftex.def)             Requested size: 263.0615pt x 215.18658pt.
-[16 <./imgs/drawings/tiny_mm-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 406--407
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 408--409
+Underfull \hbox (badness 10000) in paragraph at lines 416--417
 
  []
 
-Package epstopdf Info: Source file: <imgs/drawings/medium_mm.eps>
-(epstopdf)                    date: 2024-04-20 16:15:00
-(epstopdf)                    size: 34135 bytes
-(epstopdf)             Output file: <imgs/drawings/medium_mm-eps-converted-to.p
-df>
-(epstopdf)                    date: 2024-04-20 16:18:30
-(epstopdf)                    size: 15462 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/medium_mm-ep
-s-converted-to.pdf imgs/drawings/medium_mm.eps>
-(epstopdf)             \includegraphics on input line 412.
-Package epstopdf Info: Output file is already uptodate.
 
-
-pdfTeX warning: pdflatex (file ./imgs/drawings/medium_mm-eps-converted-to.pdf):
- PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/medium_mm-eps-converted-to.pdf, id=265, 622.325pt x 538.01pt>
-File: imgs/drawings/medium_mm-eps-converted-to.pdf Graphic file (type pdf)
-<use imgs/drawings/medium_mm-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/medium_mm-eps-converted-to.pdf  used on 
-input line 412.
-(pdftex.def)             Requested size: 338.2211pt x 292.40102pt.
-[17 <./imgs/drawings/small_mm-eps-converted-to.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 419--420
 
  []
 
-Package epstopdf Info: Source file: <imgs/drawings/farheap_mm.eps>
-(epstopdf)                    date: 2024-04-20 15:08:40
-(epstopdf)                    size: 45368 bytes
-(epstopdf)             Output file: <imgs/drawings/farheap_mm-eps-converted-to.
-pdf>
-(epstopdf)                    date: 2024-04-20 15:18:39
-(epstopdf)                    size: 17513 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/farheap_mm-e
-ps-converted-to.pdf imgs/drawings/farheap_mm.eps>
-(epstopdf)             \includegraphics on input line 426.
+[17 <./imgs/drawings/memory/small_mm-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <imgs/drawings/memory/medium_mm.eps>
+(epstopdf)                    date: 2024-05-27 21:54:12
+(epstopdf)                    size: 32497 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/medium_mm-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2024-05-26 14:28:55
+(epstopdf)                    size: 14781 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/mediu
+m_mm-eps-converted-to.pdf imgs/drawings/memory/medium_mm.eps>
+(epstopdf)             \includegraphics on input line 423.
+runsystem(repstopdf --outfile=imgs/drawings/memory/medium_mm-eps-converted-to.p
+df imgs/drawings/memory/medium_mm.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <imgs/drawings/memory/medium_mm-eps-convert
+ed-to.pdf>
+(epstopdf)                    date: 2024-05-27 21:54:16
+(epstopdf)                    size: 14783 bytes.
+
+
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/medium_mm-eps-converted-t
+o.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allow
+ed
+<imgs/drawings/memory/medium_mm-eps-converted-to.pdf, id=284, 628.3475pt x 503.
+8825pt>
+File: imgs/drawings/memory/medium_mm-eps-converted-to.pdf Graphic file (type pd
+f)
+<use imgs/drawings/memory/medium_mm-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/medium_mm-eps-converted-to.pdf  u
+sed on input line 423.
+(pdftex.def)             Requested size: 319.43549pt x 256.15399pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 433--434
+
+ []
+
+Package epstopdf Info: Source file: <imgs/drawings/memory/farheap_medium_model.
+eps>
+(epstopdf)                    date: 2024-05-26 14:38:39
+(epstopdf)                    size: 33472 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/farheap_medium_model-
+eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-26 14:41:14
+(epstopdf)                    size: 15058 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/farhe
+ap_medium_model-eps-converted-to.pdf imgs/drawings/memory/farheap_medium_model.
+eps>
+(epstopdf)             \includegraphics on input line 437.
 Package epstopdf Info: Output file is already uptodate.
 
 
-pdfTeX warning: pdflatex (file ./imgs/drawings/farheap_mm-eps-converted-to.pdf)
-: PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/farheap_mm-eps-converted-to.pdf, id=277, 853.1875pt x 651.43375p
-t>
-File: imgs/drawings/farheap_mm-eps-converted-to.pdf Graphic file (type pdf)
-<use imgs/drawings/farheap_mm-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/farheap_mm-eps-converted-to.pdf  used on
- input line 426.
-(pdftex.def)             Requested size: 375.80377pt x 286.93987pt.
-[18 <./imgs/drawings/medium_mm-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 432--433
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/farheap_medium_model-eps-
+converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version 
+<1.5> allowed
+<imgs/drawings/memory/farheap_medium_model-eps-converted-to.pdf, id=285, 705.63
+625pt x 636.3775pt>
+File: imgs/drawings/memory/farheap_medium_model-eps-converted-to.pdf Graphic fi
+le (type pdf)
+<use imgs/drawings/memory/farheap_medium_model-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/farheap_medium_model-eps-converte
+d-to.pdf  used on input line 437.
+(pdftex.def)             Requested size: 375.80377pt x 338.91951pt.
+[18 <./imgs/drawings/memory/medium_mm-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 443--444
 
  []
 
+Package epstopdf Info: Source file: <imgs/drawings/memory/compact_large_huge_mm
+.eps>
+(epstopdf)                    date: 2024-05-27 20:27:04
+(epstopdf)                    size: 50974 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/compact_large_huge_mm
+-eps-converted-to.pdf>
+(epstopdf)                    date: 2024-05-27 20:27:09
+(epstopdf)                    size: 18813 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/compa
+ct_large_huge_mm-eps-converted-to.pdf imgs/drawings/memory/compact_large_huge_m
+m.eps>
+(epstopdf)             \includegraphics on input line 447.
+Package epstopdf Info: Output file is already uptodate.
 
-Underfull \hbox (badness 10000) in paragraph at lines 435--436
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 437--438
-
- []
-
-[19 <./imgs/drawings/farheap_mm-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 444--445
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/compact_large_huge_mm-eps
+-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version
+ <1.5> allowed
+<imgs/drawings/memory/compact_large_huge_mm-eps-converted-to.pdf, id=302, 1145.
+27875pt x 613.29124pt>
+File: imgs/drawings/memory/compact_large_huge_mm-eps-converted-to.pdf Graphic f
+ile (type pdf)
+<use imgs/drawings/memory/compact_large_huge_mm-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/compact_large_huge_mm-eps-convert
+ed-to.pdf  used on input line 447.
+(pdftex.def)             Requested size: 375.80377pt x 201.24504pt.
+[19 <./imgs/drawings/memory/farheap_medium_model-eps-converted-to.pdf>]
+[20 <./imgs/drawings/memory/compact_large_huge_mm-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 460--461
 
  []
 
@@ -2404,40 +2460,40 @@ Package epstopdf Info: Source file: <imgs/drawings/crt_lcd.eps>
 (epstopdf)                    size: 2726 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/crt_lcd-eps-
 converted-to.pdf imgs/drawings/crt_lcd.eps>
-(epstopdf)             \includegraphics on input line 450.
+(epstopdf)             \includegraphics on input line 466.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/crt_lcd-eps-converted-to.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/crt_lcd-eps-converted-to.pdf, id=309, 209.78375pt x 94.3525pt>
+<imgs/drawings/crt_lcd-eps-converted-to.pdf, id=337, 209.78375pt x 94.3525pt>
 File: imgs/drawings/crt_lcd-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/crt_lcd-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/crt_lcd-eps-converted-to.pdf  used on in
-put line 450.
+put line 466.
 (pdftex.def)             Requested size: 375.80377pt x 169.02234pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 455--456
+Underfull \hbox (badness 10000) in paragraph at lines 471--472
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 457--459
+Underfull \hbox (badness 10000) in paragraph at lines 473--475
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 461--463
+Underfull \hbox (badness 10000) in paragraph at lines 477--479
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 465--470
+Underfull \hbox (badness 10000) in paragraph at lines 481--486
 
  []
 
-[20 <./imgs/drawings/crt_lcd-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 472--476
+[21 <./imgs/drawings/crt_lcd-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 488--492
 
  []
 
@@ -2450,88 +2506,88 @@ Package epstopdf Info: Source file: <imgs/drawings/monitor.eps>
 (epstopdf)                    size: 10136 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/monitor-eps-
 converted-to.pdf imgs/drawings/monitor.eps>
-(epstopdf)             \includegraphics on input line 479.
+(epstopdf)             \includegraphics on input line 495.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/monitor-eps-converted-to.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/monitor-eps-converted-to.pdf, id=321, 437.635pt x 313.17pt>
+<imgs/drawings/monitor-eps-converted-to.pdf, id=350, 437.635pt x 313.17pt>
 File: imgs/drawings/monitor-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/monitor-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/monitor-eps-converted-to.pdf  used on in
-put line 479.
+put line 495.
 (pdftex.def)             Requested size: 375.80377pt x 268.9291pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 485--487
+Underfull \hbox (badness 10000) in paragraph at lines 501--503
 
  []
 
-[21 <./imgs/drawings/monitor-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 531--532
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 536--538
+[22 <./imgs/drawings/monitor-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 547--548
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 539--540
+Underfull \hbox (badness 10000) in paragraph at lines 552--554
 
  []
 
-<screenshots_300dpi/hardware/ibm_ega_card.png, id=338, 641.7576pt x 475.0548pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 555--556
+
+ []
+
+<screenshots_300dpi/hardware/ibm_ega_card.png, id=367, 641.7576pt x 475.0548pt>
 
 File: screenshots_300dpi/hardware/ibm_ega_card.png Graphic file (type png)
 <use screenshots_300dpi/hardware/ibm_ega_card.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/ibm_ega_card.png  used on 
-input line 544.
+input line 560.
 (pdftex.def)             Requested size: 488.54604pt x 361.63979pt.
-[22]
-Underfull \hbox (badness 10000) in paragraph at lines 550--551
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 566--567
 
  []
 
-[23 <./screenshots_300dpi/hardware/ibm_ega_card.png>]
-<screenshots_300dpi/hardware/ibm_ega_graphics_memory_expansion_card.png, id=356
+[24 <./screenshots_300dpi/hardware/ibm_ega_card.png>]
+<screenshots_300dpi/hardware/ibm_ega_graphics_memory_expansion_card.png, id=384
 , 2007.5pt x 1314.9125pt>
 File: screenshots_300dpi/hardware/ibm_ega_graphics_memory_expansion_card.png Gr
 aphic file (type png)
 <use screenshots_300dpi/hardware/ibm_ega_graphics_memory_expansion_card.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/ibm_ega_graphics_memory_ex
-pansion_card.png  used on input line 555.
+pansion_card.png  used on input line 571.
 (pdftex.def)             Requested size: 375.80377pt x 246.14421pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 566--567
+Underfull \hbox (badness 10000) in paragraph at lines 582--583
 
  []
 
-<screenshots_300dpi/hardware/EGA-ATI-800.png, id=358, 216.81pt x 163.812pt>
+<screenshots_300dpi/hardware/EGA-ATI-800.png, id=386, 216.81pt x 163.812pt>
 File: screenshots_300dpi/hardware/EGA-ATI-800.png Graphic file (type png)
 <use screenshots_300dpi/hardware/EGA-ATI-800.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/EGA-ATI-800.png  used on i
-nput line 573.
+nput line 589.
 (pdftex.def)             Requested size: 338.2211pt x 255.57565pt.
-[24 <./screenshots_300dpi/hardware/ibm_ega_graphics_memory_expansion_card.png (
-PNG copy)>] [25 <./screenshots_300dpi/hardware/EGA-ATI-800.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 592--593
+[25 <./screenshots_300dpi/hardware/ibm_ega_graphics_memory_expansion_card.png (
+PNG copy)>] [26 <./screenshots_300dpi/hardware/EGA-ATI-800.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 608--609
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 594--595
+Underfull \hbox (badness 10000) in paragraph at lines 610--611
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 596--597
+Underfull \hbox (badness 10000) in paragraph at lines 612--613
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 598--599
+Underfull \hbox (badness 10000) in paragraph at lines 614--615
 
  []
 
@@ -2543,25 +2599,25 @@ Package epstopdf Info: Source file: <imgs/drawings/ega.eps>
 (epstopdf)                    size: 10587 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ega-eps-conv
 erted-to.pdf imgs/drawings/ega.eps>
-(epstopdf)             \includegraphics on input line 605.
+(epstopdf)             \includegraphics on input line 621.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/ega-eps-converted-to.pdf): PDF i
 nclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/ega-eps-converted-to.pdf, id=373, 286.06876pt x 368.37625pt>
+<imgs/drawings/ega-eps-converted-to.pdf, id=401, 286.06876pt x 368.37625pt>
 File: imgs/drawings/ega-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/ega-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/ega-eps-converted-to.pdf  used on input 
-line 605.
+line 621.
 (pdftex.def)             Requested size: 338.2211pt x 435.54019pt.
-[26]
-Underfull \hbox (badness 10000) in paragraph at lines 616--617
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 632--633
 
  []
 
-[27 <./imgs/drawings/ega-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 619--620
+[28 <./imgs/drawings/ega-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 635--636
 
  []
 
@@ -2574,26 +2630,26 @@ Package epstopdf Info: Source file: <imgs/drawings/mode0Dh.eps>
 (epstopdf)                    size: 14417 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/mode0Dh-eps-
 converted-to.pdf imgs/drawings/mode0Dh.eps>
-(epstopdf)             \includegraphics on input line 624.
+(epstopdf)             \includegraphics on input line 640.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/mode0Dh-eps-converted-to.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/mode0Dh-eps-converted-to.pdf, id=396, 595.22375pt x 585.18625pt>
+<imgs/drawings/mode0Dh-eps-converted-to.pdf, id=424, 595.22375pt x 585.18625pt>
 
 File: imgs/drawings/mode0Dh-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/mode0Dh-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/mode0Dh-eps-converted-to.pdf  used on in
-put line 624.
+put line 640.
 (pdftex.def)             Requested size: 375.80377pt x 369.46399pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 632--633
+Underfull \hbox (badness 10000) in paragraph at lines 648--649
 
  []
 
-[28 <./imgs/drawings/mode0Dh-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 634--635
+[29 <./imgs/drawings/mode0Dh-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 650--651
 
  []
 
@@ -2606,44 +2662,44 @@ Package epstopdf Info: Source file: <imgs/drawings/ibm_ega.eps>
 (epstopdf)                    size: 15377 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ibm_ega-eps-
 converted-to.pdf imgs/drawings/ibm_ega.eps>
-(epstopdf)             \includegraphics on input line 639.
+(epstopdf)             \includegraphics on input line 655.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/ibm_ega-eps-converted-to.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/ibm_ega-eps-converted-to.pdf, id=410, 910.40125pt x 849.1725pt>
+<imgs/drawings/ibm_ega-eps-converted-to.pdf, id=438, 910.40125pt x 849.1725pt>
 File: imgs/drawings/ibm_ega-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/ibm_ega-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/ibm_ega-eps-converted-to.pdf  used on in
-put line 639.
+put line 655.
 (pdftex.def)             Requested size: 375.80377pt x 350.53416pt.
 
-Underfull \hbox (badness 10000) in alignment at lines 665--665
+Underfull \hbox (badness 10000) in alignment at lines 681--681
 [][][][][][] 
  []
 
-[29 <./imgs/drawings/ibm_ega-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 671--672
+[30 <./imgs/drawings/ibm_ega-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 687--688
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 674--675
+Underfull \hbox (badness 10000) in paragraph at lines 690--691
 
  []
 
 (./code/ega_mode0d.c)
-Underfull \hbox (badness 10000) in paragraph at lines 679--680
+Underfull \hbox (badness 10000) in paragraph at lines 695--696
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 683--684
+Underfull \hbox (badness 10000) in paragraph at lines 699--700
 
  []
 
-[30]
+[31]
 Package epstopdf Info: Source file: <imgs/drawings/ram_to_ega_mapping.eps>
 (epstopdf)                    date: 2022-01-20 21:37:23
 (epstopdf)                    size: 35446 bytes
@@ -2653,57 +2709,57 @@ rted-to.pdf>
 (epstopdf)                    size: 20539 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ram_to_ega_m
 apping-eps-converted-to.pdf imgs/drawings/ram_to_ega_mapping.eps>
-(epstopdf)             \includegraphics on input line 689.
+(epstopdf)             \includegraphics on input line 705.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/ram_to_ega_mapping-eps-converted
 -to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
 owed
-<imgs/drawings/ram_to_ega_mapping-eps-converted-to.pdf, id=435, 528.97626pt x 3
+<imgs/drawings/ram_to_ega_mapping-eps-converted-to.pdf, id=464, 528.97626pt x 3
 00.12125pt>
 File: imgs/drawings/ram_to_ega_mapping-eps-converted-to.pdf Graphic file (type 
 pdf)
 <use imgs/drawings/ram_to_ega_mapping-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/ram_to_ega_mapping-eps-converted-to.pdf 
- used on input line 689.
+ used on input line 705.
 (pdftex.def)             Requested size: 300.64415pt x 170.57172pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 698--699
+Underfull \hbox (badness 10000) in paragraph at lines 714--715
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 700--701
+Underfull \hbox (badness 10000) in paragraph at lines 716--717
 
  []
 
 
-Overfull \hbox (2.81422pt too wide) in paragraph at lines 706--718
+Overfull \hbox (2.81422pt too wide) in paragraph at lines 722--734
  [][] 
  []
 
-[31 <./imgs/drawings/ram_to_ega_mapping-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 725--727
+[32 <./imgs/drawings/ram_to_ega_mapping-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 741--743
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 732--733
+Underfull \hbox (badness 10000) in paragraph at lines 748--749
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 772--773
-
- []
-
-[32]
-Underfull \hbox (badness 10000) in paragraph at lines 775--776
+Underfull \hbox (badness 10000) in paragraph at lines 788--789
 
  []
 
 [33]
+Underfull \hbox (badness 10000) in paragraph at lines 791--792
+
+ []
+
+[34]
 Package epstopdf Info: Source file: <imgs/drawings/doublebuffer_before.eps>
 (epstopdf)                    date: 2022-01-20 21:37:23
 (epstopdf)                    size: 5181 bytes
@@ -2713,20 +2769,20 @@ erted-to.pdf>
 (epstopdf)                    size: 3247 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/doublebuffer
 _before-eps-converted-to.pdf imgs/drawings/doublebuffer_before.eps>
-(epstopdf)             \includegraphics on input line 823.
+(epstopdf)             \includegraphics on input line 839.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/doublebuffer_before-eps-converte
 d-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
 lowed
-<imgs/drawings/doublebuffer_before-eps-converted-to.pdf, id=485, 400.49625pt x 
+<imgs/drawings/doublebuffer_before-eps-converted-to.pdf, id=514, 400.49625pt x 
 117.43875pt>
 File: imgs/drawings/doublebuffer_before-eps-converted-to.pdf Graphic file (type
  pdf)
 <use imgs/drawings/doublebuffer_before-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/doublebuffer_before-eps-converted-to.pdf
-  used on input line 823.
+  used on input line 839.
 (pdftex.def)             Requested size: 375.80377pt x 110.20425pt.
 Package epstopdf Info: Source file: <imgs/drawings/doublebuffer_after.eps>
 (epstopdf)                    date: 2022-01-20 21:37:23
@@ -2737,144 +2793,144 @@ rted-to.pdf>
 (epstopdf)                    size: 9798 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/doublebuffer
 _after-eps-converted-to.pdf imgs/drawings/doublebuffer_after.eps>
-(epstopdf)             \includegraphics on input line 830.
+(epstopdf)             \includegraphics on input line 846.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/doublebuffer_after-eps-converted
 -to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
 owed
-<imgs/drawings/doublebuffer_after-eps-converted-to.pdf, id=486, 400.49625pt x 1
+<imgs/drawings/doublebuffer_after-eps-converted-to.pdf, id=515, 400.49625pt x 1
 17.43875pt>
 File: imgs/drawings/doublebuffer_after-eps-converted-to.pdf Graphic file (type 
 pdf)
 <use imgs/drawings/doublebuffer_after-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/doublebuffer_after-eps-converted-to.pdf 
- used on input line 830.
+ used on input line 846.
 (pdftex.def)             Requested size: 375.80377pt x 110.20425pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 833--834
+Underfull \hbox (badness 10000) in paragraph at lines 849--850
 
  []
 
-<screenshots_300dpi/pcspeaker.png, id=488, 1579.9025pt x 778.91pt>
+<screenshots_300dpi/pcspeaker.png, id=517, 1579.9025pt x 778.91pt>
 File: screenshots_300dpi/pcspeaker.png Graphic file (type png)
 <use screenshots_300dpi/pcspeaker.png>
 Package pdftex.def Info: screenshots_300dpi/pcspeaker.png  used on input line 8
-50.
+66.
 (pdftex.def)             Requested size: 225.48454pt x 111.16222pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 845--851
+Underfull \hbox (badness 10000) in paragraph at lines 861--867
 
  []
 
-[34 <./imgs/drawings/doublebuffer_before-eps-converted-to.pdf> <./imgs/drawings
+[35 <./imgs/drawings/doublebuffer_before-eps-converted-to.pdf> <./imgs/drawings
 /doublebuffer_after-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 862--863
+Underfull \hbox (badness 10000) in paragraph at lines 878--879
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 865--866
+Underfull \hbox (badness 10000) in paragraph at lines 881--882
 
  []
 
-[35 <./screenshots_300dpi/pcspeaker.png>]
-<screenshots_300dpi/hardware/MT_32.png, id=512, 1722.435pt x 868.24374pt>
+[36 <./screenshots_300dpi/pcspeaker.png>]
+<screenshots_300dpi/hardware/MT_32.png, id=540, 1722.435pt x 868.24374pt>
 File: screenshots_300dpi/hardware/MT_32.png Graphic file (type png)
 <use screenshots_300dpi/hardware/MT_32.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/MT_32.png  used on input l
-ine 870.
+ine 886.
 (pdftex.def)             Requested size: 300.64415pt x 151.54747pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 876--877
+Underfull \hbox (badness 10000) in paragraph at lines 892--893
 
  []
 
-<screenshots_300dpi/hardware/IBM_Music_Feature.png, id=514, 554.07pt x 209.8239
+<screenshots_300dpi/hardware/IBM_Music_Feature.png, id=542, 554.07pt x 209.8239
 pt>
 File: screenshots_300dpi/hardware/IBM_Music_Feature.png Graphic file (type png)
 
 <use screenshots_300dpi/hardware/IBM_Music_Feature.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/IBM_Music_Feature.png  use
-d on input line 881.
+d on input line 897.
 (pdftex.def)             Requested size: 375.80377pt x 142.31657pt.
-[36 <./screenshots_300dpi/hardware/MT_32.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 886--887
+[37 <./screenshots_300dpi/hardware/MT_32.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 902--903
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 890--891
+Underfull \hbox (badness 10000) in paragraph at lines 906--907
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 893--894
+Underfull \hbox (badness 10000) in paragraph at lines 909--910
 
  []
 
-<screenshots_300dpi/hardware/adlib.png, id=522, 213.66783pt x 168.71057pt>
+<screenshots_300dpi/hardware/adlib.png, id=551, 213.66783pt x 168.71057pt>
 File: screenshots_300dpi/hardware/adlib.png Graphic file (type png)
 <use screenshots_300dpi/hardware/adlib.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/adlib.png  used on input l
-ine 898.
+ine 914.
 (pdftex.def)             Requested size: 300.64415pt x 237.39795pt.
-[37 <./screenshots_300dpi/hardware/IBM_Music_Feature.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 903--904
+[38 <./screenshots_300dpi/hardware/IBM_Music_Feature.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 919--920
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 913--914
+Underfull \hbox (badness 10000) in paragraph at lines 929--930
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 916--917
-
- []
-
-[38 <./screenshots_300dpi/hardware/adlib.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 920--922
-
- []
-
-<screenshots_300dpi/hardware/Soundblaster-ct1320.png, id=540, 498.39713pt x 247
-.02321pt>
-File: screenshots_300dpi/hardware/Soundblaster-ct1320.png Graphic file (type pn
-g)
-<use screenshots_300dpi/hardware/Soundblaster-ct1320.png>
-Package pdftex.def Info: screenshots_300dpi/hardware/Soundblaster-ct1320.png  u
-sed on input line 926.
-(pdftex.def)             Requested size: 375.80377pt x 186.2658pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 932--933
 
  []
 
+[39 <./screenshots_300dpi/hardware/adlib.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 936--938
 
-Underfull \hbox (badness 10000) in paragraph at lines 935--936
+ []
+
+<screenshots_300dpi/hardware/Soundblaster-ct1320.png, id=568, 498.39713pt x 247
+.02321pt>
+File: screenshots_300dpi/hardware/Soundblaster-ct1320.png Graphic file (type pn
+g)
+<use screenshots_300dpi/hardware/Soundblaster-ct1320.png>
+Package pdftex.def Info: screenshots_300dpi/hardware/Soundblaster-ct1320.png  u
+sed on input line 942.
+(pdftex.def)             Requested size: 375.80377pt x 186.2658pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 948--949
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 939--940
+Underfull \hbox (badness 10000) in paragraph at lines 951--952
 
  []
 
-[39 <./screenshots_300dpi/hardware/Soundblaster-ct1320.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 942--943
+
+Underfull \hbox (badness 10000) in paragraph at lines 955--956
 
  []
 
-<screenshots_300dpi/hardware/ss.png, id=551, 616.3025pt x 481.8pt>
+[40 <./screenshots_300dpi/hardware/Soundblaster-ct1320.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 958--959
+
+ []
+
+<screenshots_300dpi/hardware/ss.png, id=579, 616.3025pt x 481.8pt>
 File: screenshots_300dpi/hardware/ss.png Graphic file (type png)
 <use screenshots_300dpi/hardware/ss.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/ss.png  used on input line
- 947.
+ 963.
 (pdftex.def)             Requested size: 300.64415pt x 235.03278pt.
-[40 <./screenshots_300dpi/hardware/ss.png>]
+[41 <./screenshots_300dpi/hardware/ss.png>]
 Package epstopdf Info: Source file: <imgs/drawings/DSS_buffer.eps>
 (epstopdf)                    date: 2024-02-04 20:51:34
 (epstopdf)                    size: 29671 bytes
@@ -2884,60 +2940,60 @@ pdf>
 (epstopdf)                    size: 9000 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/DSS_buffer-e
 ps-converted-to.pdf imgs/drawings/DSS_buffer.eps>
-(epstopdf)             \includegraphics on input line 961.
+(epstopdf)             \includegraphics on input line 977.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/DSS_buffer-eps-converted-to.pdf)
 : PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/DSS_buffer-eps-converted-to.pdf, id=560, 556.0775pt x 248.93pt>
+<imgs/drawings/DSS_buffer-eps-converted-to.pdf, id=588, 556.0775pt x 248.93pt>
 File: imgs/drawings/DSS_buffer-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/DSS_buffer-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/DSS_buffer-eps-converted-to.pdf  used on
- input line 961.
+ input line 977.
 (pdftex.def)             Requested size: 263.0615pt x 117.76057pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 969--970
+Underfull \hbox (badness 10000) in paragraph at lines 985--986
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 972--973
+Underfull \hbox (badness 10000) in paragraph at lines 988--989
 
  []
 
-<screenshots_300dpi/hardware/floppy_3_1_2.png, id=561, 573.14125pt x 591.20876p
+<screenshots_300dpi/hardware/floppy_3_1_2.png, id=589, 573.14125pt x 591.20876p
 t>
 File: screenshots_300dpi/hardware/floppy_3_1_2.png Graphic file (type png)
 <use screenshots_300dpi/hardware/floppy_3_1_2.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/floppy_3_1_2.png  used on 
-input line 979.
+input line 995.
 (pdftex.def)             Requested size: 113.81102pt x 117.39166pt.
-<screenshots_300dpi/hardware/floppy_5_1_4.png, id=562, 446.66875pt x 440.64626p
+<screenshots_300dpi/hardware/floppy_5_1_4.png, id=590, 446.66875pt x 440.64626p
 t>
 File: screenshots_300dpi/hardware/floppy_5_1_4.png Graphic file (type png)
 <use screenshots_300dpi/hardware/floppy_5_1_4.png>
 Package pdftex.def Info: screenshots_300dpi/hardware/floppy_5_1_4.png  used on 
-input line 984.
+input line 1000.
 (pdftex.def)             Requested size: 170.71652pt x 168.41553pt.
-[41 <./imgs/drawings/DSS_buffer-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 991--992
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1001--1002
-
- []
-
-
+[42 <./imgs/drawings/DSS_buffer-eps-converted-to.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 1007--1008
 
  []
 
-[42 <./screenshots_300dpi/hardware/floppy_3_1_2.png> <./screenshots_300dpi/hard
+
+Underfull \hbox (badness 10000) in paragraph at lines 1017--1018
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1023--1024
+
+ []
+
+[43 <./screenshots_300dpi/hardware/floppy_3_1_2.png> <./screenshots_300dpi/hard
 ware/floppy_5_1_4.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1010--1011
+Underfull \hbox (badness 10000) in paragraph at lines 1026--1027
 
  []
 
@@ -2949,25 +3005,25 @@ Package epstopdf Info: Source file: <imgs/drawings/bus.eps>
 (epstopdf)                    size: 19074 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/bus-eps-conv
 erted-to.pdf imgs/drawings/bus.eps>
-(epstopdf)             \includegraphics on input line 1015.
+(epstopdf)             \includegraphics on input line 1031.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/bus-eps-converted-to.pdf): PDF i
 nclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/bus-eps-converted-to.pdf, id=583, 580.1675pt x 411.5375pt>
+<imgs/drawings/bus-eps-converted-to.pdf, id=612, 580.1675pt x 411.5375pt>
 File: imgs/drawings/bus-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/bus-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/bus-eps-converted-to.pdf  used on input 
-line 1015.
+line 1031.
 (pdftex.def)             Requested size: 338.2211pt x 239.91643pt.
-[43 <./imgs/drawings/bus-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 1023--1024
+[44 <./imgs/drawings/bus-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 1039--1040
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1026--1027
+Underfull \hbox (badness 10000) in paragraph at lines 1042--1043
 
  []
 
@@ -2979,156 +3035,47 @@ Package epstopdf Info: Source file: <imgs/drawings/isa.eps>
 (epstopdf)                    size: 8296 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/isa-eps-conv
 erted-to.pdf imgs/drawings/isa.eps>
-(epstopdf)             \includegraphics on input line 1030.
+(epstopdf)             \includegraphics on input line 1046.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/isa-eps-converted-to.pdf): PDF i
 nclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/isa-eps-converted-to.pdf, id=601, 527.9725pt x 208.78pt>
+<imgs/drawings/isa-eps-converted-to.pdf, id=629, 527.9725pt x 208.78pt>
 File: imgs/drawings/isa-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/isa-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/isa-eps-converted-to.pdf  used on input 
-line 1030.
+line 1046.
 (pdftex.def)             Requested size: 375.80377pt x 148.60435pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1040--1041
+Underfull \hbox (badness 10000) in paragraph at lines 1056--1057
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1042--1043
-
- []
-
-Package epstopdf Info: Source file: <imgs/drawings/ports/DB-25_parallel_port.ep
-s>
-(epstopdf)                    date: 2022-01-20 21:37:23
-(epstopdf)                    size: 9963 bytes
-(epstopdf)             Output file: <imgs/drawings/ports/DB-25_parallel_port-ep
-s-converted-to.pdf>
-(epstopdf)                    date: 2022-06-06 21:29:30
-(epstopdf)                    size: 4371 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ports/DB-25_
-parallel_port-eps-converted-to.pdf imgs/drawings/ports/DB-25_parallel_port.eps>
-
-(epstopdf)             \includegraphics on input line 1046.
-Package epstopdf Info: Output file is already uptodate.
-
-
-pdfTeX warning: pdflatex (file ./imgs/drawings/ports/DB-25_parallel_port-eps-co
-nverted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1
-.5> allowed
-<imgs/drawings/ports/DB-25_parallel_port-eps-converted-to.pdf, id=602, 430.6087
-5pt x 103.38625pt>
-File: imgs/drawings/ports/DB-25_parallel_port-eps-converted-to.pdf Graphic file
- (type pdf)
-<use imgs/drawings/ports/DB-25_parallel_port-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/ports/DB-25_parallel_port-eps-converted-
-to.pdf  used on input line 1046.
-(pdftex.def)             Requested size: 112.74226pt x 27.0675pt.
-Package epstopdf Info: Source file: <imgs/drawings/ports/DE9_serial_port.eps>
-(epstopdf)                    date: 2022-01-20 21:37:23
-(epstopdf)                    size: 5928 bytes
-(epstopdf)             Output file: <imgs/drawings/ports/DE9_serial_port-eps-co
-nverted-to.pdf>
-(epstopdf)                    date: 2022-06-06 21:29:30
-(epstopdf)                    size: 3414 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ports/DE9_se
-rial_port-eps-converted-to.pdf imgs/drawings/ports/DE9_serial_port.eps>
-(epstopdf)             \includegraphics on input line 1055.
-Package epstopdf Info: Output file is already uptodate.
-
-
-pdfTeX warning: pdflatex (file ./imgs/drawings/ports/DE9_serial_port-eps-conver
-ted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> 
-allowed
-<imgs/drawings/ports/DE9_serial_port-eps-converted-to.pdf, id=603, 244.915pt x 
-103.38625pt>
-File: imgs/drawings/ports/DE9_serial_port-eps-converted-to.pdf Graphic file (ty
-pe pdf)
-<use imgs/drawings/ports/DE9_serial_port-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/ports/DE9_serial_port-eps-converted-to.p
-df  used on input line 1055.
-(pdftex.def)             Requested size: 56.36827pt x 23.7941pt.
-[44 <./imgs/drawings/isa-eps-converted-to.pdf> <./imgs/drawings/ports/DB-25_par
-allel_port-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <imgs/drawings/ports/MiniDIN-6_PS2.eps>
-(epstopdf)                    date: 2022-01-20 21:37:23
-(epstopdf)                    size: 4524 bytes
-(epstopdf)             Output file: <imgs/drawings/ports/MiniDIN-6_PS2-eps-conv
-erted-to.pdf>
-(epstopdf)                    date: 2022-06-06 21:29:30
-(epstopdf)                    size: 3143 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ports/MiniDI
-N-6_PS2-eps-converted-to.pdf imgs/drawings/ports/MiniDIN-6_PS2.eps>
-(epstopdf)             \includegraphics on input line 1064.
-Package epstopdf Info: Output file is already uptodate.
-
-
-pdfTeX warning: pdflatex (file ./imgs/drawings/ports/MiniDIN-6_PS2-eps-converte
-d-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
-lowed
-<imgs/drawings/ports/MiniDIN-6_PS2-eps-converted-to.pdf, id=620, 325.215pt x 32
-6.21875pt>
-File: imgs/drawings/ports/MiniDIN-6_PS2-eps-converted-to.pdf Graphic file (type
- pdf)
-<use imgs/drawings/ports/MiniDIN-6_PS2-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/ports/MiniDIN-6_PS2-eps-converted-to.pdf
-  used on input line 1064.
-(pdftex.def)             Requested size: 26.309pt x 26.38673pt.
-Package epstopdf Info: Source file: <imgs/drawings/ports/DA-15_GamePort.eps>
-(epstopdf)                    date: 2022-01-20 21:37:23
-(epstopdf)                    size: 6827 bytes
-(epstopdf)             Output file: <imgs/drawings/ports/DA-15_GamePort-eps-con
-verted-to.pdf>
-(epstopdf)                    date: 2022-06-06 21:29:30
-(epstopdf)                    size: 3802 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/ports/DA-15_
-GamePort-eps-converted-to.pdf imgs/drawings/ports/DA-15_GamePort.eps>
-(epstopdf)             \includegraphics on input line 1073.
-Package epstopdf Info: Output file is already uptodate.
-
-
-pdfTeX warning: pdflatex (file ./imgs/drawings/ports/DA-15_GamePort-eps-convert
-ed-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> a
-llowed
-<imgs/drawings/ports/DA-15_GamePort-eps-converted-to.pdf, id=622, 235.88126pt x
- 80.3pt>
-File: imgs/drawings/ports/DA-15_GamePort-eps-converted-to.pdf Graphic file (typ
-e pdf)
-<use imgs/drawings/ports/DA-15_GamePort-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/ports/DA-15_GamePort-eps-converted-to.pd
-f  used on input line 1073.
-(pdftex.def)             Requested size: 71.40363pt x 24.30705pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1081--1082
-
- []
-
-[45 <./imgs/drawings/ports/DE9_serial_port-eps-converted-to.pdf> <./imgs/drawin
-gs/ports/MiniDIN-6_PS2-eps-converted-to.pdf> <./imgs/drawings/ports/DA-15_GameP
-ort-eps-converted-to.pdf>] [46]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1084.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1084.
+[45 <./imgs/drawings/isa-eps-converted-to.pdf>] [46]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1059.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1059.
  (./hardware.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1084.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1084.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1059.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1059.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 50203 strings out of 494880
- 1079912 string characters out of 6179601
- 1320890 words of memory out of 5000000
- 52422 multiletter control sequences out of 15000+600000
+ 50188 strings out of 494880
+ 1079458 string characters out of 6179601
+ 1320805 words of memory out of 5000000
+ 52411 multiletter control sequences out of 15000+600000
  574392 words of font info for 65 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,16n,132p,10469b,2369s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Hfootnote.28} has been referenced but does not ex
+pdfTeX warning (dest): name{Hfootnote.29} has been referenced but does not ex
 ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Hfootnote.28} has been referenced but does not exis
+t, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.27} has been referenced but does not exis
 t, replaced by a fixed one
@@ -3225,10 +3172,10 @@ hare/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /urw/helvetic/uhvro8a.pfb>
-Output written on hardware.pdf (46 pages, 25060334 bytes).
+Output written on hardware.pdf (46 pages, 25073488 bytes).
 PDF statistics:
- 890 PDF objects out of 1000 (max. 8388607)
- 602 compressed objects within 7 object streams
- 183 named destinations out of 1000 (max. 500000)
- 563 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 891 PDF objects out of 1000 (max. 8388607)
+ 600 compressed objects within 6 object streams
+ 181 named destinations out of 1000 (max. 500000)
+ 545 words of extra memory for PDF output out of 10000 (max. 10000000)
 

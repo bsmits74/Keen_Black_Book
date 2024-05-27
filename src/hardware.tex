@@ -244,10 +244,10 @@ To support this architecture, the CPU keeps track of four different segments. Ea
 In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: \cw{near} and \cw{far}. \\
 
 \par
-A \cw{near} pointer refers to a function or data object that is within the current segment. It is 16 bits long and contains an offset into the current data segment if it's a data pointer, or into the current code segment if it's a function pointer. A \cw{far} pointer refers to a function or data that is in a different segment than the current, default one. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
+A \cw{near} pointer refers to a function or data object that is within the default segment. It is 16 bits long and contains an offset into the current DS data segment if it's a data pointer, or into the current CS code segment if it's a function pointer. A \cw{far} pointer could refer to a function or data that is in a different segment than the current, default segment. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
 
 \par
-Accessing code or data with a \cw{near} reference is much quicker than accessing it with a \cw{far} pointer. When you use a \cw{far} reference, your program must first find the segment and then find the code or data within that segment. When you use a \cw{near} reference, your program only needs to find the code or data via the offset. For a faster program, one should make as many \cw{near} references as possible. The downside of using \cw{near} pointers only is that it can handle not more than 64KiB of memory for the program or data.\\
+Accessing code or data with a \cw{near} reference is much quicker than accessing it with a \cw{far} pointer. When you use a \cw{far} reference, your program must first find the segment and then find the code or data within that segment. When you use a \cw{near} reference, your program only needs to find the code or data via the offset. For a faster program, one should make as many \cw{near} references as possible. The downside of using \cw{near} pointers only is that it cannot handle more than 64KiB of memory for the program or data.\\
 
 
 Note that a \cw{far} pointer only increments the offset, not the segment. If you iterate on a data array larger than 64KiB there will be no overflow handling, so you will be able to handle only 64KiB of memory.\\
@@ -310,7 +310,7 @@ Will output:\\
 \trivia{Since the normalized form will always have three leading zero bytes in its offset, programmers often write it with just the digit that counts: \cw{AFFF:F}}\\
 
 \par
-A \cw{huge} reference is even slower than the \cw{far} reference as it comes with additional overhead to update the segment and address normalization after every arithmetic manipulation. So, most programmers avoided the \cw{huge} pointer, unless really needed.\\
+A \cw{huge} reference is much slower than the \cw{far} reference as it comes with additional overhead to update the segment and address normalization after every arithmetic manipulation. So, most programmers avoided the \cw{huge} pointer, unless really needed.\\
 
 \subsection{80286 Real and Protected mode}
 By 1986, hardware had gotten cheaper and Intel made a departure from the old architecture
@@ -349,10 +349,25 @@ Out of the original 1024KiB, only 640KiB (called Conventional Memory) was access
 \pagebreak
 
 \subsection{Real mode: Memory models}
-The x86 real mode provided different memory segment layouts which are called \textit{memory models}. Each memory model controls how the segment registers are organized as well as defining the default pointer type to \cw{near} or \cw{far}. Functions and pointers within a given program default to \cw{near} or \cw{far}, depending on the memory model you select. If the function or data pointer is \cw{near}, it is automatically associated with either the CS or DS register.\\
+When a program is compiled and executed, the operating system allocates a chunk of memory to the program. This memory is divided into different segments as shown below
+\begin{itemize}
+  \item The code section stores the program executable. When you compile a C program, the compiler converts your code to assembly instructions that the CPU will execute. 
+  \item The data section stores (un)initialized global and static variables.
+  \item The heap section is memory that you can dynamically reserve from calling \cw{malloc()} function. The heap typically grows upwards, which means it grows toward larger memory addresses.
+  \item The stack section is memory for local variables and data inside your functions. The stack grows downwards (i.e. grow toward lower memory addresses).
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{imgs/drawings/memory/x86_mm_layout.eps}
+\caption{Memory layout in x86 real mode.}
+\label{fig:x86_mm_layout}
+\end{figure}
+\par
 
 \par
-In total six different memory models are defined, making trade-offs between minimum system requirements, maximizing code efficiency, and gaining access to every available memory location\footnote{See Borland C++ 3.1 Programmer's guide, section DOS Memory management.}. 
+The x86 real mode provided different memory segment layouts which are called \textit{memory models}. Each memory model controls how the segments are organized, as well as defining the default pointer type for functions and data to \cw{near} or \cw{far}. A near pointer is automatically associated with either CS segment register for assembly code or DS segment register for data. In total six different memory models\footnote{See Borland C++ 3.1 Programmer's guide, section DOS Memory management.} are defined, making trade-offs between minimum system requirements, maximizing code efficiency, and gaining access to every available memory location.
+
 
 \begin{figure}[H]
 \renewcommand{\arraystretch}{1.2}
@@ -362,79 +377,80 @@ In total six different memory models are defined, making trade-offs between mini
  \textbf{Model}   & \textbf{Code} & \textbf{Data} & \textbf{Code} & \textbf{Data} & \textbf{Definition} \\ \hline
  Tiny & near & near & \multicolumn{2}{c|}{<64KiB} & CS=DS=SS \\ \hline
  Small & near & near & <64KiB & <64KiB & DS=SS \\ \hline
- Medium & far & near & >64KiB & >64KiB & DS=SS, multiple CS \\ \hline
- Compact & near & fear & <64KiB & >64KiB & DS only global/static data\\ \hline
- Large & far & far & >64KiB & >64KiB & multiple CS,  DS only global/static data \\ \hline
- Huge & far & far & >64KiB & >64KiB & multiple CS and DS, DS only global/static data \\ \hline
- 
+ Medium & far & near & >64KiB & <64KiB & DS=SS, multiple code segments \\ \hline
+ Compact & near & far & <64KiB & >64KiB & single code segment, multiple data segments\\ \hline
+ Large & far & far & >64KiB & >64KiB & multiple code and data segments \\ \hline
+ Huge & far & far & >64KiB & >64KiB & multiple code and data segments, global data >64KiB \\ \hline 
 
 \end{tabularx}\\
 \end{figure}
 
-As memory is scarce and every CPU cycle counts, a game developer needed a good understanding of each memory model and each compications. Each application consists out of the following building blocks:
-\begin{itemize}
-  \item code block where all C-functions and routines reside.
-  \item static data block which contains all global and static variables. 
-  \item the stack, which contains mainly local and temporarily data.
-  \item the heap, which contains dynamic allocated memory via \cw{malloc()} function
-\end{itemize}
 
-\pagebreak
-Let's start to understand how the first, tiny memory model, is organized. All three segment registers, CS, DS and SS, point to the same memory location. The first part of the segment is used for all machine instructions, followed by the static and global data. The heap is starting directly after the static and global data and grows upwards. Finally, the stack is starting at the opposite side of the segment and is growing downwards. Both heap and stack can grow/shrink dynamically during program execution. When both the heap and stack continue to grow, ultimately they collide which results in an unwanted \cw{"memory error"}.\\
+
+In the tiny memory model, all three segment registers, CS, DS, and SS, start at the same memory location. The first part of the memory is used for all code instructions, followed by data section. The heap is starting directly after the data section. Finally, the stack is starting at the opposite side of the segment and is growing downwards. Both the heap and stack can grow or shrink dynamically during program execution. If both the heap and stack continue to grow, they may eventually collide, resulting in a system or application crash.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{imgs/drawings/tiny_mm.eps}
+\includegraphics[width=0.75\textwidth]{imgs/drawings/memory/tiny_mm.eps}
 \caption{Tiny memory model.}
 \label{fig:mm_tiny}
 \end{figure}
 \par
 
-All function and data pointers are accessed via a \cw{near} reference, which means they are automatically associated with either the CS or DS segment register. Since only \cw{near} references are used the program execution is very efficient, but there is also a downside: The instructions, data and stack all share the same segment of maximum 64KiB.\\
+
+All function and data pointers are accessed via near offset references, using the CS and DS segment registers respectively. Since only near references are used, program execution is very efficient. However, there is a downside: everything resides in one segment of a maximum of 64KiB, similar to programming on a 16-bit computer.\\
+
+\trivia{The tiny memory model was required by programs that ended with the .COM extension, and it existed for backward compatibility with CP/M. CP/M ran on the 8080 processor which supported a maximum of 64KB of memory.}\\
 
 \par
-The next model, the small memory model, separates the instructions from the data, each having their own 64KiB segment. The code segment has a maximum size of 64KiB for instructions, and the data, stack and heap share a separated 64KiB segment. The code remains executed efficient as all functions and data pointers are accessible via a \cw{near} reference.\\
+The small memory model separates instructions from data, each having their own 64KiB segment. The code segment has a maximum size of 64KiB for instructions, while the global data, stack, and heap share a separate 64KiB segment. Code execution remains efficient as all functions and data pointers use near references.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{imgs/drawings/small_mm.eps}
+\includegraphics[width=0.7\textwidth]{imgs/drawings/memory/small_mm.eps}
 \caption{Small memory model, code and data each have 64KiB.}
 \label{fig:mm_small}
 \end{figure}
 \par
 
-If the function code requires more than 64KiB, the medium memory model is an outcome. Now each C source file has its own code segment.  A table with all code segment references is maintained and the CS register points to only one segment at the time. There is no default CS segment, and functions must be reached using a \cw{far} reference. The code is executed less efficient compared to the tiny and small memory models.\\
+The medium model is useful for programs that have a lot of code but not a lot of data. Many computer games fell into this category, because they had a lot of game logic, but not a lot of game state data. Commander Keen was no exception. In the medium memory model each C-source file has its own code segment, allowing up to 64 KiB for each file. A table with all code segment references is maintained, and the CS register points to only one segment at a time. There is no default CS segment, and functions are reached using a far reference pointer. \\
 
-\trivia{When you compile a source file, the resulting code for that file cannot be greater than 64KiB, since it must all fit inside one code segment. If the source file is too big to fit into one (64KiB) code segment, the programmer must break it up into different source code files, compile each file separately.}\\
+\trivia{When you compile a source file, the resulting code for that file cannot be greater
+than 64KiB, since it must all fit inside one code segment. If the source file is too big to fit into one 64KiB code segment, the programmer must break it up into different source files and compile each file separately.}\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{imgs/drawings/medium_mm.eps}
+\includegraphics[width=0.85\textwidth]{imgs/drawings/memory/medium_mm.eps}
 \caption{Medium memory model, code can be larger than 64KiB.}
 \label{fig:mm_medium}
 \end{figure}
 \par
 
 \par
-Most games rely on dynamic memory allocation to load data like graphics and levels. Game data is loaded from disk when starting a level, so the size is not known when the game is initially executed. Loading all data for a level often requires a large portion of dynamic memory. As the heap is using the same default DS segment as global data and the stack, it most likely won't fit and results in a \cw{out of memory} error. \\
+The total data segment size remains 64KiB. For most games, this is enough for global variables and the stack. However, there is an issue with the size of the heap, which is used to load game data such as graphic assets and levels. One option to increase the data segment size is to use the large memory model, but this comes at the cost of slower data access as it is using far reference pointers for all data access.\\
 
 \par
-Luckily, in both the small and medium model, the memory between the stack and \cw{A0000h} is available to the game developer. It is called the \textit{farheap}, and can be allocated using the \cw{farmalloc()} function. The memory can only be accessed using a \cw{far} or \cw{huge} pointer reference. 
+There is, luckily, a way to access additional memory using the medium model. A large amount of unallocated memory is available between the heap and the high address \cw{A0000h}. This part of the memory is called the \textit{far heap} and can be allocated using the \cw{farmalloc()} function with far or huge pointer reference. This kind of programming, where you combine a standard memory model with your own \cw{near} and \cw{far} pointer allocation, is called \textit{mixed model programming}. You keep the benefits from the medium memory model, using near pointer references for global data and the stack, and have sufficient memory for dynamic allocation.\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{imgs/drawings/farheap_mm.eps}
-\caption{farheap memory between stack and \cw{A0000}.}
+\includegraphics[width=1.0\textwidth]{imgs/drawings/memory/farheap_medium_model.eps}
+\caption{Far heap memory.}
 \label{fig:mm_farheap}
 \end{figure}
 \par
 
-The opposite of the medium model is the compact model. Here the total function code is smaller than 64KiB, but data can exceed 64KiB. Both the large and huge model can deal with function code and data larger than 64KiB, but are slow in execution as they cannot use \cw{near} references.\\  
+The opposite of the medium model is the compact model. Here the total function code cannot exceed 64KiB, but there is more space for global data, stack and heap. The large model can deal with function code and data larger than 64KiB, but is slow in execution as only far pointers are used for both code and data. Borland C++ limits the size of all global data to 64KiB. The huge memory model sets aside that limit, allowing global data to occupy more than 64KiB\footnote{Also here the same limitation as before: If the source file is too big to fit into one 64KiB data segment, the programmer must break it up into different source files and compile each file separately.}.\\
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{imgs/drawings/memory/compact_large_huge_mm.eps}
+\caption{Compact, Large and Huge memory model.}
+\label{fig:mm_huge}
+\end{figure}
 \par
-Commander Keen is, like many games during that period, making ise of the medium memory model. It provides the best trade-off between code size (more than 64Kib), efficient access to global data using \cw{near} pointers and sufficient memory for dynamic allocation. \\
 
-<<PICTURE OF BORLAND>>\\
+\trivia{Although the name implies differently, the huge memory model in Borland C++ is still limited to segments up to 64KiB using far pointers, and not using huge pointers. The Watcom compiler, which gained popularity in the 90's, was able to break the 64KiB segment barrier using the huge pointer reference in the huge memory model\footnote{See https://open-watcom.github.io/open-watcom-v2-wikidocs/clr.html}.}
 
 \pagebreak
 
@@ -879,7 +895,7 @@ The IBM Music Feature Card was launched in March 1987 as a collaboration between
   \begin{figure}[H] 
     \centering 
     \scaledimage{1.0}{hardware/IBM_Music_Feature.png} 
-    \caption{IBM Musice Feature Card.}
+    \caption{IBM Music Feature Card.}
   \end{figure}
 
 \par
@@ -1033,47 +1049,6 @@ It is also backward compatible and an 8-bit ISA card can be plugged into a 16-bi
 
 
 
-
-
-
-\section{Inputs}
-At a time before the ubiquitous USB, inputs were a mess with no less than four ports, all programmed differently.\\
-
-The parallel port (DB-25) was on every computer and usually used to connect dot-matrix printers (loud things that printed with needles). The parallel port was multi-purpose and the Disney Sound Source could be plugged into it.\\
-\par
- \begin{figure}[H]
-\centering
-\includegraphics[width=0.3\textwidth]{imgs/drawings/ports/DB-25_parallel_port.eps}
-\caption{Parallel Port}
-\label{fig:parallelPort}
-\end{figure}
-
-
-The serial port (DE-9) was used to connect the mouse. The EGA monitor is also using a DE-9 connector, so it happened that people tried to plugin a mouse into the EGA card.
- \begin{figure}[H]
-\centering
-\includegraphics[width=0.15\textwidth]{imgs/drawings/ports/DE9_serial_port.eps}
-\caption{Serial Port and EGA Port}
-\label{fig:serialPort}
-\end{figure}
-
-
-The PS/2 port was used to connect a keyboard.
- \begin{figure}[H]
-\centering
-\includegraphics[width=0.07\textwidth]{imgs/drawings/ports/MiniDIN-6_PS2.eps}
-\caption{PS/2 Port}
-\label{fig:ps2Port}
-\end{figure}
-
-
-Finally, a SoundBlaster sound card connected via the ISA bus provided a Game Port (DA-15) allowing for connection to a joystick\footnote{In 1981, the very first IBM PC could be purchased with a DA-15 "Game Port" extension card at the cost of \$55 (\$159 in 2018).}.
- \begin{figure}[H]
-\centering
-\includegraphics[width=0.19\textwidth]{imgs/drawings/ports/DA-15_GamePort.eps}
-\caption{Game Port}
-\label{fig:gamePort}
-\end{figure}
 
 
 
