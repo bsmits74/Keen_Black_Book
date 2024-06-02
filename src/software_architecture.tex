@@ -207,77 +207,93 @@ Next to the hard drives (HDD) you can see the assets packed as described in Chap
 
 
 \subsection{Memory Manager (MM)}
-The engine does not rely on \cw{malloc} to manage conventional memory, as this can lead to fragmented memory and no way to compact free space. It has its own memory manager made of a linked list of "blocks" keeping track of the RAM. A block points to a starting point in RAM and has a size.\\
- \par
-\lstinputlisting[language=C]{code/mm_block.c}
- \par
-A block can be marked with attributes:
+The engine has its own memory manager, to have more control over memory fragmentation and optimization. The memory manager is made of a linked list of "blocks" keeping track of the RAM. A block points to a starting point in RAM, has a size and can be marked with attributes:
 \begin{itemize}
-\item \cw{LOCKBIT} : This block of RAM cannot be moved during compaction.
-\item \cw{PURGEBITS} : Four levels available, 0= unpurgeable, 1= purgeable, 2= not used, 3= purge first.
+  \item LOCKBIT : This block of RAM cannot be moved during compaction.
+  \item PURGEBITS : Two levels available, 0= unpurgeable, 3=purge first.
 \end{itemize}
 
-The memory manager starts by allocating all available RAM via \cw{malloc}/\cw{farmalloc} and creates a \cw{LOCKED} block of size 1KiB at the end. The linked list uses two pointers: \cw{HEAD} and \cw{ROVER} which point to the second to last block.
- \par
+\par
+\lstinputlisting[language=C]{code/mm_block.c}
+\par  
+
+The memory manager starts by allocating all RAM, starting from \cw{00000h}, and assigning each block to the linked list. Since the engine is compiled using the medium memory model, there are two heaps available: the near heap between the global variables and stack, and the far heap starting right behind the stack.  The total available free memory space for the near heap can be obtained by \\
+\par
+\lstinputlisting[language=C]{code/nearheap.c}
+\par  
+  
+The memory manager allocates all memory blocks in size of segments, meaning each block is provided in step size of 16 bytes. Therefore, the start and length of the memory block must be segment aligned. \\
+\par
+\lstinputlisting[language=C]{code/mm_block_first.c}
+\par  
+
+The first allocated block is the unusable block of memory from segment \cw{0000h} to the start of the near heap.\\
+\par
+\lstinputlisting[language=C]{code/mm_getnewblock.c}
+\par  
+
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/mm_start.eps}
- \caption{Initial memory manager state.}
+ \caption{First locked block of unusable memory.}
  \end{figure}
  \par
- The engine interacts with the Memory Manager by requesting RAM (\cw{MM\_GetPtr}) and freeing RAM (\cw{MM\_FreePtr}). To allocate memory, the manager searches for "holes" between blocks. This can take up to three passes of increasing complexity:
-\begin{enumerate}
-\item After rover.
-\item After head.
-\item Compacting and then after rover.
-\end{enumerate}
+
 \par
-  The easiest case is when there is enough space after the rover. A new node is simply added to the linked list and the rover moves forward. In the next drawing, three allocation requests have succeeded: \cw{A}, \cw{B} and \cw{C}.\\
-  \par
-\begin{figure}[H]
-\centering
- \includegraphics[width=\textwidth]{imgs/drawings/mm_after_rover.eps}
- \caption{MM internal state after three pass 1 allocations.}
- \end{figure}
- \par
-Eventually the free RAM will be exhausted and the first pass will fail.
-  \par
-\begin{figure}[H]
-\centering
- \includegraphics[width=\textwidth]{imgs/drawings/mm_before_rover.eps}
- \caption{Pass 1 failure: Not enough RAM after the ROVER.}
- \end{figure}
- \par
- If the first pass fails, the second pass looks for a "hole" between the head and the rover. This pass will also purge unused blocks. If for example block B was marked as \cw{PURGEABLE}, it will be deleted and replaced with the new block E. At this point fragmentation starts to appear (like if \cw{malloc} was used).\\
- \begin{figure}[H]
-\centering
- \includegraphics[width=\textwidth]{imgs/drawings/mm_after_head.eps}
- \caption{\cw{B} was purged. \cw{E} was allocated in pass 2.}
- \end{figure}
- \par
- If the first and second pass fail, there is no continuous block of memory large enough to satisfy the request. The manager will then iterate through the entire linked list and do two things: delete blocks marked as purgeable, and compact the RAM by moving blocks.
-  \par
-\begin{figure}[H]
-\centering
- \includegraphics[width=\textwidth]{imgs/drawings/mm_compact.eps}
-  \caption{\cw{A} and \cw{E} were purged. \cw{C} and \cw{D} compacted. \cw{F} allocated in pass3.}
- \end{figure}
- \par
-But if memory is moved around, how do previous allocations still point to what they did before the compaction phase? Notice that a \cw{mmblockstruct} has a \cw{useptr} pointer which points to the owner of a block.  When memory is moved, the owner of the block is also updated.\\
+The stack is the next unusable block of memory. As the stack will grow/shrink during game execution, an additional part of the near heap free memory must be reserved for the stack.
 \par
-As some blocks are marked as \cw{LOCKED}, compacting can be disturbed. Upon encountering a locked block, compacting stops and the next block will be moved immediately after the locked block, even if there was space available between the last block and the locked block.\\
-   \par
+\lstinputlisting[language=C]{code/mm_savenearheap.c}
+\par  
+
+The next step is allocate the far heap, which can be obtained by\\
+
+\par
+\lstinputlisting[language=C]{code/farheap.c}
+\par 
+
+The second block of unusable memory is the start of the stack memory, including the reserved memory block, until the start of the far heap.\\
+
 \begin{figure}[H]
 \centering
- \includegraphics[width=\textwidth]{imgs/drawings/mm_bad_compact.eps}
- \caption{\cw{E} is locked and cannot be compacted.}
+ \includegraphics[width=\textwidth]{imgs/drawings/mm_stack.eps}
+ \caption{Second locked block: stack.}
  \end{figure}
  \par
-  In the above drawing, C was moved after E, even though it could have been moved before. Avoiding this waste would have made the memory manager more complicated, so the waste was deemed acceptable. Often in designing a component you have to be practical and establish a certain trade off between accuracy and complexity.\\
-  \par
-  
-  
-  
+
+\par
+Finally, the last block of unusable memory is between the end of the far heap and the end of the 1MiB memory, the area that is typically for VRAM, ROM, etc. Now the entire memory starting at segment \cw{0000h} up to \cw{FFFFh} is allocated and chained together, and under full control of the memory manager. \\
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=\textwidth]{imgs/drawings/mm_final.eps}
+ \caption{Final initial memory manager state.}
+ \end{figure}
+ \par
+
+The engine interacts with the Memory Manager by requesting RAM (\cw{MM\_GetPtr}) and freeing RAM (\cw{MM\_FreePtr}). To allocate memory, the manager searches for "holes" between
+blocks\footnote{See the "Game Engine Black book Wolfenstein 3D" for a detailed description how the memory manager is allocating memory}. \\
+\begin{figure}[H]
+\centering
+ \includegraphics[width=\textwidth]{imgs/drawings/mm_allocation.eps}
+ \caption{Allocation of memory.}
+ \end{figure}
+ \par
+
+\par
+By calling \cw{MM\_ShowMemory} you can inspect at any moment during game play the current memory usage. Each pixel represents 16 bytes (one segment increment). The red area represents blocked memory, black is available memory, blue is unpurgeable and purple is purgeable memory. The small white pixels are the start of a new memory block from the linked list. Notice how small the size of the near heap is (first black line) compared with the large heap!\\
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{1.0\linewidth}
+		\includegraphics[width=\linewidth]{screenshots_300dpi/mm_dump_start.png}
+	\end{subfigure}\\
+	\vspace{3em}
+	\begin{subfigure}{1.0\linewidth}
+		\includegraphics[width=\linewidth]{screenshots_300dpi/mm_dump_run.png}
+	\end{subfigure}
+	\caption{Memory dump after (i) initializing memory manager and (ii) running the game.}
+	\label{fig:subfigures}
+\end{figure}
 
 
 \subsection{Video Manager (VW \& RF)}
