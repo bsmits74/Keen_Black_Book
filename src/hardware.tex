@@ -444,13 +444,13 @@ The opposite of the medium model is the compact model. Here the total function c
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{imgs/drawings/memory/compact_large_huge_mm.eps}
+\includegraphics[width=0.8\textwidth]{imgs/drawings/memory/compact_large_huge_mm.eps}
 \caption{Compact, Large and Huge memory model.}
 \label{fig:mm_huge}
 \end{figure}
 \par
 
-\trivia{Although the name implies differently, the huge memory model in Borland C++ is still limited to segments up to 64KiB using far pointers, and not using huge pointers. The Watcom compiler, which gained popularity in the 90's, was able to break the 64KiB segment barrier using the huge pointer reference in the huge memory model\footnote{See https://open-watcom.github.io/open-watcom-v2-wikidocs/clr.html}.}
+\trivia{Although the name implies differently, the huge memory model in Borland C++ is still limited to segments up to 64KiB using far pointers, and not using huge pointers. The Watcom compiler, which gained popularity in the 90's, was able to break the 64KiB segment barrier using the huge pointer reference for the huge memory model\footnote{See https://open-watcom.github.io/open-watcom-v2-wikidocs/clr.html}.}
 
 \pagebreak
 
@@ -738,7 +738,15 @@ When calculating the intended value in the 64-color EGA palette, the 6-bit numbe
 
 \medskip
 \par
-However, standard EGA monitors did not support use of the extended color palette in 200-line modes. Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output. 
+However, standard EGA monitors did not support use of the extended color palette in 200-line modes. Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output. \\
+ \begin{figure}[H]
+\centering
+\includegraphics[width=0.15\textwidth]{imgs/drawings/ports/DE9_serial_port.eps}
+\caption{DE-9 video output connector.}
+\label{fig:serialPort}
+\end{figure}
+
+\par
 The EGA monitor could only distinct EGA and CGA cards based on the Vertical Sync signal, which is either 200- or 350-line mode. If the Vertical Sync is 350-line mode, the monitor switched to Mode 2 operations which supported the extended rgbRGB-color information\footnote{IBM Enhanced Color Display documentation.}. But in the 200-line mode, the monitor cannot distinguish between being connected to a CGA or an EGA card. \\
 
 
@@ -1005,6 +1013,20 @@ In the time before the internet, a floppy disk was the main medium to share and 
 
 
 A floppy disk is essentially a very flexible piece (hence the term floppy disk) of plastic coated on both sides in a magnetic material. This 'disk' of plastic is contained within a protective envelope or hard plastic case, which is then inserted into the drive and automatically locked onto a spindle. It is then rotated at a constant speed, 360 rpm for standard PC floppy drives. A head assembly consisting of two magnetic read/write heads, one in contact with the upper surface and one in contact with the lower surface of the disk, may be moved in discrete steps across the disk and read the data from the disk.\\
+
+\par
+The data on a floppy disk is stored in concentric circular tracks divided into arc-shaped sectors. The amount of data a disk can store is determined by the number of tracks and sectors and the density of the recorded information (single and double density). Near the center, there is a small hole called the index hole, which marks the start of a sector.\\
+
+\begin{figure}[H]
+\centering
+      \includegraphics[width=0.7\textwidth]{imgs/drawings/floppy_disk.eps}
+      \caption{Floppy disk with tracks, sectors and the index hole.}
+\end{figure}
+
+\par
+When the floppy disk drive is powered up, the read/write heads move to the target track, starting from track 0 (the starting track on a floppy disk). Once the sensor reaches the target track, the computer is ready to retrieve or write data onto the floppy disk. To select a specific sector, the drive must wait for that sector to pass under the head. The drive determines which sector it is on by waiting for the index hole to be under the head. Since the rotation speed is kept constant, the time when the next sector is under the head is known. Now, the head can read or write to the specific sector/track combination on the disk.\\
+
+
 \par
 The floppy disk is controlled via the Floppy Disk Controller (FDC), a typical read operation from the floppy disk contains the following steps:
 \begin{itemize}

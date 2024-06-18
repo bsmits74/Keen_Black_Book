@@ -4,9 +4,7 @@ SC_INDEX    =   0x3C4    ;Sequence register
 SC_MAPMASK  =   2        ;map mask register
 
 ;==============
-;
 ; Set EGA mode to read/write from latch
-;
 ;==============
 
 cli                      ;interrupts disabled
@@ -17,5 +15,4 @@ out	dx,ax                ;the latches only
 mov dx,SC_INDEX          ;enable writing to all 4 planes
 mov ax,SC_MAPMASK+15*256 ;at once 
 out dx,ax
-
 sti                      ;interrupts enabled

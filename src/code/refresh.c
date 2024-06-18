@@ -1,6 +1,5 @@
 void RF_Refresh (void)
 {
-
     updateptr = updatestart[otherpage];
 
     RFL_AnimateTiles ();// update animated tiles	
@@ -18,5 +17,4 @@ void RF_Refresh (void)
 
     // display the changed screen (swap view and buffer) 
     VW_SetScreen(bufferofs+panadjust,panx & xpanmask);
-
 }
