@@ -1,14 +1,9 @@
 typedef	struct spriteliststruct
 {
-    //This is the same structure as eraseblocktype
     int			screenx,screeny;
     int			width,height;
-    //----------------------------------------------
-
-    unsigned	grseg,sourceofs,planesize;
     [...]
 } spritelisttype;
-
 
 typedef struct
 {

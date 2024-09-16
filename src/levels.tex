@@ -1,0 +1,75 @@
+\documentclass[book.tex]{subfiles}
+\begin{document}
+
+\label{asset_details}
+\section{Unboxing the asset files}
+
+Commander Keen Dreams contains three asset files; The graphical assets, level maps and sound. The first table is the level map file, which contains 21 levels. Each tile contains a foreground, background and Info tile, each tile is an integer. 
+
+\begin{figure}[H]
+\centering
+{\renewcommand{\arraystretch}{1.2} %<- modify value to suit your needs
+\begin{tabularx}{\textwidth}[c]{|X|X|r|r|}
+  \hline
+  \textbf{Level} & \textbf{Title} & \textbf{width x height (tiles)} & \textbf{Size (bytes)}\\ \hline
+	0 & xxx & 85 x 66 &  33,660 \\
+	1 & xxx & 136 x 37 &   30,192 \\ 
+	2 & xxx & 94 x 93 &   52,452 \\
+	3 & xxx & 65 x 62 &  24,180 \\
+	4 & xxx & 74 x 46 &  20,424 \\
+	5 & xxx & 42 x 72 &   18,144 \\
+	6 & xxx & 26 x 30 &   4,680 \\
+	7 & xxx & 202 x 59 &  71,508 \\
+	8 & xxx & 26 x 30 &  4,680 \\
+	9 & xxx & 126 x 47 &  35,532 \\
+	10 & xxx & 139 x 39 &  32,526 \\
+	11 & xxx & 26 x 30 &  4,680 \\
+	12 & xxx & 93 x 29 &  16,182 \\
+	13 & xxx & 26 x 30 &  4,680 \\
+	14 & xxx & 74 x 29 &  12,876 \\
+	15 & xxx & 35 x 30 &  6,300 \\
+	16 & xxx & 85 x 80 &  40,800 \\
+	20 & xxx & 37 x 19 &  4,218 \\ \hline
+	\textbf{Total} & \multicolumn{3}{r|}{\textbf{417,714}} \\ \hline
+\end{tabularx}
+}
+\caption{KDREAMS.MAP level map details.}
+\end{figure}
+
+The second file contains all graphical assets. The majority of the file is existing out of background (TILE16) and foregounds (TILE16M) tile grahpics.
+\begin{figure}[H]
+\centering
+{\renewcommand{\arraystretch}{1.2} %<- modify value to suit your needs
+\begin{tabularx}{\textwidth}[c]{|>{\hsize=.3\hsize}X |>{\hsize=.25\hsize}X |>{\hsize=.25\hsize}X |>{\hsize=.2\hsize}r |}
+  \hline
+  \textbf{Asset type} & \textbf{quantity} & \textbf{unit size (bytes)} & \textbf{Size (bytes)}\\ \hline
+  TILE16 & 643 & 128 & 82,304 \\
+  TILE16M & 542 & 160 & 86,720 \\
+  NUMTILE8 & 72 & 32 & 2,304 \\
+  NUMTILE8M & 36 & 40 & 1,440 \\
+  FONT & 1 & 1900 & 1900 \\
+  PIC & 65 & 256-298 & 29,632 \\
+  PICM & 2 & 320 / 480 & 800 \\
+  SPRITE & 297 & 10-6180 & 148,975 \\ \hline
+  \textbf{Total} & \multicolumn{3}{r|}{\textbf{354,075}} \\ \hline
+\end{tabularx}
+}
+\caption{KDREAMS.EGA graphic asset details.}
+\end{figure}
+
+The final asset file contains sounds for the PC speaker and Adlib soundcard.
+\begin{figure}[H]
+\centering
+{\renewcommand{\arraystretch}{1.2} %<- modify value to suit your needs
+\begin{tabularx}{\textwidth}[c]{|X|X|r|}
+  \hline
+  \textbf{Sound source} & \textbf{number of samples} & \textbf{Size (bytes)}\\ \hline
+  PC Speaker & 28 & 1,923 \\
+  AdLib & 28 & 2,649 \\ \hline
+  \textbf{Total} & \multicolumn{2}{r|}{\textbf{4,572}} \\ \hline
+\end{tabularx}
+}
+\caption{KDREAMS.EGA graphic asset details.}
+\end{figure} 
+
+\end{document}

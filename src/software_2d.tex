@@ -374,7 +374,7 @@ Both VRAM and tile arrays pointers are moved to the left to introduce a new colu
 
 \pagebreak
 
-In the next step the engine scans all '1' and copy the corresponsing tiles from master to the buffer page. Notice how much more efficient scrolling takes place compared to the orginal ATR engine in Figure \ref{fig:kc1_3_step2}. Only 6\% of the screen requires a tile refresh! 
+In the next step the engine scans all '1' and copy the corresponsing tiles from master to the buffer page. \\ 
 
 \begin{figure}[H]
 \centering
@@ -386,9 +386,13 @@ In the next step the engine scans all '1' and copy the corresponsing tiles from 
 \pagebreak
 A list of removed sprites is maintained by the sprite removal block list. \\
 \par
-CODE\\
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/erase_blocks.c}
+  \end{minipage}
+  \label{block_removal}
+
 \par
-Each sprite removal contains the location and size to be removed, which is done by copying the specific section from the master screen to the virtual page. The corresponding tiles which overlap with the removal block are marked with a '2'.\\
+Each removal block contains the location and size to be removed, which is done by copying the specific section from the master screen to the virtual page. The corresponding tiles which overlap with the removal block are marked with a '2'.\\
 
 \par
 \textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is a used in the original ATR engine.\\
@@ -406,7 +410,7 @@ The final step in updating the buffer is to copy sprites to the new location. Ea
 
 \pagebreak
 
-After the buffer has been refreshed, the engine only has to update the CTCR start address to virtual page 1. The visible tile array is emptied and the pointer is reset to the starting location, while the new buffer array (virtual page 0) keeps the tiles marked since the corresponding screen has not been refreshed yet. Now, the entire refresh cycle starts over again, where virtual page 0 is now the buffer.
+After the buffer has been refreshed, the engine only has to update the CTCR start address to virtual page 1. The visible tile array is emptied and the pointer is reset to the starting location, while the new buffer array (virtual page 0) keeps the tiles marked, since the corresponding screen has not been refreshed yet. Now, the entire refresh cycle starts over again, where virtual page 0 is now the buffer.
 
 
 \begin{figure}[H]
@@ -418,7 +422,7 @@ After the buffer has been refreshed, the engine only has to update the CTCR star
 
 \pagebreak
 
-The final step is to update the horizontal fine-pixel alignment by setting the pel pan register. \textit{Et voila,} the screen has scrolled to the left! \\
+The final step is to update the horizontal fine-pixel alignment by setting the pel pan register. \textit{Et voila,} the screen has scrolled to the left. Notice how much more efficient scrolling takes place compared to the orginal ATR engine in Figure \ref{fig:kc1_3_step2}. Only 8\% of the screen requires a tile refresh!\\
 \begin{figure}[H]
 \centering
  \scaledimage{0.7}{/game/Scroll_KC4_6_1.png}
@@ -578,7 +582,7 @@ As each sprite can float freely over the screen, also here bitshifted sprites ar
   \label{fig:sprite_shift}  
 \end{figure}
 \par
-Displaying the correct shifted sprite is as simple as below.
+Displaying the correct shifted sprite is as simple as below. 
 \\
 \par
 \begin{minipage}{\textwidth}

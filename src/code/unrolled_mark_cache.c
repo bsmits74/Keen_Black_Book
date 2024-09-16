@@ -11,7 +11,5 @@ void InitGame (void)
   CA_MarkGrChunk(STARTTILE8M);
   for (i=KEEN_LUMP_START;i<=KEEN_LUMP_END;i++)
     CA_MarkGrChunk(i);
-
-  CA_CacheMarks (NULL, 0); // Cache marked assets into memory
 }
 
