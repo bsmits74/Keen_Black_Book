@@ -15,22 +15,11 @@ void PlayLoop (void)
       obj = (objtype *)obj->next;
     } while (obj);
 
-    [...]           // Check for and handle collisions 
-                    // between objects
-
+    [...]           // Handle collisions between objects
     ScrollScreen(); // Scroll if Keen is nearing an edge.
-                    // Draw new tiles to master screen in
-                    // VRAM, and mark them in tile arrays
-
-    [...]           // React to whatever happened, and post 
-                    // sprites to the refresh manager
-
-    RF_Refresh();   // Copy marked tiles from master to
-                    // buffer screen, and update sprites
-                    // in buffer screen. 
-                    // Finally, switch buffer and view
-                    // screen
-
+    [...]           // React to whatever happened.
+    RF_Refresh();   // Update buffer screen and switch  
+                    // buffer and view screen
     CheckKeys();    // Check special keys
   } while (!loadedgame && !playstate);
 }

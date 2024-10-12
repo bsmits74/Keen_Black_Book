@@ -1,11 +1,70 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
 
-\section{Tricks}
+\section{Performance and other Tricks}
+Various smart techniques were employed to ensure every CPU cycle counted. This section explores some of the techniques used in Commander Keen.
 
-This section describes random tricks used to keep a smooth game play. 
+\subsection{Tile caching}
+When updating the master screen in VRAM, the engine copies each tile from RAM to VRAM. Each pixel requires a read and write operation to the four memory banks. As explained in section \ref{section:optimize_tile}, by reprogramming the latches on the EGA card, it was possible to copy four bytes at once from one VRAM location to another VRAM location. This trick could be applied to tiles if they contained only a background tile with no foreground layer.\\
 
+\par
+Once a background tile is loaded into the master screen, any subsequent requests for the same tile can be handled by copying it directly from VRAM, applying the reprogrammed latches, rather than from RAM to VRAM. The engine only needs to maintain which background tiles are already loaded into VRAM, which is done via an array.\\
 
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/tile_cache.c}
+\end{minipage}
+\par
+
+The assembly function \cw{RFL\_NewTile} is responsible for drawing tiles to the master screen. It first checks if the background tile is already available in the tile cache array. If it is, the tile is copied with 32 bits per cycle from VRAM. If it is not, the tile is loaded from RAM, and the memory pointer in VRAM for that tile is stored in the tile cache array, allowing future requests to be served from VRAM.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/RFL_NewTile.ASM}
+\end{minipage}
+\par
+
+\subsection{Memory alignment}
+The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: this only works when accessing even memory addresses. Even worse, writing a word at offset address \cw{FFFFh} causes an exception. \\
+
+\par
+Since a tile is word-aligned (16 bits wide) and the screen is refreshed in tile-size steps, it is always aligned with even memory addresses. However, this is not the case for sprites, which are byte-aligned. When a sprite is drawn starting from an odd memory address, the CPU can only read and write 8 bits at a time. To utilize the 16-bit data bus and avoiding the memory exception,  the engine first checks whether the destination is at an even or odd memory address. If the address is odd, it first writes a byte to VRAM to align the next operation to an even address, after which it continues writing in 16-bit words. To optimize sprite writing to VRAM, the engine uses small function routines for each combination of sprite width and even/odd address alignment.\\
+
+\begin{figure}[H]
+\centering
+\begin{table}[H]
+\begin{tabularx}{\textwidth}[c]{|X|X|X|}
+\hline
+  & \multicolumn{2}{c|}{\textbf{Start address}} \\ \hline
+\textbf{Sprite width (bytes)} & \textbf{Even} & \textbf{Odd} \\ \hline
+1 & Byte & Byte \\ \hline
+2 & Word & Byte, Byte \\ \hline 
+3 & Word, Byte & Byte, Word \\ \hline
+4 & Word, Word & Byte, Word, Byte \\ \hline
+5 & Word, Word, Byte & Byte, Word, Word \\ \hline
+6 & Word, Word, Word & Byte, Word, Word, Byte \\ \hline
+7 & Word, Word, Word, Byte & Byte, Word, Word, Word \\ \hline
+8 & Word, Word, Word, Word & Byte, Word, Word, Word, Byte \\ \hline
+9 & Word, Word, Word, Word, Byte & Byte, Word, Word, Word, Word \\ \hline
+10 & Word, Word, Word, Word, Word & Byte, Word, Word, Word, Word, Byte \\ \hline
+
+\end{tabularx}
+\end{table}
+\end{figure}
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/mask_routines.asm}
+\end{minipage}
+\par
+
+Each function pointer is stored in a \cw{maskroutines} array. By cleverly using bit-shift operations and the Carry Flag (CF), the engine calls the appropriate function to write the sprite to VRAM.
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/VW_MaskBlock.asm}
+\end{minipage}
+\par
 
 
 \subsection{Bouncing Physics}
@@ -25,7 +84,6 @@ The speed is calculated as a factor of either the x- or y-speed, depending which
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/calc_angle.c}
 \end{minipage}
-\label{wallclip_array}
 \par
 
 For each combination of the eight type of slopes (Figure \ref{fig:walltype}) and incoming angle, the corresponding bounce angle is calculated using a simple lookup table.\\
@@ -34,7 +92,6 @@ For each combination of the eight type of slopes (Figure \ref{fig:walltype}) and
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/bounceangle_lookup.c}
 \end{minipage}
-\label{wallclip_array}
 \par
 
 The value in the table refers to the corresponding bounce angle calculation. As example, walltype 3 with incoming angle of 22$^{\circ}$, results in bounce calculation case 5.
@@ -52,7 +109,6 @@ The value in the table refers to the corresponding bounce angle calculation. As 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/angle.c}
 \end{minipage}
-\label{wallclip_array}
 \par
 
 Notice that in several cases the bounce angle is not following the laws of physics. As example, for an incoming angle of 22$^{\circ}$ on a 45$^{\circ}$ slope the bounce angle is 90$^{\circ}$, instead of 67$^{\circ}$.
@@ -60,7 +116,6 @@ Notice that in several cases the bounce angle is not following the laws of physi
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{imgs/drawings/bounce_physics.eps}
-\label{fig:bounce_angles}
 \end{figure}
 \par
 

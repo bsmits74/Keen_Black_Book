@@ -1,0 +1,1 @@
+unsigned	tilecache[NUMTILE16];
