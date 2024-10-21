@@ -22,7 +22,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
   Video & Impossible \\ 
   Audio & Very Poor \\ 
   Inputs & Ok \\ 
-  CPU & Very Poor \\ 
+  CPU & Good \\ 
   Disk & Ok \\ \bottomrule
 \end{tabularx}
 \caption{Component quality for a game engine.}
@@ -31,14 +31,12 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 
 
 \section{CPU: Central Processing Unit}
-  
 
-
-  In 1989 around 15\% of the households owned a computer\footnote{https://www.statista.com/statistics/184685/percentage-of-households-with-computer-in-the-united-states-since-1984/}. The performance of these machines was so overwhelmingly determined by the CPU that a PC was referred to not by its brand or GPU\footnote{There was no GPU yet. The term was coined by Nvidia in 1999, who marketed the GeForce 256 as "the world's first GPU", or Graphics Processing Unit.}, but by the main chip inside. If a PC had an Intel 8088 or equivalent, it was called a "XT" . If it had an Intel 80286, it was a "286" or "AT".\\
+  In 1989 around 15\% of the households owned a computer\footnote{https://www.statista.com/statistics/184685/percentage-of-households-with-computer-in-the-united-states-since-1984/}. The performance of these machines was so overwhelmingly determined by the CPU that a PC was referred to not by its brand or GPU\footnote{There was no GPU yet. The term was coined by Nvidia in 1999, who marketed the GeForce 256 as "the world's first GPU", or Graphics Processing Unit.}, but by the main chip inside. If a PC had an Intel 8088 or equivalent, it was called a "XT". If it had an Intel 80286, it was a "286" or "AT".\\
 \subsection{Overview}
   Intel released the 8086 in 1979, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen could run on a 8088, but an Intel 286 was recommended.\\   
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen was developed with a 80286 in mind.\\   
 
 \par
 
@@ -103,16 +101,16 @@ While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The
 
 \fullimage{286_layout_photo.png}
 \par \vspace{-1pt}
-% Below, a 1:1 scale of the 3.68cm x 3.68cm packaging next to a schematic showing the actual die inside.\\
+% Below, a 1:1 scale of the 2.90cm x 2.90cm packaging next to a schematic showing the actual die inside.\\
 \begin{minipage}{0.48\textwidth}
 \centering
-\scaledrawimage{3.68cm}{286_packaging.png} 
+\scaledrawimage{2.90cm}{286_packaging.png} 
 
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
 \centering
-\scaledrawimage{3.68cm}{286_packaging_die.png}
+\scaledrawimage{2.90cm}{286_packaging_die.png}
 \end{minipage}
 
 
@@ -191,7 +189,7 @@ Despite its pipeline design, the 286 cannot do an operation in less than two cyc
    \cw{IN [reg16], reg16} & 5 \\
   \toprule
 \end{tabularx}
-\caption{286 instruction costs\protect\footnotemark}
+\caption{286 instruction costs\protect\footnotemark.}
 \end{figure}
 \addtocounter{footnote}{-1}
 \stepcounter{footnote}
@@ -203,7 +201,7 @@ Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus whe
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{imgs/drawings/data_alignment.eps}\\
+\includegraphics[width=0.9\textwidth]{imgs/drawings/data_alignment.eps}\\
 \end{figure}
 \par
 
@@ -241,16 +239,16 @@ To support this architecture, the CPU keeps track of four different segments. Ea
 \end{itemize}
 
 \par
-In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: \cw{near} and \cw{far}. \\
+In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: \textit{near} and \textit{far}. \\
 
 \par
-A \cw{near} pointer refers to a function or data object that is within the default segment. It is 16 bits long and contains an offset into the current DS data segment if it's a data pointer, or into the current CS code segment if it's a function pointer. A \cw{far} pointer could refer to a function or data that is in a different segment than the current, default segment. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
+A near pointer refers to a function or data object that is within the default segment. It is 16 bits long and contains an offset into the current DS data segment if it's a data pointer, or into the current CS code segment if it's a function pointer. A far pointer could refer to a function or data that is in a different segment than the current, default segment. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
 
 \par
-Accessing code or data with a \cw{near} reference is much quicker than accessing it with a \cw{far} pointer. When you use a \cw{far} reference, your program must first find the segment and then find the code or data within that segment. When you use a \cw{near} reference, your program only needs to find the code or data via the offset. For a faster program, one should make as many \cw{near} references as possible. The downside of using \cw{near} pointers only is that it cannot handle more than 64KiB of memory for the program or data.\\
+Accessing code or data with a near pointer is much faster than using a far pointer. When you use a near pointer, the program only needs to locate the code or data through the offset (or index) register. However, when using a far pointer, the program must first find the segment and then locate the code or data within that segment. For faster execution, one should use as many near pointers as possible. The drawback of using only near pointers is that they limit the program or data to 64KiB of memory.\\
 
-
-Note that a \cw{far} pointer only increments the offset, not the segment. If you iterate on a data array larger than 64KiB there will be no overflow handling, so you will be able to handle only 64KiB of memory.\\
+\par
+It's important to note that a far pointer increments only the offset, not the segment. If you iterate over a data array larger than 64KiB, there will be no automatic overflow handling, meaning you can only address up to 64KiB of memory. \\
 
 \par
 \begin{minipage}{\textwidth}
@@ -264,7 +262,8 @@ Will output:\\
  \end{minipage}\\
 
 \par
-You could use yet another type of pointer named \cw{huge} to make pointer arithmetic work beyond 64KiB. \\
+To work with memory beyond this limit, you can use another type of pointer called a \textit{huge} pointer, which allows pointer arithmetic to function correctly beyond the 64KiB boundary.\\
+
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/huge_pointer.c}\par
@@ -277,7 +276,7 @@ Will output the address:\\
  \end{minipage}\\
 \par
 
-The \cw{huge} pointer is based on the absolute (or lineair) 20-bit memory location and Segment:Offset normalized address. The absolute memory address can be calculated by\\
+The huge pointer is based on the absolute (or lineair) 20-bit memory location and \\ \mbox{Segment:Offset} normalized address. The absolute memory address can be calculated by\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -285,14 +284,7 @@ The \cw{huge} pointer is based on the absolute (or lineair) 20-bit memory locati
 \end{minipage}\\
 
 \par
-For example the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}. By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all Segment:Offset memory pair locations. To convert an arbitrary Segment:Offset pair into a normalized address is a two-step process that's quite easy for an assembly programmer:\\
-
-\begin{enumerate}
-  \item Convert the Segment:Offset pair into a single absolute address.
-  \item Then simply insert the colon (:) between the last two hex digits and add three zeros before the last hex digit.
-\end{enumerate}
-
-For example, the normalized address for \cw{A000:002F} is \cw{A002:000F}. A \cw{huge} pointer is normalized when pointer arithmetic is performed on it. \\
+For example the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}. By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all Segment:Offset memory pair locations. This results in the normalized address \cw{A002:000F}. A huge pointer is normalized when pointer arithmetic is performed on it. \\
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/huge_pointer_normalized.c}\par
@@ -304,7 +296,6 @@ Will output:\\
  \lstinputlisting[language=C]{code/huge_pointer_norm_out.c}\par
  \end{minipage}\\
 \par
-
 
 
 \trivia{Since the normalized form will always have three leading zero bytes in its offset, programmers often write it with just the digit that counts: \cw{AFFF:F}}\\
@@ -342,19 +333,19 @@ Out of the original 1024KiB, only 640KiB (called Conventional Memory) was access
 \par
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{imgs/drawings/real_mode_v2.eps}
+\includegraphics[width=0.9\textwidth]{imgs/drawings/real_mode_v2.eps}
 \caption{First 1MiB of RAM layout.}
 \label{fig:fp_internals}
 \end{figure}
 \pagebreak
 
 \subsection{Real mode: Memory models}
-When a program is compiled and executed, the operating system allocates a chunk of memory to the program. This memory is divided into different segments as shown below
+When a program is compiled and executed, the operating system allocates a chunk of memory to the program. This memory is divided into different segments:
 \begin{itemize}
-  \item The code section stores the program executable. When you compile a C program, the compiler converts your code to assembly instructions that the CPU will execute. 
-  \item The data section stores (un)initialized global and static variables.
-  \item The heap section is memory that you can dynamically reserve from calling \cw{malloc()} function. The heap typically grows upwards, which means it grows toward larger memory addresses.
-  \item The stack section is memory for local variables and data inside your functions. The stack grows downwards (i.e. grow toward lower memory addresses).
+  \item \textbf{Code section}: Stores the program executable. When you compile a C program, the compiler converts your code into assembly instructions that the CPU executes.
+  \item \textbf{Data section}: Stores initialized and uninitialized global and static variables.
+  \item \textbf{Heap section}: Memory that is dynamically allocated using the malloc() function. The heap typically grows upwards, meaning it expands towards larger memory addresses.
+  \item \textbf{Stack section}: Memory used for local variables and data inside functions. The stack grows downwards, towards lower memory addresses.
 \end{itemize}
 
 \begin{figure}[H]
@@ -366,7 +357,7 @@ When a program is compiled and executed, the operating system allocates a chunk 
 \par
 
 \par
-The x86 real mode provided different memory segment layouts which are called \textit{memory models}. Each memory model controls how the segments are organized, as well as defining the default pointer type for functions and data to \cw{near} or \cw{far}. A near pointer is automatically associated with either CS segment register for assembly code or DS segment register for data. In total six different memory models\footnote{See Borland C++ 3.1 Programmer's guide, section DOS Memory management.} are defined, making trade-offs between minimum system requirements, maximizing code efficiency, and gaining access to every available memory location.
+The x86 real mode provides different memory segment layouts, called \textit{memory models}. Each memory model determines how segments are organized and defines whether the default pointer type for functions and data is near or far. A near pointer automatically associates with the CS segment register for assembly instruction or the DS segment register for data. Six memory models\footnote{See Borland C++ 3.1 Programmer's guide, section DOS Memory management.} exist, each offering trade-offs between minimum system requirements, maximizing code efficiency, and accessing available memory.
 
 
 \begin{figure}[H]
@@ -385,9 +376,7 @@ The x86 real mode provided different memory segment layouts which are called \te
 \end{tabularx}\\
 \end{figure}
 
-
-
-In the tiny memory model, all three segment registers, CS, DS, and SS, start at the same memory location. The first part of the memory is used for all code instructions, followed by data section. The heap is starting directly after the data section. Finally, the stack is starting at the opposite side of the segment and is growing downwards. Both the heap and stack can grow or shrink dynamically during program execution. If both the heap and stack continue to grow, they may eventually collide, resulting in a system or application crash.
+The smallest is the \textit{tiny memory model}, where all three segment registers (CS, DS, SS) start at the same memory location. The first part of memory is used for code instructions, followed by the data section. The heap begins directly after the data section, and the stack starts at the opposite end of the segment, growing downward. Both the heap and stack can dynamically grow or shrink during program execution. If they continue to grow, they may eventually collide, causing a system or application crash. \\
 
 \begin{figure}[H]
 \centering
@@ -395,15 +384,15 @@ In the tiny memory model, all three segment registers, CS, DS, and SS, start at 
 \caption{Tiny memory model.}
 \label{fig:mm_tiny}
 \end{figure}
-\par
-
-
-All function and data pointers are accessed via near offset references, using the CS and DS segment registers respectively. Since only near references are used, program execution is very efficient. However, there is a downside: everything resides in one segment of a maximum of 64KiB, similar to programming on a 16-bit computer.\\
-
-\trivia{The tiny memory model was required by programs that ended with the .COM extension, and it existed for backward compatibility with CP/M. CP/M ran on the 8080 processor which supported a maximum of 64KB of memory.}\\
 
 \par
-The small memory model separates instructions from data, each having their own 64KiB segment. The code segment has a maximum size of 64KiB for instructions, while the global data, stack, and heap share a separate 64KiB segment. Code execution remains efficient as all functions and data pointers use near references.
+All functions and data are accessed using near pointers, meaning the segment registers are set once and never changed during execution. However, this limits the program to a maximum of 64KiB, similar to programming on a 16-bit system.\\
+
+\trivia{The tiny memory model was required by programs that ended with the .COM extension, and it existed for backward compatibility with CP/M operating system. CP/M ran on the 8080 processor which supported a maximum of 64KB of memory.}\\
+
+\par
+In the \textit{small memory model}, instructions and data are separated, each having its own 64KiB segment. The code segment can store up to 64KiB of instructions, while the global data, stack, and heap share a separate 64KiB segment. Code execution is efficient since both functions and data are accessed using offset registers (near pointers) only.\\
+
 
 \begin{figure}[H]
 \centering
@@ -411,12 +400,11 @@ The small memory model separates instructions from data, each having their own 6
 \caption{Small memory model, code and data each have 64KiB.}
 \label{fig:mm_small}
 \end{figure}
+
 \par
+The \textit{medium memory model} is ideal for programs with a large amount of code but minimal global data. Many computer games fell into this category, since they had a lot of game logic, but not a lot of (global) game state data. In this model, each C source file has its own code segment, allowing up to 64KiB per file. A table manages all code segment references, with the CS register pointing to one segment at a time. Each function is a far pointer by default, requiring both the CS segment and IP offset register to be updated. While this model supports larger codebases, it comes at the cost of slower execution due to the far pointers.\\
 
-The medium model is useful for programs that have a lot of code but not a lot of data. Many computer games fell into this category, because they had a lot of game logic, but not a lot of game state data. Commander Keen was no exception. In the medium memory model each C-source file has its own code segment, allowing up to 64 KiB for each file. A table with all code segment references is maintained, and the CS register points to only one segment at a time. There is no default CS segment, and functions are reached using a far reference pointer. \\
-
-\trivia{When you compile a source file, the resulting code for that file cannot be greater
-than 64KiB, since it must all fit inside one code segment. If the source file is too big to fit into one 64KiB code segment, the programmer must break it up into different source files and compile each file separately.}\\
+\trivia{When compiling a source file, its code cannot exceed 64KiB, as it must fit inside one code segment. If the file is too large, the programmer must break it into smaller source files and compile them separately.}\\
 
 \begin{figure}[H]
 \centering
@@ -424,13 +412,18 @@ than 64KiB, since it must all fit inside one code segment. If the source file is
 \caption{Medium memory model, code can be larger than 64KiB.}
 \label{fig:mm_medium}
 \end{figure}
-\par
 
 \par
-The total data segment size remains 64KiB. For most games, this is enough for global variables and the stack. However, there is an issue with the size of the heap, which is used to load game data such as graphic assets and levels. One option to increase the data segment size is to use the large memory model, but this comes at the cost of slower data access as it is using far reference pointers for all data access.\\
+The \textit{compact memory model} is the opposite of the medium memory model, allowing up to 64KiB of global data while restricting function code to 64KiB. The \textit{large memory model} supports both code and data larger than 64KiB but requires far pointers for both, leading to slower execution. The \textit{huge memory model} removes the 64KiB limit on global data, allowing more flexibility, but also incurs a performance penalty. A detailed layout and explanation of each memory model is described in Appendix \ref{appendix_memory_models}.\\
+
+\subsection{Mixed Model Programming}
+
+In the medium memory model, the data segment remains limited to 64KiB. For most games, this is enough to store game state variables. However, the size of the heap is far too small to store game data such as graphics and game levels. One option is to use the large or huge memory models, but these come with the downside of slower data access due to the use of far pointers for all data.\\
+
 
 \par
-There is, luckily, a way to access additional memory using the medium model. A large amount of unallocated memory is available between the heap and the high address \cw{A0000h}. This part of the memory is called the \textit{far heap} and can be allocated using the \cw{farmalloc()} function with far or huge pointer reference. This kind of programming, where you combine a standard memory model with your own \cw{near} and \cw{far} pointer allocation, is called \textit{mixed model programming}. You keep the benefits from the medium memory model, using near pointer references for global data and the stack, and have sufficient memory for dynamic allocation.\\
+Fortunately, there is a way to access additional memory using the medium model. A large portion of unallocated memory is available between the heap and the high address \cw{A0000h}. This memory, known as the \textit{far heap}, can be allocated using the \cw{farmalloc()} function, which utilizes far or huge pointers. This technique, called mixed model programming, combines the advantages of the medium model with custom near and far pointer allocation. It allows the program to benefit from near pointer efficiency for global data and the stack, while also providing sufficient memory for dynamically allocated assets like graphics and levels.\\
+
 
 \begin{figure}[H]
 \centering
@@ -439,20 +432,6 @@ There is, luckily, a way to access additional memory using the medium model. A l
 \label{fig:mm_farheap}
 \end{figure}
 \par
-
-The opposite of the medium model is the compact model. Here the total function code cannot exceed 64KiB, but there is more space for global data, stack and heap. The large model can deal with function code and data larger than 64KiB, but is slow in execution as only far pointers are used for both code and data. Borland C++ limits the size of all global data to 64KiB. The huge memory model sets aside that limit, allowing global data to occupy more than 64KiB\footnote{Also here the same limitation as before: If the source file is too big to fit into one 64KiB data segment, the programmer must break it up into different source files and compile each file separately.}.\\
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{imgs/drawings/memory/compact_large_huge_mm.eps}
-\caption{Compact, Large and Huge memory model.}
-\label{fig:mm_huge}
-\end{figure}
-\par
-
-\trivia{Although the name implies differently, the huge memory model in Borland C++ is still limited to segments up to 64KiB using far pointers, and not using huge pointers. The Watcom compiler, which gained popularity in the 90's, was able to break the 64KiB segment barrier using the huge pointer reference for the huge memory model\footnote{See https://open-watcom.github.io/open-watcom-v2-wikidocs/clr.html}.}
-
-\pagebreak
 
 
 \section{Video}
@@ -486,7 +465,7 @@ character and/or graphics data); this is known as horizontal blanking.\\
 
 \par
 The area immediately surrounding the display area, in which the beam may be turned on
-during the retrace interval, is called the overscan (or border). The active display
+during the retrace interval, is called the overscan or border. The active display
 area is the portion of the screen that contains characters and/or graphics. These
 components of the scan are shown in simplified form in Figure \ref{fig:monitor}.\\
 
@@ -832,13 +811,6 @@ For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-li
 
 
 
-
- 
-
-  
-
-
-
 \subsection{The Importance of Double-Buffering}
 Double buffering has been mentioned often while describing the hardware, but so far we have not reviewed why it is paramount to achieving smooth animation. With only one buffer the software has to work at exactly the frequency of the CRT (60Hz). Otherwise a phenomenon known as "tearing" appears. Let's take the example of an animation rendering a circle moving from the left to the right:
 \par
@@ -858,10 +830,6 @@ If the CPU is faster than the frequency of the CRT (60Hz), it can write the fram
 
 \par
 With two buffers (a.k.a double buffering) the CPU can start writing in the second framebuffer without messing with the framebuffer being scanned to the screen\footnote{Now the CPU speed is capped by the CRT refresh rate. Triple buffering can solve this at the price of frame latency.}. No more tearing! A full screen of 320x200 pixels with 16 colors requires 320x200x 4-bits = 32KB of VRAM (spread over 4 planes, each 8KB), so there is plenty of video memory left to keep multiple screens in an EGA card with 256KiB memory.
-
-
-
-
 
 
 \section{Audio}
@@ -886,7 +854,7 @@ The introduction of real game music and sounds on the PC started with Sierra bac
 Sierra struck a deal with two companies, Roland and AdLib, where Sierra would also become a reseller for these soundcards. \\
 
 \par
-The Roland MT-32 was the higher end of these music devices. In today's terminology, it would be labeled a "Wavetable Synthesizer". A wavetable synthesizer usually implies that real instrument sounds are recorded into the hardware of the device. This device can then manipulate them to play them back at the various notes you need. The MT-32 had the ability to manipulate parts of its built in sounds using something called "Linear Arithmetic (LA)" synthesis. It was a very good device that can rival even today's sound cards. To connect the MT-32 to a PC required, what Roland called an MPU-401\footnote{Midi Processing Unit-401}, in one of the PC's expansion slots. Sierra sold The MT-32 with a necessary MPU-401 interface for \$550. The high price prevented it from dominating the end-user market of players.\\
+The Roland MT-32 was the higher end of these music devices. In today's terminology, it would be labeled a "Wavetable Synthesizer". A wavetable synthesizer usually implies that real instrument sounds are recorded into the hardware of the device. This device can then manipulate them to play them back at the various notes you need. The MT-32 had the ability to manipulate parts of its built in sounds using something called "Linear Arithmetic (LA)" synthesis. It was a very good device that can rival even today's sound cards. To connect the MT-32 to a PC required, what Roland called an MPU-401\footnote{Midi Processing Unit-401}, in one of the PC's expansion slots. Sierra sold The MT-32 with a necessary MPU-401 interface for \$550. The high price prevented it from dominating the end-user market of gaming.\\
 
 \par
   \begin{figure}[H] 
@@ -914,7 +882,7 @@ The IBM Music Feature Card was launched in March 1987 as a collaboration between
 AdLib was the other company, beside Roland, that struck a deal with Sierra as a reseller. The company was founded in 1987 by Martin Prevel, a former professor of music from Quebec. The AdLib soundcard used a technology called FM synthesis. The technology is based on the idea of generating superimposing waveforms to create a sound. This technology was much less expensive than Roland's Wavetable technology.\\
 
 \par
-The AdLib card was built around the Yamaha YM3812, also known as the OPL2 chip, and could produce either 9 sound channels or 6 sound channels plus 5 hit instruments simultaneously using Frequency Modulation (FM). Ideally, if you have enough generators and can fine tune the waveforms well enough, you can create a realistic sound. However, to reach this ideal, you need lots of skilled people, lots of money for equipment, and lots of time to develop. The reality is, this is a cheap PC soundcard offering a better alternative than the PC Speaker. Thus, FM synthesis sounded very artificial. Still, this was a great improvement over the PC Speaker. With a price tag of \$219.99, it was much cheaper than the Roland MT-32 and IBM Music Feature Card, and soon ruled at the top of the early PC sound card market.\\
+The AdLib card was built around the Yamaha YM3812, also known as the OPL2 chip, and could produce either 9 sound channels or 6 sound channels plus 5 hit instruments simultaneously using Frequency Modulation (FM). Ideally, if you have enough generators and can fine tune the waveforms well enough, you can create a realistic sound. However, to reach this ideal, you need lots of skilled people, lots of money for equipment, and lots of time to develop. Thus, FM synthesis sounded very artificial. Still, this was a great improvement over the PC Speaker. With a price tag of \$219.99, it was much cheaper than the Roland MT-32 and IBM Music Feature Card, and soon ruled at the top of the early PC sound card market.\\
 
 \par
   \begin{figure}[H] 
@@ -929,12 +897,9 @@ The AdLib card dominated the PC market for almost three years. In 1989, Creative
 
 
 
- 
-  
-
 
   \subsection{SoundBlaster}
-  Creative Labs, the company behind the SoundBlaster, didn't enter the sound card industry until 1987 with the introduction of their Creative Music System (C/MS). From inception in 1981, they were a computer repair shop in Singapore. Creative Music System, or "Game Blaster" as it was renamed a year later, was an FM synthesizer card similar to AdLib. Based on the Philips SAA1099 chip which was essentially a square-wave generator, it sounded much like twelve simultaneous PC speakers would have, except for each channel having amplitude control. The card did not sell well.\\
+  Creative Labs, the company behind the SoundBlaster, didn't enter the sound card industry until 1987 with the introduction of their Creative Music System (C/MS). From inception in 1981, they were a computer repair shop in Singapore. Creative Music System, or "Game Blaster" as it was renamed a year later, was a FM synthesizer card similar to AdLib. Based on the Philips SAA1099 chip, which was essentially a square-wave generator, it sounded much like twelve simultaneous PC speakers would have, except for each channel having amplitude control. The card did not sell well.\\
   
   \par
 The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to their Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.\\
@@ -966,34 +931,7 @@ Figure \ref{asb15} is the SoundBlaster model CT1320B. Notice the OPL2 chip (labe
 \end{figure}
 
 
-  \subsection{Disney Sound Source}
-  The parallel port is nothing more than a way to pass out 8 bits simultaneously. Each PC had this port, and the conversion of this kind of data to an analogue signal is pretty simple and can either be achieved by using a DAC\footnote{Digital to Analogue Converter.} or simply a set of resistors. Hence the only thing missing was the interface, which a company named Covox delivered with their "Speech Thing" for only \$70.\\
-
-\par  
-   The difficulty about this sound device was to get exact timing. All bytes are converted the moment they reach the parallel port. In many ways it works pretty similar to the PC-speaker, only its connected to the parallel port. The CPU was in the center of all this, and it required lots of CPU resources to timely move information from RAM to the parallel port.  This left limited CPU time for the game or program, in a time period where the CPU already was the bottleneck.\\
-   
-  \par
-  \begin{figure}[H] 
-    \centering 
-    \scaledimage{0.8}{hardware/ss.png} 
-    \caption{The Disney Sound Source speaker box (DAC not shown).}
-  \end{figure}
-\par   
-   
-   \par
-The Disney Sound Source came out around 1990 and fixed multiple issues: It contained a small buffer, so even an unsteady data stream resulted in a good audio signal. It also allowed to pass through the printer port, so there's no need to switch cables to print. And at \$14 it was dirt cheap! It came with its own amplifier, which ran with a 9 Volt battery. 
-
-
-It would have made programmers and customers happy if not for one serious limitation: The buffer was fixed at a 7,000Hz, which is about the quality you get from an old fashioned phone. This was still enough to produce pleasant music, but fell short for sound effects when compared to AdLib and Sound Blaster.
-
-\par
- \begin{figure}[H]
-\centering
-\includegraphics[width=0.7\textwidth]{imgs/drawings/DSS_buffer.eps}
-\caption{Disney Sound Source with buffer, running at fixed 7,000Hz.}
-\label{fig:DSS_buffer}
-\end{figure}
-
+  
   
 
 \section{Floppy Disk Drive}
