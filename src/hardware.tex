@@ -402,9 +402,9 @@ In the \textit{small memory model}, instructions and data are separated, each ha
 \end{figure}
 
 \par
-The \textit{medium memory model} is ideal for programs with a large amount of code but minimal global data. Many computer games fell into this category, since they had a lot of game logic, but not a lot of (global) game state data. In this model, each C source file has its own code segment, allowing up to 64KiB per file. A table manages all code segment references, with the CS register pointing to one segment at a time. Each function is a far pointer by default, requiring both the CS segment and IP offset register to be updated. While this model supports larger codebases, it comes at the cost of slower execution due to the far pointers.\\
+The \textit{medium memory model} is ideal for programs with a large amount of code but minimal data. Many computer games fell into this category, since they had a lot of game logic, but not a lot of (global) game state data. In this model, each C source file has its own code segment, allowing up to 64KiB per file. A table manages all code segment references, with the CS register pointing to one segment at a time. Each function is a far pointer by default, requiring both the CS segment and IP offset register to be updated. While this model supports larger codebases, it comes at the cost of slower execution due to the far pointers.\\
 
-\trivia{When compiling a source file, its code cannot exceed 64KiB, as it must fit inside one code segment. If the file is too large, the programmer must break it into smaller source files and compile them separately.}\\
+\trivia{When compiling a source file, its code cannot exceed 64KiB, as it must fit inside one code segment. If the file is too large, the program must be broken into smaller source files and compiled separately.}\\
 
 \begin{figure}[H]
 \centering
@@ -414,7 +414,7 @@ The \textit{medium memory model} is ideal for programs with a large amount of co
 \end{figure}
 
 \par
-The \textit{compact memory model} is the opposite of the medium memory model, allowing up to 64KiB of global data while restricting function code to 64KiB. The \textit{large memory model} supports both code and data larger than 64KiB but requires far pointers for both, leading to slower execution. The \textit{huge memory model} removes the 64KiB limit on global data, allowing more flexibility, but also incurs a performance penalty. A detailed layout and explanation of each memory model is described in Appendix \ref{appendix_memory_models}.\\
+The \textit{compact memory model} is the opposite of the medium memory model, allowing more than 64KiB of data while restricting function code to 64KiB. The \textit{large memory model} supports both code and data larger than 64KiB but requires far pointers for both, leading to slower execution. The \textit{huge memory model} removes the 64KiB limit on global data, allowing more flexibility, but also incurs a performance penalty. A detailed layout and explanation of each memory model is described in Appendix \ref{appendix_memory_models}.\\
 
 \subsection{Mixed Model Programming}
 
