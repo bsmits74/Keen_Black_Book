@@ -1,14 +1,3 @@
-// ID_VW.H
-
-typedef struct
-{
-  int	width,
-	height,
-	orgx,orgy,
-	xl,yl,xh,yh,
-	shifts;
-} spritetabletype;
-
 typedef struct
 {
 	int height;

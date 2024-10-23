@@ -5,55 +5,39 @@
 
 
 
-Development was done with Borland C++ 3.1 (but the language used was C) which by default ran in EGA mode 3 offering a screen 80 characters wide and 25 characters tall.\\
+Development was done with Borland C++ 3.1 (but the language used was C). John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
 \par
-John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
-\par
-Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}\footnote{Source: Borland C++ 3.1 User Guide.}.\\
+Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}\footnote{Source: Borland C++ 3.1 User Guide.}. There was no need to enter command-line mode however. The IDE allowed to create a project, build, run and debug. The software came with two thick manuals, explaining everything regarding the IDE and programming in C++.\\
 
+\par
 \begin{figure}[H]
 \centering
-  \fullimage{compiling.png}
-\caption{Borland C++ 3.1 editor}
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.5\linewidth]{screenshots_300dpi/borland_programmer_guide.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.5\linewidth]{screenshots_300dpi/borland_programmer_guide.png}
+\end{minipage}
+\caption{Borland C++ 3.1 User guide (238 pages) and Programmer guide (483 pages).}
 \end{figure}
+
+
 \par
+\begin{figure}[H]
+\centering
+  \fullimage{borland_memory_model.png}
+\end{figure}
 
-\pagebreak
-
-
-There was no need to enter command-line mode however. The IDE allowed to create a project, build, run and debug.\\
 \par
 \begin{figure}[H]
 \centering
   \fullimage{borland_compile.png}
-  \caption{Compiling Keen Dreams with Borland C++ 3.1}
+  \caption{Selecting memory model and compiling Keen Dreams with Borland C++ 3.1}
 \end{figure}
 
 
-
-
-
-
-Another way to improve screen real estate was to use "high resolution" 50x80 text mode.\\
-\par 
- \fullimage{borland_ide_select.png}\\
- \par
- \vspace{-7pt}
-The comments still fit perfectly on screen since only the vertical resolution is doubled.\\
-\par
-\vspace{-4pt}
- \fullimage{borland_ide_highres.png}
- 
-\bigskip
- The file \cw{KD\_MAIN.C} opened in both modes demonstrates the readability/visibility trade-off.\\
-\par
-
-  \fullimage{borland_ide_main_lowres.png}\\
-\vspace{-5pt}  
-   %\vspace{-4pt}
-\par
-\vspace{5pt}
- \fullimage{borland_ide_main_highres.png}
 \section{Graphic Assets}
 \label{section:graphic_assets}
 
@@ -68,7 +52,8 @@ All graphic assets were produced by Adrian Carmack. All of the work was done wit
 \pagebreak
 
 \subsection{Assets Workflow}
-After the graphic assets were generated, a tool (IGRAB) packed all ILBMs together in a compressed \cw{DATA} archive (\cw{EGA}-file) and generated a \cw{HEAD} table, \cw{DICT} file (\cw{KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}) and C header file with asset IDs. The engine references an asset directly by using these IDs.\\
+After the graphic assets were generated, a tool (IGRAB) packed all ILBM files into a compressed data asset file (\cw{EGA}-file) and generated a \cw{HEAD} table, \cw{DICT} file (\cw{KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs.\\
+
 
 \begin{figure}[H]
 \centering
@@ -78,23 +63,21 @@ After the graphic assets were generated, a tool (IGRAB) packed all ILBMs togethe
 \end{figure}
 
 \par
-In the engine code, asset usage is hardcoded via an enum. This enum is an offset into
-the \cw{HEAD} table which gives an offset in the \cw{DATA} archive. With this indirection layer, assets could be regenerated and reordered at will with no modification in the source code. \\
+In the engine's code, asset usage is hardcoded via an enum. This enum serves as an offset into the \cw{HEAD} table, which then provides an offset within the data asset file. With this indirection layer, assets could be regenerated and reordered at will with no modification in the source code.\\
 
-\trivia{The \cw{HEAD} and \cw{DICT} files in the source code must match the \cw{DATA} file from the shareware version of Keen Dreams. The latest release of the source code (v1.93) doesn't match with the final shareware version 1.13. You need to retrieve a specific \cw{git} commit to ensure a \cw{HEAD}, \cw{DICT} and \cw{DATA} archive are matching, which will be explained in the next chapter.}
+\trivia{The \cw{HEAD} and \cw{DICT} files in the source code must match the data asset file from the shareware version of \textit{Keen Dreams}. However, the latest release of the source code (v1.93) does not match with shareware version v1.13. To ensure that the \cw{HEAD}, \cw{DICT}, and data asset file are compatible, you will need to retrieve a specific git commit, which will be explained in the next chapter.}
+
 
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/assets_header.c}\par
  \end{minipage}
- 
+  
 
-
- 
-
-\subsection{Assets archive file structure}
+\subsection{Assets file structure}
 \label{section:asset_file_structure}
-Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset archive file. The first sections contains data tables for pictures and sprites, followed by the font and all sprites and tiles.\\
+Figure \ref{fig:asset-file} illustrates the structure of the \cw{KDREAMS.EGA} asset file. The first section contains data tables for pictures and sprites, followed by the font, and all sprites and tiles. 
+
 \begin{figure}[H]
 \centering
  \includegraphics[width=.4\textwidth]{imgs/drawings/graphic_assets.eps}
@@ -102,8 +85,8 @@ Figure \ref{fig:asset-file} shows the structure of the \cw{KDREAMS.EGA} asset ar
  \label{fig:asset-file}
 \end{figure}
 
-Boh the \textbf{pictable[]} and \textbf{picmtable[]} contain the width and height for each (masked) picture in the asset file.\\
-
+\pagebreak
+Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for each (masked) picture in the asset file.\\
   \begin{table}[H]
   \begin{tabularx}{0.8\textwidth}[c]{XXX}
   \hline
@@ -122,18 +105,45 @@ Boh the \textbf{pictable[]} and \textbf{picmtable[]} contain the width and heigh
   %\caption{content of \cw{pictable[]} and \cw{picmtable[]}.}
   \end{table}
 
+\par
+The \cw{spritetable[]} includes not only width and height but also information on the sprite's center, hitbox, and number of bit shifts (explained in Section \ref{section:actors_and_sprites} on page \pageref{section:actors_and_sprites}). \\
+
+\par
+\begin{minipage}{\textwidth}
+ \lstinputlisting[language=C]{code/sprite_structure.c}\par
+ \end{minipage}\\
 
 
-The \textbf{spritetable[]} contains, beside width and height, also information on the sprite center, hit boundaries and number of bitshifts. Sprites will be explained in detail in section \ref{section:draw_sprites} on page \pageref{section:draw_sprites}. \\
+\par
+All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection.\\
+
+\par
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{imgs/drawings/sprite_origin.png}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{imgs/drawings/sprite_hitbox.png}
+\end{minipage}
+\caption{Sprite dimensions, origin and hitbox.}
+\label{fig:sprite_structure}
+\end{figure}
+
+
+\par
+The font segment contains a table that stores the height and the width of the font, along with a reference to where the character data is located in the archive file.\\
+
 
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/font_structure.c}\par
  \end{minipage}
 
-\par
-The \textbf{font} segment contains a table for the height (same for all characters) and width of the font, as well as a reference where the character data is located in the archive file.\\
 
+\par
 \begin{figure}[H] 
   \centering 
   \includegraphics[width=1.0\textwidth]{imgs/drawings/font.eps}
@@ -141,37 +151,58 @@ The \textbf{font} segment contains a table for the height (same for all characte
   \label{fig:font_assets}
 \end{figure} 
 
-\par
-The remainder of the archive file contains all graphic assets, including pictures, sprites and tiles. Each asset contains four planes, aligned with the EGA architecture. All masked tiles and sprites include an additional mask plane as well.
- 
+\pagebreak
+The remainder of the archive file holds all graphic assets, including pictures, sprites, and tiles. Each asset contains four planes, aligned with the EGA architecture. All masked tiles and sprites also include an additional mask plane.\\
+
+
+
+\par 
 \begin{figure}[H]
 \centering
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXXXXX}
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture1.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture2.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture3.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture4.png} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture01.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture02.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture03.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture04.jpg} &
   \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture5.png} &
   \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture6.png} \\
   \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture7.png} &
   \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture8.png} &
   \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture9.png} &
   \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture10.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture11.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture12.png} \\
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture13.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture14.png} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture11.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture12.jpg} \\
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture13.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture14.jpg} &
   \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture15.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture16.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture17.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture18.png} \\
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture19.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture20.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture21.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture22.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture23.png} &
-  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture24.png} \\
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture16.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture17.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture18.jpg} \\
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture19.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture20.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture21.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture22.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture23.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture24.jpg} \\
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture25.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture26.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture27.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture28.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture29.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture30.jpg} \\
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture31.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture32.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture33.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture34.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture35.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture36.jpg} \\
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture37.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture38.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture39.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture40.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture41.jpg} &
+  \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture42.jpg} \\
   \end{tabularx}
   \end{table}
   \caption{Picture assets.}
@@ -184,44 +215,54 @@ The remainder of the archive file contains all graphic assets, including picture
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{|XXXXXX|}
   \hline
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite1a.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite1b.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite1c.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite1d.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite1e.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite1f.png} \\  
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite1g.png} & 
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite1h.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite2a.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite2b.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite2c.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite2d.png} \\  
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite2e.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite2f.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite2g.png} & 
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite2h.png} & & \\  
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite1a.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite1b.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite1c.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite1d.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite1e.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite1f.png} \\  
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite1g.png} & 
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite1h.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite2a.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite2b.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite2c.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite2d.png} \\  
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite2e.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite2f.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite2g.png} & 
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite2h.png} & & \\  
   \multicolumn{6}{|c|}{BROCCOLASH}  \\ \hline
-  \multicolumn{6}{c}{}  \\ \hline
-    
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite3a.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite3b.png} &  
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite3c.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite3d.png} & & \\  
-  \multicolumn{6}{|c|}{TOMATOOTH}  \\ \hline
-  \multicolumn{6}{c}{}  \\ \hline      
+  \multicolumn{6}{c}{}  \\ \hline    
   
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite3e.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite3f.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite3g.png} & 
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite3h.png} &   
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite4a.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite4b.png} \\    
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite4c.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite4d.png} &
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite4e.png} & 
-  \includegraphics[width=0.18\textwidth]{screenshots_300dpi/game/sprite4f.png} & & \\
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite3e.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite3f.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite3g.png} & 
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite3h.png} &   
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite4a.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite4b.png} \\    
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite4c.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite4d.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite4e.png} & 
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite4f.png} & & \\
   \multicolumn{6}{|c|}{CARROT}  \\ \hline
-  \multicolumn{6}{c}{}     
+  \multicolumn{6}{c}{}   \\ \hline
+  
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite5a.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite5b.png} &  
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite5c.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite5d.png} &  
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite5e.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite5f.png} \\
+  \multicolumn{6}{|c|}{MELONLIPS}  \\ \hline
+  \multicolumn{6}{c}{}    \\ \hline  
+  
+      
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite3a.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite3b.png} &  
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite3c.png} &
+  \includegraphics[width=0.17\textwidth]{screenshots_300dpi/game/sprite3d.png} & & \\  
+  \multicolumn{6}{|c|}{TOMATOOTH}  \\ \hline
+    
   \end{tabularx}
   \end{table}
   \caption{Sprite assets.}
@@ -257,32 +298,31 @@ Maps were created using an in-house editor called TED5, short for Tile EDitor. O
 \fullimage{Fill_2.png}\\
  
  \par
-TED5 allows placement of tiles on layers called "planes". In Commander Keen, there are three type of planes:
+TED5 allows the placement of tiles across multiple layers, referred to as "planes". In \textit{Commander Keen}, there are three types of planes: 
 \begin{itemize}
-  \item Background plane tiles
-  \item Foreground plane tiles, which is a mask over the background plane
-  \item Information plane tiles, containing location of actors and special places
+  \item Background plane tiles.
+  \item Foreground plane tiles, which act as a mask over the background plane.
+  \item Information plane tiles, which contain actor locations and special areas.
 \end{itemize}
-A level is created by placing tiles on each of these three layers. Each foreground and background tile could be enriched with additional tile information. It controls how everything interacts with tiles, like tile clipping, "deadly" tiles and animated tiles. \\
 
- \par
+A level is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), which controls interactions such as clipping, "deadly" tiles, and animated tiles. \\
+
+\par
 \fullimage{ted5_tile_info.png}\\
  
- \par
+\par
+Similar to IGRAB, TED5 compresses all levels into a \cw{MAP} archive and generates corresponding \cw{HEAD} and \cw{DICT} files (\cw{KDR}-extension).\\
 
-Just like IGRAB, the TED5 tool packed all levels together in a compressed \cw{MAP} archive and generated a \cw{HEAD} and \cw{DICT} file (\cw{KDR}-extension). \\
  
 \subsection{Map header structure}
-The map header structure is part of the engine code and contains a header offset and size, which refers to the location and size in the \cw{KDREAMS.MAP} archive file. \\
+The map header structure is embedded in the engine code and contains a header offset and size, which refer to the location and size within the \cw{KDREAMS.MAP} archive file. \\
 
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/map_header_structure.c}\par
  \end{minipage}
 
-A maximum of 100 maps is supported in the game. The \cw{tileinfo[]} data contains information for tile interaction. 
-
-
+The game supports a maximum of 100 maps. The \cw{tileinfo[]} array contains properties data of each tile.
  
 \begin{figure}[H]
 \centering
@@ -291,12 +331,11 @@ A maximum of 100 maps is supported in the game. The \cw{tileinfo[]} data contain
  \label{fig:map-header-file}
 \end{figure}
 \par
-
-For background tile animation two information tables are defined: \textbf{tile animation} and \textbf{tile animation speed}. The tile animation refers which tile, relative to this tile, the tile will animate to. In Table \ref{table:background tile anim} the next animation after tile \#90 is \#91 (+1), followed by \#92 (+1) and \#93 (+1). After tile \#93 (-3) the sequence is going back to tile \#90. The animation speed is expressed in number of ticks before the next tile is displayed. \\
+For background tile animations, two information tables are defined: \textit{tile animation} and \textit{tile animation speed}. The tile animation specifies the next tile in the animation sequence, relative to the current tile. For example, in Table \ref{table:background tile anim}, tile \#90 animates to tile \#91 (+1), followed by \#92 (+1), and \#93 (+1). After tile \#93, the sequence returns to tile \#90 (-3). The animation speed is expressed in number of ticks before the next tile is displayed. \\
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXX}
   \hline
-  \textbf{index} & \textbf{tile animation} & \textbf{tile animation speed}   \\ \hline
+  \textbf{tile index} & \textbf{tile animation} & \textbf{tile animation speed}   \\ \hline
   0             & 0          & 0    \\
   1             & 0          & 0    \\
   ...             & ...          & ...    \\
@@ -314,13 +353,11 @@ For background tile animation two information tables are defined: \textbf{tile a
   \end{table}
   
   \par
-The foreground tiles contain, beside tile animation (similar like background tiles), also clipping and 'inside' tile information.\\
-\par
-The clipping tables contain how Commander Keen is clipped against foreground tiles. 'Inside' tile information is used to climb on a pole and mimics Commander Keen going through a floor opening ('inside' the tile). In section \ref{section:clipping} (see page \pageref{section:clipping}) both the clipping and 'inside' logic is further explained.\\
+Foreground tiles also contain clipping information and a column called \cw{intile}. The \cw{intile} column tells what the tile "does" to the player, like kill, climb, points, etc. Values between 128-255 are used for foreground tiles only. The \cw{intile} column is customized for each version of \textit{Commander Keen}. In \textit{Keen Dreams} it is used for e.g. climbing poles.\\
 \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXXXXXX}
   \hline
-  \textbf{index} & \textbf{clip north} & \textbf{clip east} & \textbf{clip south} & \textbf{clip west}  & \textbf{inside tile} \\ \hline
+  \textbf{tile index} & \textbf{clip north} & \textbf{clip east} & \textbf{clip south} & \textbf{clip west}  & \textbf{intile} \\ \hline
   ...    & ...     & ...    & ...   & ...     & ...      \\
   238    & 0       & 1      & 5     & 0       & 0        \\
   239    & 0       & 0      & 0     & 0       & 0        \\
@@ -331,16 +368,14 @@ The clipping tables contain how Commander Keen is clipped against foreground til
   244    & 0       & 0      & 2     & 0       & 0       \\
   ...    & ...     & ...    & ...   & ...     & ...     \\
   \end{tabularx}
-  \caption{Foreground tile clipping and 'inside' tile information.}
+  \caption{Foreground tile clipping and 'intile' tile information.}
   \end{table}
 
 
 \pagebreak
  
 \subsection{Map archive structure}
-The structure of \cw{KDREAMS.MAP} archive is explained in Figure \ref{fig:map-file}. For each map there is a small header containing the width, height and name of the map as well as a reference pointer to each of the three planes. Each plane exists out of a map of tile numbers for background, foreground and info.\\
-
-
+The structure of the \cw{KDREAMS.MAP} archive is illustrated in Figure \ref{fig:map-file}. Each map contains a small header that includes the width, height, and name of the map, as well as a reference pointer to each of the three planes. Each plane consists of a map of tile numbers representing the background, foreground, and information planes.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -361,8 +396,8 @@ The original Commander Keen Trilogy did only support the default PC Speaker. Wit
 
 \par
 \bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with AdLib support until \textit{Dark Ages} in 1991. And even then it still had pc speaker music.\\
-\par
 
+\par
 id Software intended for Keen Dreams to have music and digital effects support for the SoundBlaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360K floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute. The team didn't even have time to remove the music setup menu.\\
 
 \par
@@ -376,9 +411,6 @@ id Software intended for Keen Dreams to have music and digital effects support f
 
 \pagebreak
 
-\bu{Trivia :} The song "You've Got to Eat Your Vegetables!!" would finally make its debut in Commander Keen IV: Secret of the Oracle.\\
-\par
-
 As a consequence, only two sets of each audio effect are shipped with the game:
 \begin{enumerate}
 \item For PC Speaker
@@ -387,8 +419,11 @@ As a consequence, only two sets of each audio effect are shipped with the game:
 
 Game music was not introduced until Commander Keen IV.  \\
 
+\bu{Trivia :} The song "You've Got to Eat Your Vegetables!!", written for \textit{Keen Dreams}, would finally make its debut in Commander Keen IV: Secret of the Oracle.\\
+
+
 \par
-All sound effects are done by Robert Prince. Sound effects are created using Cakewalk and inhouse MUSE tool, which is  extensively described in \textit{Wolfenstein 3D}\footnote{See Wolfenstein 3D Blackbook, section 3.6 on page 94.}
+All sound effects are done by Robert Prince. Sound effects are created using Cakewalk and inhouse MUSE tool, which is  extensively described in \textit{Wolfenstein 3D Blackbook}\footnote{See Wolfenstein 3D Blackbook, section 3.6 on page 94.}
 Just like described before, the MUSE tool packed all sound effects together in a compressed \cw{SOUND} archive and generated a \cw{HEAD}, \cw{DICT} file and a C header file with asset IDs.\\
 
 
@@ -398,7 +433,7 @@ Just like described before, the MUSE tool packed all sound effects together in a
 On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 are all published by Apogee Software. The game engine and first episode were given for free and encourages to be copied and distributed to a maximum number of people. To receive the other episodes, each player had to pay \$30 (for Episode 1-3) to \textit{ideas from the Deep}.\\
 
 \par
-Commander Keen in Keen Dreams was published as a retail title by Softdisk, as part of a settlement for using Softdisk resources to make their own game\footnote{The settlement with Softdisk is explained in Appendix \ref{sec:id_software}}.\\
+\textit{Commander Keen in Keen Dreams} was published as a retail title by Softdisk, as part of a settlement for using Softdisk resources to make their own game\footnote{The settlement with Softdisk is explained in Appendix \ref{sec:id_software}}.\\
 
 \par
 \begin{figure}[H]
