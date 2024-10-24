@@ -41,67 +41,67 @@
 \contentsline {section}{\numberline {4.1}About the Source Code}{81}{section.4.1}
 \contentsline {section}{\numberline {4.2}Getting the Source Code}{81}{section.4.2}
 \contentsline {section}{\numberline {4.3}First Contact}{82}{section.4.3}
-\contentsline {section}{\numberline {4.4}Compile source code}{83}{section.4.4}
+\contentsline {section}{\numberline {4.4}Compile source code}{84}{section.4.4}
 \contentsline {section}{\numberline {4.5}Big Picture}{86}{section.4.5}
-\contentsline {subsection}{\numberline {4.5.1}Unrolled Loop}{87}{subsection.4.5.1}
-\contentsline {section}{\numberline {4.6}Architecture}{91}{section.4.6}
-\contentsline {subsection}{\numberline {4.6.1}Memory Manager (MM)}{93}{subsection.4.6.1}
-\contentsline {subsection}{\numberline {4.6.2}Video Manager (VW \& RF)}{97}{subsection.4.6.2}
-\contentsline {subsection}{\numberline {4.6.3}Cache Manager (CA)}{97}{subsection.4.6.3}
-\contentsline {subsection}{\numberline {4.6.4}User Manager (US)}{98}{subsection.4.6.4}
-\contentsline {subsection}{\numberline {4.6.5}Sound Manager (SD)}{102}{subsection.4.6.5}
-\contentsline {subsection}{\numberline {4.6.6}Input Manager (IN)}{102}{subsection.4.6.6}
-\contentsline {subsection}{\numberline {4.6.7}Softdisk files}{102}{subsection.4.6.7}
-\contentsline {section}{\numberline {4.7}Startup}{103}{section.4.7}
-\contentsline {section}{\numberline {4.8}Asset Caching and Compression}{104}{section.4.8}
-\contentsline {subsection}{\numberline {4.8.1}Asset caching}{104}{subsection.4.8.1}
-\contentsline {subsection}{\numberline {4.8.2}Asset compression}{109}{subsection.4.8.2}
-\contentsline {subsubsection}{\numberline {4.8.2.1}Huffman Compression}{109}{subsubsection.4.8.2.1}
-\contentsline {subsubsection}{\numberline {4.8.2.2}RLE Compression}{112}{subsubsection.4.8.2.2}
-\contentsline {section}{\numberline {4.9}Smooth scrolling}{114}{section.4.9}
-\contentsline {subsection}{\numberline {4.9.1}EGA Virtual Screen and Pel Panning}{115}{subsection.4.9.1}
-\contentsline {subsection}{\numberline {4.9.2}Horizontal Pel Panning}{118}{subsection.4.9.2}
-\contentsline {section}{\numberline {4.10}Adaptive Tile Refreshment}{119}{section.4.10}
-\contentsline {section}{\numberline {4.11}ATR in action: Commander Keen 1-3}{122}{section.4.11}
-\contentsline {subsection}{\numberline {4.11.1}Wrap around the EGA Memory}{129}{subsection.4.11.1}
-\contentsline {subsection}{\numberline {4.11.2}Adaptive tile refreshment in Commander Keen in Keen Dreams}{133}{subsection.4.11.2}
-\contentsline {subsection}{\numberline {4.11.3}Screen refresh}{142}{subsection.4.11.3}
-\contentsline {section}{\numberline {4.12}Actors and sprites}{146}{section.4.12}
-\contentsline {subsection}{\numberline {4.12.1}A.I.}{146}{subsection.4.12.1}
-\contentsline {subsection}{\numberline {4.12.2}Drawing Sprites}{147}{subsection.4.12.2}
-\contentsline {subsection}{\numberline {4.12.3}Clipping}{150}{subsection.4.12.3}
-\contentsline {subsection}{\numberline {4.12.4}Priority of tiles and sprites on screen}{154}{subsection.4.12.4}
-\contentsline {subsection}{\numberline {4.12.5}Manage refresh timing}{157}{subsection.4.12.5}
-\contentsline {section}{\numberline {4.13}use later}{158}{section.4.13}
-\contentsline {section}{\numberline {4.14}ATR}{158}{section.4.14}
-\contentsline {subsection}{\numberline {4.14.1}Adaptive tile refreshment in Commander Keen 1-3}{159}{subsection.4.14.1}
-\contentsline {section}{\numberline {4.15}Building layer for layer}{164}{section.4.15}
-\contentsline {subsection}{\numberline {4.15.1}Draw background and foreground tiles}{164}{subsection.4.15.1}
-\contentsline {subsection}{\numberline {4.15.2}Drawing sprites}{167}{subsection.4.15.2}
-\contentsline {section}{\numberline {4.16}Audio and Heartbeat}{171}{section.4.16}
-\contentsline {subsection}{\numberline {4.16.1}IRQs and ISRs}{172}{subsection.4.16.1}
-\contentsline {subsection}{\numberline {4.16.2}PIT and PIC}{174}{subsection.4.16.2}
-\contentsline {subsection}{\numberline {4.16.3}Interrupt Frequency}{175}{subsection.4.16.3}
-\contentsline {subsection}{\numberline {4.16.4}Heartbeats}{176}{subsection.4.16.4}
-\contentsline {subsection}{\numberline {4.16.5}Audio System}{177}{subsection.4.16.5}
-\contentsline {subsubsection}{\numberline {4.16.5.1}FM Synthesizer: OPL2/YM3812 Programming}{180}{subsubsection.4.16.5.1}
-\contentsline {subsection}{\numberline {4.16.6}PC Speaker: Square Waves}{181}{subsection.4.16.6}
-\contentsline {section}{\numberline {4.17}User Inputs}{185}{section.4.17}
-\contentsline {subsection}{\numberline {4.17.1}Keyboard}{185}{subsection.4.17.1}
-\contentsline {subsection}{\numberline {4.17.2}Mouse}{186}{subsection.4.17.2}
-\contentsline {subsection}{\numberline {4.17.3}Joystick}{187}{subsection.4.17.3}
-\contentsline {section}{\numberline {4.18}Performance and other Tricks}{191}{section.4.18}
-\contentsline {subsection}{\numberline {4.18.1}Tile caching}{191}{subsection.4.18.1}
-\contentsline {subsection}{\numberline {4.18.2}Memory alignment}{192}{subsection.4.18.2}
-\contentsline {subsection}{\numberline {4.18.3}Bouncing Physics}{194}{subsection.4.18.3}
-\contentsline {subsection}{\numberline {4.18.4}Pseudo Random Generator}{199}{subsection.4.18.4}
-\contentsline {subsection}{\numberline {4.18.5}Screen fades}{201}{subsection.4.18.5}
-\contentsline {chapter}{\numberline {5}Keen Dreams in CGA}{205}{chapter.5}
-\contentsline {section}{\numberline {5.1}CGA Video card}{206}{section.5.1}
-\contentsline {section}{\numberline {5.2}Memory architecture and Interlacing}{208}{section.5.2}
-\contentsline {section}{\numberline {5.3}Double buffering}{209}{section.5.3}
-\contentsline {section}{\numberline {5.4}Screen refresh}{210}{section.5.4}
-\contentsline {chapter}{Appendices}{215}{section*.173}
-\contentsline {chapter}{\numberline {A}x86 Memory Models}{217}{appendix.A}
-\contentsline {chapter}{\numberline {B}Dangerous Dave in Copyright Infringement}{223}{appendix.B}
+\contentsline {subsection}{\numberline {4.5.1}Unrolled Loop}{86}{subsection.4.5.1}
+\contentsline {section}{\numberline {4.6}Architecture}{90}{section.4.6}
+\contentsline {subsection}{\numberline {4.6.1}Memory Manager (MM)}{92}{subsection.4.6.1}
+\contentsline {subsection}{\numberline {4.6.2}Video Manager (VW \& RF)}{96}{subsection.4.6.2}
+\contentsline {subsection}{\numberline {4.6.3}Cache Manager (CA)}{96}{subsection.4.6.3}
+\contentsline {subsection}{\numberline {4.6.4}User Manager (US)}{97}{subsection.4.6.4}
+\contentsline {subsection}{\numberline {4.6.5}Sound Manager (SD)}{101}{subsection.4.6.5}
+\contentsline {subsection}{\numberline {4.6.6}Input Manager (IN)}{101}{subsection.4.6.6}
+\contentsline {subsection}{\numberline {4.6.7}Softdisk files}{101}{subsection.4.6.7}
+\contentsline {section}{\numberline {4.7}Startup}{102}{section.4.7}
+\contentsline {section}{\numberline {4.8}Asset Caching and Compression}{103}{section.4.8}
+\contentsline {subsection}{\numberline {4.8.1}Asset caching}{103}{subsection.4.8.1}
+\contentsline {subsection}{\numberline {4.8.2}Asset compression}{108}{subsection.4.8.2}
+\contentsline {subsubsection}{\numberline {4.8.2.1}Huffman Compression}{108}{subsubsection.4.8.2.1}
+\contentsline {subsubsection}{\numberline {4.8.2.2}RLE Compression}{111}{subsubsection.4.8.2.2}
+\contentsline {section}{\numberline {4.9}Smooth scrolling}{113}{section.4.9}
+\contentsline {subsection}{\numberline {4.9.1}EGA Virtual Screen and Pel Panning}{114}{subsection.4.9.1}
+\contentsline {subsection}{\numberline {4.9.2}Horizontal Pel Panning}{117}{subsection.4.9.2}
+\contentsline {section}{\numberline {4.10}Adaptive Tile Refreshment}{118}{section.4.10}
+\contentsline {section}{\numberline {4.11}ATR in action: Commander Keen 1-3}{121}{section.4.11}
+\contentsline {subsection}{\numberline {4.11.1}Wrap around the EGA Memory}{128}{subsection.4.11.1}
+\contentsline {subsection}{\numberline {4.11.2}Adaptive tile refreshment in Commander Keen in Keen Dreams}{132}{subsection.4.11.2}
+\contentsline {subsection}{\numberline {4.11.3}Screen refresh}{141}{subsection.4.11.3}
+\contentsline {section}{\numberline {4.12}Actors and sprites}{145}{section.4.12}
+\contentsline {subsection}{\numberline {4.12.1}A.I.}{145}{subsection.4.12.1}
+\contentsline {subsection}{\numberline {4.12.2}Drawing Sprites}{146}{subsection.4.12.2}
+\contentsline {subsection}{\numberline {4.12.3}Clipping}{149}{subsection.4.12.3}
+\contentsline {subsection}{\numberline {4.12.4}Priority of tiles and sprites on screen}{153}{subsection.4.12.4}
+\contentsline {subsection}{\numberline {4.12.5}Manage refresh timing}{156}{subsection.4.12.5}
+\contentsline {section}{\numberline {4.13}use later}{157}{section.4.13}
+\contentsline {section}{\numberline {4.14}ATR}{157}{section.4.14}
+\contentsline {subsection}{\numberline {4.14.1}Adaptive tile refreshment in Commander Keen 1-3}{158}{subsection.4.14.1}
+\contentsline {section}{\numberline {4.15}Building layer for layer}{163}{section.4.15}
+\contentsline {subsection}{\numberline {4.15.1}Draw background and foreground tiles}{163}{subsection.4.15.1}
+\contentsline {subsection}{\numberline {4.15.2}Drawing sprites}{166}{subsection.4.15.2}
+\contentsline {section}{\numberline {4.16}Audio and Heartbeat}{170}{section.4.16}
+\contentsline {subsection}{\numberline {4.16.1}IRQs and ISRs}{171}{subsection.4.16.1}
+\contentsline {subsection}{\numberline {4.16.2}PIT and PIC}{173}{subsection.4.16.2}
+\contentsline {subsection}{\numberline {4.16.3}Interrupt Frequency}{174}{subsection.4.16.3}
+\contentsline {subsection}{\numberline {4.16.4}Heartbeats}{175}{subsection.4.16.4}
+\contentsline {subsection}{\numberline {4.16.5}Audio System}{176}{subsection.4.16.5}
+\contentsline {subsubsection}{\numberline {4.16.5.1}FM Synthesizer: OPL2/YM3812 Programming}{179}{subsubsection.4.16.5.1}
+\contentsline {subsection}{\numberline {4.16.6}PC Speaker: Square Waves}{180}{subsection.4.16.6}
+\contentsline {section}{\numberline {4.17}User Inputs}{184}{section.4.17}
+\contentsline {subsection}{\numberline {4.17.1}Keyboard}{184}{subsection.4.17.1}
+\contentsline {subsection}{\numberline {4.17.2}Mouse}{185}{subsection.4.17.2}
+\contentsline {subsection}{\numberline {4.17.3}Joystick}{186}{subsection.4.17.3}
+\contentsline {section}{\numberline {4.18}Performance and other Tricks}{190}{section.4.18}
+\contentsline {subsection}{\numberline {4.18.1}Tile caching}{190}{subsection.4.18.1}
+\contentsline {subsection}{\numberline {4.18.2}Memory alignment}{191}{subsection.4.18.2}
+\contentsline {subsection}{\numberline {4.18.3}Bouncing Physics}{193}{subsection.4.18.3}
+\contentsline {subsection}{\numberline {4.18.4}Pseudo Random Generator}{198}{subsection.4.18.4}
+\contentsline {subsection}{\numberline {4.18.5}Screen fades}{200}{subsection.4.18.5}
+\contentsline {chapter}{\numberline {5}Keen Dreams in CGA}{203}{chapter.5}
+\contentsline {section}{\numberline {5.1}CGA Video card}{204}{section.5.1}
+\contentsline {section}{\numberline {5.2}Memory architecture and Interlacing}{206}{section.5.2}
+\contentsline {section}{\numberline {5.3}Double buffering}{207}{section.5.3}
+\contentsline {section}{\numberline {5.4}Screen refresh}{208}{section.5.4}
+\contentsline {chapter}{Appendices}{213}{section*.173}
+\contentsline {chapter}{\numberline {A}x86 Memory Models}{215}{appendix.A}
+\contentsline {chapter}{\numberline {B}Dangerous Dave in Copyright Infringement}{221}{appendix.B}
 \contentsline {chapter}{\numberline {C}Founding of id Software}{225}{appendix.C}
