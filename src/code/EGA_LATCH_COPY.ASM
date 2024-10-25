@@ -6,7 +6,6 @@ SC_MAPMASK  =   2        ;map mask register
 ;==============
 ; Set EGA mode to read/write from latch
 ;==============
-
 cli                      ;interrupts disabled
 mov	dx,GC_INDEX          ;mode 1, each memory plane is 
 mov	ax,GC_MODE+256*1     ;written with the content of 

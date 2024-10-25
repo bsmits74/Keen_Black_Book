@@ -7,9 +7,7 @@ for (i=0;i<3;i++)
   screenstart[i]+= screenmove;
   if (compatability && screenstart[i] > (0x10000l-SCREENSPACE) )
   {
-    //
     // move the screen to the opposite end of the buffer
-    //
     screencopy = screenmove>0 ? FREEEGAMEM : -FREEEGAMEM;
     oldscreen = screenstart[i] - screenmove;
     newscreen = oldscreen + screencopy;

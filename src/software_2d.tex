@@ -1,9 +1,9 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
 
-\section{Smooth scrolling}
+\section{Smooth scrolling on EGA}
 \label{section:adaptive_tile_refresh}
-Performing a full-screen redraw per frame would kill the CPU, as it would need to update all pixels of all four EGA planes. There is no way to maintain a 60Hz framerate while refreshing the whole screen. If we were to run the following code, which simply fills all memory banks, it would run at 5 frames per seconds.\\
+Performing a full-screen redraw per frame would kill the CPU, as it would require updating every pixel on all four EGA planes. Achieving a 60Hz frame rate while refreshing the entire screen is impossible under these constraints. If we were to run the following code, which simply fills all memory banks, it would run at 5 frames per seconds.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -11,24 +11,45 @@ Performing a full-screen redraw per frame would kill the CPU, as it would need t
   \end{minipage}
   \label{ega_write}
 
+\bigskip
 \par
-So how did they create a smooth scrolling game with these limitations? By using some EGA hardware tricks and by changing only that part of the screen that has changed.
+\begin{fancyquotes}
+Clearly, there is a whole world of awesome things there that we just couldn't do on the PC...\\
+
+\par 
+You can just redraw the whole screen, but then it turns out...\\
+\par
+Well, you're going five frames a second.\\
+
+\par
+\textbf{John Carmack\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{Interview with Lex Fridman in 2022, this quote is around 1h:41m.}
+
 \pagebreak
+So, how did they create a smooth scrolling game with these limitations? The solution was twofold:
+\begin{itemize}
+  \item Utilizing specific EGA hardware tricks
+  \item Updating only the portion of the screen that has changed
+\end{itemize}
 
-
+\par
+Each method is described in detail in the following sections.
 
 \subsection{EGA Virtual Screen and Pel Panning}
 \label{section:EGA_virtual_screen}
-
-The EGA card adds a powerful twist to linear addressing: the logical width of the virtual screen in VRAM memory need not to be the same as the physical width of the screen display. The programmer is free to define a virtual screen width of up to 4096 pixels and then use the physical screen as a window onto any part of the virtual screen. What's more, a virtual screen can have any logical height up to the capacity of the VRAM memory. The code below illustrates how to change the logical width.\\
+The EGA card adds a powerful approach to linear addressing: the logical width of the virtual screen in VRAM does not need to match the physical screen display width. A programmer can define a virtual screen width of up to 4096 pixels and use the physical screen as a window onto any part of the virtual screen. What's more, the virtual screen's logical height can extend up to the total VRAM capacity. The code below demonstrates how to set a custom logical width.\\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/SCREEN_WIDTH.ASM}
   \end{minipage}
   \label{ega_pel_pan}
-  \par
+  
+\par
+The displayed area of the virtual screen at any time is determined by setting the display memory address for fetching video data, configured via the CRTC Start Address register. The default address is \cw{A000:0000h}, though the offset can be adjusted to any other address.\\
 
-The area of the virtual screen displayed at any given time is selected by setting the display memory address at which to begin fetching video data. This is set by way of the CRTC Start Address register. The default address is \cw{A000:0000h}, but the offset can be changed to any other number. \\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/EGA_SET_ADDRESS.ASM}
@@ -38,7 +59,7 @@ The area of the virtual screen displayed at any given time is selected by settin
 
 
 \par
-Panning down a scan line requires only that the CRTC start address is increased by the logical width. Horizontal panning is possible by increasing the start address by one byte. In EGA's planar graphics modes, the eight bits in each byte of video RAM correspond to eight consecutive pixels on-screen. That means the screen moves horizontally in steps of 8 pixels, which is coarse, not smooth scrolling. Luckily there is another EGA register to resolve this.\\
+To pan down a scan line, it requires only to increase the CRTC start address by the logical width. Horizontal panning is achieved by incrementing the start address by one byte. In EGA's planar graphics modes, the eight bits in each video RAM byte correspond to eight consecutive on-screen pixels, meaning the screen can move horizontally in steps of 8 pixels. This is rather coarse and not really smooth horizontal scrolling. Fortunately, another EGA register addresses this limitation.\\
 
 \begin{figure}[H]
 \centering
@@ -50,63 +71,61 @@ Panning down a scan line requires only that the CRTC start address is increased 
 
 
 \subsection{Horizontal Pel Panning}
-Smooth horizontal pixel scrolling of the screen is provided by the "Horizontal Pel Panning" register in the Attribute Controller (ATC). Up to 7 pixels' worth of single pixel panning of the displayed image to the left is performed by increasing the register from 0 to 7. \\
-\par
+Smooth horizontal pixel scrolling is managed by the "Horizontal Pel Panning" register in the Attribute Controller (ATC), allowing fine adjustment in 1-pixel increments up to 7 pixels to the left. \\
 
-There is one annoying quirk about programming the Attribute Controller: when the ATC Index register is set, only the lower five bits (bits 0-4) are used as the internal index. The next most significant bit, bit 5, controls the source of the video data send to the monitor by the EGA card. When bit 5 is set to 1, the output of the color palette controls the displayed pixels; this is normal operation. When bit 5 is 0, video data doesn't come from the color palette, and the screen becomes a solid color. To ensure the ATC index register is restored to normal video, we must set bit 5 to 1 by writing \cw{20h} to the register.\\ 
+\par
+However, programming the ATC requires attention: the ATC Index register only uses the lower five bits (bits 0-4) as its internal index. The next most significant bit, bit 5, controls the source of the video data send to the monitor by the EGA card. When bit 5 is set to 1, the output of the color palette controls the displayed pixels; this is normal operation. When bit 5 is 0, video data doesn't come from the color palette, and the screen becomes a solid color. To maintain normal video operation, bit 5 must be set to 1 by writing \cw{20h} to the register.\\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/EGA_PELPAN.ASM}
   \end{minipage}
   \label{ega_pel_pan}
-  \par
-
-
-Smooth horizontal scrolling on EGA should be viewed as adjusting the CRTC Start Address and fine horizontal pel panning adjustments in the 8-pixel range. The scrolling is achieved by the following steps:
+ 
+\par
+Smooth horizontal scrolling on EGA involves adjusting the CRTC Start Address alongside fine-tuning within an 8-pixel range using horizontal pel panning. The following steps accomplish this:
 \begin{itemize}
-  \item calculate the panning in pixels for both x- and y-direction
-  \item the smooth y-panning is defined by adding \cw{logical width * y} to the CRTC start address
-  \item increase the CRTC start address width \cw{x/8} bytes for coarse horizontal scrolling.
-  \item the horizontal fine tuning is then adjusted by \cw{(x \% 8)} using horizontal pel panning
+  \item Calculate the panning offset in pixels for both \cw{x-} and \cw{y-}direction.
+  \item Smooth y-panning is achieved by adding the \cw{(logical width *) y} to the CRTC start address.
+  \item For coarse horizontal scrolling, increase the CRTC start address by \cw{x /8 } bytes.
+  \item Fine horizontal adjustment is applied using \cw{(x \% 8)} to the horizontal pel panning register.
 \end{itemize}
-
-
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.65\textwidth]{imgs/drawings/Tile_Refresh.eps}
+\includegraphics[width=0.55\textwidth]{imgs/drawings/Tile_Refresh.eps}
 \caption{Smooth scrolling in EGA.}
 \label{fig:tile_refresh}
 \end{figure}
 
+
 \section{Adaptive Tile Refreshment}
-So far, we have built a virtual screen in VRAM allowing smooth one pixel moves in both axes using only EGA registers. But once it reaches an edge, the virtual screen must be reset. And it cannot be a full screen redraw because it would drop the framerate to 5fps.\\
+So far, we have built a virtual screen in VRAM allowing smooth one pixel moves in both axes using only EGA registers. However, once the screen edge is reached, a full-screen redraw would be too slow, causing a drop to 5 fps.\\
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{imgs/drawings/screen_edge.eps}
+\includegraphics[width=0.8\textwidth]{imgs/drawings/screen_edge.eps}
 \caption{Screen reaching the edge of virtual screen.}
 \label{fig:screen_edge}
 \end{figure}
 
 \par
-An option to resolve screen refresh is loading the entire level into VRAM memory and setting the logical width to the level width. By simply updating the CRTC Start Address and Horizontal Pel Panning registers, the game scrolls smoothly through the virtual screen. Unfortunately, a level won't fit into the VRAM. The first level, \textit{Horsh Radish Hill}, is 2176 pixels wide and 592 pixels high, which means a total of 2176*592/2 = 644KB is required to store the entire level in VRAM. Since we only have 256KB available, this is not a feasible option. \\
+One option for screen refresh is to load the entire level into VRAM, setting the logical width to match the level width. By adjusting the CRTC Start Address and Horizontal Pel Panning registers, smooth scrolling can be achieved. However, loading the entire level requires far more VRAM than is available. The first level, \textit{Horsh Radish Hill}, is 136 tiles wide and 37 tiles high. Each tile is 128 bytes,  which means a total of 136 x 37 x 128 bytes = 644KB is required to store the entire level in VRAM. Since we only have 256KB available, this is not a feasible option.\\
 
-
-\textbf{\underline{Trivia :}} At the time of writing this book, most video cards contain more than 1GB VRAM, sufficient to store all Commander Keen levels at once in VRAM. \\
+\textbf{\underline{Trivia :}} At the time of writing this book, most video cards contain more than 1GB VRAM,  sufficient to store all Commander Keen levels at once in VRAM. \\
 
 \par
-This is where John Carmack's invention starts. The scrolling engine is based on a simple yet powerful technology called \textit{Adaptive Tile Refreshment (ATR)}. The core idea is to refresh only those areas of the screen that need to change. The screen is divided into tiles of 16x16 pixels. On a screen with 320x200 pixels, it means a grid of 20x13 tiles (actually it is 12.5 tiles high, but we round to full tiles). \\
+To address this, John Carmack invented "Adaptive Tile Refresh" (ATR). The core idea is to refresh only those areas of the screen that need to change. \\
 
 \par
 Let's look at \textit{Commander Keen 1: Marooned on Mars} in Figure \ref{fig:keen_difference}. This is the first level of Marooned, immediately to the right of the crashed Bean-with-Bacon Megarocket. The first figure is the start of the level, the second figure is after Keen has scrolled one tile (16 pixels) to the right through the world. They look almost identical to the naked eye, don't they? \\
 
 \par
-Now, if we perform a difference on both images, you can see which tiles need to be changed upon screen refresh. The trick behind the scrolling is to only redraw tiles that actually changed after panning 16 pixels (one tile). For matching tiles there is nothing to do and they are skipped entirely. In Figure 4.21, there are large swathes of constant background tiles. In total, only 69 tiles out of the 260 tiles need to be refreshed, which is 27\% of the screen!
+Now, if we perform a difference on both images, you can see which tiles need to be changed upon screen refresh. The trick behind the scrolling is to only redraw tiles that actually changed after panning 16 pixels (one tile). For matching tiles there is nothing to do and they are skipped entirely. In Figure 4.21, there are large swathes of constant background tiles. In total, only 69 tiles out of the 260 tiles need to be refreshed, which is 27\% of the screen!\\
 
-
+\par
+This is also the part where the game designers Tom Hall and Jogn Romero had to help the engine. Smooth scrolling is inversely proportional to the number of tiles to redraw. A checkerboard tile pattern basically means a full-screen redraw and would kill the CPU. So to avoid costly "jolts", the game designers built tile maps with a lot of reperating tiles. \\
 
 
 
@@ -119,11 +138,13 @@ Now, if we perform a difference on both images, you can see which tiles need to 
 \end{figure}
 \pagebreak
 
-\section{ATR in action: Commander Keen 1-3}
-This section explains how ATR is working for the first three episodes of Commander Keen. Since there is no source code released for the first three episodes of Commander Keen, ATR will be explained based without code examples. The later versions of Commander Keen, including Keen Dreams, used a different, improved engine which will be explained in the next section\footnote{https://retrocomputing.stackexchange.com/questions/22175/what-is-adaptive-tile-refresh-in-the-context-of-commander-keen}.\\
+\subsection{Adaptive tile refreshment in Commander Keen 1-3}
+This section explains how ATR is working for the first three episodes of Commander Keen. Since there is no source code released for these episodes, ATR will be explained without code examples. The later versions of Commander Keen, including Keen Dreams, used a different, improved engine which will be explained in the next section\footnote{https://retrocomputing.stackexchange.com/questions/22175/what-is-adaptive-tile-refresh-in-the-context-of-commander-keen}.\\
+
 
 \par
-The EGA screen in mode \cw{0xD} has a resolution of 320x200 pixels, which is 40x200 bytes. Let's extend the height by 8 bytes to have a height of 208 pixels, so the screen fits nicely in 20x13 tiles of 16x16 pixels. By making the virtual screen one tile higher (16 bytes) and one wider (2 bytes) on each side of the screen, the engine can scroll up to 16 pixels to any direction of the screen without any tile refresh, by simply adjusting the CRTC Start Address and Pel Pan registers.\\
+The EGA screen in mode \cw{0xD} has a resolution of 320x200 pixels, or 40x200 bytes. Let's extend the height by 8 bytes to have a height of 208 pixels, so the screen fits nicely in 20x13 tiles. By making the virtual screen one tile higher and one wider on each side of the screen, the engine can scroll up to 16 pixels to any direction of the screen without any tile refresh, by simply adjusting the CRTC Start Address and Pel Pan registers.\\
+
 
 \begin{figure}[H]
 \centering
@@ -131,6 +152,7 @@ The EGA screen in mode \cw{0xD} has a resolution of 320x200 pixels, which is 40x
 \label{fig:atr_virtual screen}
 \end{figure}
 
+ 
  
 Now, let's have a closer look at the EGA VRAM setup. The video memory is organized into three virtual screens:
 \begin{itemize}
@@ -141,7 +163,7 @@ Now, let's have a closer look at the EGA VRAM setup. The video memory is organiz
 
 
 \par
-Each virtual screen has a size of 44*240*4=42,420 bytes, or 10,560 bytes per memory bank. So within a 256KB EGA card there is enough VRAM available to keep all three virtual screens in memory. The page that is actually displayed at any given time is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
+Each virtual screen has a size of 44*240*4=42,420 bytes. So within a 256KB EGA card there is enough VRAM available to keep all three virtual screens in memory. The page that is displayed on screen is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
 
 
 
@@ -153,7 +175,8 @@ Each virtual screen has a size of 44*240*4=42,420 bytes, or 10,560 bytes per mem
 \end{figure}
 
 \par
-For both the buffer and visible screen a tile index array is created to maintain which tiles are changed since last refresh. \\
+For both the buffer and visible screen a tile array is created to maintain which tiles are changed since last refresh.\\
+
 
 \par
 \begin{minipage}{\textwidth}
@@ -162,15 +185,17 @@ For both the buffer and visible screen a tile index array is created to maintain
   \label{ega_refresh}
   \par
 
-The steps to refresh the screen are as follows:
+Steps to refresh the screen are as follows:
 \begin{enumerate}
 \item Check if the player has moved one tile in any direction.
-\item Validate which tiles have changed and copy these respective tiles to the master page and mark the tiles in both tile index arrays. 
-\item Refresh the buffer page by scanning the tile index array. If a tile is marked, copy the tile from the master page to the buffer page.
-\item Switch the view and buffer page by adjusting the CRTC Start Address and Pel Panning registers.
+\item Identify changed tiles and copy these to the master page, marking them in both tile arrays. 
+\item Refresh the buffer page by copying marked tiles from the master page.
+\item Switch the view and buffer pages by adjusting the CRTC Start Address and Pel Panning registers.
 \end{enumerate}
 
-For now let's ignore sprites on the screen, that will be explained in the next section. In the next four screenshots, we take you step-by-step through each of the stages. The player has reached the edge of the virtual screen and moves further to the right. \\
+
+Ignoring sprites for now, the following steps illustrate these stages. In the next four screenshots, we take you step-by-step through each of the stages. The player has reached the edge of the virtual screen and moves further to the right.\\
+
  
 \begin{figure}[H]
 \centering
@@ -180,7 +205,7 @@ For now let's ignore sprites on the screen, that will be explained in the next s
 \end{figure}
 
 \pagebreak
-The engine keeps track of which tile numbers are in the virtual screen. Since the engine only refresh at tile size granularity, it can determine extremely fast what has changed on the screen by comparing tile numbers. If the tile number has changed, the tile is updated by copying tiles from RAM into the VRAM master page. The changed tiles are marked with a '1' in both tile arrays, which means it needs to be updated upon next refresh.
+The engine keeps track of which tile numbers are part of the virtual screen. Since the engine only refresh the screen at tile size granularity, it can determine extremely fast what has changed on the screen by comparing tile numbers. If the tile number has changed, the tile is updated by copying tiles from RAM into the VRAM master page. The changed tiles are marked with a '1' in both tile arrays, meaning it needs to be updated upon next refresh.
 
 \begin{figure}[H]
 \centering
@@ -190,7 +215,8 @@ The engine keeps track of which tile numbers are in the virtual screen. Since th
 \end{figure}
 
 \pagebreak
-The next step is to scan all tiles in buffer tile array (array 1) and for each tile marked '1', copy the corresponsing tile from master to virtual page 1 page.\\
+The next step is to scan all tiles in buffer tile array (array 1) and for each tile marked '1', copy the corresponding tile from master to virtual page 1 page.\\
+
 \begin{figure}[H]
 \centering
  \fullimage{/game/Keen_ATR_1-3_step2.png}
@@ -200,7 +226,7 @@ The next step is to scan all tiles in buffer tile array (array 1) and for each t
 
 
 \pagebreak
-In the last step, point the visible screen to virtual page 1 by updating the CRTC start address. Finally, tile array 1 is cleared to '0'. Now the first step is repeated, but this time virtual page 0 acts as the buffer screen. Note that after swapping, tile array 0 keeps marked tiles from last update. This makes sense, as the current buffer page is not yet refreshed since it was displayed in the previous refresh cycle. 
+In the final step, point the visible screen to virtual page 1 by updating the CRTC start address. Finally, tile array 1 is cleared to '0'. Now the first step is repeated, but this time virtual page 0 acts as the buffer screen. Note that after swapping, tile array 0 keeps marked tiles from last update. This makes sense, as the current buffer page is not yet refreshed since it was displayed in the previous refresh cycle. 
 
 \begin{figure}[H]
 \centering
@@ -215,7 +241,7 @@ Now the buffer is refreshed and the CRTC address is updated, the final step is f
 \begin{figure}[H]
 \centering
  \includegraphics[width=0.85\textwidth]{screenshots_300dpi/game/Keen_ATR_1-3_b.png}
- \caption{End: Screen is refreshed and scrolled to the right.}
+ \caption{Screen is refreshed and scrolled to the right.}
  \label{fig:kc1_3_start}
 \end{figure}
 
@@ -247,9 +273,9 @@ It just works. We no longer had the problem of having fields of similar colors. 
 \end{fancyquotes}\\
 \addtocounter{footnote}{-1}
 \stepcounter{footnote}
-\footnotetext{An explanation further elaborated during an interview with Lex Fridman in 2022.}
-\par
+\footnotetext{An explanation further elaborated during the same interview with Lex Fridman in 2022.}
 
+\par
 There was however an issue with the introduction of Super VGA cards, which had typically more than 256kB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring at least 256kB RAM, which from a hardware constraint resulted in 512kB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{0xFFFF} did not work anymore on these cards. \\
 \par
 There is an easy solution to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} on page \pageref{fig:ega_ram_arch}, the space between \cw{0xB400} and \cw{0xFFFF} is not used and contains enough space for another virtual screen. In case the start address is between \cw{0xC400} and \cw{0xFFFF} the corresponding screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
@@ -263,21 +289,21 @@ I was in a tough position. Do I have to track every single one of these [SUPER V
 \end{fancyquotes}\\
 \addtocounter{footnote}{-1}
 \stepcounter{footnote}
-\footnotetext{Same interview with Lex Fridman in 2022.}
+\footnotetext{And again the same interview with Lex Fridman in 2022.}
 
 \par 
 \begin{figure}[H]
 \centering 
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.9\textwidth]{imgs/drawings/Page_down_switch.eps}
-  \caption*{Virtual pages moved down}
+  \includegraphics[width=.8\textwidth]{imgs/drawings/Page_down_switch.eps}
+  \caption*{Copy Page 0 on top of Master Page.}
   \label{fig:page0_down}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.9\textwidth]{imgs/drawings/Page_up_switch.eps}
-    \caption*{Virtual pages moved up}
+  \includegraphics[width=.8\textwidth]{imgs/drawings/Page_up_switch.eps}
+    \caption*{Copy Page 0 below Page 1. }
   \label{fig:page0_up}
 \end{subfigure}
 \caption{Move screen to opposite end of VRAM buffer}
@@ -294,8 +320,12 @@ I was in a tough position. Do I have to track every single one of these [SUPER V
   \par
 But how can we copy four VRAM planes fast enough, without noticing any performance hit? As explained in Section \ref{section:ega_memmap} each pixel is encoded by four bits, which are spread across the four EGA banks. To copy eight pixels, byte-aligned, one would have to do four read and four writes.\\
 
+
+
+But how can we copy four VRAM planes fast enough, without noticing any performance hit? As explained in Section 3.3.7 each pixel is encoded by four bits, which are spread across the four EGA banks. To copy eight pixels, byte-aligned, one would have to do four read and four writes.\\
+
 \par
-Having a closer look at the EGA card one notice there is a latch placed in front of the ALU, which can be re-purposed for the greater good. With a little creativity the ALU in front of each bank can be setup to use only the latch for writing\footnote{The mask trick is discussed in \textit{Game Engine Black Book: Wolfenstein 3D} for the VGA card. The trick is the same for the EGA card.}. With such a setup, upon doing one read, four latches are populated at once and four bytes in the bank are written with only one write to the RAM. This system allows transfer from VRAM to VRAM 4 bytes at a time. Now it is possible to copy the entire buffer fast enough, without notifying any performance impact.\\
+Having a closer look at the EGA card one notice there is a latch placed in front of the ALU, which can be re-purposed for the greater good. With a little creativity the ALU in front of each bank can be setup to use only the latch for writing\footnote{The mask trick is discussed in \textit{Game Engine Black Book: Wolfenstein 3D} for the VGA card. The trick is the same for the EGA card.}. With such a setup, upon doing one read, four latches are populated at once and four bytes in the bank are written with only one write to the RAM. Now it is possible to copy the entire buffer fast enough, without notifying any performance impact.\\ 
 
 \par
  \begin{figure}[H]
@@ -310,16 +340,10 @@ Having a closer look at the EGA card one notice there is a latch placed in front
   \lstinputlisting[language=C]{code/EGA_LATCH_COPY.ASM}
   \end{minipage}
   \label{ega_latch_copy}
-  \par
 
 
-
-
-
-\pagebreak
-
-\subsection{Adaptive tile refreshment in Commander Keen in Keen Dreams} \label{section:scroll_refresh_dreams}
-
+\subsection{Adaptive tile refreshment in Keen Dreams} 
+\label{section:scroll_refresh_dreams}
 The EGA memory wrapping results in an improved, more simplified Adaptive Tile Refreshment algorithm. First, a tile array is defined by making the display one tile higher and wider, which is named the view port. Now the engine can scroll the display up to 16 pixels to the right and bottom without any tile refreshment, simply by adjusting the CRTC Start Address and the Pel Pan register. Next, an additional column is attached to the port view to support scrolling to left and right. Finally, the tile array is further increased to have enough space to float the entire view port up to two tiles in all directions.\\
 
 \begin{figure}[H]

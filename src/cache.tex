@@ -5,29 +5,6 @@
 
 The floppy disk is not only the slowest component of the PC but also constrained in terms of storage space. Therefore, it is crucial to load and store game assets as efficiently as possible in memory, avoiding long and unnecessary loading times from the disk. To make matters worse, the total amount of assets and maps cannot fit into RAM all at once. This is where a cache manager becomes essential. Its primary purpose is to increase data retrieval performance by reducing the need to load data from the slow floppy disk. \\
 
-\begin{figure}[H]
-\centering
-{\renewcommand{\arraystretch}{1.2} %<- modify value to suit your needs
-\begin{tabularx}{\textwidth}{|X|X|r|r|}
-  \hline
-  \textbf{Asset type} & \textbf{filename} & \textbf{Uncompressed size} & \textbf{Compressed size}\\ \hline
-  Graphic assets & KDREAMS.EGA & 354,075 bytes & 213,045 bytes \\
-  Game levels & KDREAMS.MAP & 417,714 bytes & 65,673 bytes\\ 
-  Sound assets & KDREAMS.AUD & 4,572 bytes & 3,498 bytes\\ \hline
-  Total &  & 776,361 bytes & 282,216 bytes\\ \hline
-\end{tabularx}
-}
-\caption{Almost 65\% size reduction by using compression\protect\footnotemark.}
-\end{figure}
-
-\addtocounter{footnote}{-1}
-\stepcounter{footnote}
-\footnotetext{See Appendix \ref{asset_details} for details per asset file.}
-
-
-
-
-
 \subsection{Asset caching}
 To manage and track the assets to be loaded into memory, the game engine uses a caching level mechanism. An array, sized according to the total number of graphical assets, is maintained to mark whether an asset needs to be loaded into memory. \\
 
@@ -163,11 +140,11 @@ To avoid frequently used assets, such as fonts and Commander Keen sprites, being
  
 
 \subsection{Asset compression}
-Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. id Software used Huffman compression for all asset and map files, with additional RLE compression applied to further reduce the size of map files.
+Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. id Software used Huffman compression for all asset and map files, with additional RLE compression applied to further reduce the size of map files.\\
 
 
-\subsubsection{Huffman Compression}
-Huffman compression involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. \\
+\par
+\textit{Huffman compression} involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. \\
 
 
 \par
@@ -243,7 +220,7 @@ This results in a total of 13 bytes used for a 31-byte message, more than a 50\%
  \lstinputlisting[language=C]{code/huffman_struct.c}\par
  \end{minipage}\\
 
-\subsubsection{RLE Compression}
+\par
 The tile map asset files use a second compression technique, on top of Huffman. Upon closer inspection of a level, you'll notice large chunks of the same tile. For example, consider the first level you enter (Horse Radish Hill), which contains extensive areas of blue sky. Here, \textit{Run-length encoding} (RLE) compression comes in useful.\\
 
 \par
@@ -251,6 +228,26 @@ The essence of this compression method is to compress data by saving the "run-le
 
 \par
 In Commander Keen, this is solved by using a 'tag'. This special tag value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE tag value is encountered. When this tag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on 16-bits (word), and therefore is named RLEW, where the 'W' stands for word. The RLEW tag is defined as \cw{0xABCD}.\\
+
+The overall result of applying Huffman and RLEW compression results in almost 65\% file size reduction.\\
+
+\begin{figure}[H]
+\centering
+{\renewcommand{\arraystretch}{1.2} %<- modify value to suit your needs
+\begin{tabularx}{\textwidth}{|X|X|r|r|}
+  \hline
+  \textbf{Asset type} & \textbf{filename} & \textbf{Uncompressed size\protect\footnotemark} & \textbf{Compressed size}\\ \hline
+  Graphic assets & KDREAMS.EGA & 354,075 bytes & 213,045 bytes \\
+  Game levels & KDREAMS.MAP & 417,714 bytes & 65,673 bytes\\ 
+  Sound assets & KDREAMS.AUD & 4,572 bytes & 3,498 bytes\\ \hline
+  Total &  & 776,361 bytes & 282,216 bytes\\ \hline
+\end{tabularx}
+}
+\end{figure}
+
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{See Appendix \ref{asset_details} for details per asset file.}
 
 
 \par
