@@ -38,6 +38,8 @@ Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some
 \end{figure}
 
 
+
+
 \section{Graphic Assets}
 \label{section:graphic_assets}
 
@@ -49,7 +51,25 @@ All graphic assets were produced by Adrian Carmack. All of the work was done wit
  \caption{Deluxe Paint was used to draw all assets in the game.}
 \end{figure}
 
-\pagebreak
+\subsection{Tile introduction}
+Before diving into the details of game assets, let's first explore the basic principles behind platform games. Each level, or map, in a platform game is composed of "tiles". In Commander Keen, there are both background and foreground tiles. A background tile, or just "tile", is an image that measures 16x16 pixels. Each tile occupies 128 bytes (2 x 16 x 4 planes) of storage space in the graphics assets file.\\
+
+\par
+Individual tile images are stored in a planar format, with blue, green, red and intensity bits separated. This arrangement, called "graphic planar", stores complete planes sequentially, with each plane containing data for the entire tile.\\
+
+\par
+\begin{figure}[H]
+\centering
+ \includegraphics[width=.8\textwidth]{imgs/drawings/Tile_RGBI.eps}
+ \caption{Graphic Planar data storage.}
+ \label{graphic_planar}
+\end{figure}
+
+\par
+Foreground tiles, or "masked tiles", are similar to normal tiles but contain five planes instead of four. The extra plane stores the mask, and the order of planes is mask, blue, green, red, intensity. Consequently, a single masked tile requires 160 bytes (128 + 32) of storage. A mask bit of '0' means the background tile color is erased and replaced by the foreground tile color, while a mask bit of '1' blends the background color with the foreground color. If the foreground color is '0', the background color remains visible. \\
+
+\par
+By combining tiles on the screen, a map is created. These maps define the entire game world in terms of background and foreground tiles. Maps also contain a list of all actors and their starting positions within the world. Essentially, everything the player encounters while progressing through the levels is specified in a map.
 
 \subsection{Assets Workflow}
 After the graphic assets were generated, a tool (IGRAB) packed all ILBM files into a compressed data asset file (\cw{EGA}-file) and generated a \cw{HEAD} table, \cw{DICT} file (\cw{KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs.\\
@@ -76,7 +96,7 @@ In the engine's code, asset usage is hardcoded via an enum. This enum serves as 
 
 \subsection{Assets file structure}
 \label{section:asset_file_structure}
-Figure \ref{fig:asset-file} illustrates the structure of the \cw{KDREAMS.EGA} asset file. The first section contains data tables for pictures and sprites, followed by the font, and all sprites and tiles. 
+Figure \ref{fig:asset-file} illustrates the structure of the \cw{KDREAMS.EGA} asset file. The first section contains data tables for pictures and sprites, followed by the font, and all sprite and tile graphs. 
 
 \begin{figure}[H]
 \centering
@@ -115,7 +135,7 @@ The \cw{spritetable[]} includes not only width and height but also information o
 
 
 \par
-All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection.\\
+All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection. Sprites have an additional layer to indicate transparency, similar to masked tiles.\\
 
 \par
 \begin{figure}[H]
@@ -311,7 +331,7 @@ A level is created by placing tiles on each of these three layers. Foreground an
 \fullimage{ted5_tile_info.png}\\
  
 \par
-Similar to IGRAB, TED5 compresses all levels into a \cw{MAP} archive and generates corresponding \cw{HEAD} and \cw{DICT} files (\cw{KDR}-extension).\\
+Similar to IGRAB, TED5 compresses all levels into a \cw{MAP} archive and generates corresponding \cw{HEAD} and \cw{DICT} files.\\
 
  
 \subsection{Map header structure}

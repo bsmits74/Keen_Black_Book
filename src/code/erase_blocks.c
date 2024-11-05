@@ -1,11 +1,3 @@
-typedef struct
-{
-    int			screenx,screeny;
-    int			width,height;
-} eraseblocktype;
-
-eraseblocktype	eraselist[2][MAXSPRITES],*eraselistptr[2];
-
 void RFL_EraseBlocks (void)
 {
 	eraseblocktype	*block,*done;
@@ -18,9 +10,9 @@ void RFL_EraseBlocks (void)
 	{
     [...]
 
-	//
-	// erase the block by copying from the master screen
-	//
+	  //
+	  // erase the block by copying from the master screen
+	  //
 		pos = ylookup[block->screeny]+block->screenx;
 		block->width = (block->width + (pos&1) + 1)& ~1;
 		pos &= ~1;				// make sure a word copy gets used

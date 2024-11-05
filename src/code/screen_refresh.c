@@ -23,20 +23,19 @@
 
 endif
 
-; #### set CRTC start address
-
 ;
-; wait for a vertical retrace to set pel panning
+; set CRTC start
 ;
-	mov	dx,STATUS_REGISTER_1
-@@waitvbl:
-	sti     		        ;service interrupts
-	jmp	$+2
-	cli
-	in	al,dx
-	test	al,00001000b	;look for vertical retrace
-	jz	@@waitvbl
-
-endif
-
-; #### set horizontal panning
+	mov	cx,[crtc]
+	mov	dx,CRTC_INDEX
+	mov	al,0ch		;start address high register
+	out	dx,al
+	inc	dx
+	mov	al,ch
+	out	dx,al
+	dec	dx
+	mov	al,0dh		;start address low register
+	out	dx,al
+	mov	al,cl
+	inc	dx
+	out	dx,al

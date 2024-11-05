@@ -1,9 +1,7 @@
-	jmp	SHORT @@realstart   ; start the scan
-@@done:
-;============
-; all tiles have been scanned
-;============
-	ret
+PROC	RFL_MaskForegroundTiles
+PUBLIC	RFL_MaskForegroundTiles
+
+[...]
 
 @@realstart:
 	mov	di,[updateptr]

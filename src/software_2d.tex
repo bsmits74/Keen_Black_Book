@@ -318,7 +318,7 @@ I was in a tough position. Do I have to track every single one of these [SUPER V
   \end{minipage}
   \label{ega_refresh}
   \par
-But how can we copy four VRAM planes fast enough, without noticing any performance hit? As explained in Section \ref{section:ega_memmap} each pixel is encoded by four bits, which are spread across the four EGA banks. To copy eight pixels, byte-aligned, one would have to do four read and four writes.\\
+As explained in Section \ref{section:ega_memmap} each pixel is encoded by four bits, which are spread across the four EGA banks. So how can we copy four VRAM planes fast enough, without noticing any performance hit? To copy eight pixels, byte-aligned, one would have to do four read and four writes.\\
 
 
 
@@ -344,7 +344,11 @@ Having a closer look at the EGA card one notice there is a latch placed in front
 
 \subsection{Adaptive tile refreshment in Keen Dreams} 
 \label{section:scroll_refresh_dreams}
-The EGA memory wrapping results in an improved, more simplified Adaptive Tile Refreshment algorithm. First, a tile array is defined by making the display one tile higher and wider, which is named the view port. Now the engine can scroll the display up to 16 pixels to the right and bottom without any tile refreshment, simply by adjusting the CRTC Start Address and the Pel Pan register. Next, an additional column is attached to the port view to support scrolling to left and right. Finally, the tile array is further increased to have enough space to float the entire view port up to two tiles in all directions.\\
+The EGA memory wrapping results in an improved, more simplified Adaptive Tile Refreshment algorithm. First, a virtual screen and tile array is defined by making the display one tile taller and wider, creating what is known as the viewport. This allows the engine to scroll the display up to 16 pixels to the right and bottom without refreshing tiles, by simply adjusting the CRTC Start Address and Pel Pan register.\\
+
+\par
+An additional column is then added to the viewport to support horizontal scrolling. Finally, the tile array is further expanded to allow the entire viewport to move up to two tiles in any direction.\\
+
 
 \begin{figure}[H]
 \centering
@@ -355,14 +359,14 @@ The EGA memory wrapping results in an improved, more simplified Adaptive Tile Re
 
 
 \par
-A full refresh cycle, including sprite updates, take place as follows:
+The full refresh cycle, including sprite updates, proceeds as follows:
 \begin{enumerate}
-  \item Check if the player has moved one tile in any direction.
-  \item Copy the new column or row of tiles to the master page, update the tile array pointers and mark the tiles in both tile arrays. 
-  \item Refresh the buffer page by scanning the tile index array. If a tile is marked, copy the tile from the master page to the buffer page.
-  \item Iterate through the sprite removal list and copy corresponding image block from master  to buffer page. 
-  \item Iterate through the sprite list and copy corresponding sprite image block to the buffer page.
-  \item Switch the view and buffer page by adjusting the CRTC Start Address and Pel Panning registers.
+  \item Verify if the player has moved one tile in any direction.
+  \item Copy the new column or row of tiles to the master page, update both the tile array pointers, and mark the tiles in both arrays.
+  \item Refresh the buffer page by scanning the tile index array. If a tile is marked, copy it from the master page to the buffer page.
+  \item Iterate through the sprite removal list, copying the corresponding image block from the master page to the buffer page to clear the sprite.
+  \item Iterate through the sprite list, copying each sprite image block to the buffer page.
+  \item Switch the view and buffer pages by adjusting the CRTC Start Address and Pel Panning registers.
 \end{enumerate}
 
 
@@ -375,8 +379,7 @@ A full refresh cycle, including sprite updates, take place as follows:
 
 
 \pagebreak
-
-The starting situation is that all three virtual pages have exactly the same view port, where virtual page 0 is currently shown on the screen. Both tile arrays are empty, meaning no tile updates upon next refresh cycle. The player is reaching the edge of the virtual screen and moves further to the left. Notice the master page only contains a static view, without any sprites. 
+Let's go over the refresh cycle step by step. At the start, all three virtual pages display the same viewport, with virtual page 0 currently shown on-screen. Both tile arrays are empty, meaning no tile updates are required in the next refresh cycle. The player has reached the edge of the virtual screen and moves further to the left. \\
 
 \begin{figure}[H]
 \centering
@@ -386,8 +389,8 @@ The starting situation is that all three virtual pages have exactly the same vie
 \end{figure}
 
 \pagebreak
-
-Both VRAM and tile arrays pointers are moved to the left to introduce a new column of tiles. The VRAM pointer is lowered by 2 bytes (1 tile width) and the tile array pointer is lowered 1 byte. Next, a new column of tiles is copied to the virtual master page, and the most left column in both tile arrays is marked with '1', so it is updated upon next refresh cycle. Finally, animated tiles are copied to the virtual master page and the corresponding tiles in the tile array are marked with '1' as well.
+Both VRAM and tile array pointers shift left to introduce a new column of tiles. The VRAM pointer is lowered by 2 bytes (1 tile), and the tile array pointer is decreased by 1 byte.
+A new column of tiles is copied from RAM to the master page, while the leftmost column in both tile arrays is marked with '1' to ensure it updates in the next refresh cycle. Animated tiles are then copied to the master page, and the corresponding tiles in the array are also marked with '1'.\\
 
 \begin{figure}[H]
 \centering
@@ -397,8 +400,8 @@ Both VRAM and tile arrays pointers are moved to the left to introduce a new colu
 \end{figure}
 
 \pagebreak
+Next, the engine scans all '1's and copies the corresponding tiles from the master to the buffer page. \\
 
-In the next step the engine scans all '1' and copy the corresponsing tiles from master to the buffer page. \\ 
 
 \begin{figure}[H]
 \centering
@@ -408,7 +411,14 @@ In the next step the engine scans all '1' and copy the corresponsing tiles from 
 \end{figure}
 
 \pagebreak
-A list of removed sprites is maintained by the sprite removal block list. \\
+Each sprite removed from the screen has its location and size stored in the sprite removal list, which removes the sprite by copying a specific section from the master screen to the virtual page. Tiles overlapping with the removal block are marked with a '2'.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/erase_blocks_struct.c}
+  \end{minipage}
+  \label{block_removal}
+\\
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/erase_blocks.c}
@@ -416,26 +426,21 @@ A list of removed sprites is maintained by the sprite removal block list. \\
   \label{block_removal}
 
 \par
-Each removal block contains the location and size to be removed, which is done by copying the specific section from the master screen to the virtual page. The corresponding tiles which overlap with the removal block are marked with a '2'.\\
-
-\par
-\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is a used in the original ATR engine.\\
+\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
   \par
   
-\par
-The final step in updating the buffer is to copy sprites to the new location. Each corresponding tile is marked with a '3' in the tile array.
+\pagebreak
+The final step in updating the buffer is copying sprites to their new locations, with each corresponding tile marked with a '3' in the tile array. 
 
 \begin{figure}[H]
 \centering
  \scaledimage{1.0}{/game/Keen_ATR_4-6_d.png}
- \caption{Add updated sprites to the buffer screen.}
+ \caption{Removing and updating sprites to the buffer screen.}
  \label{fig:kc4_6_step4}
 \end{figure}
 
 \pagebreak
-
-After the buffer has been refreshed, the engine only has to update the CTCR start address to virtual page 1. The visible tile array is emptied and the pointer is reset to the starting location, while the new buffer array (virtual page 0) keeps the tiles marked, since the corresponding screen has not been refreshed yet. Now, the entire refresh cycle starts over again, where virtual page 0 is now the buffer.
-
+Once the buffer refresh is completed, the engine needs only to update the CRTC start address to virtual page 1. At this point, the visible tile array is emptied, and the pointer resets to its starting location. The new buffer array (virtual page 0) retains the marked tiles since this screen has not yet refreshed. At this point, the refresh cycle restarts, with virtual page 0 now functioning as the buffer. 
 
 \begin{figure}[H]
 \centering
@@ -445,69 +450,237 @@ After the buffer has been refreshed, the engine only has to update the CTCR star
 \end{figure}
 
 \pagebreak
+The final step in scrolling is to adjust the horizontal fine-pixel alignment by setting the Pel Pan register. \textit{Et voil\`a}, the screen scrolls smoothly to the left. This scrolling process is significantly more efficient than the original ATR engine, resulting in only 8\% of tiles to be refreshed!\\
 
-The final step is to update the horizontal fine-pixel alignment by setting the pel pan register. \textit{Et voila,} the screen has scrolled to the left. Notice how much more efficient scrolling takes place compared to the orginal ATR engine in Figure \ref{fig:kc1_3_step2}. Only 8\% of the screen requires a tile refresh!\\
 \begin{figure}[H]
 \centering
- \scaledimage{0.7}{/game/Scroll_KC4_6_1.png}
- \caption{Start: Scroll screen to the left}
- \label{fig:kc4_6_start}
+\begin{subfigure}{.5\textwidth}
+\centering
+  \includegraphics[width=.95\linewidth]{screenshots_300dpi/game/Scroll_KC4_6_1.png}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+  \includegraphics[width=.95\linewidth]{screenshots_300dpi/game/Scroll_KC4_6_2.png}
+\end{subfigure}
+\caption{Left screen is before scrolling, right screen after scrolling.}
+\label{fig:kc4_6_scroll}
 \end{figure}
 
 \par
-If the player has moved again to the left, tile array 0 pointer will be lowered for the second time, which explains why we need enough space to float the entire viewport up to two tiles in all directions.\\ 
+If the player continues to move to the left, the tile array 0 pointer lowers a second time, underscoring why additional space is needed to allow the entire viewport to float up to two tiles in all directions.\\
 
-
-
-
-\subsection{Screen refresh}
-
-Flipping between the pages is as simple as setting the CRTC start address registers to page 0 or page 1 starting point. 
-However, there is one issue to solve. If you were to run it, every once in a while the expected screen shown below...
+\subsection{Screen refresh} 
+Flipping between the pages is as simple as setting the CRTC start address registers to page 0 or page 1 starting point. However, there is one issue to solve. If you were to run it, every once in a while the expected screen shown below...
 
  \begin{figure}[H]
 \centering
  \scaledimage{0.85}{/game/full_screen.png}
  \end{figure}
-...would instead appear distorted:\\
+...would instead appear distorted, showing both misalignment and parts of two pages:\\
 \par
  \begin{figure}[H]
 \centering
  \scaledimage{0.85}{/game/crtc_scanstart_problem.png}
  \end{figure}
 \par
-This glitch shows both misalignment and parts of two pages. This problem has to do with the timing between updating the CRTC starting address and screen refresh. The start address is latched by the EGA's internal circuitry exactly once per frame, typically at the start of the vertical retracement. The CRTC starting address is a 16-bit value but the \cw{out} instruction can only write 8 bits at a time. \\
-\par
+This problem results from the timing between updating the CRTC start address and the screen refresh. The start address is latched by the EGA's internal circuitry exactly once per frame, usually at the beginning of the vertical retrace. Although the CRTC start address is a 16-bit value, the \cw{out} instruction can only write 8 bits at a time.\\
 
-Now we have the following situation, where the current CRTC start address (Page 0) is pointing to \cw{0x0000} and the buffer (Page 1) to \cw{0x3C00}. We moved one tile to the left and now Page 0 is pointing at 0xFFFE in VRAM and Page 1 is at 0x3BFE. Page 1 is the updated buffer and will be displayed upon next refresh cycle. Poor timing of the vertical retracement and start address update results in the CRTC only picking up the first byte of the address, \cw{0x3B}, and setting the new start address to \cw{0x3B00} instead of \cw{0x3BFE}.\\
+\par
+This issue can be illustrated with the following setup: the current CRTC start address (Page 0) points to \cw{0000h}, while the buffer (Page 1) points to \cw{3C00h}. After moving one tile to the left, Page 0 now points to \cw{FFFEh} in VRAM, and Page 1 points to \cw{3BFEh}. Since Page 1 is the updated buffer, it will be displayed in the next refresh cycle. However, due to poor timing in updating the vertical retrace and start address, the CRTC only picks up the first byte of the address, \cw{3Bh}, setting the start address to \cw{3B00h} instead of \cw{3BFEh}.\\
 
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language={[x86masm]Assembler}]{code/pageflip_error.c}
 \end{minipage}
-\par
-
-The most obvious solution to this issue is to update the start address when we pick up the vertical retracement signal via the Input Status 1 Register (bit 3 of \cw{0x3DA}). Unfortunately, by the time the vertical retrace status is observed by a program, the start address for the next frame has already been latched, having happened the instant the vertical retrace pulse began.\\
 
 \par
-The trick is to update the start address sufficient far away from when the vertical retracement starts. So we're looking for a signal that tells us it just finished a horizontal or vertical retrace and started a scan line, far enough away from vertical retrace so we can be sure the new start address will get used at the next vertical sync. This signal is provided by the Display Enable status signal via the Input Status 1 Register, where a value of 1 indicates the display is in a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.
-\\
+One solution to this issue is to update the start address when the vertical retrace signal is detected through the Input Status 1 Register, specifically bit 3 of \cw{3DAh}. Unfortunately, by the time this status is observed by the program, the start address for the next frame has already been latched, occurring immediately when the vertical retrace pulse begins.\\
 
+\pagebreak
+To address this, the start address must be updated at a point sufficiently distant from the start of the vertical retrace. This requires identifying a signal that confirms the completion of a horizontal or vertical retrace and the beginning of a new scan line, far enough from the vertical retrace to ensure the new start address is latched during the next vertical sync. The Display Enable Status signal, accessible via the Input Status 1 Register, provides this information; a value of 1 indicates that the display is within a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.\\
+
+ 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{imgs/drawings/update_start_address.eps}
   \label{fig:update_start_address}
   \caption{Update CRTC start address at beginning of new scan line.}
 \end{figure}
-\par
 
-When the Display Enable status is observed, the program sets the new start address. Once the CRTC start address is updated, the game waits for vertical retrace to happen, sets the new pel panning state, and then continues drawing.\\
+\par
+To guarantee that the start address updates at the very beginning of a new scan line, the process first waits until the current scan line completes. Then, it waits for a full retrace, checking that the Display Enable Status returns to '0'. At this point, the CRTC address is updated.\\
+
+\trivia{Regardless of CPU speed, the game's speed is limited by the CRTC sync to the monitor's refresh rate, which is 60Hz for EGA and 70Hz for VGA.}
+
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language={[x86masm]Assembler}]{code/screen_refresh.c}
 \end{minipage}
 \par
 
+\subsection{Manage Refresh Timing}
+After each screen refresh, a certain amount of time, referred to as "ticks", has passed. The tick count depends on several factors, such as the number of tiles refreshed and the waiting period for a screen's vertical retrace. Since all game actions and reactions rely on the tick interval between two refreshes, it is important to keep this interval consistent.\\
+
+\par
+Without controlling the tick interval, the state and speed of actors can become unpredictable, potentially causing them to move too quickly or even "warp" to an unexpected location. To manage refresh intervals effectively, a minimum and maximum number of ticks are defined within the refresh loop.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/time_ticks.c}
+\end{minipage}
+\label{time_ticks}
+
+
+\pagebreak
+\section{Drawing layer for layer}
+Each tile on the screen can contain up to three layers: the background layer, the foreground layer and a sprite layer. Rendering the final screen requires multiple redraws on the same tile to achieve the correct layering:
+\begin{enumerate}
+  \item Draw the background layer or a combined background and foreground tile.
+  \item Draw the sprites.
+  \item Re-draw the foreground layer if a sprite should not appear on top.
+\end{enumerate}
+
+\par
+In the best case, the engine must read and write 128 bytes (2 * 16 bytes * 4 memory banks) to VRAM for a background tile only. In the worst case, reading and writing up to 608 bytes are needed (background, foreground, sprite, and foreground re-drawn), with several bitwise operations involved. It must run quickly and therefore most of the code is written in assembly.
+
+\subsection{Draw background and foreground tiles}
+Drawing the background layer is straightforward, as it only requires copying 128 bytes to VRAM. Drawing foreground tiles on top of the background layer requires an additional mask, which defines which pixels are overwritten by the foreground tile.\\
+
+\begin{figure}[H]
+\centering
+ \begin{subfigure}{0.32\textwidth}
+ 	\centering
+ 	\includegraphics[width=0.45\textwidth]{screenshots_300dpi/game/mask_tiles_1.png}
+ 	\caption{Background tile.}
+ \end{subfigure}
+ \begin{subfigure}{0.32\textwidth}
+ 	\centering
+ 	\includegraphics[width=0.45\textwidth]{screenshots_300dpi/game/mask_tiles_2.png}
+ 	\caption{\cw{AND} foreground mask.}
+ \end{subfigure}
+ \begin{subfigure}{0.32\textwidth}
+ 	\centering
+ 	\includegraphics[width=0.45\textwidth]{screenshots_300dpi/game/mask_tiles_3.png}
+ 	\caption{\cw{OR} foreground bitmap.}
+ \end{subfigure} 
+
+\caption{Draw masked foreground tile.}
+\label{fig:foreground_tile}
+\end{figure}
+
+Combining the background and foreground layers involves an \cw{AND}-bitwise operator to clear the background and the \cw{OR}-bitwise operator to write the foreground layer.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/update_tile.asm}
+  \end{minipage}
+  \label{update_tile}
+
+
+\subsection{Drawing sprites}
+The next step is to render sprites on the screen. Most home computers of that era had built-in sprite functionality on the video card. For example, on a MSX computer, one could simply enter\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/msx_sprite.c}
+  \end{minipage}
+  \label{msx_sprite}
+
+\par
+to display a sprite on the screen. Updating the \cw{(X, Y)} coordinates would move the sprite, with the display adapter handling everything else. Unfortunately, the concept of sprites did not exist on EGA cards, so game developers had to implement their own solution.\\
+
+\par
+A challenge arises from the fact that sprites can move freely across the screen and are not byte-aligned. To address this, the bit-shifting technique described in section \ref{section:bitshifting} is used. When caching a sprite into memory, each sprite is copied four times, with each copy shifted by two or more pixels using this technique. The property \cw{*spr->shifts} determines the number of bit shifts applied to each of the four copies.\\
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/sprite_shift.eps}
+  \caption{Sprite shifted in 4 steps.}
+  \label{fig:sprite_shift}  
+\end{figure}
+
+\par
+Displaying the correct shifted sprite is as simple as\\
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/sprite_shift.c}
+  \end{minipage}
+  \label{sprite_shift}  
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/shift_sprite.c}
+  \end{minipage}
+  \label{shift_sprite}
+  
+
+\par
+If multiple sprites are displayed on the same tile, each sprite is assigned a priority from 0 to 3 to determine the drawing order. A sprite with a higher priority number is always drawn on top of sprites with a lower priority. Since sprites are always drawn on top of tiles, this can create unnatural situations, such as when Commander Keen is climbing through a hole, as illustrated in Figure \ref{fig:draw_layers}.\\
+
+\begin{figure}[H]
+\begin{subfigure}{.25\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_1.png}
+  \caption{Background tile.}
+\end{subfigure}%
+\begin{subfigure}{.25\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_2.png}
+  \caption{Foreground tile.}
+\end{subfigure}
+\begin{subfigure}{.25\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_3.png}
+  \caption{Sprite on top.}
+\end{subfigure}
+\caption{Unnatural situation where Commander Keen is in front of a hole.}
+\label{fig:draw_layers}
+\end{figure}
+
+\par
+To draw sprites 'inside' a foreground tile, a trick is used by introducing a priority foreground tile in the \cw{tinf} info table. The attribute is named INTILE ("in-front"). If a foreground tile has its INTILE attribute high bit set (\cw{80h}), sprites with priority 0-2 will not be drawn over it. Only sprites with priority 3 are drawn over the foreground tile. This results in the following drawing order:
+\begin{enumerate}
+  \item Draw the background tile and the masked foreground tile.
+  \item Draw sprites with priority 0, 1, and 2 (in that order), and mark the corresponding tile in the tile buffer array with a '3', as illustrated in Figure \ref{fig:kc1_3_tile_update_sprite} on page \pageref{fig:kc1_3_tile_update_sprite}.
+  \item Scan the tile buffer array for tiles marked with '3'. If the corresponding foreground tile's INTILE attribute high bit (\cw{80h}) is set, re-draw the foreground tile. 
+  \item Finally, draw sprites with priority 3. These sprites are always drawn on top of everything.
+\end{enumerate}
+\par
+
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{.245\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_1.png}
+  \caption{Background tile.}
+\end{subfigure}%
+\begin{subfigure}[t]{.245\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_2.png}
+  \caption{Foreground tile.}
+\end{subfigure}
+\begin{subfigure}[t]{.245\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_3.png}
+  \caption{Sprite on top.}
+\end{subfigure}
+\begin{subfigure}[t]{.245\textwidth}
+  \centering
+  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_4.png}
+  \caption{Redraw foreground tile.}
+\end{subfigure}
+\caption{Draw sprite inside a tile, by redrawing foreground tile.}
+\label{fig:clip_tinf}
+\end{figure}
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/mask_foreground_tile.asm}
+\end{minipage}
+\label{mask_foreground_tile}
+\par
 
 
 
@@ -547,74 +720,6 @@ All actors have a state chain, as example the tater trooper.\\
 All types of enemies (including Boobus) have their own state machine. They often share
 the same reactions (e.g. WalkReact and ProjectileReact), but often have their own thinking state.
 
-\subsection{Drawing Sprites}
-\label{section:draw_sprites}
-Once the state of the actor is updated, it is time to render the actor on the screen. This is done using sprites and contains the following steps:
-\begin{enumerate}
-\item Update the state and move actors within the active region.
-\item Determinate if a actor has changed or moved
-\item Update the actor by removing and drawing sprites to it's new position
-\end{enumerate}
-
-Unlike many game consoles such as Nintendo, the concept of sprites did not exists on the EGA card, so again the team needs to write their own solution. As explained in Section \ref{section:asset_file_structure} (Page \pageref{table:spritetable}, table \ref{table:spritetable}) each sprite asset contains additional information which is illustrated in Figure \ref{fig:sprite_structure}.\\
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.6\textwidth]{imgs/drawings/sprite.png}
-  \caption{sprite structure}
-  \label{fig:sprite_structure}
-\end{figure}
-
-All global movement takes place from the origin. The origin is offset by \cw{(orgx, orgy)} from the top-left location of the sprite. The parameters \cw{(xl, xh, yl, yh)} define the hit box of the sprite, which is used to detect collisions.\\
-
-\begin{table}[H]
-  \begin{tabularx}{\textwidth}[c]{lXXXXXXXXX}
-  \hline
-  \textbf{index} & \textbf{width} & \textbf{height} & \textbf{orgx} & \textbf{orgy}
-    & \textbf{xl} & \textbf{yl} & \textbf{xh} & \textbf{yh} & \textbf{shift} \\ \hline
-  0  &   3  &   24  &   0  &   0  &   0  &   0  &   368  &   368  &   4 \\
-  1  &   3  &   32  &   0  &   0  &   64  &   0  &   304  &   496  &   4 \\
-  2  &   3  &   30  &   0  &   16  &   64  &   0  &   304  &   496  &   4 \\
-  3  &   3  &   30  &   0  &   32  &   64  &   48  &   304  &   496  &   4 \\
-  4  &   3  &   32  &   0  &   0  &   64  &   0  &   304  &   496  &   4 \\
-  5  &   3  &   30  &   0  &   32  &   64  &   48  &   304  &   496  &   4 \\
- ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ...  &   ... \\
- 296  &   12  &   103  &   -128  &   0  &   256  &   128  &   752  &   1648  &   4\\
-  \end{tabularx}
-  \caption{content of spritetable[] in the \cw{KDREAMS.EGA} asset file.}
-  \label{table:spritetable}
-\end{table}
-
-Once the new state and movement of the actor is calculated from the state machine, the engine needs to first remove the current sprite from the buffer and then redraw the sprite on the new location.\\
-
-\par
-Erasing sprites from the buffer page is done by maintaining a list of erase blocks. Each erase block contains the screen (x,y) location, width and height of the sprite to be erased. Instead of copying each variable one-by-one, it makes smartly use of \cw{memcpy} function. \\
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/sprite_removal.c}
-\end{minipage}
-\par
-
-The engine is maintaining two list of erase blocks; one for the view page and one for the buffer page. As explained before, each erase block is copying from the (static) master page to the buffer page.\\
-
-\par
-As each sprite can float freely over the screen, also here bitshifted sprites are used to position the sprite on a byte-aligned memory layout (as explained in section \ref{section:bitshifting} on page \pageref{section:bitshifting}). The value in the shift column defines the amount of steps the sprite has to be shifted within 8 pixels. A shift value of 4 means the sprite is shifted in 4 steps with a 2 pixel interval.\\ 
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/sprite_shift.eps}
-  \caption{Sprite shifted in 4 steps.}
-  \label{fig:sprite_shift}  
-\end{figure}
-\par
-Displaying the correct shifted sprite is as simple as below. 
-\\
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/sprite_shift.c}
-\end{minipage}
-\label{state_type}
-\par
 
 
 \subsection{Clipping}
@@ -687,93 +792,7 @@ For clipping top and bottom the engine also needs to take clipping to slopes int
 \label{wallclip_array}
 \par
 
-\subsection{Priority of tiles and sprites on screen}
-The normal screen build is as follows:
-\begin{enumerate}
-  \item Draw the background tiles.
-  \item Draw the masked foreground tiles.
-  \item Draw the sprites on top of both the background and foreground tiles.
-\end{enumerate}
 
-If multiple sprites are displayed on the same tile, each sprite is given a priority 0-3 to define the order of drawing. A sprite with a higher priority number is always displayed on top of lower priority sprites. As sprites are always displayed on top of tiles, this is causing unnatural situation when Commander Keen is climbing through a  hole as illustrated in Figure \ref{fig:draw_layers}.\\
-
-\begin{figure}[H]
-\begin{subfigure}{.25\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_1.png}
-  \caption{Background tile.}
-\end{subfigure}%
-\begin{subfigure}{.25\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_2.png}
-  \caption{Foreground tile.}
-\end{subfigure}
-\begin{subfigure}{.25\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_3.png}
-  \caption{Sprite on top.}
-\end{subfigure}
-\caption{Unnatural situation where Commander Keen is in front of a hole.}
-\label{fig:draw_layers}
-\end{figure}
-\par
-
-To draw sprites 'inside' a foreground tile, a small trick is used by introducing a priority foreground tile. As explained in section \ref{section:foreground_tile_info} each foreground tile is enriched with INTILE ('inside tile') information. If the highest bit (\cw{80h}) of INTILE is set, this foreground tile has a higher priority than sprites with a priority 0, 1 or 2. So when drawing the tiles and sprites the following drawing order is applied:
-\begin{enumerate}
-  \item Draw the background tile.
-  \item Draw the masked foreground tile.
-  \item Draw sprites with priority 0, 1 and 2 (in that order) and mark the corresponding tile in the tile buffer array with '3' as illustrated in Figure \ref{fig:kc1_3_tile_update_sprite} on page \pageref{fig:kc1_3_tile_update_sprite}.
-  \item Scan the tile buffer array for tiles marked with '3'. If the corresponding foreground INTILE high bit (\cw{80h}) is set, redraw the masked foreground tile.
-  \item Finally, draw sprites with priority 3. These sprites are always on top of everything.
-\end{enumerate}
-\par
-The priority foreground tiles are updated in the \cw{RFL\_MaskForegroundTiles()} function.\\
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}[t]{.245\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_1.png}
-  \caption{Background tile.}
-\end{subfigure}%
-\begin{subfigure}[t]{.245\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_2.png}
-  \caption{Foreground tile.}
-\end{subfigure}
-\begin{subfigure}[t]{.245\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_3.png}
-  \caption{Sprite on top.}
-\end{subfigure}
-\begin{subfigure}[t]{.245\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/tile_composite_4.png}
-  \caption{Redraw masked foreground tile.}
-\end{subfigure}
-\caption{Draw sprite inside a tile, by redrawing foreground tile.}
-\label{fig:clip_tinf}
-\end{figure}
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language={[x86masm]Assembler}]{code/mask_foreground_tile.asm}
-\end{minipage}
-\label{mask_foreground_tile}
-\par
-
-\subsection{Manage refresh timing}
-After each screen refresh a certain amount of time, which we call ticks, has passed. The amount of ticks depends on several factors like amount of tiles refreshed and waiting time for a screen vertical retrace. Since all game actions and reactions rely on the amount of ticks between two refreshes, it is important to keep the tick interval consistent.\\
-
-\par
-Without controlling the tick interval, the state and speed of actors could become unreliable, they could run faster and even can "warp" to an unexpected location. To control refresh intervals, a minimum and maximum number of tics is defined in the refresh loop.\\
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/time_ticks.c}
-\end{minipage}
-\label{time_ticks}
-\par
 
 \pagebreak
 
@@ -785,100 +804,6 @@ The game and all actors are defined in a global coordinate system, which is scal
   \label{ega_refresh}
   \par
 
-\section{ATR}
-
-
-In the file \cw{id\_vw.h} the virtual screen in VRAM is defined by SCREENSPACE, which is set to 512x240 pixels (64x240 = 15,360 bytes). This is more than sufficient since the visible screen in mode \cw{0x0D} is 320x200 pixels.\\
-
-Since one screen only uses 15,360 bytes of VRAM (which is 3,840 bytes per plane), there is more than enough space to store more than two full screens of video data. 
-
-\par
-Before explaining the scrolling algorithm, let's first explain how the tile layout is organized. The EGA screen in mode \cw{0xD} has a resolution of 320x200 pixels. Translated in 16x16 pixel tiles, the screen view has a size of 20x13 tiles (actually 12.5 tiles high, but we round up to 13 tiles). By making the port view one tile higher and wider than the screen, the engine can scroll the screen up to 16 pixels to the right or bottom side of the screen without any tile refresh, by means of adjusting the CRTC Start Address and Pel Pan registers. Finally, the buffer must have enough space to float the view port up to two tiles in all directions (This is required for later versions of Commander Keen, which will be explained in Section \ref{section:scroll_refresh_dreams}). In total two tile arrays are maintained; one for the view screen and one for the buffer screen.\\
-\par
- 
-
-
-
-
-
-
-\subsection{Adaptive tile refreshment in Commander Keen 1-3}
-In the this section we explain how the first 3 versions of the game are working\footnote{We can only explain how the algorithm is working without code examples, since the only released code is Keen Dreams which is using the improved algorithm.}. Six stages are involved in drawing a 2D scene:
-\begin{enumerate}
-\item Check if the player has moved one tile in any direction.
-\item Validate which tiles have changed (both from scrolling and animated tiles), copy these respective tiles to the master page and mark the tiles in both tile arrays (view and buffer tile arrays).
-\item Refresh the buffer page by scanning all tiles. If a tile needs to be updated, copy the tile from the master page to the buffer page.
-\item Iterate through the sprite removal list and copy corresponding image block from the master page to buffer page. 
-\item Iterate through the sprite list and copy corresponding sprite image block from RAM to buffer page.
-\item Switch the view and buffer page by adjusting the CRTC Start Address and Pel Panning registers.
-\end{enumerate}
-
-
-
-In the next six screenshots, we take you step-by-step through each of the stages. The player has moved and forces the screen to scroll one tile to the right. \\
-
-\begin{figure}[H]
-\centering
- \fullimage{/game/Scroll_KC1-3_1-tile_mem2master.png}
- \caption{Mark all changed tiles with '1' in both tile buffer and tile view array.}
- \label{fig:kc1_3_update_refresh_img_1}
-\end{figure}
-
-
-\par
-If a sprite has moved or disappeared, the latest sprite location is added to the block erase list. For each block in this erase list, erase the sprite by copying the width and height of the sprite block (marked in green in Figure \ref{fig:kc1_3_update_remove}) from the master to the buffer page, and mark the corresponding tiles only in the tile buffer array with a '2'.
-
-\begin{figure}[H]
-\centering
- \fullimage{/game/Scroll_KC1-3_1-tile_master2buffer.png}
- \caption{Mark removed sprites with '2' in tile buffer array only.}
- \label{fig:kc1_3_tile_update_remove}
-\end{figure}
-
-
-\pagebreak
-
-\begin{figure}[H]
-\centering
- \fullimage{/game/Scroll_KC1-3_1-sprite2buffer.png}
- \caption{Step 5: Scan sprite list and copy sprite onto buffer page}
- \label{fig:kc1_3_update_sprite}
-\end{figure}
-
-Next, the engine scans the sprite list. Validate if the sprite is in the visible part of the view port and copy the sprite image to the buffer page. Mark the corresponding tiles in the tile buffer array with a '3'.
-
-\begin{figure}[H]
-\centering
- \fullimage{/game/Scroll_KC1-3_1-tile_sprite2buffer.png}
- \caption{Mark new sprites locations with '3' in tile buffer array only.}
- \label{fig:kc1_3_tile_update_sprite}
-\end{figure}
-
-
-
-In the last step, point the visible screen to the buffer page by updating the CRTC start address and horizontal Pel Panning register. Finally, the tile buffer array is cleared to '0' and both arrays are swapped (so tile buffer becomes the tile view). Then step 1 is repeated. \\
-\par
-Note that after swapping, the tile buffer array has marked all tiles that have changed from scrolling the screen. This makes sense, as the current buffer page is not yet refreshed (it was displayed in the previous refresh cycle, and we never update the view page). 
-
-\begin{figure}[H]
-\centering
- \fullimage{/game/Scroll_KC1-3_1-tile_final.png}
- \caption{Clear tile buffer array and swap tile arrays.}
- \label{fig:kc1_3_tile_final}
-\end{figure}
-
-
-\pagebreak
-
-\begin{figure}[H]
-\centering
- \fullimage{/game/Scroll_KC1-3_1_final.png}
- \caption{Step 6: Swap buffer and screen page}
- \label{fig:kc1_3_update_final}
-\end{figure}
-
-Step 2 and 3 (except for the animated tiles) only needs to happen if Commander Keen is moving more than 16 pixels, where step 4 and 5 normally needs to happen for each refresh.
-So the number of drawing operations required during each refresh is controllable by the level designer. If they choose to place large regions of identical tiles (the large swathes of constant background), less redrawing (meaning: less redrawing in step 2 and 3) is required.
 
 \pagebreak
 
