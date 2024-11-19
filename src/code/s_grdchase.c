@@ -1,8 +1,7 @@
-statetype s_taterwalk1 = {TATERTROOPWALKL1SPR,TATERTROOPWALKR1SPR,step,false, true,10, 128,0, TaterThink, NULL, WalkReact, &s_taterwalk2};
-statetype s_taterwalk2 = {TATERTROOPWALKL2SPR,TATERTROOPWALKR2SPR,step,false, true,10, 128,0, TaterThink, NULL, WalkReact, &s_taterwalk3};
-statetype s_taterwalk3 = {TATERTROOPWALKL3SPR,TATERTROOPWALKR3SPR,step,false, true,10, 128,0, TaterThink, NULL, WalkReact, &s_taterwalk4};
-statetype s_taterwalk4 = {TATERTROOPWALKL4SPR,TATERTROOPWALKR4SPR,step,false, true,10, 128,0, TaterThink, NULL, WalkReact, &s_taterwalk1};
+statetype s_peapodwalk1	= {PEAPODRUNL1SPR,PEAPODRUNR1SPR,step,false, true,10, 128,0, PeaPodThink, NULL, WalkReact, &s_peapodwalk2};
+statetype s_peapodwalk2	= {PEAPODRUNL2SPR,PEAPODRUNR2SPR,step,false, true,10, 128,0, PeaPodThink, NULL, WalkReact, &s_peapodwalk3};
+statetype s_peapodwalk3	= {PEAPODRUNL3SPR,PEAPODRUNR3SPR,step,false, true,10, 128,0, PeaPodThink, NULL, WalkReact, &s_peapodwalk4};
+statetype s_peapodwalk4	= {PEAPODRUNL4SPR,PEAPODRUNR4SPR,step,false, true,10, 128,0, PeaPodThink, NULL, WalkReact, &s_peapodwalk1};
 
-statetype s_taterattack1 = {TATERTROOPLUNGEL1SPR,TATERTROOPLUNGER1SPR,step,false, false,12, 0,0, NULL, NULL, BackupReact, &s_taterattack2};
-statetype s_taterattack2 = {TATERTROOPLUNGEL2SPR,TATERTROOPLUNGER2SPR,step,false, false,20, 0,0, NULL, NULL, DrawReact, &s_taterattack3};
-statetype s_taterattack3 = {TATERTROOPLUNGEL1SPR,TATERTROOPLUNGER1SPR,step,false, false,8, 0,0, NULL, NULL, DrawReact, &s_taterwalk1};
+statetype s_peapodspit1	= {PEAPODSPITLSPR,PEAPODSPITRSPR,step,false, true,30, 0,0, SpitPeaBrain, NULL, DrawReact, &s_peapodspit2};
+statetype s_peapodspit2	= {PEAPODSPITLSPR,PEAPODSPITRSPR,step,false, true,30, 0,0, NULL, NULL, DrawReact, &s_peapodwalk1};

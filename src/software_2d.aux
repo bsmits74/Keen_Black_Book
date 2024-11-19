@@ -102,73 +102,77 @@
 \newlabel{fig:kc4_6_step4}{{18}{26}{Removing and updating sprites to the buffer screen.\relax }{figure.caption.19}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Swap buffer and visible screen by updating CRTC start address.\relax }}{27}{figure.caption.20}}
 \newlabel{fig:kc4_6_step4}{{19}{27}{Swap buffer and visible screen by updating CRTC start address.\relax }{figure.caption.20}{}}
-\BKM@entry{id=8,open,dest={73656374696F6E2E302E33},srcline={473}}{5C3337365C3337375C303030445C303030725C303030615C303030775C303030695C3030306E5C303030675C3030305C3034305C3030306C5C303030615C303030795C303030655C303030725C3030305C3034305C303030665C3030306F5C303030725C3030305C3034305C3030306C5C303030615C303030795C303030655C30303072}
+\BKM@entry{id=8,open,dest={73756273656374696F6E2E302E322E34},srcline={472}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C30303068}
 \@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Left screen is before scrolling, right screen after scrolling.\relax }}{28}{figure.caption.21}}
 \newlabel{fig:kc4_6_scroll}{{20}{28}{Left screen is before scrolling, right screen after scrolling.\relax }{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {0.3}Drawing layer for layer}{28}{section.0.3}}
-\BKM@entry{id=9,open,dest={73756273656374696F6E2E302E332E31},srcline={484}}{5C3337365C3337375C303030445C303030725C303030615C303030775C3030305C3034305C303030625C303030615C303030635C3030306B5C303030675C303030725C3030306F5C303030755C3030306E5C303030645C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030665C3030306F5C303030725C303030655C303030675C303030725C3030306F5C303030755C3030306E5C303030645C3030305C3034305C303030745C303030695C3030306C5C303030655C30303073}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.1}Draw background and foreground tiles}{29}{subsection.0.3.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Draw masked foreground tile.\relax }}{29}{figure.caption.22}}
-\newlabel{fig:foreground_tile}{{21}{29}{Draw masked foreground tile.\relax }{figure.caption.22}{}}
-\BKM@entry{id=10,open,dest={73756273656374696F6E2E302E332E32},srcline={518}}{5C3337365C3337375C303030445C303030725C303030615C303030775C303030695C3030306E5C303030675C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C30303073}
-\@writefile{lol}{\contentsline {lstlisting}{code/update\textunderscore tile.asm}{30}{lstlisting.0.-11}}
-\newlabel{update_tile}{{0.3.1}{30}{Draw background and foreground tiles}{lstnumber.-11.38}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.2}Drawing sprites}{31}{subsection.0.3.2}}
-\@writefile{lol}{\contentsline {lstlisting}{code/msx\textunderscore sprite.c}{31}{lstlisting.0.-12}}
-\newlabel{msx_sprite}{{0.3.2}{31}{Drawing sprites}{lstnumber.-12.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Sprite shifted in 4 steps.\relax }}{31}{figure.caption.23}}
-\newlabel{fig:sprite_shift}{{22}{31}{Sprite shifted in 4 steps.\relax }{figure.caption.23}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/sprite\textunderscore shift.c}{31}{lstlisting.0.-13}}
-\newlabel{sprite_shift}{{0.3.2}{31}{Drawing sprites}{lstnumber.-13.7}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/shift\textunderscore sprite.c}{32}{lstlisting.0.-14}}
-\newlabel{shift_sprite}{{0.3.2}{32}{Drawing sprites}{lstnumber.-14.34}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Unnatural situation where Commander Keen is in front of a hole.\relax }}{33}{figure.caption.24}}
-\newlabel{fig:draw_layers}{{23}{33}{Unnatural situation where Commander Keen is in front of a hole.\relax }{figure.caption.24}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Draw sprite inside a tile, by redrawing foreground tile.\relax }}{33}{figure.caption.25}}
-\newlabel{fig:clip_tinf}{{24}{33}{Draw sprite inside a tile, by redrawing foreground tile.\relax }{figure.caption.25}{}}
-\BKM@entry{id=11,open,dest={73756273656374696F6E2E302E332E33},srcline={624}}{5C3337365C3337375C303030535C303030635C303030725C303030655C303030655C3030306E5C3030305C3034305C303030725C303030655C303030665C303030725C303030655C303030735C30303068}
-\@writefile{lol}{\contentsline {lstlisting}{code/mask\textunderscore foreground\textunderscore tile.asm}{34}{lstlisting.0.-15}}
-\newlabel{mask_foreground_tile}{{0.3.2}{34}{Drawing sprites}{lstnumber.-15.42}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.3}Screen refresh}{35}{subsection.0.3.3}}
-\@writefile{lol}{\contentsline {lstlisting}{code/pageflip\textunderscore error.c}{36}{lstlisting.0.-16}}
-\newlabel{fig:update_start_address}{{\caption@xref {fig:update_start_address}{ on input line 658}}{37}{Screen refresh}{figure.caption.28}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Update CRTC start address at beginning of new scan line.\relax }}{37}{figure.caption.28}}
-\BKM@entry{id=12,open,dest={73756273656374696F6E2E302E332E34},srcline={673}}{5C3337365C3337375C3030304D5C303030615C3030306E5C303030615C303030675C303030655C3030305C3034305C303030525C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030545C303030695C3030306D5C303030695C3030306E5C30303067}
-\@writefile{lol}{\contentsline {lstlisting}{code/screen\textunderscore refresh.c}{38}{lstlisting.0.-17}}
-\BKM@entry{id=13,open,dest={73656374696F6E2E302E34},srcline={690}}{5C3337365C3337375C303030415C303030635C303030745C3030306F5C303030725C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C30303073}
-\BKM@entry{id=14,open,dest={73756273656374696F6E2E302E342E31},srcline={693}}{5C3337365C3337375C303030415C3030302E5C303030495C3030302E}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.4}Manage Refresh Timing}{39}{subsection.0.3.4}}
-\@writefile{lol}{\contentsline {lstlisting}{code/time\textunderscore ticks.c}{39}{lstlisting.0.-18}}
-\newlabel{time_ticks}{{0.3.4}{39}{Manage Refresh Timing}{lstnumber.-18.23}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {0.4}Actors and sprites}{39}{section.0.4}}
-\newlabel{section:actors_and_sprites}{{0.4}{39}{Actors and sprites}{section.0.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.1}A.I.}{39}{subsection.0.4.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.2.4}Screen refresh}{28}{subsection.0.2.4}}
+\@writefile{lol}{\contentsline {lstlisting}{code/pageflip\textunderscore error.c}{30}{lstlisting.0.-11}}
+\newlabel{fig:update_start_address}{{\caption@xref {fig:update_start_address}{ on input line 506}}{31}{Screen refresh}{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Update CRTC start address at beginning of new scan line.\relax }}{31}{figure.caption.24}}
+\BKM@entry{id=9,open,dest={73756273656374696F6E2E302E322E35},srcline={521}}{5C3337365C3337375C3030304D5C303030615C3030306E5C303030615C303030675C303030655C3030305C3034305C303030525C303030655C303030665C303030725C303030655C303030735C303030685C3030305C3034305C303030545C303030695C3030306D5C303030695C3030306E5C30303067}
+\@writefile{lol}{\contentsline {lstlisting}{code/screen\textunderscore refresh.c}{32}{lstlisting.0.-12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.2.5}Manage Refresh Timing}{33}{subsection.0.2.5}}
+\@writefile{lol}{\contentsline {lstlisting}{code/time\textunderscore ticks.c}{33}{lstlisting.0.-13}}
+\newlabel{time_ticks}{{0.2.5}{33}{Manage Refresh Timing}{lstnumber.-13.23}{}}
+\BKM@entry{id=10,open,dest={73656374696F6E2E302E33},srcline={535}}{5C3337365C3337375C303030445C303030725C303030615C303030775C303030695C3030306E5C303030675C3030305C3034305C3030306C5C303030615C303030795C303030655C303030725C3030305C3034305C303030665C3030306F5C303030725C3030305C3034305C3030306C5C303030615C303030795C303030655C30303072}
+\BKM@entry{id=11,open,dest={73756273656374696F6E2E302E332E31},srcline={546}}{5C3337365C3337375C303030445C303030725C303030615C303030775C3030305C3034305C303030625C303030615C303030635C3030306B5C303030675C303030725C3030306F5C303030755C3030306E5C303030645C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030665C3030306F5C303030725C303030655C303030675C303030725C3030306F5C303030755C3030306E5C303030645C3030305C3034305C303030745C303030695C3030306C5C303030655C30303073}
+\@writefile{toc}{\contentsline {section}{\numberline {0.3}Drawing layer for layer}{34}{section.0.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.1}Draw background and foreground tiles}{34}{subsection.0.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Draw masked foreground tile.\relax }}{34}{figure.caption.25}}
+\newlabel{fig:foreground_tile}{{22}{34}{Draw masked foreground tile.\relax }{figure.caption.25}{}}
+\BKM@entry{id=12,open,dest={73756273656374696F6E2E302E332E32},srcline={580}}{5C3337365C3337375C303030445C303030725C303030615C303030775C303030695C3030306E5C303030675C3030305C3034305C303030735C303030705C303030725C303030695C303030745C303030655C30303073}
+\@writefile{lol}{\contentsline {lstlisting}{code/update\textunderscore tile.asm}{35}{lstlisting.0.-14}}
+\newlabel{update_tile}{{0.3.1}{35}{Draw background and foreground tiles}{lstnumber.-14.38}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.3.2}Drawing sprites}{36}{subsection.0.3.2}}
+\@writefile{lol}{\contentsline {lstlisting}{code/msx\textunderscore sprite.c}{36}{lstlisting.0.-15}}
+\newlabel{msx_sprite}{{0.3.2}{36}{Drawing sprites}{lstnumber.-15.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Sprite shifted in 4 steps.\relax }}{36}{figure.caption.26}}
+\newlabel{fig:sprite_shift}{{23}{36}{Sprite shifted in 4 steps.\relax }{figure.caption.26}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/sprite\textunderscore shift.c}{36}{lstlisting.0.-16}}
+\newlabel{sprite_shift}{{0.3.2}{36}{Drawing sprites}{lstnumber.-16.7}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/shift\textunderscore sprite.c}{37}{lstlisting.0.-17}}
+\newlabel{shift_sprite}{{0.3.2}{37}{Drawing sprites}{lstnumber.-17.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Unnatural situation where Commander Keen is in front of a hole.\relax }}{38}{figure.caption.27}}
+\newlabel{fig:draw_layers}{{24}{38}{Unnatural situation where Commander Keen is in front of a hole.\relax }{figure.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Draw sprite inside a tile, by redrawing foreground tile.\relax }}{38}{figure.caption.28}}
+\newlabel{fig:clip_tinf}{{25}{38}{Draw sprite inside a tile, by redrawing foreground tile.\relax }{figure.caption.28}{}}
+\BKM@entry{id=13,open,dest={73656374696F6E2E302E34},srcline={687}}{5C3337365C3337375C303030415C303030635C303030745C3030306F5C303030725C303030735C3030305C3034305C303030615C3030306E5C303030645C3030305C3034305C303030415C30303049}
+\BKM@entry{id=14,open,dest={73756273656374696F6E2E302E342E31},srcline={690}}{5C3337365C3337375C303030535C303030745C303030615C303030745C303030655C3030305C3034305C3030304D5C303030615C303030635C303030685C303030695C3030306E5C30303065}
+\@writefile{lol}{\contentsline {lstlisting}{code/mask\textunderscore foreground\textunderscore tile.asm}{39}{lstlisting.0.-18}}
+\newlabel{mask_foreground_tile}{{0.3.2}{39}{Drawing sprites}{lstnumber.-18.42}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {0.4}Actors and AI}{40}{section.0.4}}
+\newlabel{section:actors_and_ai}{{0.4}{40}{Actors and AI}{section.0.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.1}State Machine}{40}{subsection.0.4.1}}
 \@writefile{lol}{\contentsline {lstlisting}{code/statetype.c}{40}{lstlisting.0.-19}}
-\newlabel{state_type}{{0.4.1}{40}{A.I}{lstnumber.-19.16}{}}
-\BKM@entry{id=15,open,dest={73756273656374696F6E2E302E342E32},srcline={728}}{5C3337365C3337375C303030435C3030306C5C303030695C303030705C303030705C303030695C3030306E5C30303067}
+\newlabel{state_type}{{0.4.1}{40}{State Machine}{lstnumber.-19.16}{}}
 \@writefile{lol}{\contentsline {lstlisting}{code/s\textunderscore grdchase.c}{41}{lstlisting.0.-20}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.2}Clipping}{41}{subsection.0.4.2}}
-\newlabel{section:clipping}{{0.4.2}{41}{Clipping}{subsection.0.4.2}{}}
-\newlabel{fig:clip_tinf_n}{{26a}{41}{Wall type map NORTHWALL\relax }{figure.caption.29}{}}
-\newlabel{sub@fig:clip_tinf_n}{{a}{41}{Wall type map NORTHWALL\relax }{figure.caption.29}{}}
-\newlabel{fig:clip_tinf_e}{{26b}{41}{Wall type map EASTWALL\relax }{figure.caption.29}{}}
-\newlabel{sub@fig:clip_tinf_e}{{b}{41}{Wall type map EASTWALL\relax }{figure.caption.29}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces Foreground tile clipping information.\relax }}{41}{figure.caption.29}}
-\newlabel{fig:clip_tinf}{{26}{41}{Foreground tile clipping information.\relax }{figure.caption.29}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Clipping to east wall when moving from the west.\relax }}{42}{figure.caption.30}}
-\newlabel{fig:clipping_east}{{27}{42}{Clipping to east wall when moving from the west.\relax }{figure.caption.30}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore east\textunderscore wall.c}{42}{lstlisting.0.-21}}
-\newlabel{wallclip_array}{{0.4.2}{42}{Clipping}{lstnumber.-21.20}{}}
-\newlabel{fig:clipping_north}{{\caption@xref {fig:clipping_north}{ on input line 771}}{43}{Clipping}{figure.caption.31}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Clipping north wall with slope.\relax }}{43}{figure.caption.31}}
-\@writefile{lol}{\contentsline {lstlisting}{code/wallclip\textunderscore array.c}{43}{lstlisting.0.-22}}
-\newlabel{wallclip_array}{{0.4.2}{43}{Clipping}{lstnumber.-22.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Eight different walltypes (slopes) defined.\relax }}{44}{figure.caption.32}}
-\newlabel{fig:walltype}{{29}{44}{Eight different walltypes (slopes) defined.\relax }{figure.caption.32}{}}
-\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore north\textunderscore wall.c}{45}{lstlisting.0.-23}}
-\newlabel{wallclip_array}{{0.4.2}{45}{Clipping}{lstnumber.-23.26}{}}
-\BKM@entry{id=16,open,dest={73656374696F6E2E302E35},srcline={803}}{5C3337365C3337375C303030755C303030735C303030655C3030305C3034305C3030306C5C303030615C303030745C303030655C30303072}
-\@writefile{toc}{\contentsline {section}{\numberline {0.5}use later}{46}{section.0.5}}
-\@writefile{lol}{\contentsline {lstlisting}{code/EGA\textunderscore REFRESH.ASM}{46}{lstlisting.0.-24}}
-\newlabel{ega_refresh}{{0.5}{46}{use later}{lstnumber.-24.16}{}}
-\new@tpo@label{1}{47}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces State machine for Pea pod and Pea brain.\relax }}{41}{figure.caption.29}}
+\newlabel{fig:state_machine}{{26}{41}{State machine for Pea pod and Pea brain.\relax }{figure.caption.29}{}}
+\BKM@entry{id=15,open,dest={73756273656374696F6E2E302E342E32},srcline={741}}{5C3337365C3337375C303030435C3030306C5C303030695C303030705C303030705C303030695C3030306E5C30303067}
+\@writefile{lol}{\contentsline {lstlisting}{code/state\textunderscore machine\textunderscore think.c}{42}{lstlisting.0.-21}}
+\newlabel{state_type}{{0.4.1}{42}{State Machine}{lstnumber.-21.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {0.4.2}Clipping}{42}{subsection.0.4.2}}
+\newlabel{section:clipping}{{0.4.2}{42}{Clipping}{subsection.0.4.2}{}}
+\newlabel{fig:clip_tinf_n}{{27a}{43}{Wall type map NORTHWALL\relax }{figure.caption.30}{}}
+\newlabel{sub@fig:clip_tinf_n}{{a}{43}{Wall type map NORTHWALL\relax }{figure.caption.30}{}}
+\newlabel{fig:clip_tinf_e}{{27b}{43}{Wall type map EASTWALL\relax }{figure.caption.30}{}}
+\newlabel{sub@fig:clip_tinf_e}{{b}{43}{Wall type map EASTWALL\relax }{figure.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Foreground tile clipping information.\relax }}{43}{figure.caption.30}}
+\newlabel{fig:clip_tinf}{{27}{43}{Foreground tile clipping information.\relax }{figure.caption.30}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Clipping to east wall when moving from the west.\relax }}{43}{figure.caption.31}}
+\newlabel{fig:clipping_east}{{28}{43}{Clipping to east wall when moving from the west.\relax }{figure.caption.31}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore east\textunderscore wall.c}{44}{lstlisting.0.-22}}
+\newlabel{wallclip_array}{{0.4.2}{44}{Clipping}{lstnumber.-22.20}{}}
+\newlabel{fig:clipping_north}{{\caption@xref {fig:clipping_north}{ on input line 784}}{44}{Clipping}{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces Clipping north wall with slope.\relax }}{44}{figure.caption.32}}
+\@writefile{lol}{\contentsline {lstlisting}{code/wallclip\textunderscore array.c}{45}{lstlisting.0.-23}}
+\newlabel{wallclip_array}{{0.4.2}{45}{Clipping}{lstnumber.-23.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {30}{\ignorespaces Eight different walltypes (slopes) defined.\relax }}{45}{figure.caption.33}}
+\newlabel{fig:walltype}{{30}{45}{Eight different walltypes (slopes) defined.\relax }{figure.caption.33}{}}
+\@writefile{lol}{\contentsline {lstlisting}{code/clip\textunderscore north\textunderscore wall.c}{46}{lstlisting.0.-24}}
+\newlabel{wallclip_array}{{0.4.2}{46}{Clipping}{lstnumber.-24.26}{}}
+\BKM@entry{id=16,open,dest={73656374696F6E2E302E35},srcline={816}}{5C3337365C3337375C303030755C303030735C303030655C3030305C3034305C3030306C5C303030615C303030745C303030655C30303072}
+\@writefile{toc}{\contentsline {section}{\numberline {0.5}use later}{47}{section.0.5}}
+\@writefile{lol}{\contentsline {lstlisting}{code/EGA\textunderscore REFRESH.ASM}{47}{lstlisting.0.-25}}
+\newlabel{ega_refresh}{{0.5}{47}{use later}{lstnumber.-25.16}{}}
+\new@tpo@label{1}{48}

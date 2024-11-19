@@ -684,26 +684,23 @@ To draw sprites 'inside' a foreground tile, a trick is used by introducing a pri
 
 
 
-\section{Actors and sprites}
-\label{section:actors_and_sprites}
+\section{Actors and AI}
+\label{section:actors_and_ai}
 
-\subsection{A.I.}
-To simulate enemies, some objects are allowed to "think" and take actions like walking,
-shooting or emitting sounds. These thinking objects are called "actors".
-Actors are programmed via a state machine. They can be aggressive (chase you), just running in any direction, or dump (throwing things at you). To model their behavior, all enemies have an associated state:
+\subsection{State Machine}
+All objects in the game, such as Commander Keen, enemies, bonus points, doors, and even the scoreboard, are called "actors". Each actor can "think" and perform actions like walking, shooting, or emitting sounds. Actors are controlled via a state machine, enabling them to take actions such as chasing the player, running in various directions, throwing objects, or doing nothing at all. To model their behavior, all enemies have an associated state, which can include:
 \begin{itemize}
-  \item Chase Keen
-  \item Smash Keen
-  \item Shoot projectile
-  \item Climb and slide from pole
-  \item Walking around
-  \item Turn into flower
+  \item Chasing Keen
+  \item Hitting or smashing Keen
+  \item Shooting projectiles
+  \item Climbing and sliding on poles
+  \item Turning into a flower
   \item Special Boss (Boobus)
 \end{itemize}
-\par
 
-Each state has associated think, reaction and contact method pointers. There is also a next
-pointer to indicate which state the actor should transition to when the current state is completed.\\
+\par
+Each state has associated think, reaction, and contact method pointers. Additionally, there is a \cw{tictime} and \cw{*nextstate} pointer, which indicate when the actor should transition to another state after a specific number of tics have passed in the current state.\\
+
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/statetype.c}
@@ -711,14 +708,33 @@ pointer to indicate which state the actor should transition to when the current 
 \label{state_type}
 \par
 
-All actors have a state chain, as example the tater trooper.\\
+Each actor has a defined state chain, as example the pea pod. \\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,style=mystyle,basicstyle=\small]{code/s_grdchase.c}
 \end{minipage}
+
 \par
-All types of enemies (including Boobus) have their own state machine. They often share
-the same reactions (e.g. WalkReact and ProjectileReact), but often have their own thinking state.
+Different types of enemies have their own state machines, often sharing reaction function (e.g., WalkReact and ProjectileReact) but usually possessing their own unique "thinking" states.\\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/state_machine.eps}
+  \caption{State machine for Pea pod and Pea brain.}
+  \label{fig:state_machine}  
+\end{figure}
+
+\par
+The \cw{*react} function is responsible for managing how an enemy reacts to the level, like turning around upon hitting a wall or the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/state_machine_think.c}
+\end{minipage}
+\label{state_type}
+
+\par
+The \cw{*contact} function checks if an object has come into contact with another object and defines the resulting interaction, such as Commander Keen taking damage or losing a life.
 
 
 
