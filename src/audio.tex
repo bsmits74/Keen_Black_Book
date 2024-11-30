@@ -243,10 +243,16 @@ The connection to the speaker can be deactivated without changing any timer para
 A simple tone has only one frequency. As a practical example, say we wanted to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, and the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. This is the value that must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats. To create a higher pitch, the counter value would need to be lower. \\
 
 \par
-<<PICTURE OF WAVES>>\\
+When instructed to play a PC Speaker sound effect, the audio system sets itself to run at 140Hz via PIT Counter \#0. Every times it wakes up, it reads the frequency to maintain for the next 1/140th of a second and writes it to Counter \#2.\\
 
 \par
-When instructed to play a PC Speaker sound effect, the audio system sets itself to run at 140Hz via PIT Counter \#0. Every times it wakes up, it reads the frequency to maintain for the next 1/140th of a second and writes it to Counter \#2.\\
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/square_waves.eps}
+  \caption{Sound pitch approximated with square wave and frequency changes.}
+\end{figure}
+
+
 
 \par
 Human hearing ranges from approximately 20 Hz to 20,000 Hz, making any counter value lower than 60 inaudible. Frequencies are encoded in a stream of bytes (0-255) and decoded using the formula\\
@@ -257,7 +263,7 @@ Human hearing ranges from approximately 20 Hz to 20,000 Hz, making any counter v
 \end{minipage}
 
 \par
-The lowest frequency is 78 Hz and the highest frequency is 19,886 Hz. Notice how the \cw{* 60} is not calculated but looked up. Once again the engine tries to save as much CPU time as possible by using a bit of RAM. The frequency is read from a lookup table \cw{pcSoundLookup}.\\
+The lowest frequency is 78 Hz and the highest frequency is 19,886 Hz. Notice how the \cw{* 60} is not calculated but looked up. Once again the engine tries to save as much CPU time as possible by using a bit of RAM.\\
 
 \par
 \begin{minipage}{\textwidth}

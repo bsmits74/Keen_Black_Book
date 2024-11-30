@@ -4,68 +4,6 @@
 \section{Performance and other Tricks}
 Various smart techniques were employed to ensure every CPU cycle counted. This section explores some of the techniques used in Commander Keen.
 
-\subsection{Tile caching}
-When updating the master screen in VRAM, the engine copies each tile from RAM to VRAM. Each pixel requires a read and write operation to the four memory banks. As explained in section \ref{section:optimize_tile}, by reprogramming the latches on the EGA card, it was possible to copy four bytes at once from one VRAM location to another VRAM location. This trick could be applied to tiles if they contained only a background tile with no foreground layer.\\
-
-\par
-Once a background tile is loaded into the master screen, any subsequent requests for the same tile can be handled by copying it directly from VRAM, applying the reprogrammed latches, rather than from RAM to VRAM. The engine only needs to maintain which background tiles are already loaded into VRAM, which is done via an array.\\
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/tile_cache.c}
-\end{minipage}
-\par
-
-The assembly function \cw{RFL\_NewTile} is responsible for drawing tiles to the master screen. It first checks if the background tile is already available in the tile cache array. If it is, the tile is copied with 32 bits per cycle from VRAM. If it is not, the tile is loaded from RAM, and the memory pointer in VRAM for that tile is stored in the tile cache array, allowing future requests to be served from VRAM.\\
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language={[x86masm]Assembler}]{code/RFL_NewTile.ASM}
-\end{minipage}
-\par
-
-\subsection{Memory alignment}
-The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: this only works when accessing even memory addresses. Even worse, writing a word at offset address \cw{FFFFh} causes an exception. \\
-
-\par
-Since a tile is word-aligned (16 bits wide) and the screen is refreshed in tile-size steps, it is always aligned with even memory addresses. However, this is not the case for sprites, which are byte-aligned. When a sprite is drawn starting from an odd memory address, the CPU can only read and write 8 bits at a time. To utilize the 16-bit data bus and avoiding the memory exception,  the engine first checks whether the destination is at an even or odd memory address. If the address is odd, it first writes a byte to VRAM to align the next operation to an even address, after which it continues writing in 16-bit words. To optimize sprite writing to VRAM, the engine uses small function routines for each combination of sprite width and even/odd address alignment.\\
-
-\begin{figure}[H]
-\centering
-\begin{table}[H]
-\begin{tabularx}{\textwidth}[c]{|X|X|X|}
-\hline
-  & \multicolumn{2}{c|}{\textbf{Start address}} \\ \hline
-\textbf{Sprite width (bytes)} & \textbf{Even} & \textbf{Odd} \\ \hline
-1 & Byte & Byte \\ \hline
-2 & Word & Byte, Byte \\ \hline 
-3 & Word, Byte & Byte, Word \\ \hline
-4 & Word, Word & Byte, Word, Byte \\ \hline
-5 & Word, Word, Byte & Byte, Word, Word \\ \hline
-6 & Word, Word, Word & Byte, Word, Word, Byte \\ \hline
-7 & Word, Word, Word, Byte & Byte, Word, Word, Word \\ \hline
-8 & Word, Word, Word, Word & Byte, Word, Word, Word, Byte \\ \hline
-9 & Word, Word, Word, Word, Byte & Byte, Word, Word, Word, Word \\ \hline
-10 & Word, Word, Word, Word, Word & Byte, Word, Word, Word, Word, Byte \\ \hline
-
-\end{tabularx}
-\end{table}
-\end{figure}
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language={[x86masm]Assembler}]{code/mask_routines.asm}
-\end{minipage}
-\par
-
-Each function pointer is stored in a \cw{maskroutines} array. By cleverly using bit-shift operations and the Carry Flag (CF), the engine calls the appropriate function to write the sprite to VRAM.
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language={[x86masm]Assembler}]{code/VW_MaskBlock.asm}
-\end{minipage}
-\par
-
 
 \subsection{Bouncing Physics}
 When Keen throws a flower it bounces of the walls. For flat walls and floors the bounce can be easily calculated by reversing either the x-speed (for vertical walls) or y-speed (for horizontal walls). It becomes more complicated for slopes. Making an accurate calculation of the bounce on a slope requires expensive \cw{cos} and \cw{sin} methods. \\

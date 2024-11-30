@@ -530,6 +530,112 @@ Without controlling the tick interval, the state and speed of actors can become 
 \end{minipage}
 \label{time_ticks}
 
+\pagebreak
+\section{Actors and AI}
+\label{section:actors_and_ai}
+
+\subsection{State Machine}
+All objects in the game, such as Commander Keen, enemies, bonus points, doors, and even the scoreboard, are called "actors". Each actor can "think" and perform actions like walking, shooting, or emitting sounds. Actors are controlled via a state machine, enabling them to take actions such as chasing the player, running in various directions, throwing objects, or doing nothing at all. To model their behavior, all enemies have an associated state, which can include:
+\begin{itemize}
+  \item Chasing Keen
+  \item Hitting or smashing Keen
+  \item Shooting projectiles
+  \item Climbing and sliding on poles
+  \item Turning into a flower
+  \item Special Boss (Boobus)
+\end{itemize}
+
+\par
+Each state has associated think, reaction, and contact method pointers. Additionally, there is a \cw{tictime} and \cw{*nextstate} pointer, which indicate when the actor should transition to another state after a specific number of tics have passed in the current state.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/statetype.c}
+\end{minipage}
+\label{state_type}
+\par
+
+Each actor has a defined state chain, as example the pea pod. \\
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C,style=mystyle,basicstyle=\small]{code/s_grdchase.c}
+\end{minipage}
+
+\par
+Different types of enemies have their own state machines, often sharing reaction function (e.g., WalkReact and ProjectileReact) but usually possessing their own unique "thinking" states.\\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/state_machine.eps}
+  \caption{State machine for Pea pod and Pea brain.}
+  \label{fig:state_machine}  
+\end{figure}
+
+\par
+The \cw{*react} function is responsible for managing how an enemy reacts to the level, like turning around upon hitting a wall or the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/state_machine_think.c}
+\end{minipage}
+\label{state_type}
+
+\par
+The \cw{*contact} function checks if an object has come into contact with another object and defines the resulting interaction, such as Commander Keen taking damage or losing a life.
+
+
+
+\subsection{Clipping}
+\label{section:clipping}
+Whether an actor can move or fall through a tile is determined by the \cw{tinf[]} parameters. Each foreground tile includes four directional parameters: north, south, east, and west. If, for example, the east parameter has a value greater than 0, the tile is considered solid, and the actor cannot enter it from the east side. When a sprite moves to the left and encounters a solid tile from the east, the engine adjusts the actor's movement to prevent it from entering the tile.\\
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/clipping_east.eps}
+  \caption{Clipping to east wall when actor moves left.}
+  \label{fig:clipping_east}  
+\end{figure}
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/clip_east_wall.c}
+\end{minipage}
+\label{wallclip_array}
+\par
+For clipping along the top and bottom of tiles, the engine also accounts for movement on slopes. After the actor is clipped to the top or bottom of a slope tile, an offset is applied to move the actor up or down along the slope. \\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/clipping_north.eps}
+  \label{fig:clipping_north}
+  \caption{Clipping north wall with slope.}
+\end{figure}
+
+This offset is defined by a lookup table, which uses the actor's midpoint and the wall type to determine the slope type.\\
+
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C,style=mystyle,basicstyle=\scriptsize]{code/wallclip_array.c}
+\end{minipage}
+\label{wallclip_array}
+\par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/walltype.eps}
+  \caption{Eight different walltypes (slopes) defined.}
+  \label{fig:walltype}
+\end{figure}
+
+
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/clip_north_wall.c}
+\end{minipage}
+\label{wallclip_array}
+\par
+
+
 
 \pagebreak
 \section{Drawing layer for layer}
@@ -541,7 +647,7 @@ Each tile on the screen can contain up to three layers: the background layer, th
 \end{enumerate}
 
 \par
-In the best case, the engine must read and write 128 bytes (2 * 16 bytes * 4 memory banks) to VRAM for a background tile only. In the worst case, reading and writing up to 608 bytes are needed (background, foreground, sprite, and foreground re-drawn), with several bitwise operations involved. It must run quickly and therefore most of the code is written in assembly.
+It must run quickly and therefore most of the code is written in assembly.
 
 \subsection{Draw background and foreground tiles}
 Drawing the background layer is straightforward, as it only requires copying 128 bytes to VRAM. Drawing foreground tiles on top of the background layer requires an additional mask, which defines which pixels are overwritten by the foreground tile.\\
@@ -682,147 +788,63 @@ To draw sprites 'inside' a foreground tile, a trick is used by introducing a pri
 \label{mask_foreground_tile}
 \par
 
+\subsection{Tile Draw Performance Tricks}
+To draw one background tile to VRAM, the engine must read and write 128 bytes (2 x 16 bytes x 4 memory banks), which is the minimum number of read/write operations required. In the worst case, up to 512 bytes of read/write operations are required (background, foreground, sprite, and foreground again), with multiple bitwise operations involved.
+The engine employs several tricks to squeeze the maximum out of each CPU cycle: background tile caching and word-aligned memory writing.
 
-
-\section{Actors and AI}
-\label{section:actors_and_ai}
-
-\subsection{State Machine}
-All objects in the game, such as Commander Keen, enemies, bonus points, doors, and even the scoreboard, are called "actors". Each actor can "think" and perform actions like walking, shooting, or emitting sounds. Actors are controlled via a state machine, enabling them to take actions such as chasing the player, running in various directions, throwing objects, or doing nothing at all. To model their behavior, all enemies have an associated state, which can include:
-\begin{itemize}
-  \item Chasing Keen
-  \item Hitting or smashing Keen
-  \item Shooting projectiles
-  \item Climbing and sliding on poles
-  \item Turning into a flower
-  \item Special Boss (Boobus)
-\end{itemize}
+\subsubsection{Background Tile Caching}
+When updating the master screen in VRAM, the engine copies each tile from RAM to VRAM. Copying each pixel involves one read and one write operation across the four memory banks. As explained in section \ref{section:optimize_tile}, by reprogramming the latches on the EGA card, it is possible to copy four bytes at once from one VRAM location to another. The same technique can be applied to tiles containing only a background layer.\\
 
 \par
-Each state has associated think, reaction, and contact method pointers. Additionally, there is a \cw{tictime} and \cw{*nextstate} pointer, which indicate when the actor should transition to another state after a specific number of tics have passed in the current state.\\
+Once a background tile is loaded into the master screen, subsequent requests for the same tile can be handled by copying it directly from VRAM using the reprogrammed latches, rather than copying from RAM. The engine only needs to track which background tiles are already loaded into VRAM using an array.\\
 
 \par
 \begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/statetype.c}
+  \lstinputlisting[language=C]{code/tile_cache.c}
 \end{minipage}
-\label{state_type}
-\par
 
-Each actor has a defined state chain, as example the pea pod. \\
+\par
+The assembly function \cw{RFL\_NewTile} is responsible for drawing tiles to the master screen. It first checks whether the background tile is already stored in the tile cache array. If it is, the tile is copied at 32 bits per cycle from VRAM to VRAM. Otherwise, the tile is loaded from RAM, and the VRAM pointer for that tile is stored in the tile cache array for future use.\\
+
 \par
 \begin{minipage}{\textwidth}
-\lstinputlisting[language=C,style=mystyle,basicstyle=\small]{code/s_grdchase.c}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/RFL_NewTile.ASM}
 \end{minipage}
+\par
+
+\subsubsection{Word-aligned memory writing}
+The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: this only works when accessing even memory addresses. Additionally, writing a word at the offset address \cw{FFFFh} causes an exception.\\
 
 \par
-Different types of enemies have their own state machines, often sharing reaction function (e.g., WalkReact and ProjectileReact) but usually possessing their own unique "thinking" states.\\
+Because tiles are word-aligned (16 bits wide) and the screen refreshes in tile-sized steps, they are always aligned with even memory addresses. However, sprites are byte-aligned. When a sprite is drawn from an odd memory address, the CPU is limited to reading and writing 8 bits at a time. To fully utilize the 16-bit data bus, the engine uses small function routines for each combination of sprite width and even/odd address alignment.\\
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/state_machine.eps}
-  \caption{State machine for Pea pod and Pea brain.}
-  \label{fig:state_machine}  
+  \includegraphics[width=0.75\textwidth]{imgs/drawings/mask_block.eps}
+  \caption{Word-optimized 6 byte wide sprite to even (\cw{MASK6E}) and odd (\cw{MASK6O}) address.}
+  \label{fig:mask_block}  
 \end{figure}
 
 \par
-The \cw{*react} function is responsible for managing how an enemy reacts to the level, like turning around upon hitting a wall or the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.\\
+In total 23 functions are written to optimize \cw{word}-size writing up to 10 bytes wide sprites. Each function pointer reference is stored in an array.\\
 
 \par
 \begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/state_machine_think.c}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/VW_maskroutines.asm}
 \end{minipage}
-\label{state_type}
 
 \par
-The \cw{*contact} function checks if an object has come into contact with another object and defines the resulting interaction, such as Commander Keen taking damage or losing a life.
-
-
-
-\subsection{Clipping}
-\label{section:clipping}
-Before drawing a sprite on the screen, the engine determines if the boundaries of a sprite are hitting a wall or floor. This is called clipping and ensures an actor doesn't fall through a floor or walks through a vertical wall. To define whether a tile is a wall or floor, a tile is enriched with tile information, as explained in section \ref{section:foreground_tile_info} on page \pageref{section:foreground_tile_info}. Each foreground tile contains a \cw{NORTHWALL}, \cw{SOUTHWALL}, \cw{EASTWALL} and \cw{WESTWALL}, as explained in section \ref{section:foreground_tile_info}. A number greater than 0 means the tile is a wall or floor when approaching from a given direction. 
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/clip_tinf_1.png}
-  \caption{Wall type map NORTHWALL}
-  \label{fig:clip_tinf_n}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.9\textwidth]{screenshots_300dpi/game/clip_tinf_east.png}
-  \caption{Wall type map EASTWALL}
-  \label{fig:clip_tinf_e}
-\end{subfigure}
-\caption{Foreground tile clipping information.}
-\label{fig:clip_tinf}
-\end{figure}
-
-\par
-As example, when a sprite, moving from right to left, is hitting a wall on the left side, it will update the sprite movement to ensure the sprite clips to the east wall of the left tile as illustrated in Figure \ref{fig:clipping_east}. The east/west wall clipping logic is covered by \cw{ClipToEastWalls()} and \cw{ClipToWestWalls()} functions. \\
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/clipping_east.eps}
-  \caption{Clipping to east wall when moving from the west.}
-  \label{fig:clipping_east}  
-\end{figure}
+The engine first determines whether the destination is at an even or odd memory address. If the address is odd, it first writes a single byte to align the subsequent operations to an even address, after which it continues writing in 16-bit words. 
+By cleverly using bit-shift operations and the Carry Flag (CF), the engine calls the appropriate function to write the sprite to VRAM.\\
 
 \par
 \begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/clip_east_wall.c}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/VW_MaskBlock.asm}
 \end{minipage}
-\label{wallclip_array}
-\par
-For clipping top and bottom the engine also needs to take clipping to slopes into account. After the sprite is clipped to the top or bottom of the wall tile, an offset can be applied to move a sprite up or down a slope. The offset is defined by a lookup table, where the midpoint of the sprite and the wall type from the foreground tile defines the offset.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/clipping_north.eps}
-  \label{fig:clipping_north}
-  \caption{Clipping north wall with slope.}
-\end{figure}
-
-
-
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C,style=mystyle,basicstyle=\scriptsize]{code/wallclip_array.c}
-\end{minipage}
-\label{wallclip_array}
-\par
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/walltype.eps}
-  \caption{Eight different walltypes (slopes) defined.}
-  \label{fig:walltype}
-\end{figure}
-
-
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/clip_north_wall.c}
-\end{minipage}
-\label{wallclip_array}
 \par
 
 
 
-\pagebreak
 
-The game and all actors are defined in a global coordinate system, which is scaled to 16 times a pixel. The higher resolution enables more precision of movements and better simulation of movement acceleration. Conversion between global and pixel coordinatess can be easily performed by bit shift operations.\\
-\section{use later}
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/EGA_REFRESH.ASM}
-  \end{minipage}
-  \label{ega_refresh}
-  \par
-
-
-\pagebreak
-
-To take full advantage of this optimization, the refresh algorithm maintains a list of tiles that are already copied on the master page via \cw{tilecache} variable. If a tile is already on the master page the algorithm copies the tile from that location to its destination instead of the RAM location in memory, saving the four separated writes to each memory plane.\\
 
 \end{document}

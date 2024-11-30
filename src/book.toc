@@ -65,38 +65,38 @@
 \contentsline {subsection}{\numberline {4.10.3}Adaptive tile refreshment in Keen Dreams}{132}{subsection.4.10.3}
 \contentsline {subsection}{\numberline {4.10.4}Screen refresh}{140}{subsection.4.10.4}
 \contentsline {subsection}{\numberline {4.10.5}Manage Refresh Timing}{145}{subsection.4.10.5}
-\contentsline {section}{\numberline {4.11}Drawing layer for layer}{146}{section.4.11}
-\contentsline {subsection}{\numberline {4.11.1}Draw background and foreground tiles}{146}{subsection.4.11.1}
-\contentsline {subsection}{\numberline {4.11.2}Drawing sprites}{148}{subsection.4.11.2}
-\contentsline {section}{\numberline {4.12}Actors and AI}{152}{section.4.12}
-\contentsline {subsection}{\numberline {4.12.1}State Machine}{152}{subsection.4.12.1}
-\contentsline {subsection}{\numberline {4.12.2}Clipping}{154}{subsection.4.12.2}
-\contentsline {section}{\numberline {4.13}use later}{159}{section.4.13}
-\contentsline {section}{\numberline {4.14}Audio and Heartbeat}{160}{section.4.14}
-\contentsline {subsection}{\numberline {4.14.1}Interrupts}{160}{subsection.4.14.1}
-\contentsline {subsection}{\numberline {4.14.2}IRQs and ISRs}{161}{subsection.4.14.2}
-\contentsline {subsection}{\numberline {4.14.3}Hijacking the System Timer}{163}{subsection.4.14.3}
-\contentsline {subsection}{\numberline {4.14.4}Heartbeats}{165}{subsection.4.14.4}
-\contentsline {subsection}{\numberline {4.14.5}Audio System}{168}{subsection.4.14.5}
-\contentsline {subsection}{\numberline {4.14.6}PC Speaker}{171}{subsection.4.14.6}
-\contentsline {subsection}{\numberline {4.14.7}AdLib}{174}{subsection.4.14.7}
-\contentsline {section}{\numberline {4.15}User Inputs}{176}{section.4.15}
-\contentsline {subsection}{\numberline {4.15.1}Keyboard}{177}{subsection.4.15.1}
-\contentsline {subsection}{\numberline {4.15.2}Mouse}{177}{subsection.4.15.2}
-\contentsline {subsection}{\numberline {4.15.3}Joystick}{178}{subsection.4.15.3}
-\contentsline {section}{\numberline {4.16}Performance and other Tricks}{182}{section.4.16}
-\contentsline {subsection}{\numberline {4.16.1}Tile caching}{182}{subsection.4.16.1}
-\contentsline {subsection}{\numberline {4.16.2}Memory alignment}{183}{subsection.4.16.2}
-\contentsline {subsection}{\numberline {4.16.3}Bouncing Physics}{185}{subsection.4.16.3}
-\contentsline {subsection}{\numberline {4.16.4}Pseudo Random Generator}{190}{subsection.4.16.4}
-\contentsline {subsection}{\numberline {4.16.5}Screen fades}{192}{subsection.4.16.5}
-\contentsline {chapter}{\numberline {5}Keen Dreams in CGA}{195}{chapter.5}
-\contentsline {section}{\numberline {5.1}CGA Video card}{196}{section.5.1}
-\contentsline {section}{\numberline {5.2}Memory architecture and Interlacing}{198}{section.5.2}
-\contentsline {section}{\numberline {5.3}Double buffering}{199}{section.5.3}
-\contentsline {section}{\numberline {5.4}Screen refresh}{200}{section.5.4}
-\contentsline {chapter}{Appendices}{205}{section*.163}
-\contentsline {chapter}{\numberline {A}Unboxing the asset files}{207}{appendix.A}
-\contentsline {chapter}{\numberline {B}x86 Memory Models}{211}{appendix.B}
-\contentsline {chapter}{\numberline {C}Dangerous Dave in Copyright Infringement}{217}{appendix.C}
-\contentsline {chapter}{\numberline {D}Founding of id Software}{221}{appendix.D}
+\contentsline {section}{\numberline {4.11}Actors and AI}{146}{section.4.11}
+\contentsline {subsection}{\numberline {4.11.1}State Machine}{146}{subsection.4.11.1}
+\contentsline {subsection}{\numberline {4.11.2}Clipping}{148}{subsection.4.11.2}
+\contentsline {section}{\numberline {4.12}Drawing layer for layer}{152}{section.4.12}
+\contentsline {subsection}{\numberline {4.12.1}Draw background and foreground tiles}{152}{subsection.4.12.1}
+\contentsline {subsection}{\numberline {4.12.2}Drawing sprites}{154}{subsection.4.12.2}
+\contentsline {subsection}{\numberline {4.12.3}Tile Draw Performance Tricks}{158}{subsection.4.12.3}
+\contentsline {subsubsection}{\numberline {4.12.3.1}Background Tile Caching}{158}{subsubsection.4.12.3.1}
+\contentsline {subsubsection}{\numberline {4.12.3.2}Word-aligned memory writing}{159}{subsubsection.4.12.3.2}
+\contentsline {section}{\numberline {4.13}Audio and Heartbeat}{161}{section.4.13}
+\contentsline {subsection}{\numberline {4.13.1}Interrupts}{161}{subsection.4.13.1}
+\contentsline {subsection}{\numberline {4.13.2}IRQs and ISRs}{162}{subsection.4.13.2}
+\contentsline {subsection}{\numberline {4.13.3}Hijacking the System Timer}{163}{subsection.4.13.3}
+\contentsline {subsection}{\numberline {4.13.4}Heartbeats}{165}{subsection.4.13.4}
+\contentsline {subsection}{\numberline {4.13.5}Audio System}{168}{subsection.4.13.5}
+\contentsline {subsection}{\numberline {4.13.6}PC Speaker}{171}{subsection.4.13.6}
+\contentsline {subsection}{\numberline {4.13.7}AdLib}{175}{subsection.4.13.7}
+\contentsline {section}{\numberline {4.14}User Inputs}{176}{section.4.14}
+\contentsline {subsection}{\numberline {4.14.1}Keyboard}{177}{subsection.4.14.1}
+\contentsline {subsection}{\numberline {4.14.2}Mouse}{177}{subsection.4.14.2}
+\contentsline {subsection}{\numberline {4.14.3}Joystick}{178}{subsection.4.14.3}
+\contentsline {section}{\numberline {4.15}Performance and other Tricks}{182}{section.4.15}
+\contentsline {subsection}{\numberline {4.15.1}Bouncing Physics}{182}{subsection.4.15.1}
+\contentsline {subsection}{\numberline {4.15.2}Pseudo Random Generator}{186}{subsection.4.15.2}
+\contentsline {subsection}{\numberline {4.15.3}Screen fades}{188}{subsection.4.15.3}
+\contentsline {chapter}{\numberline {5}Keen Dreams in CGA}{191}{chapter.5}
+\contentsline {section}{\numberline {5.1}CGA Video card}{192}{section.5.1}
+\contentsline {section}{\numberline {5.2}Memory architecture and Interlacing}{194}{section.5.2}
+\contentsline {section}{\numberline {5.3}Double buffering}{195}{section.5.3}
+\contentsline {section}{\numberline {5.4}Screen refresh}{196}{section.5.4}
+\contentsline {chapter}{Appendices}{201}{section*.162}
+\contentsline {chapter}{\numberline {A}Unboxing the asset files}{203}{appendix.A}
+\contentsline {chapter}{\numberline {B}x86 Memory Models}{207}{appendix.B}
+\contentsline {chapter}{\numberline {C}Dangerous Dave in Copyright Infringement}{213}{appendix.C}
+\contentsline {chapter}{\numberline {D}Founding of id Software}{217}{appendix.D}
