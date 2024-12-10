@@ -7,7 +7,6 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="31.415537mm"
@@ -34,27 +33,6 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="scale(0.4)" />
     </marker>
-    <pattern
-       inkscape:collect="always"
-       xlink:href="#Strips1_2-25-3"
-       id="pattern3124-4-8"
-       patternTransform="matrix(0.27977573,0.30865797,-9.3348923,8.4613934,-8.492498,33.828902)" />
-    <pattern
-       inkscape:stockid="Stripes 1:2"
-       id="Strips1_2-25-3"
-       patternTransform="translate(0,0) scale(10,10)"
-       height="1"
-       width="3"
-       patternUnits="userSpaceOnUse"
-       inkscape:collect="always">
-      <rect
-         id="rect2417-2-4"
-         height="2"
-         width="1"
-         y="-0.5"
-         x="0"
-         style="fill:black;stroke:none" />
-    </pattern>
     <marker
        inkscape:isstock="true"
        style="overflow:visible"
@@ -96,7 +74,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="55.855822"
+     inkscape:cx="9.3888052"
      inkscape:cy="64.090133"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -116,7 +94,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -126,7 +104,7 @@
      id="layer1"
      transform="translate(-83.682955,-110.00584)">
     <path
-       style="fill:url(#pattern3124-4-8);fill-opacity:1;stroke:#000000;stroke-width:0.23;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#b4b4b4;fill-opacity:1;stroke:#000000;stroke-width:0.23;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 83.797955,111.56268 19.561845,18.75011 0.0182,0.83276 H 83.797965 Z"
        id="path2403-1-6"
        inkscape:connector-curvature="0"

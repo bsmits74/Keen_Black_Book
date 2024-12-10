@@ -1,12 +1,8 @@
 void ClipToEnds (objtype *ob)
 {
-	...
-
+	[...]
   //Get midpoint of sprite [0-15]
 	midxpix = (ob->midx&0xf0) >> 4;
-
-	map = (unsigned far *)mapsegs[1] +
-		mapbwidthtable[oldtilebottom-1]/2 + ob->tilemidx;
 	for (y=oldtilebottom-1 ; y<=ob->tilebottom ; y++,map+=mapwidth)
 	{
     //Do we hit a NORTH wall

@@ -603,7 +603,7 @@ Whether an actor can move or fall through a tile is determined by the \cw{tinf[]
 \end{minipage}
 \label{wallclip_array}
 \par
-For clipping along the top and bottom of tiles, the engine also accounts for movement on slopes. After the actor is clipped to the top or bottom of a slope tile, an offset is applied to move the actor up or down along the slope. \\
+For clipping along the top and bottom of tiles, the engine also accounts for standing on slopes. After the actor is clipped to the top or bottom of a slope tile, an offset is applied to move the actor up or down along the slope. \\
 
 \begin{figure}[H]
   \centering
@@ -612,17 +612,13 @@ For clipping along the top and bottom of tiles, the engine also accounts for mov
   \caption{Clipping north wall with slope.}
 \end{figure}
 
-This offset is defined by a lookup table, which uses the actor's midpoint and the wall type to determine the slope type.\\
+This offset is defined by the lookup table \cw{wallclip[8][16]}, which uses the actor's midpoint and the wall type to determine the slope type.
 
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C,style=mystyle,basicstyle=\scriptsize]{code/wallclip_array.c}
-\end{minipage}
-\label{wallclip_array}
 \par
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{imgs/drawings/walltype.eps}
-  \caption{Eight different walltypes (slopes) defined.}
+  \caption{Fall through, solid and 6 slope types.}
   \label{fig:walltype}
 \end{figure}
 
@@ -633,11 +629,8 @@ This offset is defined by a lookup table, which uses the actor's midpoint and th
   \lstinputlisting[language=C]{code/clip_north_wall.c}
 \end{minipage}
 \label{wallclip_array}
-\par
 
 
-
-\pagebreak
 \section{Drawing layer for layer}
 Each tile on the screen can contain up to three layers: the background layer, the foreground layer and a sprite layer. Rendering the final screen requires multiple redraws on the same tile to achieve the correct layering:
 \begin{enumerate}
