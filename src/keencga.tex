@@ -103,9 +103,6 @@ Interlacing worked by splitting each video frame into two halves: the odd-number
 The CGA memory layout in graphics mode utilized a similar interlaced architecture. VRAM was split into two banks: VRAM bank 0, which held even rows of pixels (0, 2, 4, etc.), and VRAM bank 1, which held odd rows of pixels (1, 3, 5, etc.). This layout required additional calculation steps for many CGA graphics operations if the programmer wanted to avoid visual artifacts during screen updates.\\
 
 \par
-Each pair of 2 bits is one pixel with a color value of 0-3, referring to the CGA color palette. The 2 most left bits represent pixel 0, the next 2 bits pixel 1, etc. So each byte in VRAM represents 4 pixels on screen. \\
-
-\par
 In CGA graphics, each pair of two bits represented a single pixel, allowing for a color value between 0 and 3, based on the CGA color palette. The two leftmost bits in a byte represented pixel 0, the next two bits represented pixel 1, and so on. Each byte in VRAM corresponded to four pixels on the screen.\\
 
 
@@ -120,8 +117,8 @@ In CGA graphics, each pair of two bits represented a single pixel, allowing for 
 
 
 
- \bigskip
-The CGA card employed memory mapping, similar to EGA. In Mode 4, VRAM bank 0 was mapped to memory addresses from \cw{B0000h} to \cw{B1FFFh}, and VRAM bank 1 was mapped to \cw{B2000h} to \cw{B3FFFh}. Unlike EGA, the CGA memory model didn't require masking since the total 16 KiB of VRAM easily fit within a 64 KiB memory segment.\\
+\par
+The CGA card employed memory mapping, similar to EGA. In Mode 4, VRAM bank 0 was mapped to memory addresses from \cw{B0000h} to \cw{B1FFFh}, and VRAM bank 1 was mapped to \cw{B2000h} to \cw{B3FFFh}. Unlike EGA, the CGA memory model didn't require masking since the total 16 KiB of VRAM easily fit within a 64 KiB memory segment.
 
 
 

@@ -981,7 +981,40 @@ The floppy disk is controlled via the Floppy Disk Controller (FDC), a typical re
 
 The controller waited a few seconds before turning off the motor. The reason to leave the motor on for a few seconds is that the controller may not know if there is a queue of sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
 
+\section{Keyboard}
+The original IBM PC and XT keyboards featured 83 keys. After receiving feedback from users frustrated by the layout, IBM introduced the 84-key PC AT keyboard, which included a rearranged layout and the addition of the "Sys Req" key. It also introduced 3 status LEDs for Caps Lock, Num Lock and Scroll Lock.\\
 
+\begin{figure}[H] 
+  \centering 
+  \scaledimage{0.98}{hardware/keyboard_AT.png} 
+  \caption{IBM AT Keyboard.}
+\end{figure}
+
+\par
+This design was further updated in 1986 with the release of the IBM Model M. It officially became the IBM PC standard in 1987 with the introduction of the IBM Personal System/2 (PS/2). The function keys were moved to the top, F11 and F12 were added, and the total number of keys increased to 101. The Model M was widely adopted and are still being used today.\\
+
+\begin{figure}[H] 
+  \centering 
+  \scaledimage{0.98}{hardware/keyboard_PS2.png} 
+  \caption{IBM Keyboard model M (PS/2).}
+\end{figure}
+
+\par
+Each key on the keyboard is linked to a scancode. When a key is pressed, circuitry in the keyboard generates the scancode and sends it serially to the keyboard controller. This key-down event, also known as a "make code", signals the key press. When a key is released, its scancode high-bit (\cw{80h}) is set, producing a "break code" that is sent by the same mechanism. For example, pressing "\textbf{A}" generates the make code \cw{1Eh}, while releasing it sends the break code \cw{9Eh}. Holding down a key will type a repeating sequence of that character after a short delay, resulting in retransmitting the make code at regular intervals for as long as the key is being held.\\
+
+\begin{figure}[H]
+\centering
+      \includegraphics[width=1.0\textwidth]{imgs/drawings/keyboard_model_M.eps}
+      \caption{IBM Keyboard scancode layout (all scancodes in hexadecimal).}
+\end{figure}
+
+\par
+The Model M includes 14 keys, such as "\textbf{Right Ctrl}", "\textbf{Right Alt}", and the arrow keys, that duplicate functions from the 84-key layout. To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "\textbf{/}"-key produces the scancode \cw{35h}, while the numeric keypad's "\textbf{Num /}"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
+
+\par
+This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "\textbf{/}" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists.\\
+
+\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "\textbf{Shift}" + "\textbf{Num /}" should produce a "\textbf{/}", as indicated on the keycap. However, older software may interpret this sequence incorrectly: Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "\textbf{?}".}
 
 
 \section{Bus}
@@ -993,7 +1026,7 @@ The ISA\footnote{Industry Standard Architecture.} bus connects the CPU to all de
 
 \begin{figure}[H]
 \centering
-      \includegraphics[width=0.9\textwidth]{imgs/drawings/bus.eps}
+      \includegraphics[width=1.0\textwidth]{imgs/drawings/bus.eps}
 \end{figure}
 \pagebreak
 The rest of the bus connecting to everything that is not the RAM can be either:
@@ -1020,7 +1053,7 @@ It is also backward compatible and an 8-bit ISA card can be plugged into a 16-bi
 \section{Summary}
 To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface didn't allow double buffering, and the memory model only allowed 1 MiB with an address composed of two separate 16-bit registers. Last, but not least, the default sound system could only produce square waves.\\
 \par
-Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves \textit{Ideas From the Deep}\footnote{They originally called themselves Ideas From the Deep but then decided to shorten it to simply id, which stands for "in demand", and is pronounced as in "did" or "kid." The name also refers to id, the part of the brain that behaves by the pleasure principle in Freudian psychology.}.
+Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves \textit{Ideas From the Deep}.
 \end{document}
 
 
