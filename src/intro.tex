@@ -3,13 +3,14 @@
 My personal introduction to computer gaming started in 1985, when my parents bought a MSX-1 Home Computer. I was fascinated by games such as Konami's \textit{Knightmare} and \textit{Nemesis 2}. It was not only the gameplay that interested me, but also how such games are developed. That's how I started my interest into programming and game development.\\
 \par
 The same year I had my first home computer, Nintendo released a game called \textit{Super Mario Bros.} on the Nintendo Entertainment System (NES). It was an instant blockbuster; it combined great graphics with smooth side scrolling. Side scrolling games from that time period, like Knightmare and Nemesis 2, moved at constant and "choppy" speed. Super Mario Bros. was different, as the player dictates the scrolling speed. You could smoothly accelerate from walk to run or jump, and the screen would smoothly follow your actions. Super Mario Bros. was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform game genre, and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan}.\\
+\par
+Super Mario Bros. showed the real power of the NES, which was hardware supported scrolling. Most computers around that time, like MSX and Commodore-64 computer systems, only had hardware support for sprites. To perform side scrolling on these platforms one  need to move all the background "characters" (typically represented by 8x8 pixel tiles), which is why you get that super choppy "scrolling". The only way to actually get smooth pixel scrolling was by redrawing the entire screen, offset by the number of pixels you want to scroll. This was incredibly performance intensive, and not even possible with most hardware of that time. \\
 \begin{figure}[H]
   \centering
  \includegraphics[width=1.0\textwidth]{screenshots_300dpi/Mario_Bros.png}
 \caption{Super Mario Bros. on Nintendo Entertainment System}
 \end{figure}
-\par
-Super Mario Bros. showed the real power of the NES, which was hardware supported scrolling. Most computers around that time, like MSX and Commodore-64 computer systems, only had hardware support for sprites. To perform side scrolling on these platforms one  need to move all the background "characters" (typically represented by 8x8 pixel tiles), which is why you get that super choppy "scrolling". The only way to actually get smooth pixel scrolling was by redrawing the entire screen, offset by the number of pixels you want to scroll. This was incredibly performance intensive, and not even possible with most hardware of that time. \\
+
 \par
 The NES was one of the very first home computers that supported smooth scrolling. Essentially, the hardware had a register you could just write to set the fine (pixel) scroll. If you want your background to be displayed scrolled 120 pixels in from the right, and 22 pixels from the top, you just write "120" and then "22" in order, to the same register. Done deal! The video chip takes care of the rest, running at the same constant speed as it always done.\\
 \par

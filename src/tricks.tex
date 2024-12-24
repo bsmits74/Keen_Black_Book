@@ -1,7 +1,7 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
 
-\section{Performance and other Tricks}
+\section{Engine Tricks}
 Various smart techniques were employed to ensure every CPU cycle counted. This section describes random tricks used to increase game speed.
 
 
@@ -19,7 +19,7 @@ To simplify this, the game uses an algorithm that approximates the bounce angle 
 \end{figure}
 
 \par
-The speed is determined as a factor of either the x-speed or y-speed, depending on which of the two has the larger absolute value. For higher precision, the speed is multiplied by 256.\\
+The speed is determined as a factor of either the x-speed or y-speed, depending on which of the two has the larger absolute value. For higher precision, the speed is expressed in global coordinates and therefore multiplied by 256.\\
 
 \par
 \begin{minipage}{\textwidth}

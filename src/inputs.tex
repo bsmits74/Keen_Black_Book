@@ -3,134 +3,78 @@
 \begin{document}
 
 
-\section{User Inputs}
-In an era before Microsoft harnessed all inputs under DirectInput API with Windows 95, developers had to write drivers for each input type they wanted to support. This involved talking directly to the hardware in the vendor's protocol on a physical port. The keyboard is plugged into a PS/2 or AT port, the mouse to a serial port (DE-9), and the joystick to a game port (DA-15).
+\section{Keyboard}
+Before Microsoft introduced the DirectInput API in Windows 95, developers needed to write custom drivers for each input device. This required direct communication with hardware using the vendor's protocol over physical ports. 
+
+
+\subsection{Keyboard scancodes}
+\par
+Each key on a PC keyboard is linked to a scancode. When a key is pressed, circuitry in the keyboard generates the scancode and sends it serially to the keyboard controller. This key-down event, also known as a "make code", signals the key press. When a key is released, its scancode high-bit (\cw{80h}) is set, producing a "break code" that is sent by the same mechanism. For example, pressing "\textbf{A}" generates the make code \cw{1Eh}, while releasing it sends the break code \cw{9Eh}. Holding down a key will type a repeating sequence of that character after a short delay, resulting in retransmitting the make code at regular intervals for as long as the key is being held.\\
+
+\begin{figure}[H]
+\centering
+      \includegraphics[width=1.0\textwidth]{imgs/drawings/keyboard_model_M.eps}
+      \caption{IBM Keyboard Model M scancode layout (scancodes in hexadecimal).}
+\end{figure}
+
+\par
+The Model M includes 14 keys, such as "\textbf{Right Ctrl}", "\textbf{Right Alt}", and the arrow keys, that duplicate functions from the 84-key layout. To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "\textbf{/}"-key produces the scancode \cw{35h}, while the numeric keypad's "\textbf{Num /}"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
+
+\par
+This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "\textbf{/}" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists.\\
+
+\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "\textbf{Shift}" + "\textbf{Num /}" should produce a "\textbf{/}", as indicated on the keycap. However, older software may interpret this sequence incorrectly: Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "\textbf{?}".}
 
 
 
+\subsection{Keyboard input}
+Once a key is pressed or released, the scancode is decoded and processed by the keyboard controller. On the IBM XT, this is an Intel 8255 PPI\footnote{Programmable Peripheral Interface} chip. Its main purpose is to listen for serial data from the keyboard, verify that it arrived intact, store each incoming scancode in a buffer, and request an interrupt so it can be read by the software.\\
 
+\par
+With the advent of the IBM AT and the need for bidirectional communication with the keyboard for features like keyboard status LEDs, the Intel 8042 UPI\footnote{Universal Peripheral Interface.} chip was introduced. The UPI retained backward compatibility with the PPI chip, handling all scancodes from the keyboard. When a key is pressed, the interrupt is routed to ISR \#9 in the Vector Interrupt Table. The engine installs its own ISR there.\\
 
-\subsection{Keyboard}
+\par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{imgs/drawings/keyboard.eps}
+  \caption{Keyboard hardware diagram.}
+  \label{fig:pc_keyboard}
+\end{figure}
 
-As the keyboard is the standard and oldest input medium, it is fairly easy to access. When a key is pressed, the interrupt is routed to an ISR in the Vector Interrupt Table. The engine installs its own ISR there.\\
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/keyboard_service.c}
+\end{minipage}
 
+\par
+The state of the keyboard is maintained in a global array \cw{Keyboard}, available for the entire engine to lookup.\\
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/keyboard_array.c}
+\end{minipage}
+
+\par
+When a scancode byte arrives from the keyboard, it is copied to a buffer in the keyboard controller and an IRQ \#1 is raised. Scancodes arrive one byte at a time, and one interrupt at a time, even if it is a multi-byte code. The interrupt handler can read a byte from I/O port \cw{60h} to capture the scancode for further processing. Once that is complete, the interrupt handler must explicitly acknowledge the IRQ at the interrupt controller to re-arm it for the next keyboard event. This is accomplished by writing an "end of interrupt" signal byte to I/O port \cw{20h}. \\
+
+\par
+There is a slight difference between the PPI and the UPI in terms of how the keyboard input buffer is managed. The PPI will hold a byte in its input buffer indefinitely until the software acknowledges that it has completed the read. The acknowledgment procedure is to briefly strobe the high bit of I/O port \cw{61h} on, then off. When this occurs, the keyboard controller resets its buffer status and resumes reading from the keyboard. The UPI simplifies this process. Reading from I/O port \cw{60h} automatically resets the buffer, eliminating the need for a separate acknowledgment. However, to maintain backward compatibility, most programs still toggle the high bit of I/O port \cw{61h}, even though this has no effect on 286-based systems.\\
 
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/keyboard.c}
 \end{minipage}
 
-The state of the keyboard is maintained in a global array \cw{Keyboard}, available for the entire engine to lookup.\\
-\par
-
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/keyboard_array.c}
-\end{minipage}
 
 
 
-\subsection{Mouse}
-A driver has to be loaded at startup for the mouse to be accessible. DOS did not come with one. It was usually on a vendor provided floppy disk. \cw{MOUSE.COM} (or \cw{MOUSE.SYS}) had to be added to \cw{config.sys} so it would reside in RAM. It was usually stored in \cw{DOS} folder.\\
-\par 
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/mouse.sys.c}
-\end{minipage}
-The driver takes almost 5KiB of RAM. With the driver loaded all interactions happen with software interrupt \cw{0x33}. The interface works with requests issued in register AX\footnote{For a full overview of all mouse interrupt function, see https://www.stanislavs.org/helppc/int\_33.html.} and responses issued in registers CX, BX and DX. With Borland compiler syntactic sugar it is easy to write with almost no boilerplate (notice direct access to registers thanks to \_AX and co special keywords).\\
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/mouse_request.c}
-\end{minipage}
-\par
-\begin{minipage}{\textwidth}
-\begin{figure}[H]
-\centering
-\begin{tabularx}{\textwidth}{ >{\hsize=.5\hsize}X  >{\hsize=.5\hsize}X  X }
-  \toprule
-  \textbf{Request} & \textbf{Type} & \textbf{Response} \\ \bottomrule
-AX=0 & Get Status & AX = FFFFh : available. AX Value = 0 : not available\\
-AX=1 & Show Pointer & \\
-AX=2 & Hide Pointer & \\
-AX=3 & Mouse Position & CX = X Coordinate, DX = Y Coordinate\\
-AX=3 & Mouse Buttons & BX = 1 Left Pressed, BX = 2 Right Pressed, BX = 3 Center Button Pressed\\
-AX=7 & Set Horizontal Limit & CX=MaxX1 DX=MaxX2\\
-AX=8 & Set Vertical Limit & CX=MaxY1 DX=MaxY2\\
-AX=11 & Read Mouse Motion Counters & CX = horizontal mickey count\protect\footnotemark, DX = vertical mickey count\\
-\bottomrule
-\end{tabularx}
-\caption{Mouse request/response.}
-\end{figure}
-\end{minipage}
-\par
-
-\addtocounter{footnote}{-1}
-\stepcounter{footnote}
-\footnotetext{values are 1/200 inch intervals (1 mickey = 1/200 in.).}
-
-\subsection{Joystick}
-All interactions with the joystick happen over I/O port \cw{0x201}. Two joysticks can be chained together and the state of both of them fits in a byte.\\ 
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/joystick.c}
-\end{minipage}
-\par
 
 
 
-\begin{figure}[H]
-\centering
-\begin{tabularx}{\textwidth}{ >{\hsize=.5\hsize}X X  }
-  \toprule
-  \textbf{Bit Number} & \textbf{Meaning} \\ \bottomrule
-0 & Joystick A, X Axis \\
-1 & Joystick A, Y Axis \\
-2 & Joystick B, X Axis \\ 
-3 & Joystick B, Y Axis \\
-4 & Joystick A, Button 1 \\
-5 & Joystick A, Button 2 \\
-6 & Joystick B, Button 1 \\
-7 & Joystick B, Button 2 \\
-\bottomrule
-\end{tabularx}
-\caption{Joystick sampling bits and their meaning.}
-\end{figure}
-\par
-The API looks clean at first, with each button associated with a bit indicating whether it is pressed or not. But if you take a closer look you will notice there is only one bit of information per axis, which is not enough to encode the position of a stick. This bit is actually a flag allowing an analog input to be converted into a digital value. To better understand, let's dive into details.\\
-\par On the joystick side, each axis is connected to a 100k$\Omega$ potentiometer. An applied 5V voltage generates a variable current based on the stick position (from Ohm's law where $I = \frac{V}{R}$).\\ 
-\par
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/joystick_potentiometers.eps}
-\caption{Two joysticks and the four potentiometers connected to the game port pins.}
-\end{figure}
-\par
-On the joystick side each pin carrying the current is connected to monostable multivibrators (which is a complicated name for a capacitor able to output 1 when it is charged and 0 when it is charging). The idea is to infer the position of the stick by measuring how long the vibrator takes to charge (a strong current will charge the capacitor faster than a weak current).\\
-\par
-\par
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/joystick_gamecontroller.eps}
-\caption{Each potentiometer is connected to a capacitor able to output either 0 or 1 depending on its charging state.}
-\end{figure}
-\par
-On the CPU side, retrieving the stick position is a three-step process:
 
-\begin{enumerate}
- \item Write \circled{W} any value to I/O port \cw{201h}. This will discharge all capacitors.
- \item Initialize a counter to zero and read \circled{R} from \cw{201h}. At first all bits 0-4 will be equal to zero.
- \item Loop forever (or until counter == 0xFFFF as a safety measure) increase counter on each iteration. Save the counter value for each bit when it is flipped to 1.
-\end{enumerate}
-\par
-On a 286 CPU the counter value can range from 7 to 900 depending on the stick/capacitor position. On a 386 CPU, which will run loops faster, these values would be higher. Hence the values measured can only be translated to a stick position if they are compared to a min and a max.\\
-\par 
-This explains why joysticks have to be calibrated. For the flight simulators of the 90s where accurate position was needed, the player would be asked to put the joystick in upper-left position (to set the potentiometers on both axis to minimum resistance) and press a button to read the "loop count". The player would then repeat the operation at the lower right position so that the system  would know the min and max "loop count" for this joystick/CPU combination.\footnote{The Mark-1 FCS by Thrustmaster and Flightstick Pro by CH were the best flight controllers of the 90s. They used all bits for one controller, offering a device with four buttons with the extra two axes serving as a four-way view hat.}\\
-\par
-\begin{figure}[H]
-\centering
-\fullimage{joystick_calibration.png}
-\caption{Strike Commander startup screen makes you calibrate your joystick.}
-\end{figure}
-\par
-There is no calibration process in Commander Keen because when the engine starts up it samples the loop count and assumes the joystick is in neutral position. When the game runs and joystick position is needed, the engine samples loop count and compares the count to what was measured with neutral. It is not enough to calculate the exact stick position on each axis but it is enough to determine up/down and left/right using >, == (with epsilon) and < comparison operations.
+
+
+
+
 
 
 

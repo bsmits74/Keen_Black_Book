@@ -999,24 +999,24 @@ This design was further updated in 1986 with the release of the IBM Model M. It 
   \caption{IBM Keyboard model M (PS/2).}
 \end{figure}
 
-\par
-Each key on the keyboard is linked to a scancode. When a key is pressed, circuitry in the keyboard generates the scancode and sends it serially to the keyboard controller. This key-down event, also known as a "make code", signals the key press. When a key is released, its scancode high-bit (\cw{80h}) is set, producing a "break code" that is sent by the same mechanism. For example, pressing "\textbf{A}" generates the make code \cw{1Eh}, while releasing it sends the break code \cw{9Eh}. Holding down a key will type a repeating sequence of that character after a short delay, resulting in retransmitting the make code at regular intervals for as long as the key is being held.\\
+At the time, keyboards were connected via PS/2 or AT ports.\\
 
+\par
 \begin{figure}[H]
-\centering
-      \includegraphics[width=1.0\textwidth]{imgs/drawings/keyboard_model_M.eps}
-      \caption{IBM Keyboard scancode layout (all scancodes in hexadecimal).}
+  \centering
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.3\textwidth]{imgs/drawings/ports/MiniDIN-6_PS2.eps}
+  \end{subfigure}%
+  \begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.3\textwidth]{imgs/drawings/ports/AT_Diagram.eps}
+  \end{subfigure}
+  \caption{PS/2 (left) and AT (right) keyboard connector.}
+  \label{fig:keyboard_connector}
 \end{figure}
 
-\par
-The Model M includes 14 keys, such as "\textbf{Right Ctrl}", "\textbf{Right Alt}", and the arrow keys, that duplicate functions from the 84-key layout. To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "\textbf{/}"-key produces the scancode \cw{35h}, while the numeric keypad's "\textbf{Num /}"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
-
-\par
-This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "\textbf{/}" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists.\\
-
-\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "\textbf{Shift}" + "\textbf{Num /}" should produce a "\textbf{/}", as indicated on the keycap. However, older software may interpret this sequence incorrectly: Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "\textbf{?}".}
-
-
+\pagebreak
 \section{Bus}
 Although developers had no control over them, it is still worth mentioning how these components were connected to each other.\\ 
 \par
@@ -1028,7 +1028,8 @@ The ISA\footnote{Industry Standard Architecture.} bus connects the CPU to all de
 \centering
       \includegraphics[width=1.0\textwidth]{imgs/drawings/bus.eps}
 \end{figure}
-\pagebreak
+
+\par
 The rest of the bus connecting to everything that is not the RAM can be either:
 \begin{itemize}
 \item 8 bits wide at 4.77 MHz  for 19.1 Mbit/s
