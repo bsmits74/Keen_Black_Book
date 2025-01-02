@@ -93,7 +93,7 @@ Smooth horizontal scrolling on EGA involves adjusting the CRTC Start Address alo
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.55\textwidth]{imgs/drawings/Tile_Refresh.eps}
+\includegraphics[width=0.65\textwidth]{imgs/drawings/Tile_Refresh.eps}
 \caption{Smooth scrolling in EGA.}
 \label{fig:tile_refresh}
 \end{figure}
@@ -106,7 +106,7 @@ So far, we have built a virtual screen in VRAM allowing smooth one pixel moves i
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{imgs/drawings/screen_edge.eps}
-\caption{Screen reaching the edge of virtual screen.}
+\caption{Screen reaching the edge of virtual screen, full refresh required.}
 \label{fig:screen_edge}
 \end{figure}
 
@@ -250,7 +250,7 @@ Now the buffer is refreshed and the CRTC address is updated, the final step is f
 \subsection{Wrap around the EGA Memory}
 \label{section:wrap_ega_memory}
 \label{section:optimize_tile}
-John Carmack explored what would happen if you push the virtual screen over the 64kB border (address \cw{0xFFFF}) in video memory. It turned out that the EGA continues the virtual screen at \cw{0x0000}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
+John Carmack explored what would happen if you push the virtual screen over the 64kB border (address \cw{FFFFh}) in video memory. It turned out that the EGA continues the virtual screen at \cw{0000h}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
 \par
 \begin{figure}[H]
   \centering
@@ -296,13 +296,13 @@ I was in a tough position. Do I have to track every single one of these [SUPER V
 \centering 
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\textwidth]{imgs/drawings/Page_down_switch.eps}
+  \includegraphics[width=.85\textwidth]{imgs/drawings/Page_down_switch.eps}
   \caption*{Copy Page 0 on top of Master Page.}
   \label{fig:page0_down}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
-  \includegraphics[width=.8\textwidth]{imgs/drawings/Page_up_switch.eps}
+  \includegraphics[width=.85\textwidth]{imgs/drawings/Page_up_switch.eps}
     \caption*{Copy Page 0 below Page 1. }
   \label{fig:page0_up}
 \end{subfigure}
@@ -414,6 +414,10 @@ Next, the engine scans all '1's and copies the corresponding tiles from the mast
 Each sprite removed from the screen has its location and size stored in the sprite removal list, which removes the sprite by copying a specific section from the master screen to the virtual page. Tiles overlapping with the removal block are marked with a '2'.\\
 
 \par
+\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
+
+
+\par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/erase_blocks_struct.c}
   \end{minipage}
@@ -425,9 +429,7 @@ Each sprite removed from the screen has its location and size stored in the spri
   \end{minipage}
   \label{block_removal}
 
-\par
-\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
-  \par
+
   
 \pagebreak
 The final step in updating the buffer is copying sprites to their new locations, with each corresponding tile marked with a '3' in the tile array. 
@@ -612,13 +614,13 @@ For clipping along the top and bottom of tiles, the engine also accounts for sta
   \caption{Clipping north wall with slope.}
 \end{figure}
 
-This offset is defined by the lookup table \cw{wallclip[8][16]}, which uses the actor's midpoint and the wall type to determine the slope type.
+This offset is defined by the lookup table \cw{wallclip[][]}, which uses the actor's midpoint and the wall type to determine the slope type.
 
 \par
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{imgs/drawings/walltype.eps}
-  \caption{Fall through, solid and 6 slope types.}
+  \caption{\cw{wallclip[8][16]}: Fall through, solid and 6 slope types.}
   \label{fig:walltype}
 \end{figure}
 
@@ -628,7 +630,6 @@ This offset is defined by the lookup table \cw{wallclip[8][16]}, which uses the 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/clip_north_wall.c}
 \end{minipage}
-\label{wallclip_array}
 
 
 \section{Drawing layer for layer}
@@ -677,6 +678,7 @@ Combining the background and foreground layers involves an \cw{AND}-bitwise oper
 
 
 \subsection{Drawing sprites}
+\label{section:drawing_sprites}
 The next step is to render sprites on the screen. Most home computers of that era had built-in sprite functionality on the video card. For example, on a MSX computer, one could simply enter\\
 
 \par
@@ -791,7 +793,7 @@ When updating the master screen in VRAM, the engine copies each tile from RAM to
 \par
 Once a background tile is loaded into the master screen, subsequent requests for the same tile can be handled by copying it directly from VRAM using the reprogrammed latches, rather than copying from RAM. The engine only needs to track which background tiles are already loaded into VRAM using an array.\\
 
-\par
+\par 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/tile_cache.c}
 \end{minipage}

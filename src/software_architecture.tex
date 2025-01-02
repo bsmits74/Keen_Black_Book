@@ -2,10 +2,10 @@
 \begin{document}
 \label{chapter_software_architecture}
 \section{About the Source Code}
-Commander Keen episodes 1-5 source code is unavailable, as the current owner Zenimax\footnote{June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, at the time of writing, shown no interest in selling the intellectual property. Luckily the ownership of Commander Keen: Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the owners of Softdisk at the time, and released a version for Android devices.\\
+Commander Keen episodes 1-5 source code is unavailable, as the current owner Zenimax\footnote{June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, at the time of writing, shown no interest in selling the intellectual property. Luckily the ownership of Commander Keen in Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the owners of Softdisk at the time, and released a version for Android devices.\\
 
 \par
-The following September, an Indiegogo crowdfunding campaign was started to attempt to buy the rights from Flat Rock for US\$1500 in order to release the source code to the game and start publishing it on multiple platforms. The campaign did not reach the goal, but it’s creator Javier Chavez made up the difference, and the source code was released under GNU GPL-2.0-or-later soon after.
+The following September, an Indiegogo crowdfunding campaign was started to attempt to buy the rights from Flat Rock for US\$1500 in order to release the source code to the game and start publishing it on multiple platforms. The campaign did not reach the goal, but it's creator Javier Chavez made up the difference, and the source code was released under GNU GPL-2.0-or-later soon after.
 
 
 \section{Getting the Source Code}
@@ -69,8 +69,8 @@ Source lines of code (SLOC) are not particularly meaningful for comparing a sing
  
 The archive contains more than just source code; it also features:
 \begin{itemize}
-\item A \cw{static} folder with static header files for loading assets (as explained in Section \ref{section:graphic_assets}).
-\item An \cw{lscr} folder for loading and decompressing Softdisk data files.
+\item A \cw{static} folder with static header files for loading assets and maps (as explained in section "\nameref{section:graphic_assets}" on page \pageref{section:graphic_assets}).
+\item An \cw{lscr} folder for loading and decompressing Softdisk text files.
 \item A \cw{README} file explaining how to build the executable.
 \end{itemize}
 
@@ -100,7 +100,7 @@ Then, generate the static \cw{OBJ} header files.\\
 After that, return to the \cw{keen} folder and open Borland C++. Open the \cw{kdreams.prj} project file. Before compiling, adjust the directory settings by selecting Options -> Directories and change the values as shown on the next page. \\
 
 \par
-Now it's time to compile. Go to Compile -> Build All, and voil\`a! The final step is to copy \cw{kdreams.exe} into the Keen shareware folder. ou can now play your compiled version of \textit{Commander Keen}. \\
+Now it's time to compile. Go to Compile -> Build All, and voil\`a! The final step is to copy \cw{kdreams.exe} into the Keen shareware folder. You can now play your compiled version of \textit{Commander Keen}. \\
 
 \begin{figure}[H]
 \centering
@@ -169,13 +169,7 @@ Then comes the core loop, where the menu and 2D renderer are called forever.
 The interrupt system is started via the Sound Manager in \cw{SDL\_SetIntsPerSec(rate)}. While there is a famous game development library called Simple DirectMedia Layer (SDL), the prefix \cw{SDL\_} has nothing to do with it. It stands for SounD Low level (Simple DirectMedia Layer did not even exist in 1990).\\
 \par
 The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with an OS supporting neither processes nor threads, it was the only way to have something execute concurrently with the rest of the engine.\\
-\par
-An ISR (Interrupt Service Routine) is installed in the Interrupt Vector Table to respond to interrupts triggered by the engine. \\
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/soundsystem_interrupt.c}
-\end{minipage}
-\par
+
 
 
 
@@ -201,15 +195,15 @@ There are six managers in total:\\
 	\item Input
 \end{itemize}
 \par
-The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer ID games (Hovertank One, Catacomb 3-D and Wolf3D).
+The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer id Software games (\textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolf3D}). Next to the hard drives (HDD) you can see the assets packed as described in section "\nameref{section:graphic_assets}" on page \pageref{section:graphic_assets}.
 
-\begin{figure}[H]
+\begin{figure}[H] 
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/architecture.eps}
 \caption{Architecture with engine and sub-systems (in white) connected to I/O (in gray).}
 \label{fig:architecture}
 \end{figure}
-Next to the hard drives (HDD) you can see the assets packed as described in Chapter \ref{section:graphic_assets}.
+
 
 
 
@@ -322,10 +316,24 @@ The cache manager is a small but critical component. It loads and decompresses m
 \end{itemize}
 
 \par
-Details on each asset file are explained in Chapter \ref{section:programming}. The header and dictionary files are provided in the \cw{static} folder with the \cw{*.KDR} extension. These file types are integrated into the engine code and are required during compilation (converted into an \cw{*.OBJ} file using \cw{makeobj.c}). \\
+Details of each asset file are explained in section "\nameref{section:programming}" on page \pageref{section:programming}. The header and dictionary files are provided in the \cw{static} folder with the \cw{*.KDR} extension. These file types are integrated into the engine code and are required during compilation (converted into an \cw{*.OBJ} file using \cw{makeobj.c}). \\
 
 \par
-The data file containing the assets is not part of the source code and must be obtained by downloading the shareware version. All resources are compressed using Huffman compression, and maps have additional RLEW compression. The cache manager is described extensively in the "Asset Caching and Compression" section.\\
+\begin{fancyquotes}
+When I was trying to fit all the data for Keen2 and Keen3 on a 360K floppy and all the files wouldn't fit, I had to convert a bunch of files to .OBJ files (using a utility I developed), change the code to forgo the loading process for those files, then I had to link them into the KEEN EXE file, then finally I had to LZEXE the EXE file so it was much smaller\\ 
+\par
+-- that was the only way that Keen2 and 3 would fit on a 360K floppy.\\
+
+\par
+\textbf{John Romero\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{Great article on history of Commander Keen on https://legacy.3drealms.com/keenhistory.}
+
+
+\pagebreak
+The data file containing the assets is not part of the source code and must be obtained by downloading the shareware version. All resources are compressed using Huffman compression, and maps have additional RLE compression. The cache manager is described extensively in the "Asset Caching and Compression" section.\\
 
  \par
 \begin{figure}[H]
@@ -359,7 +367,7 @@ Each character is 10 pixels tall, but the width varies, as illustrated in Figure
  \end{figure}
  \par
  
-On the EGA videocard each 8 pixels take up 1 byte of VRAM (as explained in Section \ref{section:EGA_Planar_Madness} on page \pageref{section:EGA_Planar_Madness}). When you need to print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
+On the EGA videocard each 8 pixels take up 1 byte of VRAM (as explained in section "\nameref{section:EGA_Planar_Madness}" on page \pageref{section:EGA_Planar_Madness}). When you need to print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
 
 \par
 Instead of manually shifting every pixel in your character bitmaps, the game engine uses pre-calculated bitshift tables. These tables are essentially lookup guides that help quickly adjust how characters are drawn based on their starting position. Here's how the process works:
@@ -371,12 +379,12 @@ Instead of manually shifting every pixel in your character bitmaps, the game eng
 \begin{figure}[H]
 \centering
  \includegraphics[width=0.7\textwidth]{imgs/drawings/shift_tables.eps}
- \caption{Right bitshift [0-7] for 198.}
+ \caption{Right bitshift [0-7] for integer 198.}
  \label{fig:shiftttable}
  \end{figure}
 
 \par
-The pre-calculated bitshift table are stored in \cw{id\_vw\_a.asm}, below the \cw{bitshift3} table.\\
+The pre-calculated bitshift tables are stored in \cw{id\_vw\_a.asm}, below the \cw{bitshift3} table.\\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[basicstyle=\fontsize{7}{9}\selectfont]{code/unrolled_shift_table.c}
@@ -399,7 +407,7 @@ Printing the letter "N" with an offset of 3 pixels involves a simple lookup in \
 \end{minipage}
 \par
 \subsection{Sound Manager (SD)}
-The Sound Manager abstracts interaction with all four sound systems supported: PC Speaker, AdLib, Sound Blaster, and Disney Sound Source. It is a beast of its own since it doesn't run inside the engine. Instead it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). \\
+The Sound Manager abstracts interaction with all sound systems supported: PC Speaker, AdLib, and Sound Blaster. It is a beast of its own since it doesn't run inside the engine. Instead it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). The sound manager is described extensively in the "\nameref{audio_and_heartbeat}" section. \\
  \par
 \begin{figure}[H]
 \centering

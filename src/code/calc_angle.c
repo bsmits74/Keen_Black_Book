@@ -7,10 +7,9 @@ void	PowerReact (objtype *ob)
     absy = ob->yspeed;
 
     wall = ob->hitnorth;
-    if ( wall == 17)	// go through pole holes
-    {
-        [...]
-	}
+
+    [...]
+
     else if (wall)
     {
         ob->obclass = bonusobj;
@@ -34,5 +33,7 @@ void	PowerReact (objtype *ob)
         }
         [...]       // Handle 67 and 90 degrees
     }
+    if (ob->xspeed > 0)
+        angle = 7-angle;
 }
         

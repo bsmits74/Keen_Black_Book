@@ -3,7 +3,7 @@
 \label{asset_details}
 
 
-Commander Keen Dreams contains three asset files; The graphical assets, level maps and sound. The first table is the level map file, which contains 21 levels. Each tile contains a foreground, background and Info tile, where each tile is an integer. 
+Commander Keen Dreams contains three asset files; The graphical assets, level maps and sound. The first table is the level map file, which contains 18 levels. Four of these levels, all starting with "temp", are not used in the game.
 
 \begin{figure}[H]
 \centering
@@ -11,31 +11,32 @@ Commander Keen Dreams contains three asset files; The graphical assets, level ma
 \begin{tabularx}{\textwidth}[c]{X X r r }
   \hline
   \textbf{Level} & \textbf{Title} & \textbf{width x height (tiles)} & \textbf{Size (bytes)}\\ \hline
-	0 & xxx & 85 x 66 &  33,660 \\
-	1 & xxx & 136 x 37 &   30,192 \\ 
-	2 & xxx & 94 x 93 &   52,452 \\
-	3 & xxx & 65 x 62 &  24,180 \\
-	4 & xxx & 74 x 46 &  20,424 \\
-	5 & xxx & 42 x 72 &   18,144 \\
-	6 & xxx & 26 x 30 &   4,680 \\
-	7 & xxx & 202 x 59 &  71,508 \\
-	8 & xxx & 26 x 30 &  4,680 \\
-	9 & xxx & 126 x 47 &  35,532 \\
-	10 & xxx & 139 x 39 &  32,526 \\
-	11 & xxx & 26 x 30 &  4,680 \\
-	12 & xxx & 93 x 29 &  16,182 \\
-	13 & xxx & 26 x 30 &  4,680 \\
-	14 & xxx & 74 x 29 &  12,876 \\
-	15 & xxx & 35 x 30 &  6,300 \\
-	16 & xxx & 85 x 80 &  40,800 \\
-	20 & xxx & 37 x 19 &  4,218 \\ \hline
+	0 & Land of Tuberia & 85 x 66 &  33,660 \\
+	1 & Horse Radish Hill & 136 x 37 &   30,192 \\ 
+	2 & Melon Mines & 94 x 93 &   52,452 \\
+	3 & Bridge Bottoms & 65 x 62 &  24,180 \\
+	4 & Rhubarb Rapids & 74 x 46 &  20,424 \\
+	5 & Parsnip Pass & 42 x 72 &   18,144 \\
+	6 & Temp1 & 26 x 30 &   4,680 \\
+	7 & Spud City & 202 x 59 &  71,508 \\
+	8 & Temp8 & 26 x 30 &  4,680 \\
+	9 & Apple Acres & 126 x 47 &  35,532 \\
+	10 & Grape Grove & 139 x 39 &  32,526 \\
+	11 & Temp2 & 26 x 30 &  4,680 \\
+	12 & Brus.Sprout Bay & 93 x 29 &  16,182 \\
+	13 & Temp13 & 26 x 30 &  4,680 \\
+	14 & Squash Swamp & 74 x 29 &  12,876 \\
+	15 & Boobus' Room & 35 x 30 &  6,300 \\
+	16 & Castle Tuberia & 85 x 80 &  40,800 \\
+	20 & Title Screen & 37 x 19 &  4,218 \\ \hline
 	\textbf{Total} & \multicolumn{3}{r}{\textbf{417,714}} \\ \hline
 \end{tabularx}
 }
 \caption{KDREAMS.MAP level map details.}
 \end{figure}
 
-The second file contains all graphical assets. The majority of the file is existing out of background (TILE16), foreground (TILE16M) tiles and sprites.
+\par 
+The second file contains all graphical assets. The majority of the file is existing out of background tiles (TILE16), foreground tiles (TILE16M) and sprites.
 \begin{figure}[H]
 \centering
 {\renewcommand{\arraystretch}{1.1} %<- modify value to suit your needs
@@ -48,7 +49,7 @@ The second file contains all graphical assets. The majority of the file is exist
   NUMTILE8M & 36 & 40 & 1,440 \\
   FONT & 1 & 1900 & 1900 \\
   PIC & 65 & 256-298 & 29,632 \\
-  PICM & 2 & 320 / 480 & 800 \\
+  PICM & 2 & 320 and 480 & 800 \\
   SPRITE & 297 & 10-6180 & 148,975 \\ \hline
   \textbf{Total} & \multicolumn{3}{r}{\textbf{354,075}} \\ \hline
 \end{tabularx}

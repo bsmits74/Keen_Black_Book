@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  3 DEC 2024 20:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  29 DEC 2024 21:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1737,56 +1737,62 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.15}).
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.67995pt on input line 4.
+(Font)              scaled to size 13.67995pt on input line 5.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 4.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 5.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 13.67995pt on input line 4.
+(Font)              scaled to size 13.67995pt on input line 5.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 8.
+(Font)              scaled to size 11.39996pt on input line 9.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 8.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 9.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 11.39996pt on input line 8.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 9.
+(Font)              scaled to size 11.39996pt on input line 9.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 10.
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Underfull \hbox (badness 10000) in paragraph at lines 9--10
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
  []
 
 <<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>>
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
 
  []
 
-Package epstopdf Info: Source file: <imgs/drawings/angle_0.eps>
-(epstopdf)                    date: 2023-08-06 21:20:20
-(epstopdf)                    size: 73447 bytes
-(epstopdf)             Output file: <imgs/drawings/angle_0-eps-converted-to.pdf
->
-(epstopdf)                    date: 2023-08-06 21:20:24
-(epstopdf)                    size: 60874 bytes
-(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/angle_0-eps-
-converted-to.pdf imgs/drawings/angle_0.eps>
-(epstopdf)             \includegraphics on input line 17.
+Package epstopdf Info: Source file: <imgs/drawings/angle_ratio.eps>
+(epstopdf)                    date: 2024-12-29 12:39:10
+(epstopdf)                    size: 22895 bytes
+(epstopdf)             Output file: <imgs/drawings/angle_ratio-eps-converted-to
+.pdf>
+(epstopdf)                    date: 2024-12-29 12:39:22
+(epstopdf)                    size: 10289 bytes
+(epstopdf)             Command: <repstopdf --outfile=imgs/drawings/angle_ratio-
+eps-converted-to.pdf imgs/drawings/angle_ratio.eps>
+(epstopdf)             \includegraphics on input line 18.
 Package epstopdf Info: Output file is already uptodate.
 
 
-pdfTeX warning: pdflatex (file ./imgs/drawings/angle_0-eps-converted-to.pdf): P
-DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/angle_0-eps-converted-to.pdf, id=36, 531.9875pt x 368.37625pt>
-File: imgs/drawings/angle_0-eps-converted-to.pdf Graphic file (type pdf)
-<use imgs/drawings/angle_0-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/angle_0-eps-converted-to.pdf  used on in
-put line 17.
-(pdftex.def)             Requested size: 300.64415pt x 208.18355pt.
+pdfTeX warning: pdflatex (file ./imgs/drawings/angle_ratio-eps-converted-to.pdf
+): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<imgs/drawings/angle_ratio-eps-converted-to.pdf, id=36, 346.29375pt x 331.2375p
+t>
+File: imgs/drawings/angle_ratio-eps-converted-to.pdf Graphic file (type pdf)
+<use imgs/drawings/angle_ratio-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/angle_ratio-eps-converted-to.pdf  used o
+n input line 18.
+(pdftex.def)             Requested size: 300.64415pt x 287.57788pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 22--23
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
  []
 
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 9.49997pt on input line 24.
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+ <./imgs/drawings/angle_ratio-eps-converted-to.pdf>]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
@@ -1794,33 +1800,45 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 26.
+nput line 27.
 
 (./code/calc_angle.c)
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 30.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
- <./imgs/drawings/angle_0-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 30--31
+Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
 
-(./code/bounceangle_lookup.c) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 38--39
+[2]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.54997pt on input line 36.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <9> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 51.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 8.54997pt on input line 51.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 64.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 9.49997pt on input line 64.
+LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 64.
+LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 64.
+LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
+(Font)              scaled to size 9.49997pt on input line 64.
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
 
  []
 
 Package epstopdf Info: Source file: <imgs/drawings/bounce_angle.eps>
-(epstopdf)                    date: 2023-06-03 15:20:17
-(epstopdf)                    size: 16527 bytes
+(epstopdf)                    date: 2024-12-03 20:27:47
+(epstopdf)                    size: 16225 bytes
 (epstopdf)             Output file: <imgs/drawings/bounce_angle-eps-converted-t
 o.pdf>
-(epstopdf)                    date: 2023-06-03 15:20:20
-(epstopdf)                    size: 9063 bytes
+(epstopdf)                    date: 2024-12-03 20:30:18
+(epstopdf)                    size: 8552 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/bounce_angle
 -eps-converted-to.pdf imgs/drawings/bounce_angle.eps>
-(epstopdf)             \includegraphics on input line 44.
+(epstopdf)             \includegraphics on input line 75.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -1831,50 +1849,39 @@ t>
 File: imgs/drawings/bounce_angle-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/bounce_angle-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/bounce_angle-eps-converted-to.pdf  used 
-on input line 44.
+on input line 75.
 (pdftex.def)             Requested size: 263.0615pt x 88.29724pt.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 45.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 45.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 45.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 45.
-LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
-(Font)              scaled to size 9.49997pt on input line 45.
-(./code/angle.c)
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+(./code/angle.c) [3 <./imgs/drawings/bounce_angle-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 87--88
 
  []
 
-[3 <./imgs/drawings/bounce_angle-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <imgs/drawings/bounce_physics.eps>
-(epstopdf)                    date: 2023-06-03 15:34:35
-(epstopdf)                    size: 12303 bytes
+(epstopdf)                    date: 2024-12-03 20:28:21
+(epstopdf)                    size: 12001 bytes
 (epstopdf)             Output file: <imgs/drawings/bounce_physics-eps-converted
 -to.pdf>
-(epstopdf)                    date: 2023-06-03 15:37:08
-(epstopdf)                    size: 7153 bytes
+(epstopdf)                    date: 2024-12-03 20:30:18
+(epstopdf)                    size: 6638 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/bounce_physi
 cs-eps-converted-to.pdf imgs/drawings/bounce_physics.eps>
-(epstopdf)             \includegraphics on input line 60.
+(epstopdf)             \includegraphics on input line 92.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/bounce_physics-eps-converted-to.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<imgs/drawings/bounce_physics-eps-converted-to.pdf, id=143, 90.3375pt x 61.2287
+<imgs/drawings/bounce_physics-eps-converted-to.pdf, id=113, 90.3375pt x 61.2287
 4pt>
 File: imgs/drawings/bounce_physics-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imgs/drawings/bounce_physics-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/bounce_physics-eps-converted-to.pdf  use
-d on input line 60.
+d on input line 92.
 (pdftex.def)             Requested size: 150.31921pt x 101.89284pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 68--69
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
 
@@ -1887,101 +1894,94 @@ File: lstlang2.sty 2015/06/04 1.6 listings language file
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang3.sty
 File: lstlang3.sty 2015/06/04 1.6 listings language file
 )
-(./code/ega_set_palette.c)
-Underfull \hbox (badness 10000) in paragraph at lines 77--78
-
- []
-
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.54997pt on input line 82.
-
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+(./code/ega_set_palette.c) [4 <./imgs/drawings/bounce_physics-eps-converted-to.
+pdf>]
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x18| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x19| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1a| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1b| 
  []
 
 
-Overfull \hbox (1.60162pt too wide) in paragraph at lines 100--100
+Overfull \hbox (1.60162pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1c| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1d| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1e| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x18| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x19| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1a| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1b| 
  []
 
 
-Overfull \hbox (1.60162pt too wide) in paragraph at lines 100--100
+Overfull \hbox (1.60162pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1c| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1d| 
  []
 
 
-Overfull \hbox (2.08037pt too wide) in paragraph at lines 100--100
+Overfull \hbox (2.08037pt too wide) in paragraph at lines 134--134
 []|\T1/phv/m/n/9 0x1e| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--106
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
  []
 
-[4 <./imgs/drawings/bounce_physics-eps-converted-to.pdf>] (./code/ega_fade_in.c
-) [5] [6]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 114.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 114.
+(./code/ega_fade_in.c) [5] [6]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 148.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 148.
  (./tricks.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 114.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 114.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 148.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 148.
  ) 
 Here is how much of TeX's memory you used:
- 49363 strings out of 494880
- 1054902 string characters out of 6179601
- 1436055 words of memory out of 5000000
- 51738 multiletter control sequences out of 15000+600000
+ 49345 strings out of 494880
+ 1054587 string characters out of 6179601
+ 1423493 words of memory out of 5000000
+ 51736 multiletter control sequences out of 15000+600000
  559024 words of font info for 51 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,12n,132p,10467b,1537s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1992,10 +1992,10 @@ dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/he
 lvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro
 8a.pfb>
-Output written on tricks.pdf (6 pages, 150065 bytes).
+Output written on tricks.pdf (6 pages, 98782 bytes).
 PDF statistics:
- 312 PDF objects out of 1000 (max. 8388607)
- 194 compressed objects within 2 object streams
- 102 named destinations out of 1000 (max. 500000)
+ 292 PDF objects out of 1000 (max. 8388607)
+ 177 compressed objects within 2 object streams
+ 89 named destinations out of 1000 (max. 500000)
  168 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,6 +1,3 @@
-if (ob->xspeed > 0)       
-	angle = 7-angle;        // mirror angle
-
 speed >>= 1;              // speed / 2 after bounce
 newangle = bounceangle[ob->hitnorth][angle];
 switch (newangle)

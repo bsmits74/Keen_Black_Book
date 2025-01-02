@@ -1,6 +1,6 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
-
+\section{Keen Dreams in CGA}
 The original Commander Keen, Commander Keen in Invasion of the Vorticons, was only released for the EGA video card. Keen Dreams and later versions included a CGA version as well. The game play was exactly the same, sounds were the same, it was just that the graphics were CGA. Before diving into  the source code, let's first get a better understanding of the CGA video hardware.\\
 
 
@@ -10,6 +10,7 @@ The original Commander Keen, Commander Keen in Invasion of the Vorticons, was on
   \caption{Keen Dreams EGA and CGA version.}
 \end{figure}
 
+\bigskip
 \par
 \textbf{\underline{Trivia :}} It's an ironic twist that Softdisk did not use the original Keen's engine, as the code violated the company policy by depending on 16-color EGA hardware without supporting older 4-color CGA cards!\\
 \par
@@ -17,7 +18,7 @@ The original Commander Keen, Commander Keen in Invasion of the Vorticons, was on
 
  
 
-\section{CGA Video card}
+\subsection{CGA Video card}
 The Color Graphics Adapter (CGA), originally also called the Color/Graphics Adapter or IBM Color/Graphics Monitor Adapter, introduced in 1981, was IBM's first color graphics card for the IBM XT.\\
 \par
 The CGA card can be summarized by the following hardware:
@@ -93,7 +94,7 @@ The default palette when switching to Mode \cw{04h} is palette 2 with high inten
 
 
 
-\section{Interlacing}
+\subsection{Interlacing}
 In the early days of television and computer monitors, technology was far less advanced than it is today. Picture resolution was constrained by the limitations of the hardware, and engineers were constantly devising clever solutions to maximize performance. During the 1950s and 1960s, when CRT\footnote{Cathode Ray Tube} monitors and TVs were standard, one major challenge engineers faced was how to produce clear images without overwhelming the hardware. The solution was a technique called interlacing.\\
 
 \par
@@ -122,7 +123,7 @@ The CGA card employed memory mapping, similar to EGA. In Mode 4, VRAM bank 0 was
 
 
 
-\section{Double buffering}
+\subsection{Double buffering}
 A full picture in Mode 4 requires 320 pixels x 2 bits per pixel x 200 lines, which equals 16,000 bytes of memory. Since the display screen consumes all 16 KiB of available VRAM, there is no capacity for additional screens. The only way to implement double buffering on CGA is by creating a 64 KiB buffer in conventional memory.\\
 
 \par
@@ -135,12 +136,14 @@ This memory buffer contains both the video buffer page and a master page. The bu
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.5\textwidth]{imgs/drawings/cga_screenseg.eps}
+\includegraphics[width=0.7\textwidth]{imgs/drawings/cga_screenseg.eps}
 \caption{CGA double buffering memory layout.}
 \label{fig:cga_screenseg}
 \end{figure}
 
-\section{Screen refresh}
+
+\pagebreak
+\subsection{Screen refresh}
 With double buffering in place, the same algorithm used for EGA can be applied. The final step of the algorithm involves updating the screen display by copying the buffer page to VRAM. However, there are two complications with CGA.\\
 
 \par

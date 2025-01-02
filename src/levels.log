@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  24 DEC 2024 17:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  28 DEC 2024 14:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1743,22 +1743,27 @@ LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
 (Font)              Font shape `T1/phv/b/sl' tried instead on input line 35.
 LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
 (Font)              scaled to size 9.49997pt on input line 35.
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+
+ []
+
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 58.
- [1
+(Font)              scaled to size 9.49997pt on input line 61.
+[1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 74.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 74.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 77.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 77.
  (./levels.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 74.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 74.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 77.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 77.
  ) 
 Here is how much of TeX's memory you used:
- 48410 strings out of 494880
- 1042404 string characters out of 6179601
- 1261211 words of memory out of 5000000
- 50947 multiletter control sequences out of 15000+600000
+ 48411 strings out of 494880
+ 1042421 string characters out of 6179601
+ 1262301 words of memory out of 5000000
+ 50948 multiletter control sequences out of 15000+600000
  541764 words of font info for 32 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,12n,132p,10467b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1766,7 +1771,7 @@ Here is how much of TeX's memory you used:
 e/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/helvetic/uhvr8a.pfb>
-Output written on levels.pdf (2 pages, 35810 bytes).
+Output written on levels.pdf (2 pages, 36640 bytes).
 PDF statistics:
  65 PDF objects out of 1000 (max. 8388607)
  36 compressed objects within 1 object stream

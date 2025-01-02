@@ -115,10 +115,6 @@ Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for e
   1             & 5          & 32    \\
   2             & 5          & 32    \\
   3             & 5          & 32    \\
-  4             & 5          & 32    \\
-  5             & 5          & 32    \\
-  6             & 5          & 32    \\
-  7             & 5          & 32    \\
   ...             & ...          & ...    \\
   64             & 5          & 24    \\
   \end{tabularx}
@@ -126,7 +122,7 @@ Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for e
   \end{table}
 
 \par
-The \cw{spritetable[]} includes not only width and height but also information on the sprite's center, hitbox, and number of bit shifts (explained in Section \ref{section:actors_and_sprites} on page \pageref{section:actors_and_sprites}). \\
+The \cw{spritetable[]} includes not only width and height but also information on the sprite's center, hitbox, and number of bit shifts (explained section "\nameref{section:drawing_sprites}" on page \pageref{section:drawing_sprites}). \\
 
 \par
 \begin{minipage}{\textwidth}
@@ -135,7 +131,7 @@ The \cw{spritetable[]} includes not only width and height but also information o
 
 
 \par
-All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection. Sprites have an additional layer to indicate transparency, similar to masked tiles.\\
+All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection. Sprites have an additional layer to indicate transparency, similar to masked tiles.
 
 \par
 \begin{figure}[H]
@@ -171,7 +167,7 @@ The font segment contains a table that stores the height and the width of the fo
   \label{fig:font_assets}
 \end{figure} 
 
-\pagebreak
+\par
 The remainder of the archive file holds all graphic assets, including pictures, sprites, and tiles. Each asset contains four planes, aligned with the EGA architecture. All masked tiles and sprites also include an additional mask plane.\\
 
 
@@ -310,15 +306,11 @@ Maps were created using an in-house editor called TED5, short for Tile EDitor. O
 \par
  TED5 is not stand-alone; in order to start, it needs an asset archive and the  associated header (as described in the graphic asset workflow Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, tile IDs are directly encoded in the map.\\
 
- 
- \fullimage{TedSplashscreen.png}
- \par
- \trivia{The suffix, "vD.IP", was put in by the Rise of the Triad team in 1994. It stood for "Developers of Incredible Power".}\\
  \par
 \fullimage{Fill_2.png}\\
  
  \par
-TED5 allows the placement of tiles across multiple layers, referred to as "planes". In \textit{Commander Keen}, there are three types of planes: 
+TED5 allows the placement of tiles across multiple layers, referred to as "planes". In Commander Keen, there are three types of planes: 
 \begin{itemize}
   \item Background plane tiles.
   \item Foreground plane tiles, which act as a mask over the background plane.
@@ -342,7 +334,7 @@ The map header structure is embedded in the engine code and contains a header of
  \lstinputlisting[language=C]{code/map_header_structure.c}\par
  \end{minipage}
 
-The game supports a maximum of 100 maps. The \cw{tileinfo[]} array contains properties data of each tile.
+The game supports a maximum of 100 maps. The \cw{tileinfo[]} array contains properties data for each tile.
  
 \begin{figure}[H]
 \centering
@@ -350,12 +342,12 @@ The game supports a maximum of 100 maps. The \cw{tileinfo[]} array contains prop
  \caption{Structure of \cw{MAPHEAD.KDR} header file.}
  \label{fig:map-header-file}
 \end{figure}
-\par
-For background tile animations, two information tables are defined: \textit{tile animation} and \textit{tile animation speed}. The tile animation specifies the next tile in the animation sequence, relative to the current tile. For example, in Table \ref{table:background tile anim}, tile \#90 animates to tile \#91 (+1), followed by \#92 (+1), and \#93 (+1). After tile \#93, the sequence returns to tile \#90 (-3). The animation speed is expressed in number of ticks before the next tile is displayed. \\
+\par 
+For background tile animations, two information tables are defined: "tile animation" and "tile animation speed". The tile animation specifies the next tile in the animation sequence, relative to the current tile. For example, in Table \ref{table:background tile anim}, tile \#90 animates to tile \#91 (+1), followed by \#92 (+1), and \#93 (+1). After tile \#93, the sequence returns to tile \#90 (-3). The animation speed is expressed in number of ticks before the next tile is displayed. \\
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXX}
   \hline
-  \textbf{tile index} & \textbf{tile animation} & \textbf{tile animation speed}   \\ \hline
+  \textbf{tile \#} & \textbf{tile animation} & \textbf{tile animation speed}   \\ \hline
   0             & 0          & 0    \\
   1             & 0          & 0    \\
   ...             & ...          & ...    \\
@@ -373,11 +365,11 @@ For background tile animations, two information tables are defined: \textit{tile
   \end{table}
   
   \par
-Foreground tiles also contain clipping information and a column called \cw{intile}. The \cw{intile} column tells what the tile "does" to the player, like kill, climb, points, etc. Values between 128-255 are used for foreground tiles only. The \cw{intile} column is customized for each version of \textit{Commander Keen}. In \textit{Keen Dreams} it is used for e.g. climbing poles.\\
+Tiles also contain clipping information and a column called \cw{intile}. The \cw{intile} column tells what the tile "does" to the player, like kill, climb, points, etc. Values between 128-255 are used for foreground tiles only. The \cw{intile} column is customized for each version of \textit{Commander Keen}. In \textit{Keen Dreams} it is used for e.g. climbing poles.\\
 \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXXXXXX}
   \hline
-  \textbf{tile index} & \textbf{clip north} & \textbf{clip east} & \textbf{clip south} & \textbf{clip west}  & \textbf{intile} \\ \hline
+  \textbf{tile \#} & \textbf{clip north} & \textbf{clip east} & \textbf{clip south} & \textbf{clip west}  & \textbf{intile} \\ \hline
   ...    & ...     & ...    & ...   & ...     & ...      \\
   238    & 0       & 1      & 5     & 0       & 0        \\
   239    & 0       & 0      & 0     & 0       & 0        \\
@@ -404,7 +396,7 @@ The structure of the \cw{KDREAMS.MAP} archive is illustrated in Figure \ref{fig:
  
 \par
 \begin{figure}[H]
-\centering
+\centering 
  \includegraphics[width=0.85\textwidth]{imgs/drawings/kdreams_map.eps}
  \caption{Structure of \cw{KDREAMS.MAP} file.}
  \label{fig:map-file}
@@ -437,13 +429,18 @@ As a consequence, only two sets of each audio effect are shipped with the game:
 \item For AdLib
 \end{enumerate}
 
-Game music was not introduced until Commander Keen IV.  \\
+\begin{figure}[H]
+\centering
+\scaledimage{1.0}{sound.png}{}
+\caption{Both Sound Blaster and Sound System are disabled.}
+\end{figure}
+\par
 
-\bu{Trivia :} The song "You've Got to Eat Your Vegetables!!", written for \textit{Keen Dreams}, would finally make its debut in Commander Keen IV: Secret of the Oracle.\\
+\bu{Trivia :} The song "You've Got to Eat Your Vegetables!!", written for \textit{Keen Dreams}, would finally make its debut in \textit{Commander Keen IV: Secret of the Oracle}.\\
 
 
 \par
-All sound effects are done by Robert Prince. Sound effects are created using Cakewalk and inhouse MUSE tool, which is  extensively described in \textit{Wolfenstein 3D Blackbook}\footnote{See Wolfenstein 3D Blackbook, section 3.6 on page 94.}
+All sound effects are done by Robert Prince. Sound effects are created using Cakewalk and inhouse MUSE tool, which is  extensively described in \textit{Wolfenstein 3D Blackbook}\footnote{See Wolfenstein 3D Blackbook, section 3.6.}
 Just like described before, the MUSE tool packed all sound effects together in a compressed \cw{SOUND} archive and generated a \cw{HEAD}, \cw{DICT} file and a C header file with asset IDs.\\
 
 
@@ -461,25 +458,17 @@ On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 a
 \scaledimage{0.7}{shareware.jpg}{}
 \caption{Retail version of Commander Keen in Keen Dreams by Softdisk.}
 \end{figure}
-\par
 
 
-In 1990, the Internet was still in its infancy and the best medium was the 3\nicefrac{1}{2}-inch floppy disk. The game shipped as follows:\\
-
-  \par
- The files can be divided in seven parts:
+\pagebreak
+In 1990, the Internet was still in its infancy and the best medium was the 3\nicefrac{1}{2}-inch floppy disk. The shipped game can be divided in sevent parts:\\
 \begin{itemize}
  \item KDREAMS.EXE: Game engine.
  \item KDREAMS.EGA: Contains all the assets (sprites, tiles) needed during the game.
  \item KDREAMS.AUD: Sound effect files.
- \item KDREAMS.MAP: Contains all levels layouts.
- \item KDREAMS.CMP: Introduction picture of the game, which is a compressed LBM image file.
- \item Softdisk Help Library files, which are text screens, shown when starting the game
- \begin{itemize}
-   \item START.EXE: Decompress and show user guide, and then start the game.
-   \item LOADSCN.EXE: Shows the closing screen when quitting the game. Decompresses the ENDSCN.SCN chunk in LAST.SHL
-   \item *.SHL: Text user guide assets. 
- \end{itemize}
+ \item KDREAMS.MAP: Contains all level layouts.
+ \item KDREAMS.CMP: Introduction picture of the game, a compressed LBM image file.
+ \item Softdisk Help Library files, which are text screens, shown when starting and ending the game
  \item Several *.TXT files which can be read in DOS by typing the corresponding *.BAT file. 
 
 \end{itemize}

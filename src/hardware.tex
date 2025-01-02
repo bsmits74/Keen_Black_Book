@@ -34,7 +34,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 \subsection{Overview}
   Intel released the 8086 in 1979, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Commander Keen was developed with a 80286 in mind.\\   
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Although Commander Keen could run a 8088, it was developed with a 80286 in mind.\\   
 
 \par
 
@@ -96,19 +96,23 @@ The 286 chip has two modes of operation: real mode and protected mode. The two m
 \par
 While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on a 8088 chip.\\
 
+\par
+If you are holding a physical 9.25"x7.5" copy of this book, the CPU packaging is 25x25
+mm square and the die is 7x7 mm, at 1:1 scale.\\
+
 
 \fullimage{286_layout_photo.png}
 \par \vspace{-1pt}
-% Below, a 1:1 scale of the 2.90cm x 2.90cm packaging next to a schematic showing the actual die inside.\\
+% Below, a 1:1 scale of the 2.50cm x 2.50cm packaging next to a schematic showing the actual die inside.\\
 \begin{minipage}{0.48\textwidth}
 \centering
-\scaledrawimage{2.90cm}{286_packaging.png} 
+\scaledrawimage{2.50cm}{286_packaging.png} 
 
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
 \centering
-\scaledrawimage{2.90cm}{286_packaging_die.png}
+\scaledrawimage{2.50cm}{286_packaging_die.png}
 \end{minipage}
 
 
@@ -132,7 +136,7 @@ The four functional units can be described by
 \item \textbf{execution unit (EU)} is responsible for executing the instructions received from the decoded instruction queue. The execution unit consists of the register bank, arithmetic and logic unit (ALU) and control block. The ALU is the core of the EU and perform all the arithmetic and logical operations.
 \end{itemize}
 \par
-\begin{figure}[H]
+\begin{figure}[H] 
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/processing_unit.eps}
 \end{figure}
@@ -163,7 +167,7 @@ From a programming perspective, a 286 CPU can be summarized by the following ele
   \item 16-bit Status and Control Register
   \item 16-bit Program Counter: IP
 \end{itemize}
-\item A 24-bit address bus for up to 16MB of flat addressable RAM
+\item A 24-bit address bus for up to 16MiB of flat addressable RAM
 \item Memory Management Unit
 \end{itemize}
  \par
@@ -202,7 +206,7 @@ Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus whe
 \includegraphics[width=0.9\textwidth]{imgs/drawings/data_alignment.eps}\\
 \end{figure}
 \par
-
+ 
 \par
 The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized accesses to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying large memory blocks. 
 
@@ -237,7 +241,7 @@ To support this architecture, the CPU keeps track of four different segments. Ea
 \end{itemize}
 
 \par
-In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: \textit{near} and \textit{far}. \\
+In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: "near" and "far". \\
 
 \par
 A near pointer refers to a function or data object that is within the default segment. It is 16 bits long and contains an offset into the current DS data segment if it's a data pointer, or into the current CS code segment if it's a function pointer. A far pointer could refer to a function or data that is in a different segment than the current, default segment. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
@@ -260,7 +264,7 @@ Will output:\\
  \end{minipage}\\
 
 \par
-To work with memory beyond this limit, you can use another type of pointer called a \textit{huge} pointer, which allows pointer arithmetic to function correctly beyond the 64KiB boundary.\\
+To work with memory beyond this limit, you can use another type of pointer called a "huge" pointer, which allows pointer arithmetic to function correctly beyond the 64KiB boundary.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -311,7 +315,7 @@ For compatibility reasons all PCs have to start in real mode. You may assume tha
 of the late 80s promptly switched the CPU to protected mode to unleash the full
 potential of the machines and ditch the 20-year-old real mode. It would have worked out if the operating system had been able to run in protected mode.
 However, in the name of backward compatibility, Microsoft's DOS could only handle real
-mode which effectively locked developers into 16-bit programming\footnote{16-bit programming and memory managers were covered in Game Engine Black Book: Wolfenstein 3D.}.\\
+mode which effectively locked developers into 16-bit programming.\\
 
 
 \par
@@ -332,7 +336,7 @@ Out of the original 1024KiB, only 640KiB (called Conventional Memory) was access
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{imgs/drawings/real_mode_v2.eps}
-\caption{First 1MiB of RAM layout.}
+\caption{First 1MiB of RAM layout.} 
 \label{fig:fp_internals}
 \end{figure}
 \pagebreak
@@ -342,39 +346,32 @@ When a program is compiled and executed, the operating system allocates a chunk 
 \begin{itemize}
   \item \textbf{Code section}: Stores the program executable. When you compile a C program, the compiler converts your code into assembly instructions that the CPU executes.
   \item \textbf{Data section}: Stores initialized and uninitialized global and static variables.
-  \item \textbf{Heap section}: Memory that is dynamically allocated using the malloc() function. The heap typically grows upwards, meaning it expands towards larger memory addresses.
   \item \textbf{Stack section}: Memory used for local variables and data inside functions. The stack grows downwards, towards lower memory addresses.
+  \item \textbf{Heap section}: Memory that is dynamically allocated using the malloc() function. The heap typically grows upwards, meaning it expands towards larger memory addresses.
 \end{itemize}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{imgs/drawings/memory/x86_mm_layout.eps}
-\caption{Memory layout in x86 real mode.}
-\label{fig:x86_mm_layout}
-\end{figure}
 \par
-
-\par
-The x86 real mode provides different memory segment layouts, called \textit{memory models}. Each memory model determines how segments are organized and defines whether the default pointer type for functions and data is near or far. A near pointer automatically associates with the CS segment register for assembly instruction or the DS segment register for data. Six memory models\footnote{See Borland C++ 3.1 Programmer's guide, section DOS Memory management.} exist, each offering trade-offs between minimum system requirements, maximizing code efficiency, and accessing available memory.
+The x86 real mode provides different memory segment layouts, called "memory models". Each memory model determines how segments are organized and defines whether the default pointer type for functions and data is near or far. A near pointer automatically associates with one of the segment registers. Six memory models\footnote{See Borland C++ 3.1 Programmer's guide, section DOS Memory management.} exist, each offering trade-offs between minimum system requirements, maximizing code efficiency, and accessing available memory.
 
 
 \begin{figure}[H]
 \renewcommand{\arraystretch}{1.2}
 \centering
-\begin{tabularx}{\textwidth}{|X|X|X|X|X|>{\hsize=.3\textwidth}Y|} \hline
-  &  \multicolumn{2}{c|}{\textbf{Default pointer type}} & \multicolumn{2}{c|}{\textbf{Size}} &  \\ \cline{2-5}
+\begin{tabularx}{\textwidth}{ X X X X X >{\hsize=.3\textwidth}Y} \hline
+  &  \multicolumn{2}{c}{\textbf{Default pointer type}} & \multicolumn{2}{c}{\textbf{Size}} &  \\ \cline{2-5}
  \textbf{Model}   & \textbf{Code} & \textbf{Data} & \textbf{Code} & \textbf{Data} & \textbf{Definition} \\ \hline
- Tiny & near & near & \multicolumn{2}{c|}{<64KiB} & CS=DS=SS \\ \hline
+ Tiny & near & near & \multicolumn{2}{c}{<64KiB} & CS=DS=SS \\ \hline
  Small & near & near & <64KiB & <64KiB & DS=SS \\ \hline
  Medium & far & near & >64KiB & <64KiB & DS=SS, multiple code segments \\ \hline
  Compact & near & far & <64KiB & >64KiB & single code segment, multiple data segments\\ \hline
  Large & far & far & >64KiB & >64KiB & multiple code and data segments \\ \hline
- Huge & far & far & >64KiB & >64KiB & multiple code and data segments, global data >64KiB \\ \hline 
+ Huge & far & far & >64KiB & >64KiB & multiple code and (global) data segments \\ \hline 
 
 \end{tabularx}\\
 \end{figure}
 
-The smallest is the \textit{tiny memory model}, where all three segment registers (CS, DS, SS) start at the same memory location. The first part of memory is used for code instructions, followed by the data section. The heap begins directly after the data section, and the stack starts at the opposite end of the segment, growing downward. Both the heap and stack can dynamically grow or shrink during program execution. If they continue to grow, they may eventually collide, causing a system or application crash. \\
+\pagebreak
+The smallest is the "tiny memory model", where all three segment registers (CS, DS, SS) start at the same memory location. The first part of memory is used for code instructions, followed by the data section. The heap begins directly after the data section, and the stack starts at the opposite end of the segment, growing downward. Both the heap and stack can dynamically grow or shrink during program execution. If they continue to grow, they may eventually collide, causing a system or application crash. \\
 
 \begin{figure}[H]
 \centering
@@ -389,20 +386,23 @@ All functions and data are accessed using near pointers, meaning the segment reg
 \trivia{The tiny memory model was required by programs that ended with the .COM extension, and it existed for backward compatibility with CP/M operating system. CP/M ran on the 8080 processor which supported a maximum of 64KB of memory.}\\
 
 \par
-In the \textit{small memory model}, instructions and data are separated, each having its own 64KiB segment. The code segment can store up to 64KiB of instructions, while the global data, stack, and heap share a separate 64KiB segment. Code execution is efficient since both functions and data are accessed using offset registers (near pointers) only.\\
+In the "small memory model", instructions and data are separated, each having its own 64KiB segment. The code segment can store up to 64KiB of instructions, while the global data, stack, and heap share a separate 64KiB segment. Code execution is efficient since both functions and data are accessed using offset registers (near pointers) only.\\
 
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{imgs/drawings/memory/small_mm.eps}
 \caption{Small memory model, code and data each have 64KiB.}
-\label{fig:mm_small}
+\label{fig:mm_small} 
 \end{figure}
 
 \par
-The \textit{medium memory model} is ideal for programs with a large amount of code but minimal data. Many computer games fell into this category, since they had a lot of game logic, but not a lot of (global) game state data. In this model, each C source file has its own code segment, allowing up to 64KiB per file. A table manages all code segment references, with the CS register pointing to one segment at a time. Each function is a far pointer by default, requiring both the CS segment and IP offset register to be updated. While this model supports larger codebases, it comes at the cost of slower execution due to the far pointers.\\
+The "medium memory model" is ideal for programs with a large amount of code but minimal data. Many computer games fell into this category, since they had a lot of game logic, but not a lot of (global) game state data. In this model, each C source file has its own code segment, allowing up to 64KiB per file. A table manages all code segment references, with the CS register pointing to one segment at a time. Each function is a far pointer by default, requiring both the CS segment and IP offset register to be updated. While this model supports larger codebases, it comes at the cost of slower execution due to the far pointers.\\
 
 \trivia{When compiling a source file, its code cannot exceed 64KiB, as it must fit inside one code segment. If the file is too large, the program must be broken into smaller source files and compiled separately.}\\
+
+\par
+The "compact memory model" is the opposite of the medium memory model, allowing more than 64KiB of data while restricting function code to 64KiB. The "large memory model" supports both code and data larger than 64KiB but requires far pointers for both, leading to slower execution. The "huge memory model" removes the 64KiB limit on global data, allowing more flexibility, but also incurs a performance penalty. A detailed layout and explanation of each memory model is described in Appendix \ref{appendix_memory_models}.\\
 
 \begin{figure}[H]
 \centering
@@ -411,8 +411,8 @@ The \textit{medium memory model} is ideal for programs with a large amount of co
 \label{fig:mm_medium}
 \end{figure}
 
-\par
-The \textit{compact memory model} is the opposite of the medium memory model, allowing more than 64KiB of data while restricting function code to 64KiB. The \textit{large memory model} supports both code and data larger than 64KiB but requires far pointers for both, leading to slower execution. The \textit{huge memory model} removes the 64KiB limit on global data, allowing more flexibility, but also incurs a performance penalty. A detailed layout and explanation of each memory model is described in Appendix \ref{appendix_memory_models}.\\
+\bigskip
+
 
 \subsection{Mixed Model Programming}
 
@@ -420,7 +420,7 @@ In the medium memory model, the data segment remains limited to 64KiB. For most 
 
 
 \par
-Fortunately, there is a way to access additional memory using the medium model. A large portion of unallocated memory is available between the heap and the high address \cw{A0000h}. This memory, known as the \textit{far heap}, can be allocated using the \cw{farmalloc()} function, which utilizes far or huge pointers. This technique, called mixed model programming, combines the advantages of the medium model with custom near and far pointer allocation. It allows the program to benefit from near pointer efficiency for global data and the stack, while also providing sufficient memory for dynamically allocated assets like graphics and levels.\\
+Fortunately, there is a way to access additional memory using the medium model. A large portion of unallocated memory is available between the heap and the high address \cw{A0000h}. This memory, known as the "far heap", can be allocated using the \cw{farmalloc()} function. This technique, called mixed model programming, combines the advantages of one of the six standard memory models with custom near and far pointer allocation. In the case of the medium memory model, it allows the program to benefit from near pointer efficiency for global data and the stack, while also providing sufficient memory for dynamically allocated assets like graphics and levels.\\
 
 
 \begin{figure}[H]
@@ -429,9 +429,9 @@ Fortunately, there is a way to access additional memory using the medium model. 
 \caption{Medium memory model with far heap memory.}
 \label{fig:mm_farheap}
 \end{figure}
-\par
 
 
+\pagebreak
 \section{Video}
 
 PCs were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio.\\
@@ -559,14 +559,16 @@ To add additional video memory to the IBM EGA card a Graphics Memory Expansion C
 The EGA clones that started coming along in 1986-87 were based on integrated chipsets, and the vast majority of them came with the maximum of 256KiB on board. When Commander Keen came out, the headcount of EGA cards with less than 256KiB would've been practically negligible\footnote{PC Tech Journal Oct 1986 (page 82-83) and PC Tech Journal Nov 1986 (page 148-149)}.\\
 
 \par
-Below an ATI EGA Wonder 800 (8-bit ISA). The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
+The next page shows an ATI EGA Wonder 800 and Paradise AutoSwitch EGA 350 (both are 8-bit ISA). The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
 
 \begin{figure}[H] 
   \centering 
-  \scaledimage{0.9}{hardware/EGA-ATI-800.png} 
-  
+  \scaledimage{0.8}{hardware/EGA-ATI-800.png} 
 \end{figure}
-\par
+\begin{figure}[H] 
+  \centering 
+  \scaledimage{0.9}{hardware/EGA-PARADISE.png} 
+\end{figure}
 \pagebreak
 
 
@@ -600,7 +602,7 @@ Keep in mind that this architecture reduced the penalty of read operations, but 
 \label{fig:vga_arch}
 \end{figure}
 
-
+ 
 
 
 \subsection{EGA Planar Madness}
@@ -673,13 +675,13 @@ To setup the EGA in Mode \cw{0Dh} using the BIOS is incredibly easy. It can be d
   
   \subsection{EGA Programming: Memory Mapping}
  \label{section:ega_memmap}
-To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from 0xA0000 to 0xAFFFF. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
+To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from \cw{A0000h} to \cw{AFFFFh}. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
 
 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.8\textwidth]{imgs/drawings/ram_to_ega_mapping.eps}
+  \includegraphics[width=0.8\textwidth]{imgs/drawings/ram_to_ega_mapping.eps}
   \caption{Mapping PC RAM to EGA VRAM banks.}
   \label{ram_to_ega_mapping_label}
 \end{figure}
@@ -690,8 +692,8 @@ To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indica
 \label{sec:ega_color_palette}
 The EGA CRTC does not expect RGB values to generate pixels. Instead it is based on an index-based color palette system. Each pixel is a 4-bit index number, assigned to a color from the Attribute Controller. The default color palette are all 16 CGA colors, but it allows substitution of each of these colors with any one from a total of 64 colors.\\
 
-When calculating the intended value in the 64-color EGA palette, the 6-bit number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity (\(\frac{1}{3}\) color intensity) and an uppercase letter is the most significant bit of intensity (\(\frac{2}{3}\) color intensity). The more intensity, the brighter the color is. For example, \cw{02h} will produce green, \cw{10h} will produce dim green and \cw{12h} will produce bright green. The color magenta is created by setting both "R" and "B", which is color code \cw{05h}. Each of the 16 color indexes could be reassigned to one color from the "rgbRGB" palette.\\
-
+When calculating the intended value in the 64-color EGA palette, the 6-bit number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity (\(\frac{1}{3}\) color intensity) and an uppercase letter is the most significant bit of intensity (\(\frac{2}{3}\) color intensity). The more intensity, the brighter the color is. For example, \cw{02h} will produce green, \cw{10h} will produce dim green and \cw{12h} will produce bright green. Each of the 16 color indexes could be reassigned to one color from the "rgbRGB" palette.
+ 
 
 \begin{figure}[H]
 \centering
@@ -713,7 +715,6 @@ When calculating the intended value in the 64-color EGA palette, the 6-bit numbe
 \caption{EGA "rgbRGB" color palette (64 values from 00h to 3Fh)}
 \end{figure}
 
-\medskip
 \par
 However, standard EGA monitors did not support use of the extended color palette in 200-line modes. Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output. \\
  \begin{figure}[H]
@@ -768,8 +769,7 @@ The CGA color output is based on the form "RGBI", where the 'I' stands for Inten
 \label{pin_signals}
  \end{figure}
  
-
-\par
+\pagebreak
 Suppose one assigns the color brown (rgbRGB is \cw{010100b}) to one of the color indexes, the resulting color on the CGA pin assignment is light red; The secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, which results to the color red with intensity and not the expected brown color. \\
 
 \par
@@ -857,13 +857,13 @@ The Roland MT-32 was the higher end of these music devices. In today's terminolo
 \par
   \begin{figure}[H] 
     \centering 
-    \scaledimage{.8}{hardware/MT_32.png} 
+    \scaledimage{.7}{hardware/MT_32.png} 
     \caption{Roland MT-32 synthesizer box.}
   \end{figure}
 
 
 \par
-The IBM Music Feature Card was launched in March 1987 as a collaboration between IBM and Yamaha. Essentially the Music Feature Card was a synthesizer installed on an 8-bit expansion card\footnote{Roland released the LAPC-I in 1989, which basically was similar to the Music Feature Card: a MT-32-compatible Roland sythesizer with a MPU-401 unit, integrated onto one single full-length 8-bit ISA card.}. The Music Feature Card had 8 FM voices, controllable via 4 frequency operators. It came with over 300 high-quality synthesized instruments on-board, and it was actually possible to have two Music Feature Cards in a single PC to get 16 voices! With a tag price of \$495 it was just like the Roland MT-32 an expensive card, and its audience was primarily business users.\\
+The IBM Music Feature Card was launched in March 1987 as a collaboration between IBM and Yamaha. Essentially the Music Feature Card was a synthesizer installed on an 8-bit expansion card\footnote{Roland released the LAPC-I in 1989, which basically was similar to the Music Feature Card: a MT-32-compatible Roland sythesizer with a MPU-401 unit, integrated onto one single full-length 8-bit ISA card.}. The Music Feature Card had 8 FM voices, controllable via 4 frequency operators. It came with over 300 high-quality synthesized instruments on-board, and it was actually possible to have two Music Feature Cards in a single PC to get 16 voices. With a tag price of \$495 it was just like the Roland MT-32 an expensive card, and its audience was primarily business users.\\
 
 \par
   \begin{figure}[H] 
@@ -872,8 +872,7 @@ The IBM Music Feature Card was launched in March 1987 as a collaboration between
     \caption{IBM Music Feature Card.}
   \end{figure}
 
-\par
-  \bu{Trivia :} The IBM Music Feature Card was the very first general purpose "sound card" for the PC, beating AdLib by several months. \\
+
 
 
  \subsection{AdLib}
@@ -886,7 +885,7 @@ The AdLib card was built around the Yamaha YM3812, also known as the OPL2 chip, 
   \begin{figure}[H] 
     \centering 
     \scaledimage{.8}{hardware/adlib.png} 
-    \caption{An AdLib sound card. Notice the big YM3812 chip and the 8-bit ISA connector.}
+    \caption{An AdLib sound card. Notice the big YM3812 chip.}
   \end{figure}
 
 \par
@@ -900,26 +899,21 @@ The AdLib card dominated the PC market for almost three years. In 1989, Creative
   Creative Labs, the company behind the SoundBlaster, didn't enter the sound card industry until 1987 with the introduction of their Creative Music System (C/MS). From inception in 1981, they were a computer repair shop in Singapore. Creative Music System, or "Game Blaster" as it was renamed a year later, was a FM synthesizer card similar to AdLib. Based on the Philips SAA1099 chip, which was essentially a square-wave generator, it sounded much like twelve simultaneous PC speakers would have, except for each channel having amplitude control. The card did not sell well.\\
   
   \par
-The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to their Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.\\
-
-\par
-  \bu{Trivia :}
-Creative Labs boasts in their own advert AdLib compatibility and even uses an image of AdLib Inc's product\footnote{Advert p20 in Compute!, April 1990.}! On the other hand they sued every company that tried to market a 'Sound Blaster compatible' product for using the name of their product.\\
+The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to their Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.
 
 \begin{figure}[H] 
   \centering 
-  \fullimage{hardware/Soundblaster-ct1320.png} 
+  \scaledimage{0.99}{hardware/Soundblaster-ct1320.png} 
   \caption{A SoundBlaster 1.5, model CT1320B }
   \label{asb15}
 \end{figure}
 
 \par
-Figure \ref{asb15} is the SoundBlaster model CT1320B. Notice the OPL2 chip (labeled FM1312) and the CT1321 DSP on the middle top. In the middle of the card are the two CMS-301 chips, to ensure backwards compatbility with the Creative Music System.\\
-
-\par
-  \bu{Trivia :} The CT1320B model (Sound Blaster 1.5) was a cost-cutting measure. Having recognised that C/MS was unpopular, they replaced the two C/MS chips with sockets. You could still purchase the C/MS chips for \$29.95 if you wished and install them into these sockets.\\
+Figure \ref{asb15} is the SoundBlaster model CT1320B. Notice the OPL2 chip (labeled FM1312) and the CT1321 DSP on the middle top. In the middle of the card are the two CMS-301 chips, to ensure backwards compatbility with the Creative Music System. The CT1320B model (Sound Blaster 1.5) was a cost-cutting measure. Having recognised that C/MS was unpopular, they replaced the two C/MS chips with sockets. You could still purchase the C/MS chips for \$29.95 if you wished and install them into these sockets.\\
   
-
+\par
+  \bu{Trivia :}
+Creative Labs boasts in their own advert AdLib compatibility and even uses an image of AdLib Inc's product\footnote{Advert p20 in Compute!, April 1990.}! On the other hand they sued every company that tried to market a 'Sound Blaster compatible' product for using the name of their product.\\
 
 \begin{figure}[H] 
   \centering 
@@ -955,7 +949,7 @@ In the time before the internet, a floppy disk was the main medium to share and 
 \par
 
 
-A floppy disk is essentially a very flexible piece (hence the term floppy disk) of plastic coated on both sides in a magnetic material. This 'disk' of plastic is contained within a protective envelope or hard plastic case, which is then inserted into the drive and automatically locked onto a spindle. It is then rotated at a constant speed, 360 rpm for standard PC floppy drives. A head assembly consisting of two magnetic read/write heads, one in contact with the upper surface and one in contact with the lower surface of the disk, may be moved in discrete steps across the disk and read the data from the disk.\\
+A floppy disk is essentially a very flexible piece (hence the term floppy disk) of plastic coated on both sides in a magnetic material. This "disk" of plastic is contained within a protective envelope or hard plastic case, which is then inserted into the drive and automatically locked onto a spindle. It is then rotated at a constant speed, 360 rpm for standard PC floppy drives. A head assembly consisting of two magnetic read/write heads, one in contact with the upper surface and one in contact with the lower surface of the disk, may be moved in discrete steps across the disk and read the data from the disk.\\
 
 \par
 The data on a floppy disk is stored in concentric circular tracks divided into arc-shaped sectors. The amount of data a disk can store is determined by the number of tracks and sectors and the density of the recorded information (single and double density). Near the center, there is a small hole called the index hole, which marks the start of a sector.\\
@@ -971,7 +965,7 @@ When the floppy disk drive is powered up, the read/write heads move to the targe
 
 
 \par
-The floppy disk is controlled via the Floppy Disk Controller (FDC), a typical read operation from the floppy disk contains the following steps:
+The floppy disk is controlled via the Floppy Disk Controller (FDC), and a typical read operation from the floppy disk contains the following steps:
 \begin{itemize}
   \item Turn the disk motor on. When you turn a floppy drive motor on, it takes quite a few milliseconds to "spin up", to reach the (stabilized) speed needed for data transfer.
   \item Perform seek operation, which moves the head to the correct location for reading the data.
@@ -999,7 +993,7 @@ This design was further updated in 1986 with the release of the IBM Model M. It 
   \caption{IBM Keyboard model M (PS/2).}
 \end{figure}
 
-At the time, keyboards were connected via PS/2 or AT ports.\\
+At the time, keyboards were connected either via PS/2 or AT ports.\\
 
 \par
 \begin{figure}[H]

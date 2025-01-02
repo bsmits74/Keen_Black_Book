@@ -3,7 +3,7 @@
 \label{chapter_cache_compression}
 \section{Asset Caching and Compression}
 
-The floppy disk is not only the slowest component of the PC but also constrained in terms of storage space. Therefore, it is crucial to load and store game assets as efficiently as possible in memory, avoiding long and unnecessary loading times from the disk. To make matters worse, the total amount of assets and maps cannot fit into RAM all at once. This is where a cache manager becomes essential. Its primary purpose is to increase data retrieval performance by reducing the need to load data from the slow floppy disk. \\
+The floppy disk is not only the slowest component of the PC but also constrained in terms of storage space. Therefore, it is crucial to load and store game assets as efficiently as possible in memory, avoiding long and unnecessary loading times from the disk. To make matters worse, the total amount of assets and maps cannot fit into RAM all at once. This is where a cache manager becomes essential. Its primary purpose is to increase data retrieval performance by reducing the need to load data from the slow floppy disk. 
 
 \subsection{Asset caching}
 To manage and track the assets to be loaded into memory, the game engine uses a caching level mechanism. An array, sized according to the total number of graphical assets, is maintained to mark whether an asset needs to be loaded into memory. \\
@@ -16,7 +16,7 @@ The index of this array corresponds to the graphic asset IDs. Using eight bits, 
 \centering
 \setlength{\tabcolsep}{0pt} % set border margin to 0
 \begin{tabular}{m{15em}|S|S|S|S|S|S|S|S|S|} 
-  \multicolumn{1}{r|}{\it level bit: \kern 0.15em} & \it 8 & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \it 2 & \it 1 \\ \hline
+  \multicolumn{1}{r|}{\it level bit: \kern 0.15em} & \it 8 & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \it 2 & \cellcolor{light_grey} \it 1 \\ \hline
   STARTFONT &  & & & & & & &  \\ \hline
   CTL\_STARTUPPIC &  & & & & & & & \\  \hline
   CTL\_HELPUPPIC &  & & & & & & & \\ \hline
@@ -33,7 +33,7 @@ The index of this array corresponds to the graphic asset IDs. Using eight bits, 
   ... &  & & & & & & & \\ \hline
 \end{tabular}\\
 \setlength{\tabcolsep}{6pt} % reset border margin
-\caption{Initiating \cw{grneeded[]} array.}
+\caption{Initiating \cw{grneeded[]} array, current cache level is 1.}
 \end{figure}
 
 When new resources for a level need to be cached in memory, all required assets are marked by setting the current level bit (bit 1). \\
@@ -41,14 +41,14 @@ When new resources for a level need to be cached in memory, all required assets 
 \lstinputlisting[language=C]{code/unrolled_mark_cache.c}
 
 \par
-The function \cw{CA\_CacheMarks()} then iterates through the cache array, checking if any of the required assets are not yet available in memory. If not, it loads and decompresses the asset from disk into memory.
+The function \cw{CA\_CacheMarks} then iterates through the cache array, checking if any of the required assets are not yet available in memory. If not, it loads and decompresses the asset from disk into memory.
 
 
 \begin{figure}[H]
 \centering
 \setlength{\tabcolsep}{0pt} % set border margin to 0
 \begin{tabular}{m{15em}|S|S|S|S|S|S|S|S|S|} 
-  \multicolumn{1}{r|}{\it level bit: \kern 0.15em} & \it 8 & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \it 2 & \it 1 \\ \hline
+  \multicolumn{1}{r|}{\it level bit: \kern 0.15em} & \it 8 & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \it 2 & \cellcolor{light_grey} \it 1 \\ \hline
   STARTFONT &  & & & & & & & \cellcolor{black} \\ \hline
   CTL\_STARTUPPIC &  & & & & & & &  \\  \hline
   CTL\_HELPUPPIC &  & & & & & & & \\ \hline
@@ -63,12 +63,9 @@ The function \cw{CA\_CacheMarks()} then iterates through the cache array, checki
   TILE16 \#1 &  & & & & & & & \cellcolor{black} \\ \hline
   TILE16 \#2 &  & & & & & & & \\ \hline
   ... &  & & & & & & & \\ \hline
-  TILE16M \#1 &  & & & & & & &  \\ \hline
-  TILE16M \#2 &  & & & & & & & \cellcolor{black} \\ \hline
-  ... &  & & & & & & & \\ \hline
 \end{tabular}\\
 \setlength{\tabcolsep}{6pt} % reset border margin
-\caption{Mark and load assets required for the new map in level bit 1.}
+\caption{Mark and load assets required for the new map in cache level 1.}
 \end{figure}
 
 
@@ -88,7 +85,7 @@ The \cw{grneeded[]} cache array then appears as below.\\
 \centering
 \setlength{\tabcolsep}{0pt} % set border margin to 0
 \begin{tabular}{m{15em}|S|S|S|S|S|S|S|S|S|} 
-  \multicolumn{1}{r|}{\it level bit: \kern 0.15em} & \it 8 & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \it 2 & \it 1 \\ \hline
+  \multicolumn{1}{r|}{\it level bit: \kern 0.15em} & \it 8 & \it 7 & \it 6 & \it 5 & \it 4 & \it 3 & \cellcolor{light_grey} \it 2 & \it 1 \\ \hline
   STARTFONT &  & & & & & & \cellcolor{black} & \cellcolor{black} \\ \hline
   CTL\_STARTUPPIC &  & & & & & & \cellcolor{black} &  \\  \hline
   CTL\_HELPUPPIC &  & & & & & & \cellcolor{black} & \\ \hline
@@ -103,17 +100,15 @@ The \cw{grneeded[]} cache array then appears as below.\\
   TILE16 \#1 &  & & & & & & & \cellcolor{black} \\ \hline
   TILE16 \#2 &  & & & & & & & \\ \hline
   ... &  & & & & & & & \\ \hline
-  TILE16M \#1 &  & & & & & & \cellcolor{black} & \\ \hline
-  TILE16M \#2 &  & & & & & & & \cellcolor{black} \\ \hline
-  ... &  & & & & & & & \\ \hline
+
 \end{tabular}\\
 \setlength{\tabcolsep}{6pt} % reset border margin
-\caption{Mark all assets required for the control panel in level bit 2.}
+\caption{Mark all assets required for the control panel in cache level 2.}
 \end{figure}
 \par
 
 \par
-The function \cw{CA\_CacheMarks()} is called again to load all level two cache assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level two, but is already in memory will be marked for purging, meaning the memory manager can rremove it from memory in case of insufficient memory. In this example, this applies to 
+The function \cw{CA\_CacheMarks()} is called again to load all level two cache assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level two, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory. In this example, this applies to 
 \begin{itemize}
   \item \cw{KEENSTANDRSPR}
   \item \cw{KEENRUNR1SPR}
@@ -121,15 +116,12 @@ The function \cw{CA\_CacheMarks()} is called again to load all level two cache a
   \item \cw{TILE16M \#2}
 \end{itemize}
 
-
-
-\pagebreak
 \lstinputlisting[language=C]{code/unrolled_CA_CacheMarks.c}
 
 \par
 When the user closes the control panel, the engine lowers the cache level back to one, where all assets required for playing the level are memorized. The function \cw{CA\_CacheMarks()} is called again to reload any assets that were removed from memory.\\
 
-\par
+\pagebreak
 \lstinputlisting[language=C]{code/CA_level_down.c}
 \par
 To avoid frequently used assets, such as fonts and Commander Keen sprites, being reloaded every time from the disk, they are loaded permanently into memory by flagging them as non-movable, unpurgeable blocks of memory. \\
@@ -138,13 +130,13 @@ To avoid frequently used assets, such as fonts and Commander Keen sprites, being
 \lstinputlisting[language=C]{code/cache_setlock.c}
 \par
  
-
+\pagebreak
 \subsection{Asset compression}
 Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. id Software used Huffman compression for all asset and map files, with additional RLE compression applied to further reduce the size of map files.\\
 
 
 \par
-\textit{Huffman compression} involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. \\
+"Huffman compression" involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. \\
 
 
 \par
