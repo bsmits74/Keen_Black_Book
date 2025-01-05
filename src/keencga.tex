@@ -1,7 +1,7 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
 \section{Keen Dreams in CGA}
-The original Commander Keen, Commander Keen in Invasion of the Vorticons, was only released for the EGA video card. Keen Dreams and later versions included a CGA version as well. The game play was exactly the same, sounds were the same, it was just that the graphics were CGA. Before diving into  the source code, let's first get a better understanding of the CGA video hardware.\\
+The first Commander Keen serie, \textit{Commander Keen in Invasion of the Vorticons}, was only released for the EGA video card. Keen Dreams and later versions included a CGA version as well. The game play was exactly the same, sounds were the same, it was just that the graphics were CGA. Before diving into  the source code, let's first get a better understanding of the CGA video hardware.\\
 
 
 \begin{figure}[H] 
@@ -132,7 +132,7 @@ A full picture in Mode 4 requires 320 pixels x 2 bits per pixel x 200 lines, whi
 \end{minipage}
 \label{state_type}
 \par
-This memory buffer contains both the video buffer page and a master page. The buffer page starts at offset \cw{0000h}, while the master page begins at \cw{8000h}. Both pages float within the 64 KiB memory segment, leveraging the same memory wrapping mechanism described in section \ref{section:wrap_ega_memory}.\\
+This memory buffer contains both the video buffer page and a master page. The buffer page starts at offset \cw{0000h}, while the master page begins at \cw{8000h}. Both pages float within the 64 KiB memory segment, leveraging the same memory wrapping mechanism described in section "\nameref{section:wrap_ega_memory}" on page \pageref{section:wrap_ega_memory}.\\
 
 \begin{figure}[H]
 \centering
@@ -147,7 +147,7 @@ This memory buffer contains both the video buffer page and a master page. The bu
 With double buffering in place, the same algorithm used for EGA can be applied. The final step of the algorithm involves updating the screen display by copying the buffer page to VRAM. However, there are two complications with CGA.\\
 
 \par
-The first complication is that the CGA card does not support pixel panning. As a result, the smoothest scrolling achievable is in increments of one byte. Since one byte represents four pixels, horizontal scrolling is limited to steps of four pixels, resulting in a "choppier" scrolling experience compared to EGA. \\
+The first complication is that the CGA card does not support pixel panning. As a result, the smoothest scrolling achievable is in increments of one byte. Since one byte represents four pixels, horizontal scrolling is limited to steps of four pixels, resulting in a more choppy scrolling experience compared to EGA. \\
 
 \par
 \begin{minipage}{\textwidth}
@@ -156,11 +156,11 @@ The first complication is that the CGA card does not support pixel panning. As a
 \label{state_type}
 
 \par
-The second complication is copying the RAM buffer to the interlaced VRAM. This requires to split the linear memory buffer into copying all even rows to VRAM bank 0 and odd rows to VRAM bank 1.\\
+The second complication is copying the RAM buffer to the interlaced VRAM. This requires to split the linear memory buffer into copying all even rows to VRAM bank 0 and odd rows to VRAM bank 1.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{imgs/drawings/cga_VRAM_copy.eps}
+\includegraphics[width=0.85\textwidth]{imgs/drawings/cga_VRAM_copy.eps}
 \caption{CGA memory to VRAM copy.}
 \label{fig:cga_interlaced}
 \end{figure}
@@ -168,16 +168,12 @@ The second complication is copying the RAM buffer to the interlaced VRAM. This r
 \par
 To avoid screen tearing, the system must wait for a vertical retrace, just as it does with EGA. However, the 286 CPU simply lacked the speed to copy all the necessary bytes from the RAM buffer to VRAM within the vertical retrace period. Consequently, in the CGA version of Commander Keen, screen tearing was unavoidable.\\
 
-\textbf{\underline{Trivia :}} The original IBM CGA card could not simultaneously read from and write to VRAM. Because the video memory was not dual-ported, when both the CPU and the video card needed access to the same byte of VRAM, the CPU took priority. This resulted in the card reading a random value, causing a visual artifact known as "snow" on the screen. Later CGA clones could simultaneous read/write access to VRAM and did not have the same issue anymore.\\
 
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/cga_screen_refresh.c}
 \end{minipage}
 \label{cga_screen_refresh}
-\par
-
-
 
 
 \end{document}

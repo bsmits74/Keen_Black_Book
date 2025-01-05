@@ -64,7 +64,7 @@ To pan down a scan line, it requires only to increase the CRTC start address by 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{imgs/drawings/virtual_screen.eps}
-\caption{EGA screen scrolling by updating the CRTC Start Address.}
+\caption{EGA screen scrolling by updating the CRTC Start Address.} 
 \label{fig:tile_refresh}
 \end{figure}
 
@@ -85,9 +85,9 @@ However, programming the ATC requires attention: the ATC Index register only use
 Smooth horizontal scrolling on EGA involves adjusting the CRTC Start Address alongside fine-tuning within an 8-pixel range using horizontal pel panning. The following steps accomplish this:
 \begin{itemize}
   \item Calculate the panning offset in pixels for both \cw{x-} and \cw{y-}direction.
-  \item Smooth y-panning is achieved by adding the \cw{(logical width *) y} to the CRTC start address.
-  \item For coarse horizontal scrolling, increase the CRTC start address by \cw{x /8 } bytes.
-  \item Fine horizontal adjustment is applied using \cw{(x \% 8)} to the horizontal pel panning register.
+  \item Smooth y-panning is achieved by adding the \cw{(logical width * y}) to the CRTC start address.
+  \item For coarse 8-pixel horizontal scrolling, increase the CRTC start address by \cw{x /8 } bytes.
+  \item Fine horizontal pixel adjustment is applied using \cw{(x \% 8)} to the horizontal pel panning register.
 \end{itemize}
 
 
@@ -111,12 +111,12 @@ So far, we have built a virtual screen in VRAM allowing smooth one pixel moves i
 \end{figure}
 
 \par
-One option for screen refresh is to load the entire level into VRAM, setting the logical width to match the level width. By adjusting the CRTC Start Address and Horizontal Pel Panning registers, smooth scrolling can be achieved. However, loading the entire level requires far more VRAM than is available. The first level, \textit{Horsh Radish Hill}, is 136 tiles wide and 37 tiles high. Each tile is 128 bytes,  which means a total of 136 x 37 x 128 bytes = 644KB is required to store the entire level in VRAM. Since we only have 256KB available, this is not a feasible option.\\
+A naive approach for screen refresh is to load the entire level into VRAM, setting the logical width to match the level width. By adjusting the CRTC Start Address and Horizontal Pel Panning registers, smooth scrolling can be achieved. However, loading the entire level requires far more VRAM than is available. The first level, \textit{Horsh Radish Hill}, is 136 tiles wide and 37 tiles high. Each tile is 128 bytes,  which means a total of 136 x 37 x 128 bytes = 644KB is required to store the entire level in VRAM. Since we only have 256KB available, this is not a feasible option.\\
 
 \textbf{\underline{Trivia :}} At the time of writing this book, most video cards contain more than 1GB VRAM,  sufficient to store all Commander Keen levels at once in VRAM. \\
 
 \par
-To address this, John Carmack invented "Adaptive Tile Refresh" (ATR). The core idea is to refresh only those areas of the screen that need to change. \\
+To solve the refresh issue, John Carmack invented "Adaptive Tile Refresh" (ATR). The core idea is to refresh only those areas of the screen that need to change. \\
 
 \par
 Let's look at \textit{Commander Keen 1: Marooned on Mars} in Figure \ref{fig:keen_difference}. This is the first level of Marooned, immediately to the right of the crashed Bean-with-Bacon Megarocket. The first figure is the start of the level, the second figure is after Keen has scrolled one tile (16 pixels) to the right through the world. They look almost identical to the naked eye, don't they? \\
@@ -139,11 +139,11 @@ This is also the part where the game designers Tom Hall and Jogn Romero had to h
 \pagebreak
 
 \subsection{Adaptive tile refreshment in Commander Keen 1-3}
-This section explains how ATR is working for the first three episodes of Commander Keen. Since there is no source code released for these episodes, ATR will be explained without code examples. The later versions of Commander Keen, including Keen Dreams, used a different, improved engine which will be explained in the next section\footnote{https://retrocomputing.stackexchange.com/questions/22175/what-is-adaptive-tile-refresh-in-the-context-of-commander-keen}.\\
+This section explains how ATR is implemented for the first three episodes of Commander Keen. Since there is no source code released for these episodes, ATR will be explained without code examples. The later versions of Commander Keen, including Keen Dreams, used a different, improved engine which will be explained in the next section\footnote{https://retrocomputing.stackexchange.com/questions/22175/what-is-adaptive-tile-refresh-in-the-context-of-commander-keen}.\\
 
 
 \par
-The EGA screen in mode \cw{0xD} has a resolution of 320x200 pixels, or 40x200 bytes. Let's extend the height by 8 bytes to have a height of 208 pixels, so the screen fits nicely in 20x13 tiles. By making the virtual screen one tile higher and one wider on each side of the screen, the engine can scroll up to 16 pixels to any direction of the screen without any tile refresh, by simply adjusting the CRTC Start Address and Pel Pan registers.\\
+The EGA screen in mode \cw{0Dh} has a resolution of 320x200 pixels, or 40x200 bytes. Let's extend the height by 8 bytes to have a height of 208 pixels, so the screen fits nicely in 20x13 tiles. By making the virtual screen one tile higher and one wider on each side of the screen, the engine can scroll up to 16 pixels to any direction of the screen without any tile refresh, by simply adjusting the CRTC Start Address and Pel Pan registers.\\
 
 
 \begin{figure}[H]
@@ -220,7 +220,7 @@ The next step is to scan all tiles in buffer tile array (array 1) and for each t
 \begin{figure}[H]
 \centering
  \fullimage{/game/Keen_ATR_1-3_step2.png}
- \caption{Copy changes tiles from virtual master page to page 1.}
+ \caption{Copy changed tiles from virtual master page to page 1.}
  \label{fig:kc1_3_step2}
 \end{figure}
 
@@ -299,7 +299,7 @@ I was in a tough position. Do I have to track every single one of these [SUPER V
   \includegraphics[width=.85\textwidth]{imgs/drawings/Page_down_switch.eps}
   \caption*{Copy Page 0 on top of Master Page.}
   \label{fig:page0_down}
-\end{subfigure}%
+\end{subfigure}% 
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.85\textwidth]{imgs/drawings/Page_up_switch.eps}
@@ -318,11 +318,7 @@ I was in a tough position. Do I have to track every single one of these [SUPER V
   \end{minipage}
   \label{ega_refresh}
   \par
-As explained in Section \ref{section:ega_memmap} each pixel is encoded by four bits, which are spread across the four EGA banks. So how can we copy four VRAM planes fast enough, without noticing any performance hit? To copy eight pixels, byte-aligned, one would have to do four read and four writes.\\
-
-
-
-But how can we copy four VRAM planes fast enough, without noticing any performance hit? As explained in Section 3.3.7 each pixel is encoded by four bits, which are spread across the four EGA banks. To copy eight pixels, byte-aligned, one would have to do four read and four writes.\\
+As explained in section "\nameref{section:ega_memmap}" on page \pageref{section:ega_memmap} each pixel is encoded by four bits, which are spread across the four EGA banks. So how can we copy four VRAM planes fast enough, without noticing any performance hit? To copy eight pixels, byte-aligned, one would have to do four read and four writes.\\
 
 \par
 Having a closer look at the EGA card one notice there is a latch placed in front of the ALU, which can be re-purposed for the greater good. With a little creativity the ALU in front of each bank can be setup to use only the latch for writing\footnote{The mask trick is discussed in \textit{Game Engine Black Book: Wolfenstein 3D} for the VGA card. The trick is the same for the EGA card.}. With such a setup, upon doing one read, four latches are populated at once and four bytes in the bank are written with only one write to the RAM. Now it is possible to copy the entire buffer fast enough, without notifying any performance impact.\\ 
@@ -344,11 +340,10 @@ Having a closer look at the EGA card one notice there is a latch placed in front
 
 \subsection{Adaptive tile refreshment in Keen Dreams} 
 \label{section:scroll_refresh_dreams}
-The EGA memory wrapping results in an improved, more simplified Adaptive Tile Refreshment algorithm. First, a virtual screen and tile array is defined by making the display one tile taller and wider, creating what is known as the viewport. This allows the engine to scroll the display up to 16 pixels to the right and bottom without refreshing tiles, by simply adjusting the CRTC Start Address and Pel Pan register.\\
+The EGA memory wrapping results in an improved, more simplified ATR algorithm. First, a virtual screen and tile array is defined by making the display one tile taller and wider, creating what is known as the viewport. This allows the engine to scroll the display up to 16 pixels to the right and bottom without refreshing tiles, by simply adjusting the CRTC Start Address and Pel Pan register. \\
 
 \par
 An additional column is then added to the viewport to support horizontal scrolling. Finally, the tile array is further expanded to allow the entire viewport to move up to two tiles in any direction.\\
-
 
 \begin{figure}[H]
 \centering
@@ -362,7 +357,7 @@ An additional column is then added to the viewport to support horizontal scrolli
 The full refresh cycle, including sprite updates, proceeds as follows:
 \begin{enumerate}
   \item Verify if the player has moved one tile in any direction.
-  \item Copy the new column or row of tiles to the master page, update both the tile array pointers, and mark the tiles in both arrays.
+  \item Update both the tile array and VRAM pointers, copy the new column or row of tiles to the master page and mark the tiles in both arrays.
   \item Refresh the buffer page by scanning the tile index array. If a tile is marked, copy it from the master page to the buffer page.
   \item Iterate through the sprite removal list, copying the corresponding image block from the master page to the buffer page to clear the sprite.
   \item Iterate through the sprite list, copying each sprite image block to the buffer page.
@@ -377,6 +372,14 @@ The full refresh cycle, including sprite updates, proceeds as follows:
 \end{minipage}
 \label{state_type}
 
+\begin{fancyquotes}
+John's cool Adaptive Tile Refresh trick that made the scrolling even faster than redrawing the entire screen (this is not the Virtual Screen Tile Refresh trick he created for Keen 4-6).\\
+\par
+\textbf{John Romero\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{Quotes from John Romero on https://legacy.3drealms.com/keenhistory/.}
 
 \pagebreak
 Let's go over the refresh cycle step by step. At the start, all three virtual pages display the same viewport, with virtual page 0 currently shown on-screen. Both tile arrays are empty, meaning no tile updates are required in the next refresh cycle. The player has reached the edge of the virtual screen and moves further to the left. \\
@@ -476,13 +479,13 @@ Flipping between the pages is as simple as setting the CRTC start address regist
 
  \begin{figure}[H]
 \centering
- \scaledimage{0.85}{/game/full_screen.png}
+ \scaledimage{0.99}{/game/full_screen.png}
  \end{figure}
 ...would instead appear distorted, showing both misalignment and parts of two pages:\\
 \par
  \begin{figure}[H]
 \centering
- \scaledimage{0.85}{/game/crtc_scanstart_problem.png}
+ \scaledimage{0.99}{/game/crtc_scanstart_problem.png}
  \end{figure}
 \par
 This problem results from the timing between updating the CRTC start address and the screen refresh. The start address is latched by the EGA's internal circuitry exactly once per frame, usually at the beginning of the vertical retrace. Although the CRTC start address is a 16-bit value, the \cw{out} instruction can only write 8 bits at a time.\\
@@ -495,11 +498,11 @@ This issue can be illustrated with the following setup: the current CRTC start a
 \lstinputlisting[language={[x86masm]Assembler}]{code/pageflip_error.c}
 \end{minipage}
 
-\par
+\pagebreak
 One solution to this issue is to update the start address when the vertical retrace signal is detected through the Input Status 1 Register, specifically bit 3 of \cw{3DAh}. Unfortunately, by the time this status is observed by the program, the start address for the next frame has already been latched, occurring immediately when the vertical retrace pulse begins.\\
 
-\pagebreak
-To address this, the start address must be updated at a point sufficiently distant from the start of the vertical retrace. This requires identifying a signal that confirms the completion of a horizontal or vertical retrace and the beginning of a new scan line, far enough from the vertical retrace to ensure the new start address is latched during the next vertical sync. The Display Enable Status signal, accessible via the Input Status 1 Register, provides this information; a value of 1 indicates that the display is within a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high ('1'). The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low ('0') a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.\\
+\par
+To address this issue, the start address must be updated at a point sufficiently distant from the start of the vertical retrace. This requires identifying a signal that confirms the completion of a horizontal or vertical retrace and the beginning of a new scan line, far enough from the vertical retrace to ensure the new start address is latched during the next vertical sync. The Display Enable Status signal, accessible via the Input Status 1 Register, provides this information; a value of 1 indicates that the display is within a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high. The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.\\
 
  
 \begin{figure}[H]
@@ -508,7 +511,7 @@ To address this, the start address must be updated at a point sufficiently dista
   \label{fig:update_start_address}
   \caption{Update CRTC start address at beginning of new scan line.}
 \end{figure}
-
+ 
 \par
 To guarantee that the start address updates at the very beginning of a new scan line, the process first waits until the current scan line completes. Then, it waits for a full retrace, checking that the Display Enable Status returns to '0'. At this point, the CRTC address is updated.\\
 
@@ -520,24 +523,12 @@ To guarantee that the start address updates at the very beginning of a new scan 
 \end{minipage}
 \par
 
-\subsection{Manage Refresh Timing}
-After each screen refresh, a certain amount of time, referred to as "ticks", has passed. The tick count depends on several factors, such as the number of tiles refreshed and the waiting period for a screen's vertical retrace. Since all game actions and reactions rely on the tick interval between two refreshes, it is important to keep this interval consistent.\\
 
-\par
-Without controlling the tick interval, the state and speed of actors can become unpredictable, potentially causing them to move too quickly or even "warp" to an unexpected location. To manage refresh intervals effectively, a minimum and maximum number of ticks are defined within the refresh loop.\\
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/time_ticks.c}
-\end{minipage}
-\label{time_ticks}
-
-\pagebreak
 \section{Actors and AI}
 \label{section:actors_and_ai}
 
 \subsection{State Machine}
-All objects in the game, such as Commander Keen, enemies, bonus points, doors, and even the scoreboard, are called "actors". Each actor can "think" and perform actions like walking, shooting, or emitting sounds. Actors are controlled via a state machine, enabling them to take actions such as chasing the player, running in various directions, throwing objects, or doing nothing at all. To model their behavior, all enemies have an associated state, which can include:
+All objects in the game, such as Commander Keen, enemies, bonus points, doors, and even the scoreboard, are called "actors". Each actor can "think" and perform actions like walking, shooting, or emitting sounds. Actors are controlled via a state machine, enabling them to take actions such as chasing the player, throwing objects, or doing nothing at all. To model their behavior, all enemies have an associated state, which can include:
 \begin{itemize}
   \item Chasing Keen
   \item Hitting or smashing Keen
@@ -589,7 +580,7 @@ The \cw{*contact} function checks if an object has come into contact with anothe
 
 \subsection{Clipping}
 \label{section:clipping}
-Whether an actor can move or fall through a tile is determined by the \cw{tinf[]} parameters. Each foreground tile includes four directional parameters: north, south, east, and west. If, for example, the east parameter has a value greater than 0, the tile is considered solid, and the actor cannot enter it from the east side. When a sprite moves to the left and encounters a solid tile from the east, the engine adjusts the actor's movement to prevent it from entering the tile.\\
+Whether an actor can move or fall through a tile is determined by the tile properties \cw{tinf[]}. Each foreground tile includes four directional parameters: north, south, east, and west. If, for example, the east parameter has a value greater than 0, the tile has a solid east wall, and the actor cannot enter it from the east side. When a sprite moves to the left and encounters a solid tile from the east, the engine adjusts the actor's movement to prevent it from entering the tile.\\
 
 
 \begin{figure}[H]
@@ -691,7 +682,7 @@ The next step is to render sprites on the screen. Most home computers of that er
 to display a sprite on the screen. Updating the \cw{(X, Y)} coordinates would move the sprite, with the display adapter handling everything else. Unfortunately, the concept of sprites did not exist on EGA cards, so game developers had to implement their own solution.\\
 
 \par
-A challenge arises from the fact that sprites can move freely across the screen and are not byte-aligned. To address this, the bit-shifting technique described in section \ref{section:bitshifting} is used. When caching a sprite into memory, each sprite is copied four times, with each copy shifted by two or more pixels using this technique. The property \cw{*spr->shifts} determines the number of bit shifts applied to each of the four copies.\\
+A challenge arises from the fact that sprites can move freely across the screen and are not byte-aligned. To address this, the bit-shifting technique described in section "\nameref{section:bitshifting}" on page \pageref{section:bitshifting} is used. When caching a sprite into memory, each sprite is copied four times, with each copy shifted by two or more pixels. The property \cw{*spr->shifts} determines the number of bit shifts applied to each of the four copies.\\
 
 
 \begin{figure}[H]
@@ -709,14 +700,14 @@ Displaying the correct shifted sprite is as simple as\\
   \end{minipage}
   \label{sprite_shift}  
 
-\par
+\par 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/shift_sprite.c}
   \end{minipage}
   \label{shift_sprite}
   
 
-\par
+\pagebreak
 If multiple sprites are displayed on the same tile, each sprite is assigned a priority from 0 to 3 to determine the drawing order. A sprite with a higher priority number is always drawn on top of sprites with a lower priority. Since sprites are always drawn on top of tiles, this can create unnatural situations, such as when Commander Keen is climbing through a hole, as illustrated in Figure \ref{fig:draw_layers}.\\
 
 \begin{figure}[H]
@@ -740,10 +731,10 @@ If multiple sprites are displayed on the same tile, each sprite is assigned a pr
 \end{figure}
 
 \par
-To draw sprites 'inside' a foreground tile, a trick is used by introducing a priority foreground tile in the \cw{tinf} info table. The attribute is named INTILE ("in-front"). If a foreground tile has its INTILE attribute high bit set (\cw{80h}), sprites with priority 0-2 will not be drawn over it. Only sprites with priority 3 are drawn over the foreground tile. This results in the following drawing order:
+To draw sprites 'inside' a foreground tile, a trick is used by introducing a priority foreground tile in the \cw{tinf} info table. The attribute is named INTILE ("in-front"). If a foreground tile has its INTILE attribute high bit set (\cw{80h}), sprites with priority 0-2 will not be drawn over it. This results in the following drawing order:
 \begin{enumerate}
   \item Draw the background tile and the masked foreground tile.
-  \item Draw sprites with priority 0, 1, and 2 (in that order), and mark the corresponding tile in the tile buffer array with a '3', as illustrated in Figure \ref{fig:kc1_3_tile_update_sprite} on page \pageref{fig:kc1_3_tile_update_sprite}.
+  \item Draw sprites with priority 0, 1, and 2 (in that order), and mark the corresponding tiles in the tile buffer array with a '3', as illustrated in Figure \ref{fig:kc4_6_step4} on page \pageref{fig:kc4_6_step4}. 
   \item Scan the tile buffer array for tiles marked with '3'. If the corresponding foreground tile's INTILE attribute high bit (\cw{80h}) is set, re-draw the foreground tile. 
   \item Finally, draw sprites with priority 3. These sprites are always drawn on top of everything.
 \end{enumerate}
@@ -788,7 +779,7 @@ To draw one background tile to VRAM, the engine must read and write 128 bytes (2
 The engine employs several tricks to squeeze the maximum out of each CPU cycle: background tile caching and word-aligned memory writing.
 
 \subsubsection{Background Tile Caching}
-When updating the master screen in VRAM, the engine copies each tile from RAM to VRAM. Copying each pixel involves one read and one write operation across the four memory banks. As explained in section \ref{section:optimize_tile}, by reprogramming the latches on the EGA card, it is possible to copy four bytes at once from one VRAM location to another. The same technique can be applied to tiles containing only a background layer.\\
+When updating the master screen in VRAM, the engine copies each tile from RAM to VRAM. Copying each pixel involves one read and one write operation across the four memory banks. Section "\nameref{section:optimize_tile}" on page \pageref{section:optimize_tile} explains how reprogramming EGA latches enables copying four bytes at once between VRAM locations, a technique that can be applied as well to tiles containing only a background layer.\\
 
 \par
 Once a background tile is loaded into the master screen, subsequent requests for the same tile can be handled by copying it directly from VRAM using the reprogrammed latches, rather than copying from RAM. The engine only needs to track which background tiles are already loaded into VRAM using an array.\\
@@ -799,7 +790,7 @@ Once a background tile is loaded into the master screen, subsequent requests for
 \end{minipage}
 
 \par
-The assembly function \cw{RFL\_NewTile} is responsible for drawing tiles to the master screen. It first checks whether the background tile is already stored in the tile cache array. If it is, the tile is copied at 32 bits per cycle from VRAM to VRAM. Otherwise, the tile is loaded from RAM, and the VRAM pointer for that tile is stored in the tile cache array for future use.\\
+The assembly function \cw{RFL\_NewTile} is responsible for drawing tiles to the master screen.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -807,11 +798,18 @@ The assembly function \cw{RFL\_NewTile} is responsible for drawing tiles to the 
 \end{minipage}
 \par
 
+\par
+It first checks whether the background tile is already stored in the tile cache array. If it is, the tile is copied at 32 bits per cycle from VRAM to VRAM. Otherwise, the tile is loaded from RAM, and the VRAM pointer for that tile is stored in the tile cache array for future use.
+
+
 \subsubsection{Word-aligned memory writing}
-The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: this only works when accessing even memory addresses. Additionally, writing a word at the offset address \cw{FFFFh} causes an exception.\\
+The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: this only works when accessing even memory addresses. Additionally, writing a word at the offset address \cw{FFFFh} causes a CPU exception.\\
 
 \par
 Because tiles are word-aligned (16 bits wide) and the screen refreshes in tile-sized steps, they are always aligned with even memory addresses. However, sprites are byte-aligned. When a sprite is drawn from an odd memory address, the CPU is limited to reading and writing 8 bits at a time. To fully utilize the 16-bit data bus, the engine uses small function routines for each combination of sprite width and even/odd address alignment.\\
+
+\par
+Take for example drawing a 6-byte wide sprite. An optimal write depends whether the start address is even or odd. In case of of an even address, writing three times a \cw{word} is optimal. In case of an odd address, the optimal is to first write a \cw{byte}, followed by two \cw{word} and then a \cw{byte} again.\\
 
 \begin{figure}[H]
   \centering
@@ -819,6 +817,8 @@ Because tiles are word-aligned (16 bits wide) and the screen refreshes in tile-s
   \caption{Word-optimized 6 byte wide sprite to even (\cw{MASK6E}) and odd (\cw{MASK6O}) address.}
   \label{fig:mask_block}  
 \end{figure}
+
+
 
 \par
 In total 23 functions are written to optimize \cw{word}-size writing up to 10 bytes wide sprites. Each function pointer reference is stored in an array.\\
@@ -836,7 +836,7 @@ By cleverly using bit-shift operations and the Carry Flag (CF), the engine calls
 \begin{minipage}{\textwidth}
   \lstinputlisting[language={[x86masm]Assembler}]{code/VW_MaskBlock.asm}
 \end{minipage}
-\par
+\pagebreak
 
 
 

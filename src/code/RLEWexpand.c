@@ -12,7 +12,7 @@ void CA_RLEWexpand (unsigned huge *source, unsigned huge *dest,long length, unsi
   endseg = FP_SEG(end);
   endoff = FP_OFF(end);
 
-  asm	mov	bx,rlewtag         // RLEW tag: 0xABCD
+  asm	mov	bx,rlewtag         // RLEW tag: ABCDh
   asm	mov	si,sourceoff
   asm	mov	di,destoff
   asm	mov	es,destseg

@@ -9,6 +9,7 @@ The following September, an Indiegogo crowdfunding campaign was started to attem
 
 
 \section{Getting the Source Code}
+\label{section:source_code}
 The source code is available on \cw{github}. It is essential to use the source code from the shareware version 1.13, or you may encounter issues due to incompatible map and graphs headers\footnote{See issue \#7 on https://github.com/keendreams/keen.}. To get the correct source code, use the following commands in the console \\
 
 \par
@@ -430,7 +431,7 @@ The primary function of the Softdisk files is to load and display the intro scre
 When the game engine starts, it first loads the Memory Manager. It then checks if at least 335KiB of RAM is available. If not, a warning is displayed, but the game can still continue. However, the game will likely crash or display an "Out of memory" error soon after. \\
 
 \par
-Once the game has successfully started, the intro image, a Deluxe Paint bitmap image (\cw{*.LBM}), is displayed. After the user presses any key, the intro image is unloaded from RAM to free up memory for runtime, and the control panel is displayed.\\
+Once the game has successfully started, the intro image, a Deluxe Paint bitmap image (\cw{*.LBM}), is displayed. After the user presses any key, the intro image (using 320x200 = 64,000 bytes) is unloaded from RAM to free up memory for runtime, and the control panel is displayed.\\
 
 \begin{figure}[H]
 \centering

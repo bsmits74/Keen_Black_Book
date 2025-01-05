@@ -2,13 +2,7 @@ static void SDL_PCService(void)
 {
   byte	s;
   word	t;
-
-  [...]
-
   s = *pcSound++;
-
-  asm	pushf
-  asm	cli
 
   if (s)             // We have a frequency!
   {
@@ -32,7 +26,4 @@ static void SDL_PCService(void)
     asm	and	al,0xfc  // ~3
     asm	out	0x61,al
   }
-
-  asm	popf
-
 }

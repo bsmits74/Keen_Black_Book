@@ -79,7 +79,7 @@ By modifying the IVT \#8 pointer, an application can hijack the interrupt to ser
 \end{minipage}\\
 
 \par
-IVT \#8, in its original configuration, not only operates the system clock but also manages the floppy disk motor. Specifically, it ensures the motor shuts off after a read or write operation. When IVT \#8 is hijacked, this functionality is bypassed, causing the floppy disk motor to run indefinitely. Although this does not cause issues, the constant spinning of the disk can be both noisy and confusing, potentially giving users the impression that data loading is still in progress.\\
+IVT \#8, in its original configuration, not only operates the system clock but also manages the floppy disk motor. Specifically, it ensures the motor shuts off after a read or write operation. When IVT \#8 is hijacked, this functionality is bypassed, causing the floppy disk motor, after loading data from the disk, to run indefinitely. Although this does not cause issues, the constant spinning of the disk can be both noisy and confusing, potentially giving users the impression that data loading is still in progress.\\
 
 \par
 The current status of the disk motors is stored in the BIOS Data Area (BDA), which is a section of memory located at segment \cw{0040h}. The BDA stores many variables indicating information about the state of the computer.\\
@@ -107,7 +107,7 @@ The current status of the disk motors is stored in the BIOS Data Area (BDA), whi
   \footnotetext{For a full overview of BIOS Data Area see https://www.stanislavs.org/helppc/bios\_data\_area.html.}
    % \stepcounter{footnote}
 
-\par
+\pagebreak
 BIOS data address \cw{40:3Fh} holds the motor status, where bit 0 indicates if the disk 1 motor is on and bit 1 if the disk 2 motor is on. BIOS data address \cw{40:40h} contains the disk motor shutoff counter. This counter is decremented by the timer interrupt vector. When the counter reaches 0, the disk motor is turned off.\\
 
 \par
@@ -128,7 +128,7 @@ Each counter on the PIT chip is 16-bit, which is decremented after each period. 
 \end{minipage}\\
 \par
 
-\textbf{\underline{Trivia :}} Note that \cw{SDL\_SetTimer0} is using a frequency of 1.192755MHz, instead of the PIT documented 1.193182MHz. This difference is likely derived from the calculation 18.2 Hz * 65,536 = 1.192755MHz.\\
+\textbf{\underline{Trivia :}} Note that \cw{SDL\_SetIntsPerSec} is using a frequency of 1.192755MHz, instead of the PIT documented 1.193182MHz. This difference is likely derived from the calculation 18.2 Hz * 65,536 = 1.192755MHz.\\
 
 \par
 The engine can decide at what frequency to be interrupted, depending on the type of sound it needs to play and what devices will be used. As a result, two frequencies are defined:
@@ -136,13 +136,19 @@ The engine can decide at what frequency to be interrupted, depending on the type
 \item Running at 140Hz to play sound effects and music on the PC beeper, AdLib and SoundBlaster.
 \item Running at 700Hz to play sound effects and music on Disney Sound Source.
 \end{enumerate}
+
+\bigskip
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/sound_mode_struct.c}
+\end{minipage}
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/set_sound_mode.c}
 \end{minipage}
 
 \par
-Each time the interrupt system triggers, it runs another small (yet paramount) system before taking care of audio requests. The sole goal of this heartbeat system is to maintain a 32-bit variable: \cw{TimeCount}.
+Each time the interrupt system triggers, it runs another small (yet paramount) system before taking care of audio requests. The sole goal of this heartbeat system is to maintain a 32-bit variable: \cw{TimeCount}.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -156,13 +162,23 @@ It is updated at a rate of 70 units per seconds, to match the VGA update rate of
 Every system in the engine uses this variable to pace itself. The renderer will not start rendering a frame until at least one tick has passed. The AI system expresses action duration in tick units. The input sampler checks for how long a key was pressed, and the list goes on. Everything interacting with human players uses \cw{TimeCount}.
 
 
-\subsection{Audio System}
-The audio system is complex because of the fragmentation of audio devices it can deal with. The early 90's was a time before Windows 95 harnessed all audio cards under the DirectSound common API. Each development studio had to write their own abstraction layer and id Software was no exception. At a high level, the Sound Manager offers a lean API divided in two categories: one for sounds and one for music.\\
+\subsection{Manage Refresh Timing}
+After each screen refresh, a certain amount of ticks has passed. The tick count depends on several factors, such as the number of tiles refreshed and the waiting period for a screen's vertical retrace. Since all game actions and reactions rely on the tick interval between two refreshes, it is important to keep this interval consistent.\\
+
+\par
+Without controlling the tick interval, the state and speed of actors can become unpredictable, potentially causing them to move too quickly or even "warp" to an unexpected location. To manage refresh intervals effectively, a minimum and maximum number of ticks are defined within the refresh loop.\\
 
 \par
 \begin{minipage}{\textwidth}
-\lstinputlisting[language=C,morekeywords={longword}]{code/sound1.h}
+  \lstinputlisting[language=C]{code/time_ticks.c}
 \end{minipage}
+\label{time_ticks}
+
+
+\pagebreak
+\subsection{Audio System}
+The audio system is complex because of the fragmentation of audio devices it can deal with. The early 90's was a time before Windows 95 harnessed all audio cards under the DirectSound common API. Each development studio had to write their own abstraction layer and id Software was no exception. At a high level, the Sound Manager offers a lean API divided in two categories: one for sounds and one for music.\\
+
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/sound.h}
@@ -182,7 +198,7 @@ Sounds effects are stored in two formats.
 They are all packaged in the \cw{AudioT} archive created by Muse. Sounds are segregated by format but always stored in the same order. This way a sound can be accessed in two formats by using \cw{STARTPCSOUNDS} + \cw{sound\_ID} or \cw{STARTADLIBSOUNDS} + \cw{sound\_ID}.\\
 
 \par
-Although the Sound Manager was designed to support music and digital sound playback on SoundBlaster and Disney Sound Source, this functionality was never implemented in Keen Dreams (as explained in section \ref{section:audio}) and will be therefore not further explained in this section.\\
+Although the Sound Manager was designed to support music and digital sound playback on SoundBlaster and Disney Sound Source, this functionality was never implemented in Keen Dreams (as explained in section "\nameref{section:audio}" on page \pageref{section:audio}) and will be therefore not further explained in this section.\\
 
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/muse_header.c}
@@ -213,7 +229,7 @@ To adjust the frequency, write to port \cw{43h} to set the PIT command register,
 	\renewcommand{\arraystretch}{1.6}
 	\begin{tabularx}{\textwidth}{ c c p{.5\textwidth}  }
 	  \toprule
-	  \textbf{Bit number} & \textbf{Value} & \textbf{Description} \\ \bottomrule
+	  \textbf{Bit \#} & \textbf{Value} & \textbf{Description} \\ \bottomrule
 
   0 & 0 & \multirow{2}{*}{Set value for counter 2 (at port \cw{42h}).} \\
   1 & 1 & \\ \hline
@@ -231,16 +247,10 @@ To adjust the frequency, write to port \cw{43h} to set the PIT command register,
   \footnotetext{For details, see https://wiki.osdev.org/Programmable\_Interval\_Timer}
    % \stepcounter{footnote}
 
-\par
-The connection to the speaker can be deactivated without changing any timer parameters through the system's keyboard controller (Intel 8042 UPI). Setting port \cw{61h}, bit 0 and bit 1, to 0 turns off both counter \#2 and the speaker.\\
+
 
 \par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/pwm_code.c}
-\end{minipage}
-
-\par
-A simple tone has only one frequency. As a practical example, say we wanted to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, and the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. This is the value that must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats. To create a higher pitch, the counter value would need to be lower. \\
+A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, and the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. This is the value that must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats. To create a higher pitch, the counter value would need to be lower. \\
 
 \par
 When instructed to play a PC Speaker sound effect, the audio system sets itself to run at 140Hz via PIT Counter \#0. Every times it wakes up, it reads the frequency to maintain for the next 1/140th of a second and writes it to Counter \#2.\\
@@ -252,7 +262,13 @@ When instructed to play a PC Speaker sound effect, the audio system sets itself 
   \caption{Sound pitch approximated with square wave and frequency changes.}
 \end{figure}
 
+\par
+The connection to the speaker can be deactivated without changing any timer parameters through the system's keyboard controller (Intel 8042 UPI). Setting port \cw{61h}, bit 0 and bit 1, to 0 turns off both counter \#2 and the speaker.\\
 
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[language=C]{code/pwm_code.c}
+\end{minipage}
 
 \par
 Human hearing ranges from approximately 20 Hz to 20,000 Hz, making any counter value lower than 60 inaudible. Frequencies are encoded in a stream of bytes (0-255) and decoded using the formula\\
@@ -285,17 +301,21 @@ The OPL2 is made of 9 channels capable of emulating instruments. Each channel is
 When the AdLib was first conceived in 1986, it was tested on IBM XTs and ATs, none of which exceeded a speed of 6 MHz. They wrote their specification based on this, writing that while the AdLib required a certain amount of "wait time" between commands, it was okay to send them as fast as possible because no PC was faster than the minimum wait time. They later found out that a Intel 386 was fast enough to send commands faster than the AdLib was expecting them, and they changed their specification to mention a minimum 35 microseconds wait time between commands.\\
 
 \par
-The Programming Guide was amended with reliable specs to wait 3.3 microseconds after a register select write, and 23 microseconds after a data write. For Keen Dreams it is implemented as a 10 microseconds and 25 microseconds respectively.
+The Programming Guide was amended with reliable specs to wait 3.3 microseconds after a register select write, and 23 microseconds after a data write. For Keen Dreams it is implemented as a 10 microseconds and 25 microseconds respectively.\\
+
+\par
+The engine does not know about any of the details of the OPL2. There is zero abstraction layer of transformation here. An IMF sound is made of a series of messages containing the values to write to the register and data ports of the OPL2.\\
+
+\par
+Every time the audio system wakes up via the timer interrupt, it checks if a sound effects should be sent, and plays the next sample out through the AdLib card.\\
+
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/adlib_wait.c}
 \end{minipage}
 \par
 
-The engine does not know about any of the details of the OPL2. There is zero abstraction layer of transformation here. An IMF sound is made of a series of messages containing the values to write to the register and data ports of the OPL2.\\
 
-\par
-Every time the audio system wakes up via the timer interrupt, it checks if a sound effects should be sent, and plays the next sample out through the AdLib card.\\
 
 
 

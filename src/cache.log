@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  28 DEC 2024 13:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  3 JAN 2025 10:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1799,31 +1799,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 73--74
 
  []
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 75--76
+[2] (./code/CA_level_up.c)
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
 
  []
 
-(./code/CA_level_up.c)
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
 
  []
 
-[3]
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 113.
+(./code/unrolled_CA_CacheMarks.c [3])
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 116.
 
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
 File: omsphv.fd 
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 113.
-
-(./code/unrolled_CA_CacheMarks.c)
-Overfull \hbox (11.61584pt too wide) in paragraph at lines 122--123
-\T1/phv/m/n/10 where all as-sets re-quired for play-ing the level are mem-o-riz
-ed. The func-tion \T1/cmtt/m/n/10 CA_CacheMarks()
- []
-
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 116.
 
 Underfull \hbox (badness 10000) in paragraph at lines 122--123
 
@@ -1840,39 +1834,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 127--128
 
  []
 
-(./code/cache_setlock.c) [5]
+(./code/cache_setlock.c)
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 135.
+(Font)              scaled to size 6.64998pt on input line 134.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 135.
+(Font)              scaled to size 7.59998pt on input line 134.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 135.
+(Font)              scaled to size 5.69998pt on input line 134.
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--136
+Underfull \hbox (badness 10000) in paragraph at lines 134--135
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 138--139
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 143--144
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
 
  []
 
 (./code/huffman_text)
 
-Package array Warning: Column Y is already defined on input line 157.
+Package array Warning: Column Y is already defined on input line 156.
 
 
-Underfull \hbox (badness 10000) in alignment at lines 170--170
+Underfull \hbox (badness 10000) in alignment at lines 169--169
 [][][][][] 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 175--176
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
 
  []
 
@@ -1885,23 +1879,23 @@ Package epstopdf Info: Source file: <imgs/drawings/huffman_tree_1.eps>
 (epstopdf)                    size: 8054 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/huffman_tree
 _1-eps-converted-to.pdf imgs/drawings/huffman_tree_1.eps>
-(epstopdf)             \includegraphics on input line 179.
+(epstopdf)             \includegraphics on input line 178.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/huffman_tree_1-eps-converted-to.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<imgs/drawings/huffman_tree_1-eps-converted-to.pdf, id=142, 169.63374pt x 41.15
+<imgs/drawings/huffman_tree_1-eps-converted-to.pdf, id=145, 169.63374pt x 41.15
 375pt>
 File: imgs/drawings/huffman_tree_1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imgs/drawings/huffman_tree_1-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/huffman_tree_1-eps-converted-to.pdf  use
-d on input line 179.
+d on input line 178.
 (pdftex.def)             Requested size: 187.90189pt x 45.58762pt.
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 183--184
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
 
  []
 
@@ -1914,26 +1908,28 @@ Package epstopdf Info: Source file: <imgs/drawings/huffman_tree_2.eps>
 (epstopdf)                    size: 8361 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/huffman_tree
 _2-eps-converted-to.pdf imgs/drawings/huffman_tree_2.eps>
-(epstopdf)             \includegraphics on input line 187.
+(epstopdf)             \includegraphics on input line 186.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/huffman_tree_2-eps-converted-to.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<imgs/drawings/huffman_tree_2-eps-converted-to.pdf, id=152, 202.7575pt x 91.341
+<imgs/drawings/huffman_tree_2-eps-converted-to.pdf, id=146, 202.7575pt x 91.341
 25pt>
 File: imgs/drawings/huffman_tree_2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imgs/drawings/huffman_tree_2-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/huffman_tree_2-eps-converted-to.pdf  use
-d on input line 187.
+d on input line 186.
 (pdftex.def)             Requested size: 225.48454pt x 101.5823pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
+Underfull \hbox (badness 10000) in paragraph at lines 190--191
 
  []
 
+[6 <./imgs/drawings/huffman_tree_1-eps-converted-to.pdf> <./imgs/drawings/huffm
+an_tree_2-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <imgs/drawings/huffman_tree_3.eps>
 (epstopdf)                    date: 2024-02-17 21:19:05
 (epstopdf)                    size: 21388 bytes
@@ -1943,23 +1939,23 @@ Package epstopdf Info: Source file: <imgs/drawings/huffman_tree_3.eps>
 (epstopdf)                    size: 9108 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/huffman_tree
 _3-eps-converted-to.pdf imgs/drawings/huffman_tree_3.eps>
-(epstopdf)             \includegraphics on input line 195.
+(epstopdf)             \includegraphics on input line 194.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/huffman_tree_3-eps-converted-to.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<imgs/drawings/huffman_tree_3-eps-converted-to.pdf, id=153, 325.215pt x 156.585
+<imgs/drawings/huffman_tree_3-eps-converted-to.pdf, id=166, 325.215pt x 156.585
 pt>
 File: imgs/drawings/huffman_tree_3-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imgs/drawings/huffman_tree_3-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/huffman_tree_3-eps-converted-to.pdf  use
-d on input line 195.
+d on input line 194.
 (pdftex.def)             Requested size: 338.2211pt x 162.85889pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--200
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
 
  []
 
@@ -1972,72 +1968,79 @@ Package epstopdf Info: Source file: <imgs/drawings/huffman_decode.eps>
 (epstopdf)                    size: 9640 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/huffman_deco
 de-eps-converted-to.pdf imgs/drawings/huffman_decode.eps>
-(epstopdf)             \includegraphics on input line 204.
+(epstopdf)             \includegraphics on input line 203.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/huffman_decode-eps-converted-to.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<imgs/drawings/huffman_decode-eps-converted-to.pdf, id=154, 352.31625pt x 99.37
+<imgs/drawings/huffman_decode-eps-converted-to.pdf, id=167, 352.31625pt x 99.37
 125pt>
 File: imgs/drawings/huffman_decode-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imgs/drawings/huffman_decode-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/huffman_decode-eps-converted-to.pdf  use
-d on input line 204.
+d on input line 203.
 (pdftex.def)             Requested size: 375.80377pt x 105.99562pt.
-[7 <./imgs/drawings/huffman_tree_1-eps-converted-to.pdf> <./imgs/drawings/huffm
-an_tree_2-eps-converted-to.pdf> <./imgs/drawings/huffman_tree_3-eps-converted-t
-o.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 208--209
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <8> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 207.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 7.59998pt on input line 207.
+
+LaTeX Warning: Reference `section:source_code' on page 7 undefined on input lin
+e 207.
+
+
+LaTeX Warning: Reference `section:source_code' on page 7 undefined on input lin
+e 207.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
 
  []
 
 (./code/huffman_struct.c)
-Underfull \hbox (badness 10000) in paragraph at lines 211--214
+Underfull \hbox (badness 10000) in paragraph at lines 210--213
+
+ []
+
+[7 <./imgs/drawings/huffman_tree_3-eps-converted-to.pdf> <./imgs/drawings/huffm
+an_decode-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 215--216
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 216--217
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 219--220
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 222--223
+Underfull \hbox (badness 10000) in paragraph at lines 223--224
 
  []
 
-[8 <./imgs/drawings/huffman_decode-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 224--225
 
- []
-
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <8> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 242.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.59998pt on input line 242.
-
-LaTeX Warning: Reference `asset_details' on page 9 undefined on input line 242.
+LaTeX Warning: Reference `asset_details' on page 8 undefined on input line 241.
 
 
 (./code/RLEWexpand.c)
-Underfull \hbox (badness 10000) in paragraph at lines 246--249
+Underfull \hbox (badness 10000) in paragraph at lines 245--248
 
  []
 
-[9] [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 253.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 253.
+[8] [9] [10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 252.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 252.
  (./cache.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 253.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 253.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 252.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 252.
 
 
 LaTeX Warning: There were undefined references.
@@ -2045,12 +2048,12 @@ LaTeX Warning: There were undefined references.
  ) 
 Here is how much of TeX's memory you used:
  49010 strings out of 494880
- 1052044 string characters out of 6179601
- 1394810 words of memory out of 5000000
- 51327 multiletter control sequences out of 15000+600000
+ 1052050 string characters out of 6179601
+ 1419809 words of memory out of 5000000
+ 51328 multiletter control sequences out of 15000+600000
  568629 words of font info for 58 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 91i,14n,132p,10466b,1089s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 91i,14n,132p,10466b,1754s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -2067,10 +2070,10 @@ ist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/hel
 vetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8
 a.pfb>
-Output written on cache.pdf (10 pages, 124323 bytes).
+Output written on cache.pdf (10 pages, 123891 bytes).
 PDF statistics:
- 390 PDF objects out of 1000 (max. 8388607)
- 258 compressed objects within 3 object streams
- 143 named destinations out of 1000 (max. 500000)
+ 389 PDF objects out of 1000 (max. 8388607)
+ 257 compressed objects within 3 object streams
+ 142 named destinations out of 1000 (max. 500000)
  173 words of extra memory for PDF output out of 10000 (max. 10000000)
 

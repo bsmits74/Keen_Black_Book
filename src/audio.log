@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  24 DEC 2024 14:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  4 JAN 2025 15:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1918,32 +1918,51 @@ Underfull \hbox (badness 10000) in paragraph at lines 131--132
 
  []
 
-(./code/set_sound_mode.c) [6] (./code/timecount.c) [7]
-Underfull \hbox (badness 10000) in paragraph at lines 153--154
+(./code/sound_mode_struct.c) (./code/set_sound_mode.c) [6]
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
+
+ []
+
+(./code/timecount.c)
+Underfull \hbox (badness 10000) in paragraph at lines 159--160
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 166--167
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--161
+Underfull \hbox (badness 10000) in paragraph at lines 169--170
 
  []
 
-(./code/sound1.h) (./code/sound.h) [8]
-Underfull \hbox (badness 10000) in paragraph at lines 173--174
+(./code/time_ticks.c) [8]
+Underfull \hbox (badness 10000) in paragraph at lines 180--181
+
+ []
+
+(./code/sound.h)
+Underfull \hbox (badness 10000) in paragraph at lines 189--190
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--183
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
 
  []
 
 
-LaTeX Warning: Reference `section:audio' on page 9 undefined on input line 185.
+LaTeX Warning: Reference `section:audio' on page 9 undefined on input line 201.
 
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--186
+LaTeX Warning: Reference `section:audio' on page 9 undefined on input line 201.
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 201--202
 
  []
 
@@ -1952,12 +1971,12 @@ Overfull \vbox (1.85622pt too high) has occurred while \output is active []
 
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 194--195
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 197--198
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
 
  []
 
@@ -1970,51 +1989,46 @@ pdf>
 (epstopdf)                    size: 11994 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/pc_speaker-e
 ps-converted-to.pdf imgs/drawings/pc_speaker.eps>
-(epstopdf)             \includegraphics on input line 202.
+(epstopdf)             \includegraphics on input line 218.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/pc_speaker-eps-converted-to.pdf)
 : PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/pc_speaker-eps-converted-to.pdf, id=279, 839.135pt x 698.61pt>
+<imgs/drawings/pc_speaker-eps-converted-to.pdf, id=300, 839.135pt x 698.61pt>
 File: imgs/drawings/pc_speaker-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/pc_speaker-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/pc_speaker-eps-converted-to.pdf  used on
- input line 202.
+ input line 218.
 (pdftex.def)             Requested size: 375.80377pt x 312.86855pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
+Underfull \hbox (badness 10000) in paragraph at lines 225--226
 
  []
 
 [11 <./imgs/drawings/pc_speaker-eps-converted-to.pdf>]
-Overfull \hbox (112.74226pt too wide) in paragraph at lines 227--227
+Overfull \hbox (112.74226pt too wide) in paragraph at lines 243--243
 []|[]| 
  []
 
 
-Underfull \hbox (badness 10000) in alignment at lines 227--227
+Underfull \hbox (badness 10000) in alignment at lines 243--243
 [][][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--236
-
- []
-
-(./code/pwm_code.c) [12]
-Underfull \hbox (badness 7030) in paragraph at lines 243--243
+Underfull \hbox (badness 7030) in paragraph at lines 253--253
 [][]\T1/phv/m/n/8 261.626 Hz for mid-dle C is a con-se-quence of the twelve-ton
 e equal tem-per-a-ment, see
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--244
+Underfull \hbox (badness 10000) in paragraph at lines 253--254
 
  []
 
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 246--247
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--257
 
  []
 
@@ -2027,75 +2041,85 @@ o.pdf>
 (epstopdf)                    size: 8543 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/square_waves
 -eps-converted-to.pdf imgs/drawings/square_waves.eps>
-(epstopdf)             \includegraphics on input line 251.
+(epstopdf)             \includegraphics on input line 261.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/square_waves-eps-converted-to.pd
 f): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/square_waves-eps-converted-to.pdf, id=346, 960.58875pt x 191.716
+<imgs/drawings/square_waves-eps-converted-to.pdf, id=316, 960.58875pt x 191.716
 25pt>
 File: imgs/drawings/square_waves-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/square_waves-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/square_waves-eps-converted-to.pdf  used 
-on input line 251.
+on input line 261.
 (pdftex.def)             Requested size: 375.80377pt x 75.00305pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 258--259
-
- []
-
-(./code/frequency.c)
+[12]
 Underfull \hbox (badness 10000) in paragraph at lines 266--267
 
  []
 
+(./code/pwm_code.c)
+Underfull \hbox (badness 10000) in paragraph at lines 274--275
+
+ []
+
+[13 <./imgs/drawings/square_waves-eps-converted-to.pdf>] (./code/frequency.c)
+Underfull \hbox (badness 10000) in paragraph at lines 282--283
+
+ []
+
 (./code/pcSoundLookup.c)
-Underfull \hbox (badness 10000) in paragraph at lines 275--276
-
- []
-
-[14 <./imgs/drawings/square_waves-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 277--278
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 279--280
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
 
  []
 
-(./code/audio_ports.c)
-Underfull \hbox (badness 10000) in paragraph at lines 285--286
 
- []
-
-(./code/adlib_wait.c) [15]
 Underfull \hbox (badness 10000) in paragraph at lines 295--296
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 298--299
+(./code/audio_ports.c)
+Underfull \hbox (badness 10000) in paragraph at lines 301--302
 
  []
 
-[16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 302.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 302.
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 304--305
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 307--308
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 310--311
+
+ []
+
+(./code/adlib_wait.c) [15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 322.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 322.
  (./audio.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 302.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 302.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 322.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 322.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 49257 strings out of 494880
- 1055361 string characters out of 6179601
- 1438594 words of memory out of 5000000
- 51431 multiletter control sequences out of 15000+600000
+ 49291 strings out of 494880
+ 1055940 string characters out of 6179601
+ 1445738 words of memory out of 5000000
+ 51450 multiletter control sequences out of 15000+600000
  563169 words of font info for 54 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,12n,132p,10466b,1157s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2121,10 +2145,10 @@ t/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helve
 tic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.
 pfb>
-Output written on audio.pdf (16 pages, 148371 bytes).
+Output written on audio.pdf (16 pages, 151083 bytes).
 PDF statistics:
- 600 PDF objects out of 1000 (max. 8388607)
- 454 compressed objects within 5 object streams
- 280 named destinations out of 1000 (max. 500000)
- 213 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 619 PDF objects out of 1000 (max. 8388607)
+ 472 compressed objects within 5 object streams
+ 292 named destinations out of 1000 (max. 500000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 

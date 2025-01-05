@@ -4,7 +4,7 @@
 The x86 memory models are a set of six different memory models of the x86 CPU operating in real mode which control how the segment registers are used and the default size of pointers. This appendix summarizes each model.\\
 
 \par
-The \textit{Tiny model} is, as you might guess, the smallest of the memory models. All
+The "Tiny model" is, as you might guess, the smallest of the memory models. All
 four segment registers (CS, DS, SS, ES) are set to the same address, so you have a total of 64KiB for all of your code, data, and stack. Near pointers are always used. \\
 \begin{figure}[H]
 \centering
@@ -15,27 +15,27 @@ four segment registers (CS, DS, SS, ES) are set to the same address, so you have
 
 \pagebreak
 
-The next model is the \textit{small memory model}. The code and data segments are different and don't overlap, so you have 64KiB of code and 64KiB of data and stack. Near pointers are
+The next model is the "small memory model". The code and data segments are different and don't overlap, so you have 64KiB of code and 64KiB of data and stack. Near pointers are
 always used. This is a good size for average applications.\\
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.53\textwidth]{imgs/drawings/memory/small_mm.eps}
+\includegraphics[width=0.53\textwidth]{imgs/drawings/memory/small_mm_v2.eps}
 \caption{Small memory model, code and data each have 64KiB.}
 \label{fig:mm_small}
 \end{figure}
 
 \par
-The \textit{medium memory model} is ideal for programs with a large amount of code but minimal data. Far pointers are used for code, but not for data. As a result, data
-plus stack are limited to 64K, but code can occupy up to 1 MiB. \\
+The "medium memory model" is ideal for programs with a large amount of code but minimal data. Far pointers are used for code, but not for data. As a result, data
+plus stack are limited to 64K, but code can occupy up to 1 MiB. 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.65\textwidth]{imgs/drawings/memory/medium_mm.eps}
+\includegraphics[width=0.65\textwidth]{imgs/drawings/memory/medium_mm_v2.eps}
 \caption{Medium memory model, code can be larger than 64KiB.}
 \label{fig:mm_medium}
 \end{figure}
 
 \par
-The opposite of the medium model is the \textit{compact memory model}. Here the total function code cannot exceed 64KiB, but there is more space for data. This model is best if code is small but needs to address a lot of data.\\
+The opposite of the medium model is the "compact memory model". Here the total function code cannot exceed 64KiB, but there is more space for data. This model is best if code is small but needs to address a lot of data.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{imgs/drawings/memory/compact_mm.eps}
@@ -43,8 +43,6 @@ The opposite of the medium model is the \textit{compact memory model}. Here the 
 \label{fig:mm_compact}
 \end{figure}
 
-\pagebreak
-The \textit{large memory model} can deal with function code and data larger than 64KiB. Far pointers are used for both code and data, giving both a 1 MiB range.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{imgs/drawings/memory/large_mm.eps}
@@ -53,8 +51,12 @@ The \textit{large memory model} can deal with function code and data larger than
 \end{figure}
 
 
-\pagebreak
-In all models so far, Borland C++ limits the size of all global data to 64KiB. The \textit{huge memory model} sets aside that limit, allowing global data to occupy more than 64KiB using multiple data files. If the source file is too big to fit into one 64KiB data segment, the program must be broken into smaller source files and compiled separately.\\
+
+\par
+The "large memory model" can deal with function code and data larger than 64KiB. Far pointers are used for both code and data, giving both a 1 MiB range.\\
+
+\par
+In all models so far, Borland C++ limits the size of all global data to 64KiB. The "huge memory model" sets aside that limit, allowing global data to occupy more than 64KiB using multiple data files. If the source file is too big to fit into one 64KiB data segment, the program must be broken into smaller source files and compiled separately.\\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{imgs/drawings/memory/huge_mm.eps}

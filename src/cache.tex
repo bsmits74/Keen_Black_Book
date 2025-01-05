@@ -72,8 +72,6 @@ The function \cw{CA\_CacheMarks} then iterates through the cache array, checking
 \par
 Now, during gameplay, the user opens the control panel (e.g. to pause the game), which requires to load assets for the control panel into memory. The cache level is increased to level two and for all required control panel assets the second bit is marked.\\
 
-During gameplay, when the user opens the control panel (e.g., to pause the game), assets for the control panel need to be loaded into memory. The cache level is increased to level two, and for all required control panel assets, the second bit in the cache array is marked. \\
-
 \par
 \lstinputlisting[language=C]{code/CA_level_up.c}
 
@@ -108,18 +106,20 @@ The \cw{grneeded[]} cache array then appears as below.\\
 \par
 
 \par
-The function \cw{CA\_CacheMarks()} is called again to load all level two cache assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level two, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory. In this example, this applies to 
-\begin{itemize}
-  \item \cw{KEENSTANDRSPR}
-  \item \cw{KEENRUNR1SPR}
-  \item \cw{TILE16 \#1} 
-  \item \cw{TILE16M \#2}
-\end{itemize}
+The function \cw{CA\_CacheMarks()} is called again to load all cache level 2 assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level 2, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory.\\
 
 \lstinputlisting[language=C]{code/unrolled_CA_CacheMarks.c}
 
 \par
-When the user closes the control panel, the engine lowers the cache level back to one, where all assets required for playing the level are memorized. The function \cw{CA\_CacheMarks()} is called again to reload any assets that were removed from memory.\\
+In this example, this applies to 
+\begin{itemize}
+  \item \cw{KEENSTANDRSPR}
+  \item \cw{KEENRUNR1SPR}
+  \item \cw{TILE16 \#1} 
+\end{itemize}
+
+\par
+When the user closes the control panel, the engine lowers the cache level back to 1, where all assets required for playing the level are memorized. Simply calling the function \cw{CA\_CacheMarks()} again reloads any assets that were removed from memory.\\
 
 \pagebreak
 \lstinputlisting[language=C]{code/CA_level_down.c}
@@ -130,13 +130,12 @@ To avoid frequently used assets, such as fonts and Commander Keen sprites, being
 \lstinputlisting[language=C]{code/cache_setlock.c}
 \par
  
-\pagebreak
 \subsection{Asset compression}
-Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. id Software used Huffman compression for all asset and map files, with additional RLE compression applied to further reduce the size of map files.\\
+Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. id Software used "Huffman compression" for all asset and map files, with additional "RLE compression" applied to further reduce the size of map files.\\
 
 
 \par
-"Huffman compression" involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. \\
+Huffman compression involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. \\
 
 
 \par
@@ -205,7 +204,7 @@ Now, the entire text can be encoded by moving left (bit 0) or right (bit 1) thro
  \end{figure}
 
  \par
-This results in a total of 13 bytes used for a 31-byte message, more than a 50\% reduction. In Commander Keen, the dictionary is part of the game engine. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files in the source code\footnote{That's why a specific source code version is mention in section xxx.}. Reading the Huffman-compressed asset file is straightforward: you read bit by bit from the file and follow the dictionary, starting from the top node, until you reach an end node. The engine then writes the byte to memory and returns to the top node in the dictionary for the next bit in the file.\\
+This results in a total of 13 bytes used for a 31-byte message, more than a 50\% reduction. In Commander Keen, the dictionary is part of the game engine. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files in the source code\footnote{That's why a specific source code version is mentioned in section "\nameref{section:source_code}" on page \pageref{section:source_code}.}. Reading the Huffman-compressed asset file is straightforward: you read bit by bit from the file and follow the dictionary, starting from the top node, until you reach an end node. The engine then writes the byte to memory and returns to the top node in the dictionary for the next bit in the file.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -219,7 +218,7 @@ The tile map asset files use a second compression technique, on top of Huffman. 
 The essence of this compression method is to compress data by saving the "run-length" of the encountered values, essentially storing the data as a collection of length/value pairs. To illustrate, the string 'aaaaaaaabbb' could be compressed to '8a3b' (8 bytes of 'a', 3 bytes of 'b'). The trick with RLE is to ensure that the data does not end up becoming larger after processing. For instance, using pure length/value pairs, 'abracadabra' would become '1a1b1r1a1c1a1d1a1b1r1a'.\\
 
 \par
-In Commander Keen, this is solved by using a 'tag'. This special tag value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE tag value is encountered. When this tag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on 16-bits (word), and therefore is named RLEW, where the 'W' stands for word. The RLEW tag is defined as \cw{0xABCD}.\\
+In Commander Keen, this is solved by using a 'tag'. This special tag value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE tag value is encountered. When this tag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on 16-bits, and therefore is named RLEW, where the 'W' stands for word. The RLEW tag is defined as \cw{ABCDh}.\\
 
 The overall result of applying Huffman and RLEW compression results in almost 65\% file size reduction.\\
 

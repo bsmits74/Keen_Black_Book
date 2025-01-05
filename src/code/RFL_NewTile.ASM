@@ -13,4 +13,5 @@ PROC	RFL_NewTile	updateoffset:WORD
 ;=============
 @@singlemain:
 	mov	ax,[cs:screenstartcs]
-	mov	[tilecache+si],ax		;next time it can be drawn from here with latch
+	mov	[tilecache+si],ax		;next time it can be drawn from 
+								 					;here with latch

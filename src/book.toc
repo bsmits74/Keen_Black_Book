@@ -56,47 +56,46 @@
 \contentsline {section}{\numberline {4.7}Startup}{102}{section.4.7}
 \contentsline {section}{\numberline {4.8}Asset Caching and Compression}{103}{section.4.8}
 \contentsline {subsection}{\numberline {4.8.1}Asset caching}{103}{subsection.4.8.1}
-\contentsline {subsection}{\numberline {4.8.2}Asset compression}{108}{subsection.4.8.2}
-\contentsline {section}{\numberline {4.9}Smooth scrolling on EGA}{113}{section.4.9}
-\contentsline {subsection}{\numberline {4.9.1}EGA Virtual Screen and Pel Panning}{114}{subsection.4.9.1}
-\contentsline {subsection}{\numberline {4.9.2}Horizontal Pel Panning}{117}{subsection.4.9.2}
-\contentsline {section}{\numberline {4.10}Adaptive Tile Refreshment}{118}{section.4.10}
-\contentsline {subsection}{\numberline {4.10.1}Adaptive tile refreshment in Commander Keen 1-3}{121}{subsection.4.10.1}
-\contentsline {subsection}{\numberline {4.10.2}Wrap around the EGA Memory}{128}{subsection.4.10.2}
-\contentsline {subsection}{\numberline {4.10.3}Adaptive tile refreshment in Keen Dreams}{132}{subsection.4.10.3}
-\contentsline {subsection}{\numberline {4.10.4}Screen refresh}{140}{subsection.4.10.4}
-\contentsline {subsection}{\numberline {4.10.5}Manage Refresh Timing}{145}{subsection.4.10.5}
-\contentsline {section}{\numberline {4.11}Actors and AI}{146}{section.4.11}
-\contentsline {subsection}{\numberline {4.11.1}State Machine}{146}{subsection.4.11.1}
-\contentsline {subsection}{\numberline {4.11.2}Clipping}{148}{subsection.4.11.2}
-\contentsline {section}{\numberline {4.12}Drawing layer for layer}{151}{section.4.12}
-\contentsline {subsection}{\numberline {4.12.1}Draw background and foreground tiles}{151}{subsection.4.12.1}
-\contentsline {subsection}{\numberline {4.12.2}Drawing sprites}{153}{subsection.4.12.2}
-\contentsline {subsection}{\numberline {4.12.3}Tile Draw Performance Tricks}{157}{subsection.4.12.3}
-\contentsline {subsubsection}{\numberline {4.12.3.1}Background Tile Caching}{157}{subsubsection.4.12.3.1}
-\contentsline {subsubsection}{\numberline {4.12.3.2}Word-aligned memory writing}{158}{subsubsection.4.12.3.2}
-\contentsline {section}{\numberline {4.13}Audio and Heartbeat}{160}{section.4.13}
-\contentsline {subsection}{\numberline {4.13.1}Interrupts}{160}{subsection.4.13.1}
-\contentsline {subsection}{\numberline {4.13.2}IRQs and ISRs}{161}{subsection.4.13.2}
-\contentsline {subsection}{\numberline {4.13.3}Hijacking the System Timer}{162}{subsection.4.13.3}
-\contentsline {subsection}{\numberline {4.13.4}Heartbeats}{164}{subsection.4.13.4}
-\contentsline {subsection}{\numberline {4.13.5}Audio System}{167}{subsection.4.13.5}
-\contentsline {subsection}{\numberline {4.13.6}PC Speaker}{170}{subsection.4.13.6}
-\contentsline {subsection}{\numberline {4.13.7}AdLib}{174}{subsection.4.13.7}
-\contentsline {section}{\numberline {4.14}Keyboard}{176}{section.4.14}
-\contentsline {subsection}{\numberline {4.14.1}Keyboard scancodes}{176}{subsection.4.14.1}
-\contentsline {subsection}{\numberline {4.14.2}Keyboard input}{177}{subsection.4.14.2}
-\contentsline {section}{\numberline {4.15}Random Tricks}{179}{section.4.15}
-\contentsline {subsection}{\numberline {4.15.1}Bouncing Physics}{179}{subsection.4.15.1}
-\contentsline {subsection}{\numberline {4.15.2}Screen fades}{183}{subsection.4.15.2}
-\contentsline {section}{\numberline {4.16}Keen Dreams in CGA}{184}{section.4.16}
-\contentsline {subsection}{\numberline {4.16.1}CGA Video card}{185}{subsection.4.16.1}
-\contentsline {subsection}{\numberline {4.16.2}Interlacing}{187}{subsection.4.16.2}
-\contentsline {subsection}{\numberline {4.16.3}Double buffering}{189}{subsection.4.16.3}
-\contentsline {subsection}{\numberline {4.16.4}Screen refresh}{190}{subsection.4.16.4}
-\contentsline {chapter}{Appendices}{193}{section*.162}
-\contentsline {chapter}{\numberline {A}Unboxing the asset files}{195}{appendix.A}
-\contentsline {chapter}{\numberline {B}x86 Memory Models}{197}{appendix.B}
-\contentsline {chapter}{\numberline {C}Dangerous Dave in Copyright Infringement}{203}{appendix.C}
-\contentsline {chapter}{\numberline {D}Founding of id Software}{205}{appendix.D}
-\contentsline {chapter}{\numberline {E}Release Notes}{211}{appendix.E}
+\contentsline {subsection}{\numberline {4.8.2}Asset compression}{107}{subsection.4.8.2}
+\contentsline {section}{\numberline {4.9}Smooth scrolling on EGA}{112}{section.4.9}
+\contentsline {subsection}{\numberline {4.9.1}EGA Virtual Screen and Pel Panning}{113}{subsection.4.9.1}
+\contentsline {subsection}{\numberline {4.9.2}Horizontal Pel Panning}{116}{subsection.4.9.2}
+\contentsline {section}{\numberline {4.10}Adaptive Tile Refreshment}{117}{section.4.10}
+\contentsline {subsection}{\numberline {4.10.1}Adaptive tile refreshment in Commander Keen 1-3}{120}{subsection.4.10.1}
+\contentsline {subsection}{\numberline {4.10.2}Wrap around the EGA Memory}{127}{subsection.4.10.2}
+\contentsline {subsection}{\numberline {4.10.3}Adaptive tile refreshment in Keen Dreams}{131}{subsection.4.10.3}
+\contentsline {subsection}{\numberline {4.10.4}Screen refresh}{139}{subsection.4.10.4}
+\contentsline {section}{\numberline {4.11}Actors and AI}{144}{section.4.11}
+\contentsline {subsection}{\numberline {4.11.1}State Machine}{144}{subsection.4.11.1}
+\contentsline {subsection}{\numberline {4.11.2}Clipping}{146}{subsection.4.11.2}
+\contentsline {section}{\numberline {4.12}Drawing layer for layer}{149}{section.4.12}
+\contentsline {subsection}{\numberline {4.12.1}Draw background and foreground tiles}{149}{subsection.4.12.1}
+\contentsline {subsection}{\numberline {4.12.2}Drawing sprites}{151}{subsection.4.12.2}
+\contentsline {subsection}{\numberline {4.12.3}Tile Draw Performance Tricks}{155}{subsection.4.12.3}
+\contentsline {subsubsection}{\numberline {4.12.3.1}Background Tile Caching}{155}{subsubsection.4.12.3.1}
+\contentsline {subsubsection}{\numberline {4.12.3.2}Word-aligned memory writing}{156}{subsubsection.4.12.3.2}
+\contentsline {section}{\numberline {4.13}Audio and Heartbeat}{158}{section.4.13}
+\contentsline {subsection}{\numberline {4.13.1}Interrupts}{158}{subsection.4.13.1}
+\contentsline {subsection}{\numberline {4.13.2}IRQs and ISRs}{159}{subsection.4.13.2}
+\contentsline {subsection}{\numberline {4.13.3}Hijacking the System Timer}{160}{subsection.4.13.3}
+\contentsline {subsection}{\numberline {4.13.4}Heartbeats}{162}{subsection.4.13.4}
+\contentsline {subsection}{\numberline {4.13.5}Manage Refresh Timing}{165}{subsection.4.13.5}
+\contentsline {subsection}{\numberline {4.13.6}Audio System}{166}{subsection.4.13.6}
+\contentsline {subsection}{\numberline {4.13.7}PC Speaker}{168}{subsection.4.13.7}
+\contentsline {subsection}{\numberline {4.13.8}AdLib}{171}{subsection.4.13.8}
+\contentsline {section}{\numberline {4.14}Keyboard}{173}{section.4.14}
+\contentsline {subsection}{\numberline {4.14.1}Keyboard scancodes}{173}{subsection.4.14.1}
+\contentsline {subsection}{\numberline {4.14.2}Keyboard input}{174}{subsection.4.14.2}
+\contentsline {section}{\numberline {4.15}Random Tricks}{176}{section.4.15}
+\contentsline {subsection}{\numberline {4.15.1}Bouncing Physics}{176}{subsection.4.15.1}
+\contentsline {subsection}{\numberline {4.15.2}Screen fades}{180}{subsection.4.15.2}
+\contentsline {section}{\numberline {4.16}Keen Dreams in CGA}{181}{section.4.16}
+\contentsline {subsection}{\numberline {4.16.1}CGA Video card}{182}{subsection.4.16.1}
+\contentsline {subsection}{\numberline {4.16.2}Interlacing}{185}{subsection.4.16.2}
+\contentsline {subsection}{\numberline {4.16.3}Double buffering}{187}{subsection.4.16.3}
+\contentsline {subsection}{\numberline {4.16.4}Screen refresh}{188}{subsection.4.16.4}
+\contentsline {chapter}{Appendices}{191}{section*.162}
+\contentsline {chapter}{\numberline {A}Unboxing the asset files}{193}{appendix.A}
+\contentsline {chapter}{\numberline {B}x86 Memory Models}{195}{appendix.B}
+\contentsline {chapter}{\numberline {C}Dangerous Dave in Copyright Infringement}{199}{appendix.C}
+\contentsline {chapter}{\numberline {D}Founding of id Software}{201}{appendix.D}

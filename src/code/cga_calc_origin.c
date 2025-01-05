@@ -1,7 +1,5 @@
 void RFL_CalcOriginStuff (long x, long y)
 {
-    [...]	
-
     originxglobal = x;
     originyglobal = y;
 	

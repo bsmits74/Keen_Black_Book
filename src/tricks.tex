@@ -28,36 +28,35 @@ The resulting speed is determined as a factor of either the \cw{xspeed} or \cw{y
 \end{minipage}
 
 \par
-For each combination of the eight types of slopes and incoming angle, the bounce angle is determined using a simple lookup table. \\
+For each combination of the eight slope types and incoming angle, the bounce angle is determined using a simple lookup table. \\
 
 \begin{figure}[H]
 \centering
 \setlength{\tabcolsep}{2pt} % set border margin to 3
+\renewcommand{\arraystretch}{1.2}
 \small
 \begin{tabular}{
-|
-      >{\centering}p{0.18\textwidth}|
-      >{\centering}p{0.09\textwidth}
-      >{\centering}p{0.09\textwidth}
-      >{\centering}p{0.09\textwidth}
-      >{\centering}p{0.09\textwidth}
-      >{\centering}p{0.09\textwidth}
-      >{\centering}p{0.09\textwidth}
-      >{\centering}p{0.09\textwidth}
+      >{\centering}p{0.18\textwidth}
+      >{\centering}p{0.09\textwidth}|
+      >{\centering}p{0.09\textwidth}|
+      >{\centering}p{0.09\textwidth}|
+      >{\centering}p{0.09\textwidth}|
+      >{\centering}p{0.09\textwidth}|
+      >{\centering}p{0.09\textwidth}|
+      >{\centering}p{0.09\textwidth}|
       >{\centering\arraybackslash}p{0.09\textwidth}
-      |  
 }
-\hline
-\multirow{2}{*}{\textbf{Wall type}} & \multicolumn{8}{c|}{\textbf{incoming angle}} \\ 
- & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\ \hline
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-1 & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline
-2 & 5 & 4 & 3 & 2 & 1 & 0 & 15 & 14 \\ \hline
-3 & 5 & 4 & 3 & 2 & 1 & 0 & 15 & 14 \\ \hline
-4 & 3 & 2 & 1 & 0 &15 &14 & 13 & 12 \\ \hline
-5 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 \\ \hline
-6 & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 \\ \hline
-7 &11 &10 & 9 & 8 & 7 & 6 & 5 & 4 \\ \hline
+
+ & \multicolumn{8}{c}{\textbf{incoming angle}} \\ 
+\textbf{Wall type} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\ \hline
+\textbf{0} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+\textbf{1} & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline
+\textbf{2} & 5 & 4 & 3 & 2 & 1 & 0 & 15 & 14 \\ \hline
+\textbf{3} & 5 & 4 & 3 & 2 & 1 & 0 & 15 & 14 \\ \hline
+\textbf{4} & 3 & 2 & 1 & 0 &15 &14 & 13 & 12 \\ \hline
+\textbf{5} & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 \\ \hline
+\textbf{6} & 9 & 8 & 7 & 6 & 5 & 4 & 3 & 2 \\ \hline
+\textbf{7} &11 &10 & 9 & 8 & 7 & 6 & 5 & 4 \\ \hline
 
 \end{tabular}\\
 \setlength{\tabcolsep}{6pt} % reset border margin
@@ -142,7 +141,6 @@ Fading the screen from black to color is straightforward.\\
   \lstinputlisting[language=C]{code/ega_fade_in.c}
 \end{minipage}
 \label{ega_fade_in}
-\par
 
 
 \end{document}
