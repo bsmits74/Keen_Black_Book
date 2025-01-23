@@ -54,12 +54,12 @@ A lot of friction was present since manufacturers had not embraced the gaming in
       axis x line=bottom,
       axis y line=left,
       enlarge x limits=0.11,
-      symbolic x coords={8088 4.8Mhz, 8088 10Mhz, 286 8MHz,286 10MHz,286 16MHz,386DX 33},
+      symbolic x coords={8088 4.77Mhz, 8088 10Mhz, 286 8MHz,286 10MHz,286 16MHz,386DX 33},
       xticklabel style={anchor=base,yshift=-\baselineskip},
       nodes near coords={\pgfmathprintnumber\pgfplotspointmeta}
     ]
       \addplot[fill=black!20,draw=black] coordinates {
-		(8088 4.8Mhz,0.2)      	
+		(8088 4.77Mhz,0.2)      	
       	(8088 10Mhz,0.75)
         (286 8MHz,1.5)
         (286 10MHz,1.7)
@@ -93,6 +93,8 @@ When IBM developed the AT, it selected the 286 as the basis for the new system b
 \par
 The 286 chip has two modes of operation: real mode and protected mode. The two modes are distinct enough to make the 286 resemble two chips in one. In real mode, a 286 acts essentially the same as an 8086 chip and is fully compatible with the 8086 and 8088. In the protected mode of operation, the 286 was truly something new. In this mode, a program designed to take advantage of the chip's capabilities has access to 1GB of memory (including virtual memory). The 286 chip, however, can address only 16MB of hardware memory. A significant failing of the 286 chip is that it cannot switch from protected mode to real mode without a hardware reset (a warm reboot) of the system (It can, however, switch from real mode to protected mode without a reset).\\
 
+\trivia{Gordon Letwin of Microsoft found a way to switch back from protected to real mode, using a "triple fault"\footnote{https://en.wikipedia.org/wiki/Triple\_fault.} to soft reset the 286 CPU into real mode. However, it could take nearly 1 second, making switching from protected to real not feasible to be done often.}\\
+
 \par
 While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on a 8088 chip.\\
 
@@ -119,7 +121,7 @@ mm square and the die is 7x7 mm, at 1:1 scale.\\
 
  \pagebreak
 
-\par Despite the apparent complexity, the 80286 can be summarized by functional units and a three-stage instruction pipeline.
+\par Despite the apparent complexity, the 80286 can be summarized by four functional units and a three-stage instruction pipeline.
 
 
 \begin{figure}[H]
@@ -133,13 +135,21 @@ The four functional units can be described by
 \item \textbf{address unit (AU)} is used to determine the physical addresses of instructions and operands which are stored in memory. The address lines derived by AU can be used to address different peripheral devices such as memory and I/O devices. 
 \item \textbf{bus unit (BU)} interfaces the 80286 with memory and I/O devices. The bus unit is used to fetch instruction bytes from the memory and stores them in the prefetch queue.
 \item \textbf{instruction unit (UI)} receives instructions from the prefetch queue and an instruction decoder decodes them one by one. The decoded instructions are latched onto a decoded instruction queue.
-\item \textbf{execution unit (EU)} is responsible for executing the instructions received from the decoded instruction queue. The execution unit consists of the register bank, arithmetic and logic unit (ALU) and control block. The ALU is the core of the EU and perform all the arithmetic and logical operations.
+\item \textbf{execution unit (EU)} is responsible for executing the instructions received from the decoded instruction queue. The execution unit consists of the register bank, arithmetic and logic unit (ALU) and control block. The ALU is the core of the EU and perform all the arithmetic and logical operations.\\
 \end{itemize}
+
+\par
+The performance increase of the 80286 over the 8088 was mainly to the fact that address calculations (such as segment+offset) were less expensive. They were performed by the dedicated address unit in the 80286, while the older 8088 had to do effective address computation using its ALU, consuming several extra clock cycles in many cases.
+
+
 \par
 \begin{figure}[H] 
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/processing_unit.eps}
 \end{figure}
+
+
+
 \par
 The three units in the execution group form a three stage pipeline: Prefetch, Decode, and Execute. The Prefetch Unit wakes up when the Execution unit is performing but not using the bus and fetches instructions in a 6-byte queue. The prefetcher is linear and cannot predict the result of a branch. As a result, a jump (\cw{JMP}) instruction triggers a flush of the entire pipeline. Instructions go down the pipeline and are decoded by the Decode Unit: the result of the decode operation is stored in a three-element FIFO where it is picked up by the Execution Unit.\\
 \par
@@ -153,7 +163,7 @@ The three units in the execution group form a three stage pipeline: Prefetch, De
 \centering
 
   \fullimage{Intel80286.png}
-\caption{The Intel 286, 10mm by 10mm packing 134,000 transistors}
+\caption{The Intel 286, 7mm by 7mm packing 134,000 transistors}
 \end{figure}
 \par
 From a programming perspective, a 286 CPU can be summarized by the following elements:
@@ -213,7 +223,7 @@ The way to deal with the data alignment cycle-eater is straightforward: Don't pe
 
 
 \section{RAM}
-The first CPUs in the Intel x86 family were designed in 1976. It was introduced at a time when the largest register in a CPU was only 16-bits long which meant it could address only 65,536 bytes (64 KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}) of memory, directly. As example both  the Apple II and the Commodore 64 both shipped with 64KiB which was enough to write and run amazing things.\\
+The first CPUs in the Intel x86 family were designed in 1976. It was introduced at a time when the largest register in a CPU was only 16-bits long which meant it could address only 65,536 bytes (64 KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}) of memory, directly. For example, the Apple II and the Commodore 64 both shipped with 64KiB, which was enough to write and run amazing things.\\
 
 \par
 But everyone was hungry for a way to run much larger programs. Rather than create a CPU with larger register sizes, the designers at Intel decided to keep the 16-bit registers for their new 8086 and 8088 CPU and added a different way to access more memory: They expanded the instruction set, so programs could tell the CPU to group  two 16-bit registers together whenever they needed to refer to an absolute memory location beyond 64 KiB.\\
@@ -420,7 +430,7 @@ In the medium memory model, the data segment remains limited to 64KiB. For most 
 
 
 \par
-Fortunately, there is a way to access additional memory using the medium model. A large portion of unallocated memory is available between the heap and the high address \cw{A0000h}. This memory, known as the "far heap", can be allocated using the \cw{farmalloc()} function. This technique, called mixed model programming, combines the advantages of one of the six standard memory models with custom near and far pointer allocation. In the case of the medium memory model, it allows the program to benefit from near pointer efficiency for global data and the stack, while also providing sufficient memory for dynamically allocated assets like graphics and levels.\\
+Fortunately, there is a way to access additional memory using the medium model. A large portion of unallocated memory is available between the stack and the high address \cw{A0000h}. This memory, known as the "far heap", can be allocated using the \cw{farmalloc()} function. This technique, called mixed model programming, combines the advantages of one of the six standard memory models with custom near and far pointer allocation. In the case of the medium memory model, it allows the program to benefit from near pointer efficiency for global data and the stack, while also providing sufficient memory for dynamically allocated assets like graphics and levels.\\
 
 
 \begin{figure}[H]
@@ -559,7 +569,7 @@ To add additional video memory to the IBM EGA card a Graphics Memory Expansion C
 The EGA clones that started coming along in 1986-87 were based on integrated chipsets, and the vast majority of them came with the maximum of 256KiB on board. When Commander Keen came out, the headcount of EGA cards with less than 256KiB would've been practically negligible\footnote{PC Tech Journal Oct 1986 (page 82-83) and PC Tech Journal Nov 1986 (page 148-149)}.\\
 
 \par
-The next page shows an ATI EGA Wonder 800 and Paradise AutoSwitch EGA 350 (both are 8-bit ISA). The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
+The next page shows an ATI EGA Wonder 800 (top) and Paradise AutoSwitch EGA 350 (bottom),  both are 8-bit ISA. The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
 
 \begin{figure}[H] 
   \centering 

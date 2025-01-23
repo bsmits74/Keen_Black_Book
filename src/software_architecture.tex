@@ -218,12 +218,12 @@ The engine has its own memory manager, to have more control over memory fragment
 \par
 \lstinputlisting[language=C]{code/mm_block.c}
 \par  
-The memory manager allocates all RAM, starting from \cw{00000h}, and assigns segments to the linked list. Since the engine is compiled using the medium memory model, there are two heaps: the near heap between the global variables and stack, and the far heap starting right behind the stack . The total available free memory space for the near heap can be obtained by\\
+The memory manager allocates all RAM, starting from \cw{0000:0000h}, and assigns segments to the linked list. Since the engine is compiled using the medium memory model, there are two heaps: the near heap between the global variables and stack, and the far heap starting right behind the stack . The total available free memory space for the near heap can be obtained by\\
 \par
 \lstinputlisting[language=C]{code/nearheap.c}
 
 \par  
-The memory manager is segment-aligned, meaning it allocates memory blocks in chunks of 16 bytes. Therefore, the start and length of the memory block must be segment aligned. \\
+The memory manager is segment-aligned, meaning it allocates memory blocks in chunks of 16 bytes. \\
 
 
 \lstinputlisting[language=C]{code/mm_block_first.c}
@@ -306,7 +306,7 @@ The video manager features two parts:
 \item The \cw{VW\_*} layer is made of both C and ASM, where the C functions abstract away EGA register manipulation via assembly routines. 
 \item The \cw{RF\_*} layer is used to refresh the screen, and is also made of both C and ASM code.
 \end{itemize}
-The video manager is described extensively in section \ref{section:adaptive_tile_refresh} on page \pageref{section:adaptive_tile_refresh}.
+The video manager is described extensively in section "\nameref{section:adaptive_tile_refresh}" on page \pageref{section:adaptive_tile_refresh}.
 
 \subsection{Cache Manager (CA)}
 The cache manager is a small but critical component. It loads and decompresses maps, graphics and audio resources stored on the filesystem and makes them available in RAM. Assets are stored into three files: 
@@ -321,16 +321,16 @@ Details of each asset file are explained in section "\nameref{section:programmin
 
 \par
 \begin{fancyquotes}
-When I was trying to fit all the data for Keen2 and Keen3 on a 360K floppy and all the files wouldn't fit, I had to convert a bunch of files to .OBJ files (using a utility I developed), change the code to forgo the loading process for those files, then I had to link them into the KEEN EXE file, then finally I had to LZEXE the EXE file so it was much smaller\\ 
+When I was trying to fit all the data for Keen 2 and Keen 3 on a 360K floppy and all the files wouldn't fit, I had to convert a bunch of files to .OBJ files (using a utility I developed), change the code to forgo the loading process for those files, then I had to link them into the KEEN EXE file, then finally I had to LZEXE the EXE file so it was much smaller\\ 
 \par
--- that was the only way that Keen2 and 3 would fit on a 360K floppy.\\
+-- that was the only way that Keen 2 and 3 would fit on a 360K floppy.\\
 
 \par
 \textbf{John Romero\protect\footnotemark}
 \end{fancyquotes}\\
 \addtocounter{footnote}{-1}
 \stepcounter{footnote}
-\footnotetext{Great article on history of Commander Keen on https://legacy.3drealms.com/keenhistory.}
+\footnotetext{Great article regarding history of Commander Keen on https://legacy.3drealms.com/keenhistory.}
 
 
 \pagebreak
@@ -408,7 +408,7 @@ Printing the letter "N" with an offset of 3 pixels involves a simple lookup in \
 \end{minipage}
 \par
 \subsection{Sound Manager (SD)}
-The Sound Manager abstracts interaction with all sound systems supported: PC Speaker, AdLib, and Sound Blaster. It is a beast of its own since it doesn't run inside the engine. Instead it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). The sound manager is described extensively in the "\nameref{audio_and_heartbeat}" section. \\
+The Sound Manager abstracts interaction with all sound systems supported: PC Speaker, AdLib, and Sound Blaster. It is a beast of its own since it doesn't run inside the engine. Instead it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). The sound manager is described extensively in the "\nameref{audio_and_heartbeat}" section on page \pageref{audio_and_heartbeat}. \\
  \par
 \begin{figure}[H]
 \centering

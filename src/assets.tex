@@ -51,7 +51,7 @@ All graphic assets were produced by Adrian Carmack. All of the work was done wit
  \caption{Deluxe Paint was used to draw all assets in the game.}
 \end{figure}
 
-\subsection{Tiles and maps}
+\subsection{Tile planar arrangement}
 Before diving into the details of game assets, let's first explore the basic principles behind platform games. Each level, or map, in a platform game is composed of "tiles". In Commander Keen, there are both background and foreground tiles. A background tile, or just "tile", is an image that measures 16x16 pixels. Each tile occupies 128 bytes (2 x 16 x 4 planes) of storage space in the graphics assets file.\\
 
 \par
@@ -304,7 +304,7 @@ The remainder of the archive file holds all graphic assets, including pictures, 
 \section{Maps}
 Maps were created using an in-house editor called TED5, short for Tile EDitor. Over the years TED5 had improvements and the same tool is later used for creating maps for both side-scrolling games and top-down games like \textit{Wolfenstein 3D}.\\
 \par
- TED5 is not stand-alone; in order to start, it needs an asset archive and the  associated header (as described in the graphic asset workflow Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, tile IDs are directly encoded in the map.\\
+ TED5 is not stand-alone; in order to start, it needs an asset archive and the  associated header (as described in Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, tile IDs are directly encoded in the map.\\
 
  \par
 \fullimage{Fill_2.png}\\
@@ -320,7 +320,12 @@ TED5 allows the placement of tiles across multiple layers, referred to as "plane
 A level is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), which controls interactions such as clipping, "deadly" tiles, and animated tiles. \\
 
 \par
-\fullimage{ted5_tile_info.png}\\
+\begin{figure}[H] 
+  \centering 
+  \fullimage{ted5_tile_info.png}\\
+  \caption{"Tile info" adding properties to tiles.}
+\end{figure} 
+
  
 \par
 Similar to IGRAB, TED5 compresses all levels into a \cw{MAP} archive and generates corresponding \cw{HEAD} and \cw{DICT} files.\\

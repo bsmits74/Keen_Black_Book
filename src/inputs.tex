@@ -9,29 +9,26 @@ Before Microsoft introduced the DirectInput API in Windows 95, developers needed
 
 \subsection{Keyboard scancodes}
 \par
-Each key on a PC keyboard is linked to a scancode. When a key is pressed, circuitry in the keyboard generates the scancode and sends it serially to the keyboard controller. This key-down event, also known as a "make code", signals the key press. When a key is released, its scancode high-bit (\cw{80h}) is set, producing a "break code" that is sent by the same mechanism. For example, pressing "\textbf{A}" generates the make code \cw{1Eh}, while releasing it sends the break code \cw{9Eh}. Holding down a key will type a repeating sequence of that character after a short delay, resulting in retransmitting the make code at regular intervals for as long as the key is being held.\\
+Each key on a PC keyboard is linked to a scancode. When a key is pressed, circuitry in the keyboard generates the scancode and sends it serially to the keyboard controller. This key-down event, also known as a "make code", signals the key press. When a key is released, its scancode high-bit (\cw{80h}) is set, producing a "break code" that is sent by the same mechanism. For example, pressing "A" generates the make code \cw{1Eh}, while releasing it sends the break code \cw{9Eh}. Holding down a key will type a repeating sequence of that character after a short delay, resulting in retransmitting the make code at regular intervals for as long as the key is being held.\\
 
 \begin{figure}[H]
 \centering
       \includegraphics[width=1.0\textwidth]{imgs/drawings/keyboard_model_M.eps}
-      \caption{IBM Keyboard Model M scancode layout (scancodes in hexadecimal).}
+      \caption{IBM PS/2 Keyboard scancode layout (scancodes in hexadecimal).}
 \end{figure}
 
 \par
-The Model M includes 14 keys, such as "\textbf{Right Ctrl}", "\textbf{Right Alt}", and the arrow keys, that duplicate functions from the 84-key AT layout. To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "\textbf{/}"-key produces the scancode \cw{35h}, while the numeric keypad's "\textbf{Num /}"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
+The PS/2 keyboard includes 14 keys, such as "Right Ctrl", "Right Alt", and the arrow keys, that duplicate functions from the original 84-key AT layout. To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "/"-key produces the scancode \cw{35h}, while the numeric keypad's "Num /"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
 
 \par
-This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "\textbf{/}" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists.\\
+This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "/" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists.\\
 
-\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "\textbf{Shift}" + "\textbf{Num /}" should produce a "\textbf{/}", as indicated on the keycap. However, older software may interpret this sequence incorrectly: Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "\textbf{?}".}
+\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "Shift" + "Num /" should produce a "/", as indicated on the keycap. However, older software may interpret this sequence incorrectly: Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "?".}
 
 
 
-\subsection{Keyboard input}
+\subsection{Keyboard controller}
 Once a key is pressed or released, the scancode is decoded and processed by the keyboard controller. On the IBM XT, this is an Intel 8255 PPI\footnote{Programmable Peripheral Interface} chip. Its main purpose is to listen for serial data from the keyboard, verify that it arrived intact, store each incoming scancode in a buffer, and request an interrupt so it can be read by the software.\\
-
-\par
-With the advent of the IBM AT and the need for bidirectional communication with the keyboard for features like keyboard status LEDs, the Intel 8042 UPI\footnote{Universal Peripheral Interface.} chip was introduced. The UPI retained backward compatibility with the PPI chip, handling all scancodes from the keyboard. When a key is pressed, the interrupt is routed to ISR \#9 in the Vector Interrupt Table. The engine installs its own ISR there.\\
 
 \par
 \begin{figure}[H]
@@ -40,6 +37,10 @@ With the advent of the IBM AT and the need for bidirectional communication with 
   \caption{Keyboard hardware diagram.}
   \label{fig:pc_keyboard}
 \end{figure}
+
+\par
+With the advent of the IBM AT and the need for bidirectional communication with the keyboard for features like keyboard status LEDs, the Intel 8042 UPI\footnote{Universal Peripheral Interface.} chip was introduced. The UPI retained backward compatibility with the PPI chip, handling all scancodes from the keyboard. When a key is pressed, the interrupt is routed to ISR \#9 in the Vector Interrupt Table. The engine installs its own ISR there.\\
+
 
 \par
 \begin{minipage}{\textwidth}

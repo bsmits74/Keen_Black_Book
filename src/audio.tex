@@ -28,7 +28,7 @@ The solution to this is "interrupts". At the processor level, an interrupt reque
  Alternately, the ISR can decide not to mask other IRQs and do what it is supposed to do as fast as possible so as to not delay the firing of other important interrupts that may lose data if they aren't serviced quickly enough. Keen Dreams uses the latter approach and keeps tasks in its ISR very small and short. 
 
 \subsection{IRQs and ISRs}
-The IRQ and ISR system relies on two chips: the Intel 8254, which functions as a Programmable Interval Timer (PIT), and the Intel 8259, which acts as a Programmable Interrupt Controller (PIC). The PIT features a crystal oscillating at 1.193182 MHz. At its core, the PIT is a decrementing counter. The programmer loads a 16-bit value between 0 and 65,535 into a register in the PIT. With each clock pulse, the counter decrements toward zero. Once it reaches zero, it automatically resets to the original value stored in the register and starts over.\\
+The audio and heartbeat system relies on two chips: the Intel 8254, which functions as a Programmable Interval Timer (PIT), and the Intel 8259, which acts as a Programmable Interrupt Controller (PIC). The PIT features a crystal oscillating at 1.193182 MHz. At its core, the PIT is a decrementing counter. The programmer loads a 16-bit value between 0 and 65,535 into a register in the PIT. With each clock pulse, the counter decrements toward zero. Once it reaches zero, it automatically resets to the original value stored in the register and starts over.\\
 
 \par
 \begin{figure}[H]
@@ -156,7 +156,10 @@ Each time the interrupt system triggers, it runs another small (yet paramount) s
 \end{minipage}
 
 \par
-It is updated at a rate of 70 units per seconds, to match the VGA update rate of 70Hz. These units are called "ticks". Depending on how fast the audio system runs (from 140Hz to 700Hz), it adjusts how frequent it should increase \cw{TimeCount} to keep the game rate at 70Hz.\\
+Once the interrupt is completed, the interrupt handler must explicitly acknowledge the IRQ at the interrupt controller to return to the game engine loop. This is accomplished by writing an "end of interrupt" signal byte to I/O port \cw{20h}.\\
+
+\par
+The heartbeat is updated at a rate of 70 units per seconds, to match the VGA update rate of 70Hz. These units are called "ticks". Depending on how fast the audio system runs (from 140Hz to 700Hz), it adjusts how frequent it should increase \cw{TimeCount} to keep the game rate at 70Hz.\\
 
 \par
 Every system in the engine uses this variable to pace itself. The renderer will not start rendering a frame until at least one tick has passed. The AI system expresses action duration in tick units. The input sampler checks for how long a key was pressed, and the list goes on. Everything interacting with human players uses \cw{TimeCount}.
@@ -198,7 +201,7 @@ Sounds effects are stored in two formats.
 They are all packaged in the \cw{AudioT} archive created by Muse. Sounds are segregated by format but always stored in the same order. This way a sound can be accessed in two formats by using \cw{STARTPCSOUNDS} + \cw{sound\_ID} or \cw{STARTADLIBSOUNDS} + \cw{sound\_ID}.\\
 
 \par
-Although the Sound Manager was designed to support music and digital sound playback on SoundBlaster and Disney Sound Source, this functionality was never implemented in Keen Dreams (as explained in section "\nameref{section:audio}" on page \pageref{section:audio}) and will be therefore not further explained in this section.\\
+Although the Sound Manager was designed to support music and digital sound playback on SoundBlaster and Disney Sound Source, this functionality was never implemented in Keen Dreams (as explained in section "\nameref{section:audio}" on page \pageref{section:audio}) and will therefore not be further explained in this section.\\
 
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/muse_header.c}
@@ -210,7 +213,7 @@ Although the Sound Manager was designed to support music and digital sound playb
 The hardware chapter described a problem for sound effects: the default PC speaker could only generate square waves, resulting in long beeps which are not acceptable for gaming.\\
 
 \par
-Earlier it was hinted that the PIT had three counter channels (0-2), of which channel 2 was used for PC speaker output. The counter output mode can be reprogrammed to "square wave generator" mode. If counter \#2 is closer to its starting value than zero, the output of the PIT is a high electrical signal. If the counter is closer to zero, the output is low. The end result is a square wave, high half of the time and low the other half, with the frequency controlled by the value in the PIT register. This square wave signal is amplified and fed into the speaker. \\
+Earlier it was hinted that the PIT had three counter channels, of which channel 2 was used for PC speaker output. The counter output mode can be reprogrammed to "square wave generator" mode. If counter \#2 is closer to its starting value than zero, the output of the PIT is a high electrical signal. If the counter is closer to zero, the output is low. The end result is a square wave, high half of the time and low the other half, with the frequency controlled by the value in the PIT register. This square wave signal is amplified and fed into the speaker. \\
 
 \par
 \begin{figure}[H]
@@ -220,8 +223,13 @@ Earlier it was hinted that the PIT had three counter channels (0-2), of which ch
   \label{fig:pc_speaker}
 \end{figure}
 
+
 \par
 \vspace{10pt}
+A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, and the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. This is the value that must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats. To create a higher pitch, the counter value would need to be lower. \\
+
+
+\par
 To adjust the frequency, write to port \cw{43h} to set the PIT command register, followed by writing the desired counter value to port \cw{42h}.\\
 
 \begin{figure}[H]
@@ -247,10 +255,6 @@ To adjust the frequency, write to port \cw{43h} to set the PIT command register,
   \footnotetext{For details, see https://wiki.osdev.org/Programmable\_Interval\_Timer}
    % \stepcounter{footnote}
 
-
-
-\par
-A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, and the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. This is the value that must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats. To create a higher pitch, the counter value would need to be lower. \\
 
 \par
 When instructed to play a PC Speaker sound effect, the audio system sets itself to run at 140Hz via PIT Counter \#0. Every times it wakes up, it reads the frequency to maintain for the next 1/140th of a second and writes it to Counter \#2.\\
@@ -279,7 +283,7 @@ Human hearing ranges from approximately 20 Hz to 20,000 Hz, making any counter v
 \end{minipage}
 
 \par
-The lowest frequency is 78 Hz and the highest frequency is 19,886 Hz. Notice how the \cw{* 60} is not calculated but looked up. Once again the engine tries to save as much CPU time as possible by using a bit of RAM.\\
+The lowest frequency is 78 Hz and the highest frequency is 19,886 Hz. Notice how the \cw{*60} is not calculated but looked up. Once again the engine tries to save as much CPU time as possible by using a bit of RAM.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -290,7 +294,7 @@ The lowest frequency is 78 Hz and the highest frequency is 19,886 Hz. Notice how
 \subsection{AdLib}
 The AdLib sound relies on the OPL2 chip. Programming the OPL2 output is esoteric to say the least. AdLib and Creative did publish SDKs but they were expensive.  Documentation was sparse and often cryptic. Today, they are very difficult to find.\\
 \par
-The OPL2 is made of 9 channels capable of emulating instruments. Each channel is made of two oscillators: a Modulator whose outputs are fed into a Carrier's input. Each channel has individual settings including frequency and envelope (composed of attack rate, decay rate, sustain level, release rate, and vibrato). Each oscillator can also pick a waveform (these characteristic forms are what gave the YM3812 its recognizable sound).\\
+The OPL2 is made of 9 channels capable of emulating instruments. Each channel is made of two oscillators: a Modulator whose outputs are fed into a carrier's input. Each channel has individual settings including frequency and envelope (composed of attack rate, decay rate, sustain level, release rate, and vibrato). Each oscillator can also pick a waveform (these characteristic forms are what gave the YM3812 its recognizable sound).\\
 \par
  To control all of these channels, a developer must configure the OPL2's 244 internal registers. These are all accessed via two external I/O ports. One port is for selecting the card's internal register and the other is to read/write data to it.\\
 \par
@@ -301,10 +305,10 @@ The OPL2 is made of 9 channels capable of emulating instruments. Each channel is
 When the AdLib was first conceived in 1986, it was tested on IBM XTs and ATs, none of which exceeded a speed of 6 MHz. They wrote their specification based on this, writing that while the AdLib required a certain amount of "wait time" between commands, it was okay to send them as fast as possible because no PC was faster than the minimum wait time. They later found out that a Intel 386 was fast enough to send commands faster than the AdLib was expecting them, and they changed their specification to mention a minimum 35 microseconds wait time between commands.\\
 
 \par
-The Programming Guide was amended with reliable specs to wait 3.3 microseconds after a register select write, and 23 microseconds after a data write. For Keen Dreams it is implemented as a 10 microseconds and 25 microseconds respectively.\\
+The Programming Guide was amended with reliable specs to wait 3.3 microseconds after a register select write, and 23 microseconds after a data write. On an Intel 286 it is implemented as a 10 microseconds and 25 microseconds respectively.\\
 
 \par
-The engine does not know about any of the details of the OPL2. There is zero abstraction layer of transformation here. An IMF sound is made of a series of messages containing the values to write to the register and data ports of the OPL2.\\
+The engine does not know about any of the details of the OPL2. There is zero abstraction layer of transformation here. An IMF\footnote{id Music Format} sound is made of a series of messages containing the values to write to the register and data ports of the OPL2.\\
 
 \par
 Every time the audio system wakes up via the timer interrupt, it checks if a sound effects should be sent, and plays the next sample out through the AdLib card.\\

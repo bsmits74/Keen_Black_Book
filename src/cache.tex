@@ -108,8 +108,7 @@ The \cw{grneeded[]} cache array then appears as below.\\
 \par
 The function \cw{CA\_CacheMarks()} is called again to load all cache level 2 assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level 2, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory.\\
 
-\lstinputlisting[language=C]{code/unrolled_CA_CacheMarks.c}
-
+\bigskip
 \par
 In this example, this applies to 
 \begin{itemize}
@@ -117,6 +116,10 @@ In this example, this applies to
   \item \cw{KEENRUNR1SPR}
   \item \cw{TILE16 \#1} 
 \end{itemize}
+
+\lstinputlisting[language=C]{code/unrolled_CA_CacheMarks.c}
+
+
 
 \par
 When the user closes the control panel, the engine lowers the cache level back to 1, where all assets required for playing the level are memorized. Simply calling the function \cw{CA\_CacheMarks()} again reloads any assets that were removed from memory.\\

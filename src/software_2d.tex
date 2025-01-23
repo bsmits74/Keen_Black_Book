@@ -100,7 +100,7 @@ Smooth horizontal scrolling on EGA involves adjusting the CRTC Start Address alo
 
 
 \section{Adaptive Tile Refreshment}
-So far, we have built a virtual screen in VRAM allowing smooth one pixel moves in both axes using only EGA registers. However, once the screen edge is reached, a full-screen redraw would be too slow, causing a drop to 5 fps.\\
+So far, we have built a virtual screen in VRAM allowing smooth one pixel moves in both axes using only EGA registers. However, once the virtual screen edge is reached, a full-screen redraw would be too slow, causing a drop to 5 fps.\\
 
 
 \begin{figure}[H]
@@ -276,9 +276,9 @@ It just works. We no longer had the problem of having fields of similar colors. 
 \footnotetext{An explanation further elaborated during the same interview with Lex Fridman in 2022.}
 
 \par
-There was however an issue with the introduction of Super VGA cards, which had typically more than 256kB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring at least 256kB RAM, which from a hardware constraint resulted in 512kB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{0xFFFF} did not work anymore on these cards. \\
+There was however an issue with the introduction of Super VGA cards, which had typically more than 256kB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring at least 256kB RAM, which from a hardware constraint resulted in 512kB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{FFFFh} did not work anymore on these cards. \\
 \par
-There is an easy solution to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} on page \pageref{fig:ega_ram_arch}, the space between \cw{0xB400} and \cw{0xFFFF} is not used and contains enough space for another virtual screen. In case the start address is between \cw{0xC400} and \cw{0xFFFF} the corresponding screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
+There is an easy solution to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} on page \pageref{fig:ega_ram_arch}, the space between \cw{B400h} and \cw{FFFFh} is not used and contains enough space for another virtual screen. In case the start address is between \cw{C400h} and \cw{FFFFh} the corresponding screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
 
 \par
 
@@ -445,7 +445,7 @@ The final step in updating the buffer is copying sprites to their new locations,
 \end{figure}
 
 \pagebreak
-Once the buffer refresh is completed, the engine needs only to update the CRTC start address to virtual page 1. At this point, the visible tile array is emptied, and the pointer resets to its starting location. The new buffer array (virtual page 0) retains the marked tiles since this screen has not yet refreshed. At this point, the refresh cycle restarts, with virtual page 0 now functioning as the buffer. 
+Once the buffer refresh is completed, the engine needs only to update the CRTC start address to virtual page 1. At this point, the visible tile array is emptied, and the pointer resets to its starting location. The new buffer array (virtual page 0) retains the marked tiles since this screen has not yet refreshed. Finally, the refresh cycle restarts, with virtual page 0 now functioning as the buffer. 
 
 \begin{figure}[H]
 \centering
@@ -580,7 +580,7 @@ The \cw{*contact} function checks if an object has come into contact with anothe
 
 \subsection{Clipping}
 \label{section:clipping}
-Whether an actor can move or fall through a tile is determined by the tile properties \cw{tinf[]}. Each foreground tile includes four directional parameters: north, south, east, and west. If, for example, the east parameter has a value greater than 0, the tile has a solid east wall, and the actor cannot enter it from the east side. When a sprite moves to the left and encounters a solid tile from the east, the engine adjusts the actor's movement to prevent it from entering the tile.\\
+Whether an actor can move or fall through a tile is determined by the tile property \cw{tinf[]}. Each foreground tile includes four directional parameters: north, south, east, and west. If, for example, the east parameter has a value greater than 0, the tile has a solid east wall, and the actor cannot enter it from the east side. When a sprite moves to the left and encounters a solid tile from the east, the engine adjusts the actor's movement to prevent it from entering the tile.\\
 
 
 \begin{figure}[H]
@@ -821,7 +821,7 @@ Take for example drawing a 6-byte wide sprite. An optimal write depends whether 
 
 
 \par
-In total 23 functions are written to optimize \cw{word}-size writing up to 10 bytes wide sprites. Each function pointer reference is stored in an array.\\
+In total 23 functions are defined to optimize \cw{word}-size writing up to 10 bytes wide sprites. Each function pointer reference is stored in an array.\\
 
 \par
 \begin{minipage}{\textwidth}

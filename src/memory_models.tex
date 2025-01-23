@@ -1,11 +1,11 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
 \label{appendix_memory_models}
-The x86 memory models are a set of six different memory models of the x86 CPU operating in real mode which control how the segment registers are used and the default size of pointers. This appendix summarizes each model.\\
+The x86 memory models are a set of six different memory layouts for the x86 CPU operating in real mode, which control how the segment registers are used and the default size of pointers. This appendix summarizes each model.\\
 
 \par
 The "Tiny model" is, as you might guess, the smallest of the memory models. All
-four segment registers (CS, DS, SS, ES) are set to the same address, so you have a total of 64KiB for all of your code, data, and stack. Near pointers are always used. \\
+four segment registers (CS, DS, SS, ES) are set to the same address, so you have a total of 64KiB for all of your code, data, and stack. Near pointers are always used. This model is used for \cw{.com} applications, ensuring backwards compatibility with the CP/M operating system.\\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.55\textwidth]{imgs/drawings/memory/tiny_mm.eps}
@@ -56,7 +56,7 @@ The opposite of the medium model is the "compact memory model". Here the total f
 The "large memory model" can deal with function code and data larger than 64KiB. Far pointers are used for both code and data, giving both a 1 MiB range.\\
 
 \par
-In all models so far, Borland C++ limits the size of all global data to 64KiB. The "huge memory model" sets aside that limit, allowing global data to occupy more than 64KiB using multiple data files. If the source file is too big to fit into one 64KiB data segment, the program must be broken into smaller source files and compiled separately.\\
+In all models so far, Borland C++ limits the size of global data to 64KiB. The "huge memory model" sets aside that limit, allowing global data to occupy more than 64KiB using multiple data files. If the source file is too big to fit into one 64KiB data segment, the program must be broken into smaller source files and compiled separately.\\
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{imgs/drawings/memory/huge_mm.eps}

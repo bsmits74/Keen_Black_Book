@@ -4,6 +4,12 @@ switch (newangle)
 {
 [...]
 
+case 3:
+
+case 4:
+	ob->xspeed = 0;
+	ob->yspeed = -(speed / 256);
+	break;
 case 5:
 	ob->yspeed = -(speed / 286);
 	ob->xspeed = ob->yspeed / 2;
