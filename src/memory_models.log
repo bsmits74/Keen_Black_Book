@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  23 JAN 2025 20:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  25 JAN 2025 13:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1749,203 +1749,197 @@ LaTeX Font Info:    Try loading font information for T1+cmtt on input line 8.
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Package epstopdf Info: Source file: <imgs/drawings/memory/tiny_mm.eps>
-(epstopdf)                    date: 2025-01-05 14:36:06
-(epstopdf)                    size: 23841 bytes
-(epstopdf)             Output file: <imgs/drawings/memory/tiny_mm-eps-converted
--to.pdf>
-(epstopdf)                    date: 2025-01-05 14:36:29
-(epstopdf)                    size: 11198 bytes
+Package epstopdf Info: Source file: <imgs/drawings/memory/tiny_mm_v2.eps>
+(epstopdf)                    date: 2025-01-25 13:37:50
+(epstopdf)                    size: 23933 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/tiny_mm_v2-eps-conver
+ted-to.pdf>
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/tiny_
-mm-eps-converted-to.pdf imgs/drawings/memory/tiny_mm.eps>
-(epstopdf)             \includegraphics on input line 11.
-Package epstopdf Info: Output file is already uptodate.
+mm_v2-eps-converted-to.pdf imgs/drawings/memory/tiny_mm_v2.eps>
+(epstopdf)             \includegraphics on input line 12.
+runsystem(repstopdf --outfile=imgs/drawings/memory/tiny_mm_v2-eps-converted-to.
+pdf imgs/drawings/memory/tiny_mm_v2.eps)...executed safely (allowed).
+
+Package epstopdf Info: Result file: <imgs/drawings/memory/tiny_mm_v2-eps-conver
+ted-to.pdf>
+(epstopdf)                    date: 2025-01-25 13:37:59
+(epstopdf)                    size: 11226 bytes.
 
 
-pdfTeX warning: pdflatex (file ./imgs/drawings/memory/tiny_mm-eps-converted-to.
-pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-
-<imgs/drawings/memory/tiny_mm-eps-converted-to.pdf, id=32, 524.96124pt x 451.68
-75pt>
-File: imgs/drawings/memory/tiny_mm-eps-converted-to.pdf Graphic file (type pdf)
-
-<use imgs/drawings/memory/tiny_mm-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/memory/tiny_mm-eps-converted-to.pdf  use
-d on input line 11.
-(pdftex.def)             Requested size: 206.6932pt x 177.8391pt.
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/tiny_mm_v2-eps-converted-
+to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
+wed
+<imgs/drawings/memory/tiny_mm_v2-eps-converted-to.pdf, id=32, 624.3325pt x 469.
+755pt>
+File: imgs/drawings/memory/tiny_mm_v2-eps-converted-to.pdf Graphic file (type p
+df)
+<use imgs/drawings/memory/tiny_mm_v2-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/tiny_mm_v2-eps-converted-to.pdf  
+used on input line 12.
+(pdftex.def)             Requested size: 244.27016pt x 183.79147pt.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 12.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 13.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 12.
+(Font)              scaled to size 9.49997pt on input line 13.
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 12.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 13.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 12.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 13.
 LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
-(Font)              scaled to size 9.49997pt on input line 12.
-
-Underfull \hbox (badness 10000) in paragraph at lines 7--14
-
- []
-
+(Font)              scaled to size 9.49997pt on input line 13.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 17.
+(Font)              scaled to size 9.49997pt on input line 18.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./imgs/drawings/memory/tin
-y_mm-eps-converted-to.pdf>]
+y_mm_v2-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <imgs/drawings/memory/small_mm_v2.eps>
-(epstopdf)                    date: 2025-01-05 14:35:26
-(epstopdf)                    size: 24593 bytes
+(epstopdf)                    date: 2025-01-25 12:45:16
+(epstopdf)                    size: 102173 bytes
 (epstopdf)             Output file: <imgs/drawings/memory/small_mm_v2-eps-conve
 rted-to.pdf>
-(epstopdf)                    date: 2025-01-05 14:36:43
-(epstopdf)                    size: 11419 bytes
+(epstopdf)                    date: 2025-01-25 12:45:19
+(epstopdf)                    size: 80169 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/small
 _mm_v2-eps-converted-to.pdf imgs/drawings/memory/small_mm_v2.eps>
-(epstopdf)             \includegraphics on input line 22.
+(epstopdf)             \includegraphics on input line 24.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/memory/small_mm_v2-eps-converted
 -to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
 owed
-<imgs/drawings/memory/small_mm_v2-eps-converted-to.pdf, id=48, 495.8525pt x 388
-.45125pt>
+<imgs/drawings/memory/small_mm_v2-eps-converted-to.pdf, id=48, 624.3325pt x 402
+.50375pt>
 File: imgs/drawings/memory/small_mm_v2-eps-converted-to.pdf Graphic file (type 
 pdf)
 <use imgs/drawings/memory/small_mm_v2-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/memory/small_mm_v2-eps-converted-to.pdf 
- used on input line 22.
-(pdftex.def)             Requested size: 199.17554pt x 156.03566pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 18--25
-
- []
-
+ used on input line 24.
+(pdftex.def)             Requested size: 244.27016pt x 157.47945pt.
 Package epstopdf Info: Source file: <imgs/drawings/memory/medium_mm_v2.eps>
-(epstopdf)                    date: 2025-01-05 14:34:16
-(epstopdf)                    size: 32543 bytes
+(epstopdf)                    date: 2025-01-25 13:32:09
+(epstopdf)                    size: 32605 bytes
 (epstopdf)             Output file: <imgs/drawings/memory/medium_mm_v2-eps-conv
 erted-to.pdf>
-(epstopdf)                    date: 2025-01-05 14:36:43
-(epstopdf)                    size: 14777 bytes
+(epstopdf)                    date: 2025-01-25 13:32:12
+(epstopdf)                    size: 14798 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/mediu
 m_mm_v2-eps-converted-to.pdf imgs/drawings/memory/medium_mm_v2.eps>
-(epstopdf)             \includegraphics on input line 32.
+(epstopdf)             \includegraphics on input line 35.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/memory/medium_mm_v2-eps-converte
 d-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
 lowed
-<imgs/drawings/memory/medium_mm_v2-eps-converted-to.pdf, id=49, 628.3475pt x 49
-4.84875pt>
+<imgs/drawings/memory/medium_mm_v2-eps-converted-to.pdf, id=49, 624.3325pt x 50
+3.8825pt>
 File: imgs/drawings/memory/medium_mm_v2-eps-converted-to.pdf Graphic file (type
  pdf)
 <use imgs/drawings/memory/medium_mm_v2-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/memory/medium_mm_v2-eps-converted-to.pdf
-  used on input line 32.
-(pdftex.def)             Requested size: 244.27016pt x 192.37108pt.
-Package epstopdf Info: Source file: <imgs/drawings/memory/compact_mm.eps>
-(epstopdf)                    date: 2025-01-05 14:30:28
-(epstopdf)                    size: 25619 bytes
-(epstopdf)             Output file: <imgs/drawings/memory/compact_mm-eps-conver
-ted-to.pdf>
-(epstopdf)                    date: 2025-01-05 14:36:43
-(epstopdf)                    size: 11685 bytes
+  used on input line 35.
+(pdftex.def)             Requested size: 244.27016pt x 197.14384pt.
+Package epstopdf Info: Source file: <imgs/drawings/memory/compact_mm_v2.eps>
+(epstopdf)                    date: 2025-01-25 13:30:27
+(epstopdf)                    size: 118130 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/compact_mm_v2-eps-con
+verted-to.pdf>
+(epstopdf)                    date: 2025-01-25 13:30:31
+(epstopdf)                    size: 253316 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/compa
-ct_mm-eps-converted-to.pdf imgs/drawings/memory/compact_mm.eps>
-(epstopdf)             \includegraphics on input line 41.
+ct_mm_v2-eps-converted-to.pdf imgs/drawings/memory/compact_mm_v2.eps>
+(epstopdf)             \includegraphics on input line 45.
 Package epstopdf Info: Output file is already uptodate.
 
 
-pdfTeX warning: pdflatex (file ./imgs/drawings/memory/compact_mm-eps-converted-
-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allo
-wed
-<imgs/drawings/memory/compact_mm-eps-converted-to.pdf, id=50, 473.77pt x 427.59
-75pt>
-File: imgs/drawings/memory/compact_mm-eps-converted-to.pdf Graphic file (type p
-df)
-<use imgs/drawings/memory/compact_mm-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/memory/compact_mm-eps-converted-to.pdf  
-used on input line 41.
-(pdftex.def)             Requested size: 187.90189pt x 169.5875pt.
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/compact_mm_v2-eps-convert
+ed-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> a
+llowed
+<imgs/drawings/memory/compact_mm_v2-eps-converted-to.pdf, id=50, 624.3325pt x 4
+37.635pt>
+File: imgs/drawings/memory/compact_mm_v2-eps-converted-to.pdf Graphic file (typ
+e pdf)
+<use imgs/drawings/memory/compact_mm_v2-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/compact_mm_v2-eps-converted-to.pd
+f  used on input line 45.
+(pdftex.def)             Requested size: 244.27016pt x 171.22453pt.
 [2 <./imgs/drawings/memory/small_mm_v2-eps-converted-to.pdf> <./imgs/drawings/m
 emory/medium_mm_v2-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <imgs/drawings/memory/large_mm.eps>
-(epstopdf)                    date: 2025-01-05 14:32:59
-(epstopdf)                    size: 33414 bytes
-(epstopdf)             Output file: <imgs/drawings/memory/large_mm-eps-converte
-d-to.pdf>
-(epstopdf)                    date: 2025-01-05 14:36:43
-(epstopdf)                    size: 12489 bytes
+Package epstopdf Info: Source file: <imgs/drawings/memory/large_mm_v2.eps>
+(epstopdf)                    date: 2025-01-25 13:31:37
+(epstopdf)                    size: 164570 bytes
+(epstopdf)             Output file: <imgs/drawings/memory/large_mm_v2-eps-conve
+rted-to.pdf>
+(epstopdf)                    date: 2025-01-25 13:32:12
+(epstopdf)                    size: 129080 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/large
-_mm-eps-converted-to.pdf imgs/drawings/memory/large_mm.eps>
-(epstopdf)             \includegraphics on input line 48.
+_mm_v2-eps-converted-to.pdf imgs/drawings/memory/large_mm_v2.eps>
+(epstopdf)             \includegraphics on input line 53.
 Package epstopdf Info: Output file is already uptodate.
 
 
-pdfTeX warning: pdflatex (file ./imgs/drawings/memory/large_mm-eps-converted-to
-.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowe
-d
-<imgs/drawings/memory/large_mm-eps-converted-to.pdf, id=73, 583.17876pt x 553.0
-6625pt>
-File: imgs/drawings/memory/large_mm-eps-converted-to.pdf Graphic file (type pdf
-)
-<use imgs/drawings/memory/large_mm-eps-converted-to.pdf>
-Package pdftex.def Info: imgs/drawings/memory/large_mm-eps-converted-to.pdf  us
-ed on input line 48.
-(pdftex.def)             Requested size: 244.27016pt x 231.6533pt.
+pdfTeX warning: pdflatex (file ./imgs/drawings/memory/large_mm_v2-eps-converted
+-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
+owed
+<imgs/drawings/memory/large_mm_v2-eps-converted-to.pdf, id=74, 624.3325pt x 565
+.11125pt>
+File: imgs/drawings/memory/large_mm_v2-eps-converted-to.pdf Graphic file (type 
+pdf)
+<use imgs/drawings/memory/large_mm_v2-eps-converted-to.pdf>
+Package pdftex.def Info: imgs/drawings/memory/large_mm_v2-eps-converted-to.pdf 
+ used on input line 53.
+(pdftex.def)             Requested size: 244.27016pt x 221.09958pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 56--57
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
 
  []
 
-[3 <./imgs/drawings/memory/compact_mm-eps-converted-to.pdf> <./imgs/drawings/me
-mory/large_mm-eps-converted-to.pdf>]
+[3 <./imgs/drawings/memory/compact_mm_v2-eps-converted-to.pdf> <./imgs/drawings
+/memory/large_mm_v2-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <imgs/drawings/memory/huge_mm.eps>
-(epstopdf)                    date: 2025-01-05 14:00:19
-(epstopdf)                    size: 34817 bytes
+(epstopdf)                    date: 2025-01-25 13:13:43
+(epstopdf)                    size: 34832 bytes
 (epstopdf)             Output file: <imgs/drawings/memory/huge_mm-eps-converted
 -to.pdf>
-(epstopdf)                    date: 2025-01-05 14:00:26
-(epstopdf)                    size: 12665 bytes
+(epstopdf)                    date: 2025-01-25 13:13:48
+(epstopdf)                    size: 12674 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/memory/huge_
 mm-eps-converted-to.pdf imgs/drawings/memory/huge_mm.eps>
-(epstopdf)             \includegraphics on input line 62.
+(epstopdf)             \includegraphics on input line 67.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/memory/huge_mm-eps-converted-to.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<imgs/drawings/memory/huge_mm-eps-converted-to.pdf, id=92, 593.21625pt x 638.38
-5pt>
+<imgs/drawings/memory/huge_mm-eps-converted-to.pdf, id=95, 594.22pt x 638.385pt
+>
 File: imgs/drawings/memory/huge_mm-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imgs/drawings/memory/huge_mm-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/memory/huge_mm-eps-converted-to.pdf  use
-d on input line 62.
-(pdftex.def)             Requested size: 244.27016pt x 262.86949pt.
+d on input line 67.
+(pdftex.def)             Requested size: 255.54381pt x 274.53915pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 59--65
+Underfull \hbox (badness 10000) in paragraph at lines 64--70
 
  []
 
 <<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>>
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 67.
+(Font)              scaled to size 6.64998pt on input line 72.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 67.
+(Font)              scaled to size 7.59998pt on input line 72.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 67.
+(Font)              scaled to size 5.69998pt on input line 72.
  [4 <./imgs/drawings/memory/huge_mm-eps-converted-to.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 70.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 70.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 75.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 75.
  (./memory_models.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 70.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 70.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 75.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 75.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1953,8 +1947,8 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  48513 strings out of 494880
- 1045361 string characters out of 6179601
- 1249771 words of memory out of 5000000
+ 1045406 string characters out of 6179601
+ 1249808 words of memory out of 5000000
  51009 multiletter control sequences out of 15000+600000
  553020 words of font info for 47 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
@@ -1967,9 +1961,9 @@ st, replaced by a fixed one
 exmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/u
 rw/helvetic/uhvr8a.pfb>
-Output written on memory_models.pdf (4 pages, 92570 bytes).
+Output written on memory_models.pdf (4 pages, 519487 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
+ 137 PDF objects out of 1000 (max. 8388607)
  79 compressed objects within 1 object stream
  12 named destinations out of 1000 (max. 500000)
  159 words of extra memory for PDF output out of 10000 (max. 10000000)
