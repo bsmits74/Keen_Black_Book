@@ -1,7 +1,11 @@
+ \documentclass[book.tex]{subfiles}
 \begin{document}
 My personal introduction to computer gaming started in 1985, when my parents bought a MSX-1 Home Computer. I was fascinated by games such as Konami's \textit{Knightmare} and \textit{Nemesis 2}. It was not only the gameplay that interested me, but also how such games are developed. That's how I started my interest into programming and game development.\\
 \par
-The same year I had my first home computer, Nintendo released a game called \textit{Super Mario Bros.} on the Nintendo Entertainment System (NES). It was an instant blockbuster; it combined great graphics with smooth side scrolling. Side scrolling games from that time period, like Knightmare and Nemesis 2, moved at constant and "choppy" speed. Super Mario Bros. was different, as the player dictates the scrolling speed. You could smoothly accelerate from walk to run or jump, and the screen would smoothly follow your actions. Super Mario Bros. was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform game genre, and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan}.\\
+The same year I had my first home computer, Nintendo released a game called \textit{Super Mario Bros.} on the Nintendo Entertainment System (NES). It was an instant blockbuster; it combined great graphics with smooth side scrolling. Side scrolling games from that time period, like Knightmare and Nemesis 2, moved at constant and "choppy" speed. \\
+
+\par
+Super Mario Bros. was different, as the player dictates the scrolling speed. You could smoothly accelerate from walk to run or jump, and the screen would smoothly follow your actions. Super Mario Bros. was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform game genre, and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan}.\\
 
 \par
 Super Mario Bros. demonstrated the real power of the NES, which was hardware-supported scrolling. Most computers of that era, such as the MSX and Commodore 64 systems, lacked hardware support for scrolling. To achieve side-scrolling on these platforms, one needed to move all the characters (typically represented by 8x8 pixel), resulting in the super choppy scrolling effect often seen. The only way to produce smooth pixel scrolling was to redraw the entire screen, offset by the desired number of pixels. This approach was incredibly performance intensive and beyond the capabilities of most hardware at the time.\\
@@ -17,14 +21,16 @@ The NES was one of the very first home computers that supported smooth scrolling
 \par
 The IBM PC was by late 80s far behind the gaming power of the NES. It was designed for office work rather than gaming. It was meant to crunch integers and display static images for word processing and spreadsheet applications. Most PC games around that time are graphic adventure games (\textit{King's Quest}), static platform games (\textit{Prince of Persia}) and simulation games (\textit{Sim City}). Basically, the PC lacked all hardware support for sprites and smooth scrolling.\\
 \par
-Then, on December 14\textsuperscript{th}, 1990, a small unknown software company called "Ideas from the Deep" released \textit{Commander Keen in Invasion of the Vorticons} for the IBM PC. It was the first smooth side-scrolling game on a PC, similar like Super Mario Bros on the NES. \\
+Then, on December 14\textsuperscript{th}, 1990, a small unknown software company called "Ideas from the Deep" released \textit{Commander Keen in Invasion of the Vorticons} for the IBM PC. It was the first smooth side-scrolling game on a PC, similar like Super Mario Bros on the NES. 
+
 \begin{figure}[H]
   \centering
  \includegraphics[width=1.0\textwidth]{screenshots_300dpi/Keen_Marooned_on_Mars_gameplay.png}
 \caption{Commander Keen in Invasion of the Vorticons}
 \end{figure}
-\par
 
+\par
+\vspace{10pt}
 How was this possible on the IBM PC? Many obstacles had to be overcome:
 \begin{itemize}
   \item The first 8086 CPU did not outperform the average home computer in terms of raw power. Only with the release of the 286 CPU the PC started to outperform the market in terms of raw power.
@@ -43,13 +49,6 @@ error prone pointer arithmetic.
 
 Overall, it seemed impossible to create any reasonable side-scrolling game on the PC platform. But many around the world did not accept that and tinkered with the hardware to achieve unexpected results. Their ingenuity is what inspired me to write this book. \\
 
-
-\begin{figure}[H]
-  \centering
- \includegraphics[width=1.0\textwidth]{screenshots_300dpi/Keen_Dreams.png}
-\caption{Commander Keen in Keen Dreams}
-\end{figure}
-
 \par
 I've chosen to divide this book into three chapters:
 \begin{itemize}
@@ -58,10 +57,21 @@ I've chosen to divide this book into three chapters:
   \item Chapter 4: The Software. A deep dive into the Commander Keen game engine.
 
 \end{itemize}
-By first showing the hardware constraints, I hope programmers will develop an appreciation for the software and how it navigated obstacles, sometimes turning limitations into advantages.\\
 
 \par
+By first showing the hardware constraints, I hope programmers will develop an appreciation for the software and how it navigated obstacles, sometimes turning limitations into advantages.\\
+
+\pagebreak
 This book focuses on \textit{Commander Keen in Keen Dreams}, which is developed after the first three releases in the series. The reason for this choice is straightforward: it is the only version with publicly released source code. Where relevant, I will also highlight technological differences across the versions of Commander Keen. However, code examples will be limited to Keen Dreams, due to the availability of the source material.\\
+
+\begin{figure}[H]
+  \centering
+ \includegraphics[width=1.0\textwidth]{screenshots_300dpi/Keen_Dreams.png}
+\caption{Commander Keen in Keen Dreams}
+\end{figure}
+
+
+
 
 
 

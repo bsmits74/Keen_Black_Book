@@ -1,5 +1,6 @@
 \documentclass[book.tex]{subfiles}
 \begin{document}
+\chapter{Assets}
 \section{Programming}
 \label{section:programming}
 
@@ -23,19 +24,14 @@ Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some
 \caption{Borland C++ 3.1 User guide (238 pages) and Programmer guide (483 pages).}
 \end{figure}
 
-
 \par
-\begin{figure}[H]
-\centering
-  \fullimage{borland_memory_model.png}
-\end{figure}
-
+The IDE allowed to create a project, build, run and debug. It contained a "high resolution" 50x80 text mode, which doubled the standard vertical resolution.\\
 \par
-\begin{figure}[H]
-\centering
+  \fullimage{borland_memory_model.png} 
+\par
   \fullimage{borland_compile.png}
-  \caption{Selecting memory model and compiling Keen Dreams with Borland C++ 3.1}
-\end{figure}
+  %\caption{Selecting memory model and compiling Keen Dreams with Borland C++ 3.1}
+\vspace{-35pt}  
 
 
 
@@ -306,8 +302,8 @@ Maps were created using an in-house editor called TED5, short for Tile EDitor. O
 \par
  TED5 is not stand-alone; in order to start, it needs an asset archive and the  associated header (as described in Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, tile IDs are directly encoded in the map.\\
 
- \par
-\fullimage{Fill_2.png}\\
+\vspace{-3pt}
+\fbox{\fullimage{Fill_2.png}}\\
  
  \par
 TED5 allows the placement of tiles across multiple layers, referred to as "planes". In Commander Keen, there are three types of planes: 
@@ -317,7 +313,7 @@ TED5 allows the placement of tiles across multiple layers, referred to as "plane
   \item Information plane tiles, which contain actor locations and special areas.
 \end{itemize}
 
-A level is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), which controls interactions such as clipping, "deadly" tiles, and animated tiles. \\
+A level is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), which controls interactions such as clipping, "deadly" tiles, and animated tiles. 
 
 \par
 \begin{figure}[H] 
@@ -328,18 +324,18 @@ A level is created by placing tiles on each of these three layers. Foreground an
 
  
 \par
-Similar to IGRAB, TED5 compresses all levels into a \cw{MAP} archive and generates corresponding \cw{HEAD} and \cw{DICT} files.\\
+Similar to IGRAB, TED5 compresses all levels into a \cw{MAP} archive and generates corresponding \cw{HEAD} and \cw{DICT} files.
 
  
 \subsection{Map header structure}
-The map header structure is embedded in the engine code and contains a header offset and size, which refer to the location and size within the \cw{KDREAMS.MAP} archive file. \\
+The map header structure is embedded in the engine code and contains a header offset and size, which refer to the location and size within the \cw{KDREAMS.MAP} archive file. The game supports a maximum of 100 maps. The \cw{tileinfo[]} array contains properties data for each tile.\\
 
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/map_header_structure.c}\par
  \end{minipage}
 
-The game supports a maximum of 100 maps. The \cw{tileinfo[]} array contains properties data for each tile.
+
  
 \begin{figure}[H]
 \centering
@@ -415,19 +411,15 @@ The original Commander Keen Trilogy did only support the default PC Speaker. Wit
 \bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with AdLib support until \textit{Dark Ages} in 1991. And even then it still had pc speaker music.\\
 
 \par
-id Software intended for Keen Dreams to have music and digital effects support for the SoundBlaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360K floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute\footnote{https://vimeo.com/4022128, at 2:00-4:55.}. The team didn't even have time to remove the music setup menu.\\
+id Software intended for Keen Dreams to have music and digital effects support for the SoundBlaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360K floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute\footnote{https://vimeo.com/4022128, at 2:00-4:55.}. The team didn't even have time to remove the music setup menu.
 
-\par
-\par
 \begin{figure}[H]
 \centering
 \scaledimage{1.0}{music.png}{}
 \caption{Setup music menu in Keen Dreams, although there is no music in the game.}
 \end{figure}
+
 \par
-
-\pagebreak
-
 As a consequence, only two sets of each audio effect are shipped with the game:
 \begin{enumerate}
 \item For PC Speaker

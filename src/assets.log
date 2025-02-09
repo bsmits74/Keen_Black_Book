@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  12 JAN 2025 14:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2023.6.11)  9 FEB 2025 16:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1736,29 +1736,40 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.15}).
 \c@lstlisting=\count369
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
+Chapter 1.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 13.67995pt on input line 3.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
+(Font)              scaled to size 19.70294pt on input line 3.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20.74> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 3.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 13.67995pt on input line 3.
+(Font)              scaled to size 19.70294pt on input line 3.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 3.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 23.63593pt on input line 3.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 13.67995pt on input line 4.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 4.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 13.67995pt on input line 4.
 
-Underfull \hbox (badness 10000) in paragraph at lines 8--9
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
 
  []
 
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 10.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 11.
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )<<ot1.cmap>><<oml.cmap>><<oms.cmap>><<omx.cmap>>
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 10.
+(Font)              scaled to size 6.64998pt on input line 11.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.59998pt on input line 10.
+(Font)              scaled to size 7.59998pt on input line 11.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 5.69998pt on input line 10.
+(Font)              scaled to size 5.69998pt on input line 11.
 
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
+Underfull \hbox (badness 10000) in paragraph at lines 11--12
 
  []
 
@@ -1767,61 +1778,74 @@ pt>
 File: screenshots_300dpi/borland_programmer_guide.png Graphic file (type png)
 <use screenshots_300dpi/borland_programmer_guide.png>
 Package pdftex.def Info: screenshots_300dpi/borland_programmer_guide.png  used 
-on input line 17.
+on input line 18.
 (pdftex.def)             Requested size: 93.95094pt x 122.11118pt.
 File: screenshots_300dpi/borland_programmer_guide.png Graphic file (type png)
 <use screenshots_300dpi/borland_programmer_guide.png>
 Package pdftex.def Info: screenshots_300dpi/borland_programmer_guide.png  used 
-on input line 21.
+on input line 22.
 (pdftex.def)             Requested size: 93.95094pt x 122.11118pt.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 23.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 23.
+(Font)              scaled to size 9.49997pt on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 23.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <10> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 23.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 24.
 LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
-(Font)              scaled to size 9.49997pt on input line 23.
-<screenshots_300dpi/borland_memory_model.png, id=38, 722.7pt x 401.5pt>
+(Font)              scaled to size 9.49997pt on input line 24.
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+
+ []
+
+[1
+
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./screenshots_300dpi/borla
+nd_programmer_guide.png>]
+<screenshots_300dpi/borland_memory_model.png, id=51, 1284.8pt x 803.0pt>
 File: screenshots_300dpi/borland_memory_model.png Graphic file (type png)
 <use screenshots_300dpi/borland_memory_model.png>
 Package pdftex.def Info: screenshots_300dpi/borland_memory_model.png  used on i
 nput line 30.
-(pdftex.def)             Requested size: 375.80377pt x 208.78119pt.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 32.
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+(pdftex.def)             Requested size: 375.80377pt x 234.87349pt.
 
- <./screenshots_300dpi/borland_programmer_guide.png>]
-<screenshots_300dpi/borland_compile.png, id=52, 642.4pt x 401.5pt>
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+
+ []
+
+<screenshots_300dpi/borland_compile.png, id=52, 1284.8pt x 803.0pt>
 File: screenshots_300dpi/borland_compile.png Graphic file (type png)
 <use screenshots_300dpi/borland_compile.png>
 Package pdftex.def Info: screenshots_300dpi/borland_compile.png  used on input 
-line 36.
-(pdftex.def)             Requested size: 375.80377pt x 234.88573pt.
- [2 <./screenshots_300dpi/borland_memory_model.png (PNG copy)> <./screenshots_3
-00dpi/borland_compile.png>]
-<screenshots_300dpi/deluxe_paint.png, id=61, 2258.4375pt x 1694.33pt>
+line 32.
+(pdftex.def)             Requested size: 375.80377pt x 234.87349pt.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 9.49997pt on input line 35.
+[2 <./screenshots_300dpi/borland_memory_model.png> <./screenshots_300dpi/borlan
+d_compile.png>]
+<screenshots_300dpi/deluxe_paint.png, id=59, 2258.4375pt x 1694.33pt>
 File: screenshots_300dpi/deluxe_paint.png Graphic file (type png)
 <use screenshots_300dpi/deluxe_paint.png>
 Package pdftex.def Info: screenshots_300dpi/deluxe_paint.png  used on input lin
-e 50.
+e 46.
 (pdftex.def)             Requested size: 375.80377pt x 281.9309pt.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 54.
+(Font)              scaled to size 11.39996pt on input line 50.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 54.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 50.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 11.39996pt on input line 54.
+(Font)              scaled to size 11.39996pt on input line 50.
 
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 58--59
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
 
  []
 
@@ -1835,25 +1859,25 @@ df>
 (epstopdf)                    size: 9416 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/Tile_RGBI-ep
 s-converted-to.pdf imgs/drawings/Tile_RGBI.eps>
-(epstopdf)             \includegraphics on input line 63.
+(epstopdf)             \includegraphics on input line 59.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/Tile_RGBI-eps-converted-to.pdf):
  PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/Tile_RGBI-eps-converted-to.pdf, id=72, 583.17876pt x 469.755pt>
+<imgs/drawings/Tile_RGBI-eps-converted-to.pdf, id=70, 583.17876pt x 469.755pt>
 File: imgs/drawings/Tile_RGBI-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/Tile_RGBI-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/Tile_RGBI-eps-converted-to.pdf  used on 
-input line 63.
+input line 59.
 (pdftex.def)             Requested size: 300.64415pt x 242.17381pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--70
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--76
+Underfull \hbox (badness 10000) in paragraph at lines 71--72
 
  []
 
@@ -1867,28 +1891,28 @@ to.pdf>
 (epstopdf)                    size: 14151 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/drawing_plai
 n-eps-converted-to.pdf imgs/drawings/drawing_plain.eps>
-(epstopdf)             \includegraphics on input line 80.
+(epstopdf)             \includegraphics on input line 76.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/drawing_plain-eps-converted-to.p
 df): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/drawing_plain-eps-converted-to.pdf, id=85, 896.34875pt x 687.568
+<imgs/drawings/drawing_plain-eps-converted-to.pdf, id=83, 896.34875pt x 687.568
 76pt>
 File: imgs/drawings/drawing_plain-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/drawing_plain-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/drawing_plain-eps-converted-to.pdf  used
- on input line 80.
+ on input line 76.
 (pdftex.def)             Requested size: 338.2211pt x 259.43234pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 86--87
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
 
  []
 
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 88.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 84.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.49997pt on input line 88.
+(Font)              scaled to size 9.49997pt on input line 84.
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
@@ -1896,7 +1920,7 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 93.
+nput line 89.
 
 (./code/assets_header.c) [5 <./imgs/drawings/drawing_plain-eps-converted-to.pdf
 >]
@@ -1909,58 +1933,58 @@ Package epstopdf Info: Source file: <imgs/drawings/graphic_assets.eps>
 (epstopdf)                    size: 10771 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/graphic_asse
 ts-eps-converted-to.pdf imgs/drawings/graphic_assets.eps>
-(epstopdf)             \includegraphics on input line 103.
+(epstopdf)             \includegraphics on input line 99.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/graphic_assets-eps-converted-to.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<imgs/drawings/graphic_assets-eps-converted-to.pdf, id=101, 293.095pt x 804.003
-75pt>
+<imgs/drawings/graphic_assets-eps-converted-to.pdf, id=99, 293.095pt x 804.0037
+5pt>
 File: imgs/drawings/graphic_assets-eps-converted-to.pdf Graphic file (type pdf)
 
 <use imgs/drawings/graphic_assets-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/graphic_assets-eps-converted-to.pdf  use
-d on input line 103.
+d on input line 99.
 (pdftex.def)             Requested size: 150.31921pt x 412.3429pt.
 [6] [7 <./imgs/drawings/graphic_assets-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 109--122
+Underfull \hbox (badness 10000) in paragraph at lines 105--118
 
  []
 
 
 LaTeX Warning: Reference `section:drawing_sprites' on page 8 undefined on input
- line 125.
+ line 121.
 
 
 LaTeX Warning: Reference `section:drawing_sprites' on page 8 undefined on input
- line 125.
+ line 121.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 125--126
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
 
  []
 
 (./code/sprite_structure.c)
-Underfull \hbox (badness 10000) in paragraph at lines 128--131
+Underfull \hbox (badness 10000) in paragraph at lines 124--127
 
  []
 
-<imgs/drawings/sprite_origin.png, id=162, 189.8292pt x 152.9715pt>
+<imgs/drawings/sprite_origin.png, id=160, 189.8292pt x 152.9715pt>
 File: imgs/drawings/sprite_origin.png Graphic file (type png)
 <use imgs/drawings/sprite_origin.png>
-Package pdftex.def Info: imgs/drawings/sprite_origin.png  used on input line 14
-1.
+Package pdftex.def Info: imgs/drawings/sprite_origin.png  used on input line 13
+7.
 (pdftex.def)             Requested size: 187.90189pt x 151.41655pt.
-<imgs/drawings/sprite_hitbox.png, id=163, 189.8292pt x 152.9715pt>
+<imgs/drawings/sprite_hitbox.png, id=161, 189.8292pt x 152.9715pt>
 File: imgs/drawings/sprite_hitbox.png Graphic file (type png)
 <use imgs/drawings/sprite_hitbox.png>
 Package pdftex.def Info: imgs/drawings/sprite_hitbox.png  used on input line 14
-5.
+1.
 (pdftex.def)             Requested size: 187.90189pt x 151.41655pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--154
+Underfull \hbox (badness 10000) in paragraph at lines 149--150
 
  []
 
@@ -1974,440 +1998,440 @@ Package epstopdf Info: Source file: <imgs/drawings/font.eps>
 (epstopdf)                    size: 5435 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/font-eps-con
 verted-to.pdf imgs/drawings/font.eps>
-(epstopdf)             \includegraphics on input line 165.
+(epstopdf)             \includegraphics on input line 161.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/font-eps-converted-to.pdf): PDF 
 inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/font-eps-converted-to.pdf, id=181, 266.9975pt x 108.405pt>
+<imgs/drawings/font-eps-converted-to.pdf, id=179, 266.9975pt x 108.405pt>
 File: imgs/drawings/font-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/font-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/font-eps-converted-to.pdf  used on input
- line 165.
+ line 161.
 (pdftex.def)             Requested size: 375.80377pt x 152.59798pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 171--172
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
  []
 
 File: screenshots_300dpi/game/picture01.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture01.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture01.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture02.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture02.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture02.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture03.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture03.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture03.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture04.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture04.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture04.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture5.png Graphic file (type png)
 <use screenshots_300dpi/game/picture5.png>
 Package pdftex.def Info: screenshots_300dpi/game/picture5.png  used on input li
-ne 222.
+ne 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09583pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture6.png Graphic file (type png)
 <use screenshots_300dpi/game/picture6.png>
 Package pdftex.def Info: screenshots_300dpi/game/picture6.png  used on input li
-ne 222.
+ne 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09583pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture7.png Graphic file (type png)
 <use screenshots_300dpi/game/picture7.png>
 Package pdftex.def Info: screenshots_300dpi/game/picture7.png  used on input li
-ne 222.
+ne 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09583pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture8.png Graphic file (type png)
 <use screenshots_300dpi/game/picture8.png>
 Package pdftex.def Info: screenshots_300dpi/game/picture8.png  used on input li
-ne 222.
+ne 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09583pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture9.png Graphic file (type png)
 <use screenshots_300dpi/game/picture9.png>
 Package pdftex.def Info: screenshots_300dpi/game/picture9.png  used on input li
-ne 222.
+ne 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09583pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture10.png Graphic file (type png)
 <use screenshots_300dpi/game/picture10.png>
 Package pdftex.def Info: screenshots_300dpi/game/picture10.png  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09583pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture11.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture11.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture11.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture12.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture12.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture12.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture13.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture13.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture13.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture14.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture14.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture14.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture15.png Graphic file (type png)
 <use screenshots_300dpi/game/picture15.png>
 Package pdftex.def Info: screenshots_300dpi/game/picture15.png  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09583pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture16.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture16.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture16.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture17.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture17.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture17.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture18.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture18.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture18.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture19.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture19.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture19.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture20.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture20.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture20.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture21.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture21.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture21.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture22.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture22.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture22.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture23.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture23.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture23.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture24.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture24.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture24.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture25.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture25.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture25.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture26.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture26.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture26.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture27.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture27.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture27.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture28.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture28.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture28.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture29.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture29.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture29.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture30.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture30.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture30.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture31.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture31.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture31.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture32.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture32.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture32.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture33.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture33.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture33.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture34.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture34.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture34.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture35.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture35.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture35.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture36.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture36.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture36.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture37.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture37.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture37.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture38.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture38.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture38.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture39.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture39.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture39.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture40.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture40.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture40.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture41.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture41.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture41.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
 File: screenshots_300dpi/game/picture42.jpg Graphic file (type jpg)
 <use screenshots_300dpi/game/picture42.jpg>
 Package pdftex.def Info: screenshots_300dpi/game/picture42.jpg  used on input l
-ine 222.
+ine 218.
 (pdftex.def)             Requested size: 56.36827pt x 45.09656pt.
 
-Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
+Overfull \hbox (5.7343pt too wide) in paragraph at lines 218--218
 []|[]| 
  []
 
@@ -2415,360 +2439,360 @@ Overfull \hbox (5.7343pt too wide) in paragraph at lines 222--222
 File: screenshots_300dpi/game/sprite1a.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite1a.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite1a.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite1b.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite1b.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite1b.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite1c.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite1c.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite1c.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite1d.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite1d.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite1d.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite1e.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite1e.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite1e.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite1f.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite1f.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite1f.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite1g.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite1g.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite1g.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite1h.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite1h.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite1h.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite2a.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite2a.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite2a.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite2b.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite2b.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite2b.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite2c.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite2c.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite2c.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite2d.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite2d.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite2d.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite2e.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite2e.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite2e.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite2f.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite2f.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite2f.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite2g.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite2g.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite2g.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite2h.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite2h.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite2h.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite3e.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite3e.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite3e.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite3f.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite3f.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite3f.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite3g.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite3g.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite3g.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite3h.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite3h.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite3h.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite4a.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite4a.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite4a.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite4b.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite4b.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite4b.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite4c.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite4c.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite4c.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite4d.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite4d.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite4d.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite4e.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite4e.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite4e.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite4f.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite4f.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite4f.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite5a.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite5a.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite5a.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite5b.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite5b.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite5b.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite5c.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite5c.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite5c.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite5d.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite5d.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite5d.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite5e.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite5e.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite5e.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite5f.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite5f.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite5f.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite3a.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite3a.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite3a.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite3b.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite3b.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite3b.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite3c.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite3c.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite3c.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
 File: screenshots_300dpi/game/sprite3d.png Graphic file (type png)
 <use screenshots_300dpi/game/sprite3d.png>
 Package pdftex.def Info: screenshots_300dpi/game/sprite3d.png  used on input li
-ne 282.
+ne 278.
 (pdftex.def)             Requested size: 63.88594pt x 52.27054pt.
 
-Overfull \hbox (13.3853pt too wide) in paragraph at lines 282--282
+Overfull \hbox (13.3853pt too wide) in paragraph at lines 278--278
 []|[]| 
  []
 
@@ -2817,65 +2841,60 @@ png> <./screenshots_300dpi/game/sprite5b.png> <./screenshots_300dpi/game/sprite
 ite5e.png> <./screenshots_300dpi/game/sprite5f.png> <./screenshots_300dpi/game/
 sprite3a.png> <./screenshots_300dpi/game/sprite3b.png> <./screenshots_300dpi/ga
 me/sprite3c.png> <./screenshots_300dpi/game/sprite3d.png>]
-<screenshots_300dpi/tile16_assets.png, id=331, 414.5889pt x 263.7855pt>
+<screenshots_300dpi/tile16_assets.png, id=329, 414.5889pt x 263.7855pt>
 File: screenshots_300dpi/tile16_assets.png Graphic file (type png)
 <use screenshots_300dpi/tile16_assets.png>
 Package pdftex.def Info: screenshots_300dpi/tile16_assets.png  used on input li
-ne 292.
+ne 288.
 (pdftex.def)             Requested size: 372.04779pt x 236.73257pt.
-<screenshots_300dpi/tile16M_assets.png, id=332, 414.5889pt x 263.7855pt>
+<screenshots_300dpi/tile16M_assets.png, id=330, 414.5889pt x 263.7855pt>
 File: screenshots_300dpi/tile16M_assets.png Graphic file (type png)
 <use screenshots_300dpi/tile16M_assets.png>
 Package pdftex.def Info: screenshots_300dpi/tile16M_assets.png  used on input l
-ine 297.
+ine 293.
 (pdftex.def)             Requested size: 372.04779pt x 236.73257pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 305--306
+Underfull \hbox (badness 10000) in paragraph at lines 301--302
 
  []
 
 [12 <./screenshots_300dpi/tile16_assets.png> <./screenshots_300dpi/tile16M_asse
 ts.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 307--308
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
 
  []
 
-<screenshots_300dpi/Fill_2.png, id=343, 642.4pt x 401.5pt>
+<screenshots_300dpi/Fill_2.png, id=341, 1606.0pt x 1154.3125pt>
 File: screenshots_300dpi/Fill_2.png Graphic file (type png)
 <use screenshots_300dpi/Fill_2.png>
-Package pdftex.def Info: screenshots_300dpi/Fill_2.png  used on input line 310.
+Package pdftex.def Info: screenshots_300dpi/Fill_2.png  used on input line 306.
 
-(pdftex.def)             Requested size: 375.80377pt x 234.88573pt.
+(pdftex.def)             Requested size: 375.80377pt x 270.101pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 310--311
+Overfull \hbox (9.44089pt too wide) in paragraph at lines 306--307
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 306--307
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 315.
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 311.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd
 File: omsphv.fd 
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 315.
-
-Underfull \hbox (badness 10000) in paragraph at lines 320--321
-
- []
-
-<screenshots_300dpi/ted5_tile_info.png, id=344, 642.4pt x 401.5pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 311.
+<screenshots_300dpi/ted5_tile_info.png, id=342, 1606.0pt x 1154.3125pt>
 File: screenshots_300dpi/ted5_tile_info.png Graphic file (type png)
 <use screenshots_300dpi/ted5_tile_info.png>
 Package pdftex.def Info: screenshots_300dpi/ted5_tile_info.png  used on input l
-ine 325.
-(pdftex.def)             Requested size: 375.80377pt x 234.88573pt.
-[13 <./screenshots_300dpi/Fill_2.png (PNG copy)>]
+ine 321.
+(pdftex.def)             Requested size: 375.80377pt x 270.101pt.
+ [13 <./screenshots_300dpi/Fill_2.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 331--332
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 335--336
 
  []
 
@@ -2889,31 +2908,31 @@ pdf>
 (epstopdf)                    size: 13277 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/map_header-e
 ps-converted-to.pdf imgs/drawings/map_header.eps>
-(epstopdf)             \includegraphics on input line 346.
+(epstopdf)             \includegraphics on input line 342.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/map_header-eps-converted-to.pdf)
 : PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/map_header-eps-converted-to.pdf, id=352, 865.2325pt x 1132.23pt>
+<imgs/drawings/map_header-eps-converted-to.pdf, id=350, 865.2325pt x 1132.23pt>
 
 File: imgs/drawings/map_header-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/map_header-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/map_header-eps-converted-to.pdf  used on
- input line 346.
+ input line 342.
 (pdftex.def)             Requested size: 375.80377pt x 491.7732pt.
-[14 <./screenshots_300dpi/ted5_tile_info.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 351--370
+[14 <./screenshots_300dpi/ted5_tile_info.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 347--366
 
  []
 
 [15 <./imgs/drawings/map_header-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 373--389
+Underfull \hbox (badness 10000) in paragraph at lines 369--385
 
  []
 
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 395--396
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 
  []
 
@@ -2927,102 +2946,97 @@ Package epstopdf Info: Source file: <imgs/drawings/kdreams_map.eps>
 (epstopdf)                    size: 13750 bytes
 (epstopdf)             Command: <repstopdf --outfile=imgs/drawings/kdreams_map-
 eps-converted-to.pdf imgs/drawings/kdreams_map.eps>
-(epstopdf)             \includegraphics on input line 405.
+(epstopdf)             \includegraphics on input line 401.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./imgs/drawings/kdreams_map-eps-converted-to.pdf
 ): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<imgs/drawings/kdreams_map-eps-converted-to.pdf, id=387, 399.4925pt x 390.45876
+<imgs/drawings/kdreams_map-eps-converted-to.pdf, id=384, 399.4925pt x 390.45876
 pt>
 File: imgs/drawings/kdreams_map-eps-converted-to.pdf Graphic file (type pdf)
 <use imgs/drawings/kdreams_map-eps-converted-to.pdf>
 Package pdftex.def Info: imgs/drawings/kdreams_map-eps-converted-to.pdf  used o
-n input line 405.
+n input line 401.
 (pdftex.def)             Requested size: 319.43549pt x 312.22443pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 412--413
+Underfull \hbox (badness 10000) in paragraph at lines 408--409
 
  []
 
 [17 <./imgs/drawings/kdreams_map-eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 415--416
+Underfull \hbox (badness 10000) in paragraph at lines 411--412
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 418--419
-
- []
-
-<screenshots_300dpi/music.png, id=414, 321.2pt x 200.75pt>
+<screenshots_300dpi/music.png, id=410, 1606.0pt x 1154.3125pt>
 File: screenshots_300dpi/music.png Graphic file (type png)
 <use screenshots_300dpi/music.png>
-Package pdftex.def Info: screenshots_300dpi/music.png  used on input line 424.
-(pdftex.def)             Requested size: 375.80377pt x 234.88573pt.
+Package pdftex.def Info: screenshots_300dpi/music.png  used on input line 418.
+(pdftex.def)             Requested size: 375.80377pt x 270.101pt.
 [18 <./screenshots_300dpi/music.png>]
-<screenshots_300dpi/sound.png, id=423, 642.4pt x 401.5pt>
+<screenshots_300dpi/sound.png, id=419, 1606.0pt x 1154.3125pt>
 File: screenshots_300dpi/sound.png Graphic file (type png)
 <use screenshots_300dpi/sound.png>
-Package pdftex.def Info: screenshots_300dpi/sound.png  used on input line 439.
-(pdftex.def)             Requested size: 375.80377pt x 234.88573pt.
+Package pdftex.def Info: screenshots_300dpi/sound.png  used on input line 431.
+(pdftex.def)             Requested size: 375.80377pt x 270.101pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 444--445
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 448--450
+Underfull \hbox (badness 10000) in paragraph at lines 436--437
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 455--456
+Underfull \hbox (badness 10000) in paragraph at lines 440--442
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 447--448
 
  []
 
 [19 <./screenshots_300dpi/sound.png>]
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <8> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 458.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 450.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 7.59998pt on input line 458.
+(Font)              scaled to size 7.59998pt on input line 450.
 
 
 LaTeX Warning: Reference `sec:id_software' on page 20 undefined on input line 4
-58.
+50.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
+Underfull \hbox (badness 10000) in paragraph at lines 450--451
 
  []
 
-<screenshots_300dpi/shareware.jpg, id=436, 129.283pt x 160.6pt>
+<screenshots_300dpi/shareware.jpg, id=432, 129.283pt x 160.6pt>
 File: screenshots_300dpi/shareware.jpg Graphic file (type jpg)
 <use screenshots_300dpi/shareware.jpg>
 Package pdftex.def Info: screenshots_300dpi/shareware.jpg  used on input line 4
-63.
+55.
 (pdftex.def)             Requested size: 263.0615pt x 326.78645pt.
 [20 <./screenshots_300dpi/shareware.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 469--470
+Underfull \hbox (badness 10000) in paragraph at lines 461--462
 
  []
 
-<screenshots_300dpi/dos_result.png, id=444, 642.4pt x 496.85625pt>
+<screenshots_300dpi/dos_result.png, id=440, 642.4pt x 496.85625pt>
 File: screenshots_300dpi/dos_result.png Graphic file (type png)
 <use screenshots_300dpi/dos_result.png>
 Package pdftex.def Info: screenshots_300dpi/dos_result.png  used on input line 
-484.
+476.
 (pdftex.def)             Requested size: 375.80377pt x 290.6711pt.
 
 Package scrextend Warning: odd/even page label number 1 undefined on input line
- 490.
+ 482.
 
 [21 <./screenshots_300dpi/dos_result.png>] [22]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 490.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 490.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 482.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 482.
  (./assets.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 490.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 490.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 482.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 482.
 
 
 LaTeX Warning: There were undefined references.
@@ -3032,11 +3046,11 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 49433 strings out of 494880
- 1068369 string characters out of 6179601
- 1410147 words of memory out of 5000000
- 51666 multiletter control sequences out of 15000+600000
- 566212 words of font info for 57 fonts, out of 8000000 for 9000
+ 49441 strings out of 494880
+ 1068462 string characters out of 6179601
+ 1407934 words of memory out of 5000000
+ 51672 multiletter control sequences out of 15000+600000
+ 573408 words of font info for 62 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  91i,17n,132p,10467b,1149s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.6} has been referenced but does not exi
@@ -3047,12 +3061,6 @@ pdfTeX warning (dest): name{Hfootnote.5} has been referenced but does not exist
 
 pdfTeX warning (dest): name{Hfootnote.4} has been referenced but does not exist
 , replaced by a fixed one
-
-pdfTeX warning (dest): name{figure.caption.20} has been referenced but does not
- exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{table.caption.18} has been referenced but does not 
-exist, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exist
 , replaced by a fixed one
@@ -3071,10 +3079,10 @@ st/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/helvetic/uhvbo8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helv
 etic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a
 .pfb>
-Output written on assets.pdf (22 pages, 1735892 bytes).
+Output written on assets.pdf (22 pages, 3345064 bytes).
 PDF statistics:
- 618 PDF objects out of 1000 (max. 8388607)
+ 617 PDF objects out of 1000 (max. 8388607)
  325 compressed objects within 4 object streams
- 142 named destinations out of 1000 (max. 500000)
- 699 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 139 named destinations out of 1000 (max. 500000)
+ 707 words of extra memory for PDF output out of 10000 (max. 10000000)
 
