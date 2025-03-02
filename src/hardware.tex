@@ -1,3 +1,4 @@
+\documentclass[book.tex]{subfiles}
 \begin{document}
 To study the IBM PC, it is easiest to first break it down to small parts. Six sub-systems form a pipeline: Inputs, CPU, RAM, Disk, Video, and Audio.\\
 \begin{figure}[H]
@@ -455,9 +456,9 @@ PCs were connected to CRT monitors: big, heavy, small diagonal, cathode ray-base
 \end{figure}
 \par
   To give you an idea of the size and resolution, figure \ref{fig:lcd_vs_crt} shows a comparison between a 14" CRT from 1990 (capable of a resolution of 640x200) and a 30" Apple Cinema Display from 2014 (capable of a resolution of 2560x1600).\\
-  \par
+
 \trivia{Despite their difference of capabilities, both monitors are the same weight: 27.5 pounds (12 kg).}
-\\
+
 
 \subsection{CRT Monitor}
 All standard PC monitors use a raster-scan display to create the image.
@@ -818,25 +819,44 @@ For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-li
 
 
 
-\subsection{The Importance of Double-Buffering}
-Double buffering has been mentioned often while describing the hardware, but so far we have not reviewed why it is paramount to achieving smooth animation. With only one buffer the software has to work at exactly the frequency of the CRT (60Hz). Otherwise a phenomenon known as "tearing" appears. Let's take the example of an animation rendering a circle moving from the left to the right:
-\par
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/doublebuffer_before.eps}
-\end{figure}
-\par
-In this example the CPU has finished writing the framebuffer (on the left) and the CRT's (on the right) electron beam has started to scan it onto the screen. At this point in time the electron beam has scanned half the framebuffer, so the circle has been partially drawn on the screen.
-\par
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/doublebuffer_after.eps}
-\end{figure}
-\par
-If the CPU is faster than the frequency of the CRT (60Hz), it can write the framebuffer again, before the scan is completed. This is what happened here. The next frame was drawn with the circle moved to the right. The electron beam did not know that and kept on scanning the framebuffer. The result on screen is now a composite of two frames. It looks like two frames were torn and taped back together. Hence the name "tearing".\\
+\subsection{Double-Buffering in EGA}
+Fundamentally, a core goal in rendering is for each frame displayed on the monitor to present a single, coherent image.\\
 
 \par
-With two buffers (a.k.a double buffering) the CPU can start writing in the second framebuffer without messing with the framebuffer being scanned to the screen\footnote{Now the CPU speed is capped by the CRT refresh rate. Triple buffering can solve this at the price of frame latency.}. No more tearing! A full screen of 320x200 pixels with 16 colors requires 320x200x 4-bits = 32KB of VRAM (spread over 4 planes, each 8KB), so there is plenty of video memory left to keep multiple screens in an EGA card with 256KiB memory.
+On the oldest hardware, there often wasn't enough memory to hold a full screen image, and so instead of drawing a screen image to VRAM, you needed to specify colors for each scanline individually, while the monitor was in the process of drawing that line. For example, on the Atari 2600, developers had just 76 machine instruction cycles to determine the color of each pixel in a scanline before the television started rendering it. This process repeated for every subsequent scanline until the entire frame was drawn.\\
+
+\par
+Unlike early consoles, PC video cards contain dedicated VRAM, which the monitor reads from 60 times per second. Writing to VRAM, however, is controlled by the CPU. To avoid graphical artifacts, rendering must be timed carefully. If drawing a new frame takes too long, the scanline will "lap" the drawing process, resulting in a partially drawn frame. Conversely, if drawing gets ahead of the scanline, the new frame may overwrite part of the previous frame before it is fully displayed. This results in "tearing", where the top half of the screen displays one frame while the bottom half shows another.\\
+
+\par
+Avoiding tearing with a single buffer is nearly impossible because writing to VRAM is significantly slower than reading from it. The scanline inevitably overtakes the rendering process, causing tearing.\\
+
+\trivia{The original IBM CGA card could not simultaneously read from and write to VRAM. Because the video memory was not dual-ported, when both the CPU and the video card needed access to the same byte of VRAM, the CPU took priority. This resulted in the card reading a random value, causing a visual artifact known as "snow" on the screen. Later CGA clones could simultaneous read/write access to VRAM and did not have the same issue anymore.}\\
+
+\par
+A solution to tearing is double buffering, which introduces a second framebuffer in video memory. With two buffers, the CPU can draw the next frame in an off-screen framebuffer while the current one is being scanned to the display. Once drawing is complete, the buffers are swapped, ensuring a seamless transition between frames without tearing.\\
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \fbox{\includegraphics[width=0.9\textwidth]{imgs/drawings/double_buffering_0.eps}}
+        \caption{Display buffer 0, rendering buffer 1.}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \fbox{\includegraphics[width=0.9\textwidth]{imgs/drawings/double_buffering_1.eps}}
+        \caption{Display buffer 1, rendering buffer 0.}
+    \end{subfigure}
+    \caption{Double-Buffering.}
+\end{figure}
+
+
+\par
+A full-screen image at 320 x 200 pixels with 16 colors requires 320 x 200 x 4 bits = 32 KB of VRAM (spread over four planes, each 8 KB). Given that EGA cards typically have 256 KB of VRAM, they have more than enough memory to support multiple buffers.
+
+
 
 
 \section{Audio}
