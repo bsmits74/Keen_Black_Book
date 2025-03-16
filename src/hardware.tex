@@ -34,7 +34,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 \subsection{Overview}
   Intel released the 8086 in 1979, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 8Mhz and later versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s. Although Commander Keen could run a 8088, it was developed with a 80286 in mind.\\   
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 6Mhz and later popular versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. It's successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus. Although Commander Keen could run a 8088, it was developed with a 80286 in mind.\\   
 
 \par
 
@@ -44,7 +44,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
   \begin{tikzpicture}[font=\small]
     \begin{axis}[
       width=1.0\textwidth,
-      height=0.4\textwidth,
+      height=0.45\textwidth,
       ybar,
       bar width=20pt,
       ylabel={MIPS},
@@ -89,7 +89,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 The Intel 80286 chip, first introduced in 1982, is the CPU behind the original IBM PC AT (Advanced Technology). Other computer makers manufactured what came to be known as IBM clones, with many of these manufacturers calling their systems AT-compatible or AT-class computers. \\
 \par
 When IBM developed the AT, it selected the 286 as the basis for the new system because the chip provided compatibility with the 8088 used in the PC and the XT. Therefore, software written for those chips should run on the 286. The 286 chip is many times faster than the 8088 used in the XT, and at the time it offered a major performance boost to PCs used in businesses. The processing speed, or throughput, of the original AT (which ran at 6MHz) is five times greater than that of the PC running at 4.77MHz.
-286 systems are faster than their predecessors for several reasons. The main reason is that 286 processors are much more efficient in executing instructions. An average instruction takes 12 clock cycles on the 8086 or 8088, but takes an average of only 4.5 cycles on the 286 processor. Additionally, the 286 chip can handle up to 16 bits of data at a time through an external data bus twice the size of the 8088.\\
+The 286 computers are faster than their predecessors for several reasons. The main reason is that 286 processors are much more efficient in executing instructions. An average instruction takes 12 clock cycles on the 8088, but takes an average of only 4.5 cycles on the 286 processor. Additionally, the 286 chip can handle up to 16 bits of data at a time through an external data bus twice the size of the 8088.\\
 \par
 The 286 chip has two modes of operation: real mode and protected mode. The two modes are distinct enough to make the 286 resemble two chips in one. In real mode, a 286 acts essentially the same as an 8086 chip and is fully compatible with the 8086 and 8088. In the protected mode of operation, the 286 was truly something new. In this mode, a program designed to take advantage of the chip's capabilities has access to 1GB of memory (including virtual memory). The 286 chip, however, can address only 16MB of hardware memory. A significant failing of the 286 chip is that it cannot switch from protected mode to real mode without a hardware reset (a warm reboot) of the system (It can, however, switch from real mode to protected mode without a reset).\\
 
@@ -99,17 +99,54 @@ The 286 chip has two modes of operation: real mode and protected mode. The two m
 While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on a 8088 chip.\\
 
 \par
+\begin{figure}[H]
+\centering
+  \begin{tikzpicture}[font=\small]
+    \begin{axis}[
+      width=1.0\textwidth,
+      height=0.5\textwidth,
+      ybar,
+      bar width=20pt,
+      ylabel={transistors},
+      ymin=0,
+      ytick=\empty,
+      xtick=data,
+      axis x line=bottom,
+      axis y line=left,
+      enlarge x limits=0.11,
+      symbolic x coords={Z80, 8088, Motorola 68000,80286,80386},
+      xticklabel style={anchor=base,yshift=-\baselineskip},
+      nodes near coords={\pgfkeys{/pgf/number format/.cd,fixed}\pgfmathprintnumber\pgfplotspointmeta}
+    ]
+      \addplot[fill=black!20,draw=black] coordinates {
+		(Z80,8500)      	
+      	(8088,29000)
+        (Motorola 68000,68000)
+        (80286,134000)
+        (80386,275000)
+      };
+    \end{axis}
+   
+   \end{tikzpicture}
+   \caption{Comparison of CPUs with \# of transistors.}
+ \end{figure}
+ \par
+  \textbf{\underline{Trivia :}} Fast forward to today, the AMD Ryzen 9 7950X contains over 13 billion transistors. We've come a long way.\\
+
+
+
+\par
 If you are holding a physical 9.25"x7.5" copy of this book, the CPU packaging is 25x25
 mm square and the die is 7x7 mm, at 1:1 scale.\\
 
 
 \fullimage{286_layout_photo.png}
-\par \vspace{-1pt}
+\par 
+\vspace{5pt}
 % Below, a 1:1 scale of the 2.50cm x 2.50cm packaging next to a schematic showing the actual die inside.\\
 \begin{minipage}{0.48\textwidth}
 \centering
 \scaledrawimage{2.50cm}{286_packaging.png} 
-
 \end{minipage}
 \hfill
 \begin{minipage}{0.48\textwidth}
@@ -338,7 +375,7 @@ mode which effectively locked developers into 16-bit programming.\\
 \item From A0000h to FFFFFh : UMA (Upper Memory Area): Reserved to BIOS ROM, video card and sound card mapped I/O.
 \end{itemize}
 
-
+ 
 \bigskip
 Out of the original 1024KiB, only 640KiB (called Conventional Memory) was accessible to a program. 384KiB was reserved for the UMA and every single driver installed (\codeword{.SYS} and \codeword{.COM}) took away from the remaining 640KiB.\\
 
@@ -854,7 +891,7 @@ A solution to tearing is double buffering, which introduces a second framebuffer
 
 
 \par
-A full-screen image at 320 x 200 pixels with 16 colors requires 320 x 200 x 4 bits = 32 KB of VRAM (spread over four planes, each 8 KB). Given that EGA cards typically have 256 KB of VRAM, they have more than enough memory to support multiple buffers.
+A full-screen image at 320 x 200 pixels with 16 colors requires 320 x 200 x 4 bits = 32 KB of VRAM (spread over four planes, each 8 KB). Given that EGA cards typically have 256 KB of VRAM, there is more than enough memory to support multiple buffers.
 
 
 

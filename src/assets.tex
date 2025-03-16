@@ -101,23 +101,7 @@ Figure \ref{fig:asset-file} illustrates the structure of the \cw{KDREAMS.EGA} as
 \end{figure}
 
 \pagebreak
-Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for each (masked) picture in the asset file.\\
-  \begin{table}[H]
-  \begin{tabularx}{0.8\textwidth}[c]{XXX}
-  \hline
-  \textbf{picture index} & \textbf{width (bytes)} & \textbf{height (bytes)}   \\ \hline
-  0             & 5          & 32    \\
-  1             & 5          & 32    \\
-  2             & 5          & 32    \\
-  3             & 5          & 32    \\
-  ...             & ...          & ...    \\
-  64             & 5          & 24    \\
-  \end{tabularx}
-  %\caption{content of \cw{pictable[]} and \cw{picmtable[]}.}
-  \end{table}
-
-\par
-The \cw{spritetable[]} includes not only width and height but also information on the sprite's center, hitbox, and number of bit shifts (explained section "\nameref{section:drawing_sprites}" on page \pageref{section:drawing_sprites}). \\
+Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for each picture in the asset file. The \cw{spritetable[]} includes not only width and height but also information on the sprite's center, hitbox, and number of bit shifts (explained section "\nameref{section:drawing_sprites}" on page \pageref{section:drawing_sprites}). \\
 
 \par
 \begin{minipage}{\textwidth}
@@ -128,6 +112,7 @@ The \cw{spritetable[]} includes not only width and height but also information o
 \par
 All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection. Sprites have an additional layer to indicate transparency, similar to masked tiles.
 
+\vspace{-5pt}
 \par
 \begin{figure}[H]
 \centering
@@ -145,7 +130,7 @@ All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)
 
 
 \par
-The font segment contains a table that stores the height and the width of the font, along with a reference to where the character data is located in the archive file.\\
+The font segment contains a table that stores the height and the width of the each character, along with a reference to where the character data is located in the archive file.\\
 
 
 \par
@@ -153,14 +138,6 @@ The font segment contains a table that stores the height and the width of the fo
  \lstinputlisting[language=C]{code/font_structure.c}\par
  \end{minipage}
 
-
-\par
-\begin{figure}[H] 
-  \centering 
-  \includegraphics[width=1.0\textwidth]{imgs/drawings/font.eps}
-  \caption{Font asset data.}
-  \label{fig:font_assets}
-\end{figure} 
 
 \par
 The remainder of the archive file holds all graphic assets, including pictures, sprites, and tiles. Each asset contains four planes, aligned with the EGA architecture. All masked tiles and sprites also include an additional mask plane.\\
