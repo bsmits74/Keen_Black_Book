@@ -1,29 +1,25 @@
 \documentclass[book.tex]{subfiles}
 \begin{document}
-\section{Programming}
+\section{Programming setup}
 \label{section:programming}
 
 
 
-Development was done with Borland C++ 3.1 (but the language used was C). John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
+Development was done with Borland C++ 3.1 using a 80386 computer. John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
 \par
-Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}\footnote{Source: Borland C++ 3.1 User Guide.}. There was no need to enter command-line mode however. The IDE allowed to create a project, build, run and debug. The software came with two thick manuals, explaining everything regarding the IDE and programming in C++.\\
 
-\par
-\begin{figure}[H]
-\centering
-\begin{minipage}{.5\textwidth}
-  \centering
-  \includegraphics[width=.5\linewidth]{screenshots_300dpi/borland_programmer_guide.png}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-  \centering
-  \includegraphics[width=.5\linewidth]{screenshots_300dpi/borland_programmer_guide.png}
+\begin{minipage}{.35\textwidth}
+Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}. There was no need to enter command-line mode however. The IDE allowed to create a project, build, run and debug. The software came with two thick manuals, explaining everything regarding the IDE (238 pages) and programming in C++ (483 pages).\\
 \end{minipage}
-\caption{Borland C++ 3.1 User guide (238 pages) and Programmer guide (483 pages).}
+\begin{minipage}{.65\textwidth}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.7\linewidth]{screenshots_300dpi/borland_programmer_guide.png}
+\caption*{Borland C++ 3.1 Programmer guide.}
 \end{figure}
+\end{minipage}
 
-\par
+\pagebreak
 The IDE allowed to create a project, build, run and debug. It contained a "high resolution" 50x80 text mode, which doubled the standard vertical resolution.\\
 \par
   \fullimage{borland_memory_model.png} 
@@ -47,7 +43,7 @@ All graphic assets were produced by Adrian Carmack. All of the work was done wit
 \end{figure}
 
 \subsection{Tile planar arrangement}
-Before diving into the details of game assets, let's first explore the basic principles behind platform games. Each level, or map, in a platform game is composed of "tiles". In Commander Keen, there are both background and foreground tiles. A background tile, or just "tile", is an image that measures 16x16 pixels. Each tile occupies 128 bytes (2 x 16 x 4 planes) of storage space in the graphics assets file.\\
+Before diving into the details of game assets, let's first explore the basic principles behind platform games. Each level, or map, in a platform game is composed of "tiles". In Commander Keen, there are both background and foreground tiles. A background tile, or just tile, is an image that measures 16x16 pixels. Each tile occupies 128 bytes (2 x 16 x 4 planes) of storage space in the graphics assets file.\\
 
 \par
 Individual tile images are stored in a planar format, with blue, green, red and intensity bits separated. This arrangement, called "graphic planar", stores complete planes sequentially, with each plane containing data for the entire tile.\\
@@ -110,7 +106,7 @@ Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for e
 
 
 \par
-All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection. Sprites have an additional layer to indicate transparency, similar to masked tiles.
+All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection. 
 
 \vspace{-5pt}
 \par
@@ -426,15 +422,16 @@ On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 a
 \textit{Commander Keen in Keen Dreams} was published as a retail title by Softdisk, as part of a settlement for using Softdisk resources to make their own game\footnote{The settlement with Softdisk is explained in Appendix \ref{sec:id_software}}.\\
 
 \par
+%\setlength{\fboxsep}{0pt}
 \begin{figure}[H]
 \centering
-\scaledimage{0.7}{shareware.jpg}{}
+\scaledimage{0.68}{shareware.jpg}{}
 \caption{Retail version of Commander Keen in Keen Dreams by Softdisk.}
 \end{figure}
 
 
 \pagebreak
-In 1990, the Internet was still in its infancy and the best medium was the 3\nicefrac{1}{2}-inch floppy disk. The shipped game can be divided in sevent parts:\\
+In 1990, the Internet was still in its infancy and the best medium was the 3\nicefrac{1}{2}-inch floppy disk. The shipped game can be divided in seven parts:\\
 \begin{itemize}
  \item KDREAMS.EXE: Game engine.
  \item KDREAMS.EGA: Contains all the assets (sprites, tiles) needed during the game.

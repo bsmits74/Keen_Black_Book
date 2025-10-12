@@ -286,14 +286,15 @@ blocks\footnote{See the "Game Engine Black book Wolfenstein 3D" for a detailed d
 \par
 By calling \cw{MM\_ShowMemory}, you can inspect the current memory usage during gameplay. Each pixel represents one memory segment of 16 bytes. Red indicates blocked memory, black indicates available memory, blue is unpurgeable memory, and purple is purgeable memory. Small white pixels indicate the start of new memory blocks in the linked list. Notice how small the near heap (the first black line) is compared to the far heap!\\
 
+\setlength{\fboxsep}{0pt}
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}{1.0\linewidth}
-		\includegraphics[width=\linewidth]{screenshots_300dpi/mm_dump_start_text.png}
+		\fbox{\includegraphics[width=\linewidth]{screenshots_300dpi/mm_dump_start_text.png}}
 	\end{subfigure}\\
 	\vspace{3em}
 	\begin{subfigure}{1.0\linewidth}
-		\includegraphics[width=\linewidth]{screenshots_300dpi/mm_dump_run.png}
+		\fbox{\includegraphics[width=\linewidth]{screenshots_300dpi/mm_dump_run.png}}
 	\end{subfigure}
 	\caption{Memory dump after (i) initializing memory manager and (ii) running the game.}
 	\label{fig:subfigures}
@@ -368,7 +369,7 @@ Each character is 10 pixels tall, but the width varies, as illustrated in Figure
  \end{figure}
  \par
  
-On the EGA videocard each 8 pixels take up 1 byte of VRAM (as explained in section "\nameref{section:EGA_Planar_Madness}" on page \pageref{section:EGA_Planar_Madness}). When you need to print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
+On the EGA video card each 8 pixels take up 1 byte of VRAM (as explained in section "\nameref{section:EGA_Planar_Madness}" on page \pageref{section:EGA_Planar_Madness}). When you need to print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
 
 \par
 Instead of manually shifting every pixel in your character bitmaps, the game engine uses pre-calculated bitshift tables. These tables are essentially lookup guides that help quickly adjust how characters are drawn based on their starting position. Here's how the process works:

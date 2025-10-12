@@ -141,7 +141,14 @@
     \cftsetindents{subsection}{0.5in}{14mm}
     
     \cleardoublepage % Make toc appear on right side.
+    
+     \chapter*{Acknowledgments and copyright}
+       \subfile{copyright}    
+       
+    \chapter*{How To Send Feedback}
+      \subfile{erratas}
   
+    \cleardoublepage % Make toc appear on right side.
 
     \setcounter{secnumdepth}{3} % toc is 2 level deep.
     
@@ -151,6 +158,10 @@
     \tableofcontents
     
     \pagebreak
+    
+    \chapter*{Prologue}
+      \addcontentsline{toc}{chapter}{Prologue}
+      \subfile{preface}
 
 	\chapter{Introduction}
       \subfile{intro}

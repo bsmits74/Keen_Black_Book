@@ -1,20 +1,27 @@
+ \documentclass[book.tex]{subfiles}
 \begin{document}
 \pagebreak
 \section{Keen Dreams in CGA}
-The first Commander Keen serie, \textit{Commander Keen in Invasion of the Vorticons}, was only released for the EGA video card. Keen Dreams and later versions included a CGA version as well. The game play was exactly the same, sounds were the same, it was just that the graphics were CGA. Before diving into  the source code, let's first get a better understanding of the CGA video hardware.\\
+The first Commander Keen series, \textit{Commander Keen in Invasion of the Vorticons}, was only released for the EGA video card. Keen Dreams and later versions included a CGA version as well. The game play was exactly the same, sounds were the same, it was just that the graphics were CGA. Before diving into  the source code, let's first get a better understanding of the CGA video hardware.\\
 
 \par
 \textbf{\underline{Trivia :}} It's an ironic twist that Softdisk did not use the original Keen's engine, as the code violated the company policy by depending on 16-color EGA hardware without supporting older 4-color CGA cards!\\
 \par
 
-\begin{figure}[H] 
-  \centering 
-  \scaledimage{1.0}{game/Keen_EGA_CGA.png} 
-  \caption{Keen Dreams EGA and CGA version.}
+
+\setlength{\fboxsep}{0pt}
+\begin{figure}[H]
+\centering
+\begin{subfigure}[c]{.5\textwidth}
+  \centering
+  \fbox{\includegraphics[width=.95\textwidth]{screenshots_300dpi/game/Keen_EGA.png}}
+\end{subfigure}%
+\begin{subfigure}[c]{.5\textwidth}
+  \centering
+  \fbox{\includegraphics[width=.95\textwidth]{screenshots_300dpi/game/Keen_CGA.png}}
+\end{subfigure}
+\caption{Keen Dreams EGA and CGA version.}
 \end{figure}
-
-
-
 
  
 
