@@ -189,19 +189,9 @@ The performance increase of the 80286 over the 8088 was mainly to the fact that 
 
 \par
 The three units in the execution group form a three stage pipeline: Prefetch, Decode, and Execute. The Prefetch Unit wakes up when the Execution unit is performing but not using the bus and fetches instructions in a 6-byte queue. The prefetcher is linear and cannot predict the result of a branch. As a result, a jump (\cw{JMP}) instruction triggers a flush of the entire pipeline. Instructions go down the pipeline and are decoded by the Decode Unit: the result of the decode operation is stored in a three-element FIFO where it is picked up by the Execution Unit.\\
-\par
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/instruction_pipeline.eps}\\
-\end{figure}
-\par
-\begin{figure}[H]
-\centering
 
-  \fullimage{Intel80286.png}
-\caption{The Intel 286, 7mm by 7mm packing 134,000 transistors}
-\end{figure}
+
 \par
 From a programming perspective, a 286 CPU can be summarized by the following elements:
 \begin{itemize}
@@ -218,6 +208,12 @@ From a programming perspective, a 286 CPU can be summarized by the following ele
 \item Memory Management Unit
 \end{itemize}
  \par
+
+\begin{figure}[H]
+\centering
+  \fullimage{Intel80286.png}
+\caption{The Intel 286, 7mm by 7mm packing 134,000 transistors}
+\end{figure}
 
 Despite its pipeline design, the 286 cannot do an operation in less than two cycles. Even a simple \cw{ADD reg, reg} or \cw{INC reg} takes two clocks. This is due to the absence of a SRAM on-chip cache and a slow decoding unit. Also have a look at multiplications which cost 24 cycles. So as a game developer you really want to avoid many multiplications during game runtime.\\
  \par
@@ -853,46 +849,6 @@ For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-li
 \caption{Default EGA 16-color palette}
 \label{default_ega_palette}
  \end{figure}
-
-
-
-\subsection{Double-Buffering in EGA}
-Fundamentally, a core goal in rendering is for each frame displayed on the monitor to present a single, coherent image.\\
-
-\par
-On the oldest hardware, there often wasn't enough memory to hold a full screen image, and so instead of drawing a screen image to VRAM, you needed to specify colors for each scanline individually, while the monitor was in the process of drawing that line. For example, on the Atari 2600, developers had just 76 machine instruction cycles to determine the color of each pixel in a scanline before the television started rendering it. This process repeated for every subsequent scanline until the entire frame was drawn.\\
-
-\par
-Unlike early consoles, PC video cards contain dedicated VRAM, which the monitor reads from 60 times per second. Writing to VRAM, however, is controlled by the CPU. To avoid graphical artifacts, rendering must be timed carefully. If drawing a new frame takes too long, the scanline will "lap" the drawing process, resulting in a partially drawn frame. Conversely, if drawing gets ahead of the scanline, the new frame may overwrite part of the previous frame before it is fully displayed. This results in "tearing", where the top half of the screen displays one frame while the bottom half shows another.\\
-
-\par
-Avoiding tearing with a single buffer is nearly impossible because writing to VRAM is significantly slower than reading from it. The scanline inevitably overtakes the rendering process, causing tearing.\\
-
-\trivia{The original IBM CGA card could not simultaneously read from and write to VRAM. Because the video memory was not dual-ported, when both the CPU and the video card needed access to the same byte of VRAM, the CPU took priority. This resulted in the card reading a random value, causing a visual artifact known as "snow" on the screen. Later CGA clones could simultaneous read/write access to VRAM and did not have the same issue anymore.}\\
-
-\par
-A solution to tearing is double buffering, which introduces a second framebuffer in video memory. With two buffers, the CPU can draw the next frame in an off-screen framebuffer while the current one is being scanned to the display. Once drawing is complete, the buffers are swapped, ensuring a seamless transition between frames without tearing.\\
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \fbox{\includegraphics[width=0.9\textwidth]{imgs/drawings/double_buffering_0.eps}}
-        \caption{Display buffer 0, rendering buffer 1.}
-    \end{subfigure}%
-    ~
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \fbox{\includegraphics[width=0.9\textwidth]{imgs/drawings/double_buffering_1.eps}}
-        \caption{Display buffer 1, rendering buffer 0.}
-    \end{subfigure}
-    \caption{Double-Buffering.}
-\end{figure}
-
-
-\par
-A full-screen image at 320 x 200 pixels with 16 colors requires 320 x 200 x 4 bits = 32 KB of VRAM (spread over four planes, each 8 KB). Given that EGA cards typically have 256 KB of VRAM, there is more than enough memory to support multiple buffers.
-
 
 
 
