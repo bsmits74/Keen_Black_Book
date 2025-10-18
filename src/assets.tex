@@ -271,13 +271,24 @@ The remainder of the archive file holds all graphic assets, including pictures, 
 
 \section{Maps}
 Maps were created using an in-house editor called TED5, short for Tile EDitor. Over the years TED5 had improvements and the same tool is later used for creating maps for both side-scrolling games and top-down games like \textit{Wolfenstein 3D}.\\
+
+\par
+\begin{fancyquotes}
+When we were first starting to make stuff together, I made TEd 1.0, and it evolved over the next six months to be TEd 5.0, which was used for 33 shipped games.\\
+\par
+\textbf{John Romero\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{Interview with David Lightbown from Gamasutra, February 2017}
+
 \par
  TED5 is not stand-alone; in order to start, it needs an asset archive and the  associated header (as described in Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, tile IDs are directly encoded in the map.\\
 
 \vspace{-3pt}
 \fbox{\fullimage{Fill_2.png}}\\
  
- \par
+\pagebreak
 TED5 allows the placement of tiles across multiple layers, referred to as "planes". In Commander Keen, there are three types of planes: 
 \begin{itemize}
   \item Background plane tiles.
@@ -308,24 +319,12 @@ The map header structure is embedded in the engine code and contains a header of
  \end{minipage}
 
 
- 
-\begin{figure}[H]
-\centering
- \includegraphics[width=1.0\textwidth]{imgs/drawings/map_header.eps}
- \caption{Structure of \cw{MAPHEAD.KDR} header file.}
- \label{fig:map-header-file}
-\end{figure}
 \par 
 For background tile animations, two information tables are defined: "tile animation" and "tile animation speed". The tile animation specifies the next tile in the animation sequence, relative to the current tile. For example, in Table \ref{table:background tile anim}, tile \#90 animates to tile \#91 (+1), followed by \#92 (+1), and \#93 (+1). After tile \#93, the sequence returns to tile \#90 (-3). The animation speed is expressed in number of ticks before the next tile is displayed. \\
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXX}
   \hline
   \textbf{tile \#} & \textbf{tile animation} & \textbf{tile animation speed}   \\ \hline
-  0             & 0          & 0    \\
-  1             & 0          & 0    \\
-  ...             & ...          & ...    \\
-  57             & 1          & 32    \\
-  58             & -1          & 24    \\
   ...             & ...          & ...    \\
   90             & 1          & 8    \\
   91            & 1          & 8    \\
@@ -349,13 +348,18 @@ Tiles also contain clipping information and a column called \cw{intile}. The \cw
   240    & 0       & 0      & 5     & 0       & 0        \\
   241    & 0       & 0      & 0     & 0       & 128       \\
   242    & 1       & 1      & 1     & 1       & 128       \\
-  243    & 1       & 0      & 1     & 0       & 0       \\
-  244    & 0       & 0      & 2     & 0       & 0       \\
   ...    & ...     & ...    & ...   & ...     & ...     \\
   \end{tabularx}
   \caption{Foreground tile clipping and 'intile' tile information.}
   \end{table}
 
+
+\begin{figure}[H]
+\centering
+ \includegraphics[width=1.0\textwidth]{imgs/drawings/map_header.eps}
+ \caption{Structure of \cw{MAPHEAD.KDR} header file.}
+ \label{fig:map-header-file}
+\end{figure}
 
 \pagebreak
  

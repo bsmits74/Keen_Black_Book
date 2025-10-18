@@ -127,10 +127,10 @@
 \begin{document}
 
     % For pdf publishing
-       \subfile{cover}  
+    %   \subfile{cover}  
     % For printing publishing
-       % \blankpage
-       % \blankpage
+       \blankpage
+       \blankpage
 
     \renewcommand{\rmdefault}{cmss} 
     \renewcommand{\familydefault}{\sfdefault}
@@ -140,13 +140,13 @@
     % Table of content
     \cftsetindents{subsection}{0.5in}{14mm}
     
-    % \cleardoublepage % Make toc appear on right side.
+    \cleardoublepage % Make toc appear on right side.
     
-     %\chapter*{Acknowledgments and copyright}
-     %  \subfile{copyright}    
+    \chapter*{Acknowledgments and copyright}
+      \subfile{copyright}    
        
-    %\chapter*{How To Send Feedback}
-    %  \subfile{erratas}
+    \chapter*{How To Send Feedback}
+      \subfile{erratas}
   
     \cleardoublepage % Make toc appear on right side.
 
