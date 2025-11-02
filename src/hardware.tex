@@ -477,23 +477,19 @@ Fortunately, there is a way to access additional memory using the medium model. 
 \pagebreak
 \section{Video}
 
-PCs were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio.\\
+PCs had dedicated video cards and were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio.\\
 \par
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{imgs/drawings/crt_lcd.eps}
-\caption{CRT (left) vs LCD (right)}
+\includegraphics[width=0.8\textwidth]{screenshots_300dpi/hardware/monitor.jpg}
+\caption{14 inch CRT monitor.}
 \label{fig:lcd_vs_crt}
 \end{figure}
-\par
-  To give you an idea of the size and resolution, figure \ref{fig:lcd_vs_crt} shows a comparison between a 14" CRT from 1990 (capable of a resolution of 640x200) and a 30" Apple Cinema Display from 2014 (capable of a resolution of 2560x1600).\\
-
-\trivia{Despite their difference of capabilities, both monitors are the same weight: 27.5 pounds (12 kg).}
 
 
-\subsection{CRT Monitor}
+\subsection{Raster-scan display}
 All standard PC monitors use a raster-scan display to create the image.
 In a raster-scan display, the position of the electron beam is continually sweeping across the surface of the tube. The tube's surface is coated with phosphors that glow when struck by electrons (and for a short time thereafter), and, of course, the beam may be turned on in order to light a phosphor or off to leave it black.\\
 \par
@@ -572,7 +568,7 @@ Each iteration added new features and by 1990 the predominant graphic system was
 IBM introduced the Enhanced Graphics Adapter (EGA) in 1985 as the successor of CGA. The standard card was shipped with only 64KiB video memory, but it had the option to expand the memory using the onboard graphics memory expansion card.
 Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast full of discrete components. The memory consists out of TMS4416 RAM, a common memory chip for (home) computers around that period. Each chip contains 16KiB of 4-bits memory, so one needs two chips to end up having 16KiB of 8-bit memory and eight chips for 64KiB of 8-bit memory. \\
 
-\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still it took until 1983-84 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
+\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still it took until 1984 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
 
 
 \begin{figure}[H]
@@ -663,7 +659,6 @@ To write the color of the first pixel, a developer has to write the first bit of
 \caption{EGA mode 0Dh, how bank layout appears on screen.}
 \label{fig:ega_bank_layout}
 \end{figure}
- 
 
 
 \subsection{EGA Modes}
@@ -718,13 +713,13 @@ To setup the EGA in Mode \cw{0Dh} using the BIOS is incredibly easy. It can be d
   
   \subsection{EGA Programming: Memory Mapping}
  \label{section:ega_memmap}
-To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from \cw{A0000h} to \cw{AFFFFh}. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. \\
+To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from \cw{A0000h} to \cw{AFFFFh}. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. Writing a color to a pixel was a tedious process, requiring the programmer to switch between each of the four VRAM banks using the mask register and write bytes to each bank individually.
 
 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{imgs/drawings/ram_to_ega_mapping.eps}
+  \includegraphics[width=1.0\textwidth]{imgs/drawings/ram_to_ega_mapping.eps}
   \caption{Mapping PC RAM to EGA VRAM banks.}
   \label{ram_to_ega_mapping_label}
 \end{figure}
@@ -759,7 +754,7 @@ When calculating the intended value in the 64-color EGA palette, the 6-bit numbe
 \end{figure}
 
 \par
-However, standard EGA monitors did not support use of the extended color palette in 200-line modes. Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output. \\
+Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output to the monitor.\\
  \begin{figure}[H]
 \centering
 \includegraphics[width=0.15\textwidth]{imgs/drawings/ports/DE9_serial_port.eps}
@@ -768,15 +763,10 @@ However, standard EGA monitors did not support use of the extended color palette
 \end{figure}
 
 \par
-The EGA monitor could only distinct EGA and CGA cards based on the Vertical Sync signal, which is either 200- or 350-line mode. If the Vertical Sync is 350-line mode, the monitor switched to Mode 2 operations which supported the extended rgbRGB-color information\footnote{IBM Enhanced Color Display documentation.}. But in the 200-line mode, the monitor cannot distinguish between being connected to a CGA or an EGA card. \\
-
-
-
+The pin configurations for CGA and EGA are different. CGA’s color output follows the "RGBI" model, where "I" stands for Intensity, adding brightness to the RGB color. As a result, CGA can produce up to 16 colors. Compared to CGA, the EGA card redefines some pins of the DE-9 connector to carry the extended rgbRGB-color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such.\\
 
 \par
-The CGA color output is based on the form "RGBI", where the 'I' stands for Intensity and adds brightness to the RGB color. Compared to CGA, EGA redefines some pins of the DE-9 connector to carry the extended rgbRGB-color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such. \\
-
-
+For example, if the color brown (rgbRGB = \cw{010100b}) is assigned to a color index, the resulting output on a CGA pin configuration appears as light red. This occurs because the secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, producing the color red with intensity rather than the expected brown.\\
 
 \begin{figure}[H]
 \renewcommand{\arraystretch}{0.7}
@@ -811,12 +801,12 @@ The CGA color output is based on the form "RGBI", where the 'I' stands for Inten
 \caption{EGA and CGA DE-9 connector pin signals.}
 \label{pin_signals}
  \end{figure}
- 
-\pagebreak
-Suppose one assigns the color brown (rgbRGB is \cw{010100b}) to one of the color indexes, the resulting color on the CGA pin assignment is light red; The secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, which results to the color red with intensity and not the expected brown color. \\
 
 \par
-For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-line modes so the monitor can also be used with a CGA card and vice versa. Therefore, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, instead of only 4 colors when using a CGA card.  \\
+So how did an EGA monitor recognize that it was connected to an EGA video card? in fact, it could only distinguish EGA and CGA cards based on the Vertical Sync signal (pin 9), which is either 200- or 350-line mode. If the Vertical Sync is 350-line mode, the monitor switched to Mode 2 operation which supported the extended rgbRGB-color information19. But in the 200-line mode, the monitor cannot distinguish between being connected to a CGA or an EGA card. \\
+
+\par
+For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-line modes so the monitor can also be used with a CGA card and vice versa. Consequently, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, in contrast to a CGA card, which can show only 4 colors at once.\\
 
 
 
@@ -911,7 +901,7 @@ The AdLib card was built around the Yamaha YM3812, also known as the OPL2 chip, 
   \end{figure}
 
 \par
-The AdLib card dominated the PC market for almost three years. In 1989, Creative Labs released the competing SoundBlaster, which quickly dominated over AdLib. To compete with SoundBlaster, AdLib planned a new 12-bit stereo sound card called AdLib Gold. Sadly, due to AdLib's dependence on Yamaha who suffered long delays introducing their latest multimedia chipset, their new product, AdLib Gold PC-1000, was never to see the light of day under AdLib's management. Unable to remain solvent, AdLib closed its doors on 1\textsuperscript{st} May 1992.\\
+The AdLib card dominated the PC market for almost three years. Then, in 1989, Creative Labs released the competing SoundBlaster, which quickly dominated over AdLib. To compete with SoundBlaster, AdLib planned a new 12-bit stereo sound card called AdLib Gold. Sadly, due to AdLib's dependence on Yamaha who suffered long delays introducing their latest multimedia chipset, their new product, AdLib Gold PC-1000, was never to see the light of day under AdLib's management. Unable to remain solvent, AdLib closed its doors on 1\textsuperscript{st} May 1992.\\
 
 
 
@@ -1068,7 +1058,8 @@ It is also backward compatible and an 8-bit ISA card can be plugged into a 16-bi
 
 
 \section{Summary}
-To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface didn't allow double buffering, and the memory model only allowed 1 MiB with an address composed of two separate 16-bit registers. Last, but not least, the default sound system could only produce square waves.\\
+To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface had a complex architecture to write a single pixel to the screen, different keyboard layouts, and several memory models only allowed 1 MiB with an address composed of two separate 16-bit registers. Last, but not least, the default sound system could only produce square waves and sound cards were in a very early stage of development.\\
+
 \par
 Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves \textit{Ideas From the Deep}.
 \end{document}
