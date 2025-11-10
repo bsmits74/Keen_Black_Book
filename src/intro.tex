@@ -8,7 +8,7 @@ The same year I had my first home computer, Nintendo released a game called \tex
 Super Mario Bros. was different, as the player dictates the scrolling speed. You could smoothly accelerate from walk to run or jump, and the screen would smoothly follow your actions. Super Mario Bros. was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform game genre, and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan}.\\
 
 \par
-Super Mario Bros. demonstrated the real power of the NES, which was hardware-supported scrolling. Most computers of that era, such as the MSX and Commodore 64, lacked hardware support for scrolling. To achieve side-scrolling on these platforms, one needed to move all the characters on the screen (typically represented by 8x8 pixel), resulting in the super choppy scrolling effect often seen. The only way to produce smooth pixel scrolling was to redraw the entire screen, offset by the desired number of pixels. This approach was incredibly performance intensive and beyond the capabilities of most hardware at the time.\\
+Super Mario Bros. demonstrated the real power of the NES, which was hardware-supported scrolling. Most computers of that era, such as the MSX and Commodore 64, lacked hardware support for scrolling. To achieve side-scrolling on these platforms, one needed to move all characters on the screen (typically represented by 8x8 pixel), resulting in the super choppy scrolling effect often seen. The only way to produce smooth pixel scrolling was to redraw the entire screen, offset by the desired number of pixels. This approach was incredibly performance intensive and beyond the capabilities of most hardware at the time.\\
 
 \begin{figure}[H]
   \centering
@@ -34,14 +34,13 @@ Then, on December 14\textsuperscript{th}, 1990, a small unknown software company
 How was this possible on the IBM PC? Many obstacles had to be overcome:
 \begin{itemize}
   \item The first 8086 CPU did not outperform the average home computer in terms of raw power. Only with the release of the 286 CPU the PC started to outperform the market in terms of raw power.
-  \item As stated before, the video system (called EGA) did not support any form of scrolling. It did not even support any form of sprites, which allowed movement of something on the screen by simply updating its \cw{(x,y)} coordinates.
+  \item The video system (called EGA) did not support any form of scrolling. It did not even support any form of sprites, which allowed movement of something on the screen by simply updating its \cw{(x,y)} coordinates.
   \item The video system could not double buffer. It was not possible to have smooth scrolling without ugly artifacts called "tears" on the screen.
   \item The PC Speaker, the default sound device, could only produce square waves resulting in a bunch of "beeps" which were more annoying than anything else.
   \item The audio ecosystem was fragmented. Each of the various sound systems had
 different capabilities and expectations
   \item The RAM addressing mode was not flat but segmented, resulting in complex and
-error prone pointer arithmetic.
-  \item The bus was slow and I/O with the VRAM was a bottleneck. It was next to impossible to write a full framebuffer at 70 frames per second
+error prone pointer arithmetic. It used different memory models, each with a trade-off between application size and performance.
 \end{itemize}
 \par
 
