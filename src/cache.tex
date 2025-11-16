@@ -108,8 +108,7 @@ The \cw{grneeded[]} cache array then appears as below.\\
 \par
 The function \cw{CA\_CacheMarks()} is called again to load all cache level 2 assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level 2, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory.\\
 
-\bigskip
-\par
+\pagebreak
 In this example, this applies to 
 \begin{itemize}
   \item \cw{KEENSTANDRSPR}
@@ -134,7 +133,7 @@ To avoid frequently used assets, such as fonts and Commander Keen sprites, being
 \par
  
 \subsection{Asset compression}
-Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. id Software used "Huffman compression" for all asset and map files, with additional "RLE compression" applied to further reduce the size of map files.\\
+Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. Ideas from the Deep used "Huffman compression" for all asset and map files, with additional "RLE compression" applied to further reduce the size of map files.\\
 
 
 \par

@@ -378,7 +378,7 @@ Out of the original 1024KiB, only 640KiB (called Conventional Memory) was access
 \par
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{imgs/drawings/real_mode_v2.eps}
+\includegraphics[width=0.6\textwidth]{imgs/drawings/real_mode_v2.eps}
 \caption{First 1MiB of RAM layout.} 
 \label{fig:fp_internals}
 \end{figure}
@@ -503,13 +503,12 @@ character and/or graphics data); this is known as horizontal blanking.\\
 \par
 The area immediately surrounding the display area, in which the beam may be turned on
 during the retrace interval, is called the overscan or border. The active display
-area is the portion of the screen that contains characters and/or graphics. These
-components of the scan are shown in simplified form in Figure \ref{fig:monitor}.\\
+area is the portion of the screen that contains characters and/or graphics.\\
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/monitor.eps}
-\caption{Simplified CRT monitor scan.}
+\caption{CRT monitor scan (simplified).}
 \label{fig:monitor}
 \end{figure}
 
@@ -585,7 +584,7 @@ To add additional video memory to the IBM EGA card a Graphics Memory Expansion C
 \begin{figure}[H]
   \centering 
   \includegraphics[width=1.0\textwidth]{screenshots_300dpi/hardware/ibm_ega_graphics_memory_expansion_card.png} 
-  \caption{EGA Graphics Memory Expansion Card, bottom row populated with chips.}
+  \caption{EGA Memory Expansion Card, bottom row populated with memory chips.}
   \label{fig:ibm_ega_card}
 \end{figure}
 
@@ -638,7 +637,7 @@ Keep in mind that this architecture reduced the penalty of read operations, but 
 \centering
 \includegraphics[width=0.9\textwidth]{imgs/drawings/ega.eps}
 \caption{EGA Architecture.}
-\label{fig:vga_arch}
+\label{fig:ega_arch}
 \end{figure}
 
  
@@ -664,7 +663,7 @@ To write the color of the first pixel, a developer has to write the first bit of
 \subsection{EGA Modes}
 In order to configure this mess of planes and the controllers, 50 poorly documented internal registers must be set. Needless to say few programmers dove into the internals of the EGA.\\
 \par
-  Figure \ref{fig:vga_arch}, which described the architecture, was actually deceptively simplified. Figure \ref{fig:ibm_ega} shows how IBM's reference documentation explained the EGA. The maze of wire showcases well the actual complexity of the system.\\
+  Figure \ref{fig:ega_arch}, which described the architecture, was actually deceptively simplified. Figure \ref{fig:ibm_ega} shows how IBM's reference documentation explained the EGA. The maze of wire showcases well the actual complexity of the system.\\
  \par
  \vspace{10pt}
  \begin{figure}[H]
@@ -846,9 +845,7 @@ For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-li
 \label{hardware-audio}
 For the first 5-6 years of the IBM PC and its compatibles, their audio output came from nothing more than a simple loudspeaker with a tone generator. For business, this was acceptable - even preferable, since a PC in an office environment really shouldn't be a distraction to others! The loudspeaker, commonly known as a "PC Speaker", was capable of generating a square wave via 2 levels of output.\\
 \begin{figure}[H]
-
 \centering
-
 \scaledimage{0.6}{pcspeaker.png}
 \end{figure}
 
@@ -896,7 +893,7 @@ The AdLib card was built around the Yamaha YM3812, also known as the OPL2 chip, 
 \par
   \begin{figure}[H] 
     \centering 
-    \scaledimage{.8}{hardware/adlib.png} 
+    \scaledimage{.9}{hardware/adlib.png} 
     \caption{An AdLib sound card. Notice the big YM3812 chip.}
   \end{figure}
 
@@ -911,17 +908,24 @@ The AdLib card dominated the PC market for almost three years. Then, in 1989, Cr
   Creative Labs, the company behind the SoundBlaster, didn't enter the sound card industry until 1987 with the introduction of their Creative Music System (C/MS). From inception in 1981, they were a computer repair shop in Singapore. Creative Music System, or "Game Blaster" as it was renamed a year later, was a FM synthesizer card similar to AdLib. Based on the Philips SAA1099 chip, which was essentially a square-wave generator, it sounded much like twelve simultaneous PC speakers would have, except for each channel having amplitude control. The card did not sell well.\\
   
   \par
-The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to their Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.
+The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to their Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.\\
 
-\begin{figure}[H] 
-  \centering 
-  \scaledimage{0.99}{hardware/Soundblaster-ct1320.png} 
-  \caption{A SoundBlaster 1.5, model CT1320B }
-  \label{asb15}
-\end{figure}
 
 \par
 Figure \ref{asb15} is the SoundBlaster model CT1320B. Notice the OPL2 chip (labeled FM1312) and the CT1321 DSP on the middle top. In the middle of the card are the two CMS-301 chips, to ensure backwards compatibility with the Creative Music System. The CT1320B model (Sound Blaster 1.5) was a cost-cutting measure. Having recognized that C/MS was unpopular, they replaced the two C/MS chips with sockets. You could still purchase the C/MS chips for \$29.95 if you wished and install them into these sockets.\\
+  
+\begin{figure}[H] 
+  \centering 
+  \scaledimage{1.0}{hardware/Soundblaster-ct1320.png} 
+\end{figure}
+
+\begin{figure}[H] 
+  \centering 
+  \includegraphics[width=1.0\textwidth]{imgs/drawings/soundblaster_layout.eps}
+  \caption{A SoundBlaster 1.5, model CT1320B }
+  \label{asb15}
+\end{figure}  
+
   
 \par
   \bu{Trivia :}
@@ -970,7 +974,7 @@ The data on a floppy disk is stored in concentric circular tracks divided into a
 \centering
       \includegraphics[width=0.7\textwidth]{imgs/drawings/floppy_disk.eps}
       \caption{Floppy disk with tracks, sectors and the index hole.}
-\end{figure}
+\end{figure} 
 
 \par
 When the floppy disk drive is powered up, the read/write heads move to the target track, starting from track 0 (the starting track on a floppy disk). Once the sensor reaches the target track, the computer is ready to retrieve or write data onto the floppy disk. To select a specific sector, the drive must wait for that sector to pass under the head. The drive determines which sector it is on by waiting for the index hole to be under the head. Since the rotation speed is kept constant, the time when the next sector is under the head is known. Now, the head can read or write to the specific sector/track combination on the disk.\\
@@ -1021,30 +1025,6 @@ At the time, keyboards were connected either via PS/2 or AT ports.\\
   \caption{PS/2 (left) and AT (right) keyboard connector.}
   \label{fig:keyboard_connector}
 \end{figure}
-
-
-\section{Bus}
-Although developers had no control over them, it is still worth mentioning how these components were connected to each other.\\ 
-
-\par
-The ISA\footnote{Industry Standard Architecture.} bus connects the CPU to all devices, including RAM. It was almost 10 years old in 1990 but still used universally in PCs. The data path to the RAM is 16 bits wide for 286 machines. It runs at the same frequency as the CPU.\\
-\par
-
-The rest of the bus connecting to everything that is not the RAM can be either:
-\begin{itemize}
-\item 8 bits wide at 4.77 MHz  for 19.1 Mbit/s
-\item 16 bits wide at 8.33MHz for 66.7 Mbit/s\footnote{https://en.wikipedia.org/wiki/List\_of\_device\_bit\_rates .}.
-\end{itemize}
-It is also backward compatible and an 8-bit ISA card can be plugged into a 16-bit ISA bus.
-
-\begin{figure}[H]
-\centering
-      \includegraphics[width=1.0\textwidth]{imgs/drawings/bus.eps}
-\end{figure}
-
-
-
-
 
 
 \section{Summary}

@@ -17,7 +17,18 @@ PROC	VW_MaskBlock	segm:WORD, ofs:WORD, dest:WORD, wide:WORD, height:WORD, planes
 	[...]
 	mov	si,[ofs]				;start back at the top of the mask
 	mov	di,[dest]				;start at same place in all planes
-	mov	cx,[height]				;scan lines to draw
+	mov	cx,[height]			;scan lines to draw
 	mov dx,[ss:linedelta]
 
 	jmp [ss:routinetouse]		;draw one plane
+
+[...]
+
+;Optimized functions for word-size writing to memory
+EVEN
+mask6O:
+	MASKBYTE
+	MASKWORD
+	MASKWORD
+	MASKBYTE
+	SPRITELOOP	mask6O

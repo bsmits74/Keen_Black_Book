@@ -99,7 +99,7 @@ Smooth horizontal scrolling on EGA involves adjusting the CRTC Start Address alo
 \end{figure}
 
 
-\section{Commander Keen 1-3: Adaptive Tile Refresh}
+\section{Adaptive Tile Refresh}
 So far, we have built a virtual screen in VRAM allowing smooth one pixel moves in both axes using only EGA registers. However, once the virtual screen edge is reached, a full-screen redraw would be too slow, causing a drop to 5 fps.\\
 
 
@@ -255,7 +255,7 @@ Now the buffer is refreshed and the CRTC address is updated, the final step is f
 
 
 
-\section{Keen Dreams: Virtual Screen Tile Refresh}
+\section{Virtual Screen Tile Refresh}
 \label{section:wrap_ega_memory}
 \label{section:optimize_tile}
 John Carmack explored what would happen if you push the virtual screen over the 64kB border (address \cw{FFFFh}) in video memory. It turned out that the EGA continues the virtual screen at \cw{0000h}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
@@ -264,7 +264,7 @@ John Carmack explored what would happen if you push the virtual screen over the 
   \centering
   \includegraphics[width=0.95\textwidth]{imgs/drawings/ega_wrapping.eps}
   \label{fig:ega_wrapping}
-  \caption{Wrap virtual screen around the EGA memory}
+  \caption{EGA memory wrap-around.}
 \end{figure}
  
 \par
@@ -286,12 +286,20 @@ It just works. We no longer had the problem of having fields of similar colors. 
 
 
 
-\subsection{Virtual Screen Tile Refresh algorithm} 
+\subsection{Virtual Screen Tile Refresh in Keen Dreams} 
 \label{section:scroll_refresh_dreams}
 The EGA memory wrapping results in an improved, more simplified screen refresh algorithm. First, a virtual screen and tile update array is defined by making the display one tile taller and wider, creating what is known as the viewport. This allows the engine to scroll the display up to 16 pixels to the right and bottom without refreshing tiles, by simply adjusting the CRTC Start Address and Pel Pan register. \\
 
+\begin{fancyquotes}
+The second Keen trilogy used a better trick -- just keep panning and redrawing the leading edge, letting the screen wrap around at the 64k aperture edge.\\
 \par
-An additional column is then added to the viewport to support horizontal scrolling. Finally, the tile update array is further expanded to allow the entire viewport to move up to two tiles in any direction.\\
+\textbf{John Romero\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{John Carmack on Twitter.}
+
+
 
 \begin{figure}[H]
 \centering
@@ -300,6 +308,8 @@ An additional column is then added to the viewport to support horizontal scrolli
 \label{fig:screen_setup}
 \end{figure}
 
+\pagebreak
+An additional column is then added to the viewport to support horizontal scrolling. Finally, the tile update array is further expanded to allow the entire viewport to move up to two tiles in any direction.\\
 
 \par
 The full refresh cycle, including sprite updates, proceeds as follows:
@@ -320,14 +330,7 @@ The full refresh cycle, including sprite updates, proceeds as follows:
 \end{minipage}
 \label{state_type}
 
-\begin{fancyquotes}
-John's cool Adaptive Tile Refresh trick that made the scrolling even faster than redrawing the entire screen (this is not the Virtual Screen Tile Refresh trick he created for Keen 4-6).\\
-\par
-\textbf{John Romero\protect\footnotemark}
-\end{fancyquotes}\\
-\addtocounter{footnote}{-1}
-\stepcounter{footnote}
-\footnotetext{Quotes from John Romero on https://legacy.3drealms.com/keenhistory/.}
+
 
 \pagebreak
 Let's go over the refresh cycle step by step. At the start, all three virtual pages display the same viewport, with virtual page 0 currently shown on-screen. Both tile update arrays are empty, meaning no tile updates are required in the next refresh cycle. The player has reached the edge of the virtual screen and moves further to the left. \\
@@ -339,7 +342,7 @@ Let's go over the refresh cycle step by step. At the start, all three virtual pa
  \label{fig:kc4_6_step0}
 \end{figure}
 
-\pagebreak
+\par
 Both VRAM and tile update array pointers shift left to introduce a new column of tiles. The VRAM pointer is lowered by 2 bytes (1 tile), and the tile update array pointer is decreased by 1 byte.
 A new column of tiles is copied from RAM to the master page, while the leftmost column in both tile update arrays is marked with '1' to ensure it updates in the next refresh cycle. Animated tiles are then copied to the master page, and the corresponding tiles in the array are also marked with '1'.\\
 
@@ -403,7 +406,10 @@ Once the buffer refresh is completed, the engine needs only to update the CRTC s
 \end{figure}
 
 \pagebreak
-The final step in scrolling is to adjust the horizontal fine-pixel alignment by setting the Pel Pan register. \textit{Et voil\`a}, the screen scrolls smoothly to the left. This scrolling process is significantly more efficient than the original ATR engine, resulting in only 8\% of tiles to be refreshed!\\
+The final step in scrolling is to adjust the horizontal fine-pixel alignment by setting the Pel Pan register. \textit{Et voil\`a}, the screen scrolls smoothly to the left.\\
+
+\par
+If the player continues to move to the left, the tile update array 0 pointer lowers a second time, underscoring why additional space is needed to allow the entire viewport to float up to two tiles in all directions.\\
 
 \begin{figure}[H]
 \centering
@@ -420,7 +426,21 @@ The final step in scrolling is to adjust the horizontal fine-pixel alignment by 
 \end{figure}
 
 \par
-If the player continues to move to the left, the tile update array 0 pointer lowers a second time, underscoring why additional space is needed to allow the entire viewport to float up to two tiles in all directions.\\
+This scrolling process is significantly more efficient than the original adaptive tile refresh engine, requiring only 8\% of the tiles to be refreshed. In addition, level design is no longer constrained by the need to use large repeating patterns. This is illustrated on the next page with a comparison between a level from Commander Keen 2 (top) and one from Commander Keen 4 (bottom). Notice how in Commander Keen 4 almost nothing repeats except for the minimal path and underground sections.\\
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=1.0\textwidth]{screenshots_300dpi/keen2.png}
+\end{subfigure}
+\par\bigskip\bigskip % force a bit of vertical whitespace
+\begin{subfigure}[b]{\textwidth}
+  \includegraphics[width=1.0\textwidth]{screenshots_300dpi/keen4.png}
+\end{subfigure}
+\end{figure}
+
+
+
 
 \pagebreak
 \subsection{Crippled Super VGA compatibility}
@@ -579,7 +599,7 @@ Different types of enemies have their own state machines, often sharing reaction
 \end{figure}
 
 \par
-The \cw{*react} function is responsible for managing how an enemy reacts to the level, like turning around upon hitting a wall or the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.\\
+The \cw{*react} function is responsible for managing how an enemy reacts to the environment, like turning around upon hitting a wall or the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -655,17 +675,17 @@ Drawing the background layer is straightforward, as it only requires copying 128
 \centering
  \begin{subfigure}{0.32\textwidth}
  	\centering
- 	\includegraphics[width=0.45\textwidth]{screenshots_300dpi/game/mask_tiles_1.png}
+ 	\includegraphics[width=0.7\textwidth]{screenshots_300dpi/game/mask_tiles_1.png}
  	\caption{Background tile.}
  \end{subfigure}
  \begin{subfigure}{0.32\textwidth}
  	\centering
- 	\includegraphics[width=0.45\textwidth]{screenshots_300dpi/game/mask_tiles_2.png}
+ 	\includegraphics[width=0.7\textwidth]{screenshots_300dpi/game/mask_tiles_2.png}
  	\caption{\cw{AND} foreground mask.}
  \end{subfigure}
  \begin{subfigure}{0.32\textwidth}
  	\centering
- 	\includegraphics[width=0.45\textwidth]{screenshots_300dpi/game/mask_tiles_3.png}
+ 	\includegraphics[width=0.7\textwidth]{screenshots_300dpi/game/mask_tiles_3.png}
  	\caption{\cw{OR} foreground bitmap.}
  \end{subfigure} 
 
