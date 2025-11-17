@@ -166,7 +166,7 @@ This memory buffer contains both the video buffer page and a master page. The bu
 With double buffering in place, the same algorithm used for EGA can be applied. The final step of the algorithm involves updating the screen display by copying the buffer page to VRAM and perform fine pixel adjustment. However, there are two complications with CGA.\\
 
 \par
-The first complication is that the CGA card does not support pixel panning. As a result, the smoothest scrolling achievable is in increments of one byte. Since one byte represents four pixels, horizontal scrolling is limited to steps of four pixels, resulting in a more choppy scrolling experience compared to EGA. \\
+The first complication is that the CGA card does not support pixel panning. As a result, the smoothest scrolling achievable is in increments of one byte. Since one byte represents four pixels, horizontal scrolling is limited to steps of four pixels, resulting in a choppier scrolling experience compared to EGA. \\
 
 \par
 \begin{minipage}{\textwidth}
@@ -175,7 +175,7 @@ The first complication is that the CGA card does not support pixel panning. As a
 \label{state_type}
 
 \par
-The second complication is copying the RAM buffer to the interlaced VRAM. This requires to split the linear memory buffer into copying all even rows to VRAM bank 0 and odd rows to VRAM bank 1.
+The second complication is copying the RAM buffer to the interlaced VRAM. This requires splitting the linear memory buffer into copying all even rows to VRAM bank 0 and odd rows to VRAM bank 1.
 
 \begin{figure}[H]
 \centering

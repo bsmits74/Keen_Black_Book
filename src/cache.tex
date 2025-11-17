@@ -70,7 +70,7 @@ The function \cw{CA\_CacheMarks} then iterates through the cache array, checking
 
 
 \par
-Now, during gameplay, the user opens the control panel (e.g. to pause the game), which requires to load assets for the control panel into memory. The cache level is increased to level two and for all required control panel assets the second bit is marked.\\
+Now, during gameplay, the user opens the control panel (e.g. to pause the game), which requires loading assets for the control panel into memory. The cache level is increased to level two and for all required control panel assets the second bit is marked.\\
 
 \par
 \lstinputlisting[language=C]{code/CA_level_up.c}
@@ -133,7 +133,7 @@ To avoid frequently used assets, such as fonts and Commander Keen sprites, being
 \par
  
 \subsection{Asset compression}
-Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to: 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. Ideas from the Deep used "Huffman compression" for all asset and map files, with additional "RLE compression" applied to further reduce the size of map files.\\
+Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. Ideas from the Deep used "Huffman compression" for all asset and map files, with additional "RLE compression" applied to further reduce the size of map files.\\
 
 
 \par

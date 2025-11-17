@@ -3,7 +3,7 @@
 
 \section{Smooth scrolling on EGA}
 \label{section:adaptive_tile_refresh}
-Performing a full-screen redraw per frame would kill the CPU, as it would require updating every pixel on all four EGA planes. Achieving a 60Hz frame rate while refreshing the entire screen is impossible under these constraints. If we were to run the following code, which simply fills all memory banks, it would run at 5 frames per seconds.\\
+Performing a full-screen redraw per frame would kill the CPU, as it would require updating every pixel on all four EGA planes. Achieving a 60Hz frame rate while refreshing the entire screen is impossible under these constraints. If we were to run the following code, which simply fills all memory banks, it would run at 5 frames per second.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -59,7 +59,7 @@ The displayed area of the virtual screen at any time is determined by setting th
 
 
 \par
-To pan down a scan line, it requires only to increase the CRTC start address by the logical width. Horizontal panning is achieved by incrementing the start address by one byte. In EGA's planar graphics modes, the eight bits in each video RAM byte correspond to eight consecutive on-screen pixels, meaning the screen can move horizontally in steps of 8 pixels. This is rather coarse and not really smooth horizontal scrolling. Fortunately, another EGA register addresses this limitation.\\
+To pan down a scan line, it requires only to increase the CRTC start address by the logical width. Horizontal panning is achieved by incrementing the start address by one byte. In EGA's planar graphics modes, the eight bits in each video RAM byte correspond to eight consecutive on-screen pixels, meaning the screen can move horizontally in steps of 8 pixels. This is rather coarse and not smooth horizontal scrolling. Fortunately, another EGA register addresses this limitation.\\
 
 \begin{figure}[H]
 \centering
@@ -74,7 +74,7 @@ To pan down a scan line, it requires only to increase the CRTC start address by 
 Smooth horizontal pixel scrolling is managed by the "Horizontal Pel Panning" register in the Attribute Controller (ATC), allowing fine adjustment in 1-pixel increments up to 7 pixels to the left. \\
 
 \par
-Programming the ATC requires attention: the ATC Index register only uses the lower five bits (bits 0-4) as its internal index. The next most significant bit, bit 5, controls the source of the video data send to the monitor by the EGA card. When bit 5 is set to 1, the output of the color palette controls the displayed pixels; this is normal operation. When bit 5 is 0, video data doesn't come from the color palette, and the screen becomes a solid color. To maintain normal video operation, bit 5 must be set to 1 by writing \cw{20h} to the register.\\
+Programming the ATC requires attention: the ATC Index register only uses the lower five bits (bits 0-4) as its internal index. The next most significant bit, bit 5, controls the source of the video data sent to the monitor by the EGA card. When bit 5 is set to 1, the output of the color palette controls the displayed pixels; this is normal operation. When bit 5 is 0, video data doesn't come from the color palette, and the screen becomes a solid color. To maintain normal video operation, bit 5 must be set to 1 by writing \cw{20h} to the register.\\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/EGA_PELPAN.ASM}
@@ -135,10 +135,10 @@ The trick behind the scrolling in the first Commander Keen games was to only red
 \footnotetext{John Carmack on X, July 11, 2020.}
 
 \par
-This is also the part where the game designers Tom Hall and John Romero had to help the engine. Smooth scrolling is inversely proportional to the number of tiles to redraw. A checkerboard tile pattern basically means a full-screen redraw and would kill the CPU. So to avoid costly "jolts", the game designers built tile maps with a lot of repeating tiles. \\
+This is also the part where the game designers Tom Hall and John Romero had to help the engine. Smooth scrolling is inversely proportional to the number of tiles to redraw. A checkerboard tile pattern basically means a full-screen redraw and would kill the CPU. So, to avoid costly "jolts", the game designers built tile maps with a lot of repeating tiles. \\
 
 \par
-The source code for the first three episodes of Commander Keen is not public available, but thanks to reverse engineering\footnote{Chocolate Keen is a reverse engineering of Commander Keen in C and SDL. The goal is to be super accurate versus the original, see https://github.com/jamesfmackenzie/chocolatekeen} the ATR algorithm could be explained in detail.
+The source code for the first three episodes of Commander Keen is not publicly available, but thanks to reverse engineering\footnote{Chocolate Keen is a reverse engineering of Commander Keen in C and SDL. The goal is to be super accurate versus the original, see https://github.com/jamesfmackenzie/chocolatekeen} the ATR algorithm could be explained in detail.
 
 
 
@@ -170,7 +170,7 @@ The EGA screen in mode \cw{0Dh} has a resolution of 320x200 pixels, or 40x200 by
 \end{figure}
 
 \par
-Each virtual screen has a size of 44*240*4=42,420 bytes. So within a 256KB EGA card there is enough VRAM available to keep all three virtual screens in memory. The page that is displayed on screen is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
+Each virtual screen has a size of 44*240*4=42,420 bytes. So, within a 256KB EGA card there is enough VRAM available to keep all three virtual screens in memory. The page that is displayed on screen is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
 
 
 
@@ -213,7 +213,7 @@ In the next three snapshots, we take you step-by-step through each of the stages
 \end{figure}
 
 \pagebreak
-The engine keeps track of which tile numbers are part of the virtual screen. Since the engine only refresh the screen at tile size granularity, it can determine extremely fast what has changed on the screen by comparing tile numbers. If the tile number has changed, the tile is updated by copying tiles from RAM into the VRAM master page. The changed tiles are marked with a '1' in both tile arrays, meaning it needs to be updated upon next refresh.
+The engine keeps track of which tile numbers are part of the virtual screen. Since the engine only refreshes the screen at tile size granularity, it can determine extremely fast what has changed on the screen by comparing tile numbers. If the tile number has changed, the tile is updated by copying tiles from RAM into the VRAM master page. The changed tiles are marked with a '1' in both tile arrays, meaning it needs to be updated upon next refresh.
 
 \begin{figure}[H]
 \centering
@@ -396,7 +396,7 @@ The final step in updating the buffer is copying sprites to their new locations,
 \end{figure}
 
 \pagebreak
-Once the buffer refresh is completed, the engine needs only to update the CRTC start address to virtual page 1. At this point, the visible tile update array is emptied, and the pointer resets to its starting location. The new buffer array (virtual page 0) retains the marked tiles since this screen has not yet refreshed. Finally, the refresh cycle restarts, with virtual page 0 now functioning as the buffer. 
+Once the buffer refresh is completed, the engine needs only to update the CRTC start address to virtual page 1. At this point, the visible tile update array is emptied, and the pointer resets to its starting location. The new buffer array (virtual page 0) retains the marked tiles since this screen has not yet been refreshed. Finally, the refresh cycle restarts, with virtual page 0 now functioning as the buffer. 
 
 \begin{figure}[H]
 \centering
@@ -582,7 +582,7 @@ Each state has associated think, reaction, and contact method pointers. Addition
 \label{state_type}
 \par
 
-Each actor has a defined state chain, as example the pea pod. \\
+Each actor has a defined state chain, for example the pea pod. \\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,style=mystyle,basicstyle=\small]{code/s_grdchase.c}
@@ -693,7 +693,7 @@ Drawing the background layer is straightforward, as it only requires copying 128
 \label{fig:foreground_tile}
 \end{figure}
 
-Combining the background and foreground layers involves an \cw{AND}-bitwise operator to clear the background and the \cw{OR}-bitwise operator to write the foreground layer.\\
+Combining the background and foreground layers involves an \cw{AND}-bitwise operator clearing the background and the \cw{OR}-bitwise operator to write the foreground layer.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -704,7 +704,7 @@ Combining the background and foreground layers involves an \cw{AND}-bitwise oper
 
 \subsection{Drawing sprites}
 \label{section:drawing_sprites}
-The next step is to render sprites on the screen. Most home computers of that era had built-in sprite functionality on the video card. For example, on a MSX computer, one could simply enter\\
+The next step is to render sprites on the screen. Most home computers of that era had built-in sprite functionality on the video card. For example, on an MSX computer, one could simply enter\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -844,7 +844,7 @@ The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat:
 Because tiles are word-aligned (16 bits wide) and the screen refreshes in tile-sized steps, they are always aligned with even memory addresses. However, sprites are byte-aligned. When a sprite is drawn from an odd memory address, the CPU is limited to reading and writing 8 bits at a time. To fully utilize the 16-bit data bus, the engine uses small function routines for each combination of sprite width and even/odd address alignment.\\
 
 \par
-Take for example drawing a 6-byte wide sprite. An optimal write depends whether the start address is even or odd. In case of an even address, writing three times a \cw{word} is optimal. In case of an odd address, the optimal is to first write a \cw{byte}, followed by two \cw{word} and then a \cw{byte} again.\\
+Take for example drawing a 6-byte wide sprite. An optimal write depends on whether the start address is even or odd. In case of an even address, writing three times a \cw{word} is optimal. In case of an odd address, the optimal is to first write a \cw{byte}, followed by two \cw{word} and then a \cw{byte} again.\\
 
 \begin{figure}[H]
   \centering

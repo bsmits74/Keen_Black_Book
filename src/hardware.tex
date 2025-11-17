@@ -34,7 +34,7 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 \subsection{Overview}
   Intel released the 8086 in 1978, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 6Mhz and later popular versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. It's successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus. Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on a 8088 CPU. A 80286 or higher was recommended to play the game.\\   
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 6Mhz and later popular versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. Its successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus. Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on an 8088 CPU. An 80286 or higher was recommended to play the game.\\   
 
 \par
 
@@ -96,7 +96,7 @@ The 286 chip has two modes of operation: real mode and protected mode. The two m
 \trivia{Gordon Letwin of Microsoft found a way to switch back from protected to real mode, using a "triple fault"\footnote{https://en.wikipedia.org/wiki/Triple\_fault.} to soft reset the 286 CPU into real mode. However, it could take nearly 1 second, making switching from protected to real not feasible to be done often.}\\
 
 \par
-While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on a 8088 chip.\\
+While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on an 8088 chip.\\
 
 \par
 \begin{figure}[H]
@@ -172,7 +172,7 @@ The four functional units can be described by
 \item \textbf{address unit (AU)} is used to determine the physical addresses of instructions and operands which are stored in memory. The address lines derived by AU can be used to address different peripheral devices such as memory and I/O devices. 
 \item \textbf{bus unit (BU)} interfaces the 80286 with memory and I/O devices. The bus unit is used to fetch instruction bytes from the memory and stores them in the prefetch queue.
 \item \textbf{instruction unit (UI)} receives instructions from the prefetch queue and an instruction decoder decodes them one by one. The decoded instructions are latched onto a decoded instruction queue.
-\item \textbf{execution unit (EU)} is responsible for executing the instructions received from the decoded instruction queue. The execution unit consists of the register bank, arithmetic and logic unit (ALU) and control block. The ALU is the core of the EU and perform all the arithmetic and logical operations.\\
+\item \textbf{execution unit (EU)} is responsible for executing the instructions received from the decoded instruction queue. The execution unit consists of the register bank, arithmetic and logic unit (ALU) and control block. The ALU is the core of the EU and performs all the arithmetic and logical operations.\\
 \end{itemize}
 
 \par
@@ -242,7 +242,7 @@ Despite its pipeline design, the 286 cannot do an operation in less than two cyc
 
 
 \subsection{16-bit Data alignment}
-Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus where the 8088 only had a 8-bit bus. Thanks to its 16-bit bus, the 286 can access and write word-sized memory variables just as fast as byte-sized variables. There's a catch, however: That's only true for word-sized variables that start at even memory addresses. When the 286 is asked to perform a word-sized access starting at an odd memory address, it actually performs two separate accesses, each of which fetches 1 byte, just as the 8088 does for all word-sized accesses. In other words, the effective capacity of the 286's external data bus is halved when a word-sized access to an odd address is performed\footnote{See Michael Abrash's Graphics Programming Black Book Special Edition, chapter 11.}.\\
+Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus where the 8088 only had an 8-bit bus. Thanks to its 16-bit bus, the 286 can access and write word-sized memory variables just as fast as byte-sized variables. There's a catch, however: That's only true for word-sized variables that start at even memory addresses. When the 286 is asked to perform a word-sized access starting at an odd memory address, it actually performs two separate accesses, each of which fetches 1 byte, just as the 8088 does for all word-sized accesses. In other words, the effective capacity of the 286's external data bus is halved when a word-sized access to an odd address is performed\footnote{See Michael Abrash's Graphics Programming Black Book Special Edition, chapter 11.}.\\
 
 \begin{figure}[H]
 \centering
@@ -251,7 +251,7 @@ Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus whe
 \par
  
 \par
-The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized accesses to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying large memory blocks. 
+The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized access to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying large memory blocks. 
 
 
 
@@ -277,7 +277,7 @@ which allows a CPU to effectively address about 1 MiB\footnote{This book uses IE
 
 To support this architecture, the CPU keeps track of four different segments. Each of these segments has its own purpose and segment register:
 \begin{itemize}
-  \item CS segment register, where the machine instructions resides.
+  \item CS segment register, where the machine instructions reside.
   \item DS segment register, where the data resides.
   \item SS segment register, where the stack resides.
   \item ES segment register, which is used as extra data segment.
@@ -329,7 +329,7 @@ The huge pointer is based on the absolute (or lineair) 20-bit memory location an
 \end{minipage}\\
 
 \par
-For example the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}. By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all Segment:Offset memory pair locations. This results in the normalized address \cw{A002:000F}. A huge pointer is normalized when pointer arithmetic is performed on it. \\
+For example, the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}. By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all Segment:Offset memory pair locations. This results in the normalized address \cw{A002:000F}. A huge pointer is normalized when pointer arithmetic is performed on it. \\
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/huge_pointer_normalized.c}\par
@@ -362,7 +362,7 @@ mode which effectively locked developers into 16-bit programming.\\
 
 
 \par
-  With protected mode unavailable, 1990 developers programmed like it was 1976: with a 20-bit-wide address bus offering only 1MiB of addressable RAM. Regardless how much memory was installed on the machine, only 1MiB could be addressed. The memory layout for the real mode is as follows:
+  With protected mode unavailable, 1990 developers programmed like it was 1976: with a 20-bit-wide address bus offering only 1MiB of addressable RAM. Regardless of how much memory was installed on the machine, only 1MiB could be addressed. The memory layout for the real mode is as follows:
 \begin{itemize}
 \item From 00000h to 003FFh : the Interrupt Vector Table.
 \item From 00400h to 004FFh : BIOS data.
@@ -424,7 +424,7 @@ The smallest is the "tiny memory model", where all three segment registers (CS, 
 \end{figure}
 
 \par
-All functions and data are accessed using near pointers, meaning the segment registers are set once and never changed during execution. However, this limits the program to a maximum of 64KiB, similar to programming on a 16-bit system.\\
+All functions and data are accessed using near pointers, meaning the segment registers are set once and never changed during execution. However, this limits the program to a maximum of 64KiB, like programming on a 16-bit system.\\
 
 \trivia{The tiny memory model was required by programs that ended with the .COM extension, and it existed for backward compatibility with CP/M operating system. CP/M ran on the 8080 processor which supported a maximum of 64KB of memory.}\\
 
@@ -491,7 +491,7 @@ PCs had dedicated video cards and were connected to CRT monitors: big, heavy, sm
 
 \subsection{Raster-scan display}
 All standard PC monitors use a raster-scan display to create the image.
-In a raster-scan display, the position of the electron beam is continually sweeping across the surface of the tube. The tube's surface is coated with phosphors that glow when struck by electrons (and for a short time thereafter), and, of course, the beam may be turned on in order to light a phosphor or off to leave it black.\\
+In a raster-scan display, the position of the electron beam is continually sweeping across the surface of the tube. The tube's surface is coated with phosphors that glow when struck by electrons (and for a short time thereafter), and, of course, the beam may be turned on to light a phosphor or off to leave it black.\\
 \par
 
 The electron beam scans the phosphor-coated screen from left to right and
@@ -567,7 +567,7 @@ Each iteration added new features and by 1990 the predominant graphic system was
 IBM introduced the Enhanced Graphics Adapter (EGA) in 1985 as the successor of CGA. The standard card was shipped with only 64KiB video memory, but it had the option to expand the memory using the onboard graphics memory expansion card.
 Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast full of discrete components. The memory consists out of TMS4416 RAM, a common memory chip for (home) computers around that period. Each chip contains 16KiB of 4-bits memory, so one needs two chips to end up having 16KiB of 8-bit memory and eight chips for 64KiB of 8-bit memory. \\
 
-\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still it took until 1984 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
+\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still, it took until 1984 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
 
 
 \begin{figure}[H]
@@ -578,7 +578,7 @@ Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast fu
 \end{figure}
 
 \par
-To add additional video memory to the IBM EGA card a Graphics Memory Expansion Card could be purchased. By default only the bottom row of memory was populated with chips, expanding the total EGA video memory to 128KiB. The expansion card provided DIP (dual in-line package) sockets for further memory expansion. Populating the DIP sockets with a Graphics Memory Module Kit adds two additional rows of 64KiB, bringing the EGA memory to its maximum of 256KiB. \\
+To add additional video memory to the IBM EGA card a Graphics Memory Expansion Card could be purchased. By default, only the bottom row of memory was populated with chips, expanding the total EGA video memory to 128KiB. The expansion card provided DIP (dual in-line package) sockets for further memory expansion. Populating the DIP sockets with a Graphics Memory Module Kit adds two additional rows of 64KiB, bringing the EGA memory to its maximum of 256KiB. \\
 
 
 \begin{figure}[H]
@@ -727,7 +727,7 @@ To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indica
   
 \subsection{EGA Color Palette}
 \label{sec:ega_color_palette}
-The EGA CRTC does not expect RGB values to generate pixels. Instead it is based on an index-based color palette system. Each pixel is a 4-bit index number, assigned to a color from the Attribute Controller. The default color palette are all 16 CGA colors, but it allows substitution of each of these colors with any one from a total of 64 colors.\\
+The EGA CRTC does not expect RGB values to generate pixels. Instead, it is based on an index-based color palette system. Each pixel is a 4-bit index number, assigned to a color from the Attribute Controller. The default color palette is all 16 CGA colors, but it allows substitution of each of these colors with any one from a total of 64 colors.\\
 
 When calculating the intended value in the 64-color EGA palette, the 6-bit number of the intended entry is of the form "rgbRGB" where a lowercase letter is the least significant bit of the channel intensity (\(\frac{1}{3}\) color intensity) and an uppercase letter is the most significant bit of intensity (\(\frac{2}{3}\) color intensity). The more intensity, the brighter the color is. For example, \cw{02h} will produce green, \cw{10h} will produce dim green and \cw{12h} will produce bright green. Each of the 16 color indexes could be reassigned to one color from the "rgbRGB" palette.
  
@@ -861,7 +861,7 @@ The introduction of real game music and sounds on the PC started with Sierra bac
 Sierra struck a deal with two companies, Roland and AdLib, where Sierra would also become a reseller for these soundcards. \\
 
 \par
-The Roland MT-32 was the higher end of these music devices. In today's terminology, it would be labeled a "Wavetable Synthesizer". A wavetable synthesizer usually implies that real instrument sounds are recorded into the hardware of the device. This device can then manipulate them to play them back at the various notes you need. The MT-32 had the ability to manipulate parts of its built in sounds using something called "Linear Arithmetic (LA)" synthesis. It was a very good device that can rival even today's sound cards. To connect the MT-32 to a PC required, what Roland called an MPU-401\footnote{Midi Processing Unit-401}, in one of the PC's expansion slots. Sierra sold The MT-32 with a necessary MPU-401 interface for \$550. The high price prevented it from dominating the end-user market of gaming.\\
+The Roland MT-32 was the higher end of these music devices. In today's terminology, it would be labeled a "Wavetable Synthesizer". A wavetable synthesizer usually implies that real instrument sounds are recorded into the hardware of the device. This device can then manipulate them to play them back at the various notes you need. The MT-32 had the ability to manipulate parts of its built-in sounds using something called "Linear Arithmetic (LA)" synthesis. It was a very good device that can rival even today's sound cards. To connect the MT-32 to a PC required, what Roland called an MPU-401\footnote{Midi Processing Unit-401}, in one of the PC's expansion slots. Sierra sold the MT-32 with a necessary MPU-401 interface for \$550. The high price prevented it from dominating the end-user market of gaming.\\
 
 \par
   \begin{figure}[H] 
@@ -872,7 +872,7 @@ The Roland MT-32 was the higher end of these music devices. In today's terminolo
 
 
 \par
-The IBM Music Feature Card was launched in March 1987 as a collaboration between IBM and Yamaha. Essentially the Music Feature Card was a synthesizer installed on an 8-bit expansion card\footnote{Roland released the LAPC-I in 1989, which basically was similar to the Music Feature Card: a MT-32-compatible Roland synthesizer with a MPU-401 unit, integrated onto one single full-length 8-bit ISA card.}. The Music Feature Card had 8 FM voices, controllable via 4 frequency operators. It came with over 300 high-quality synthesized instruments on-board, and it was actually possible to have two Music Feature Cards in a single PC to get 16 voices. With a tag price of \$495 it was just like the Roland MT-32 an expensive card, and its audience was primarily business users.\\
+The IBM Music Feature Card was launched in March 1987 as a collaboration between IBM and Yamaha. Essentially the Music Feature Card was a synthesizer installed on an 8-bit expansion card\footnote{Roland released the LAPC-I in 1989, which basically was similar to the Music Feature Card: a MT-32-compatible Roland synthesizer with a MPU-401 unit, integrated onto one single full-length 8-bit ISA card.}. The Music Feature Card had 8 FM voices, controlled via 4 frequency operators. It came with over 300 high-quality synthesized instruments on-board, and it was actually possible to have two Music Feature Cards in a single PC to get 16 voices. With a tag price of \$495 it was just like the Roland MT-32 an expensive card, and its audience was primarily business users.\\
 
 \par
   \begin{figure}[H] 
@@ -929,7 +929,7 @@ Figure \ref{asb15} is the SoundBlaster model CT1320B. Notice the OPL2 chip (labe
   
 \par
   \bu{Trivia :}
-Creative Labs boasts in their own advert AdLib compatibility and even uses an image of AdLib Inc's product\footnote{Advert p20 in Compute!, April 1990.}! On the other hand they sued every company that tried to market a 'Sound Blaster compatible' product for using the name of their product.\\
+Creative Labs boasts in their own advert AdLib compatibility and even uses an image of AdLib Inc's product\footnote{Advert p20 in Compute!, April 1990.}! On the other hand, they sued every company that tried to market a 'Sound Blaster compatible' product for using the name of their product.\\
 
 \begin{figure}[H] 
   \centering 
@@ -989,7 +989,7 @@ The floppy disk is controlled via the Floppy Disk Controller (FDC), and a typica
   \item Turn the disk motor off. 
 \end{itemize}
 
-The controller waited a few seconds before turning off the motor. The reason to leave the motor on for a few seconds is that the controller may not know if there is a queue of sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
+The controller waited a few seconds before turning off the motor. The reason to leave the motor on for a few seconds is that the controller may not know if there is a queue for sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
 
 \section{Keyboard}
 The original IBM PC and XT keyboards featured 83 keys. After receiving feedback from users frustrated by the layout, IBM introduced the 84-key PC AT keyboard, which included a rearranged layout and the addition of the "Sys Req" key. It also introduced 3 status LEDs for Caps Lock, Num Lock and Scroll Lock.\\
@@ -1001,7 +1001,7 @@ The original IBM PC and XT keyboards featured 83 keys. After receiving feedback 
 \end{figure}
 
 \par
-This design was further updated in 1986 with the release of the IBM Model M. It officially became the IBM PC standard in 1987 with the introduction of the IBM Personal System/2 (PS/2). The function keys were moved to the top, F11 and F12 were added, and the total number of keys increased to 101. The Model M was widely adopted and are still being used today.\\
+This design was further updated in 1986 with the release of the IBM Model M. It officially became the IBM PC standard in 1987 with the introduction of the IBM Personal System/2 (PS/2). The function keys were moved to the top, F11 and F12 were added, and the total number of keys increased to 101. The Model M was widely adopted and is still being used today.\\
 
 \begin{figure}[H] 
   \centering 

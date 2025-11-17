@@ -5,7 +5,7 @@
 Commander Keen episodes 1-5 source code is unavailable, as the current owner Zenimax\footnote{June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, at the time of writing, shown no interest in selling the intellectual property. Luckily the ownership of Commander Keen in Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the owners of Softdisk at the time, and released a version for Android devices.\\
 
 \par
-The following September, an Indiegogo crowdfunding campaign was started to attempt to buy the rights from Flat Rock for US\$1500 in order to release the source code to the game and start publishing it on multiple platforms. The campaign did not reach the goal, but it's creator Javier Chavez made up the difference, and the source code was released under GNU GPL-2.0-or-later soon after.
+The following September, an Indiegogo crowdfunding campaign was started to attempt to buy the rights from Flat Rock for US\$1500 in order to release the source code to the game and start publishing it on multiple platforms. The campaign did not reach the goal, but its creator Javier Chavez made up the difference, and the source code was released under GNU GPL-2.0-or-later soon after.
 
 
 \section{Getting the source code}
@@ -118,7 +118,7 @@ Now it's time to compile. Go to Compile -> Build All, and voil\`a! The final ste
 
 
 \section{Big Picture}
-The game engine is divided in three blocks:
+The game engine is divided into three blocks:
 \begin{itemize}
 \item Control panel which lets users configure and start the game.
 \item 2D game renderer where the users spend most of their time.
@@ -169,7 +169,7 @@ Then comes the core loop, where the menu and 2D renderer are called forever.
  
 The interrupt system is started via the Sound Manager in \cw{SDL\_SetIntsPerSec(rate)}. While there is a famous game development library called Simple DirectMedia Layer (SDL), the prefix \cw{SDL\_} has nothing to do with it. It stands for SounD Low level (Simple DirectMedia Layer did not even exist in 1990).\\
 \par
-The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with an OS supporting neither processes nor threads, it was the only way to have something execute concurrently with the rest of the engine.\\
+The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with an OS supporting neither processes nor threads, it was the only way to have something executed concurrently with the rest of the engine.\\
 
 
 
@@ -218,7 +218,7 @@ The engine has its own memory manager, to have more control over memory fragment
 \par
 \lstinputlisting[language=C]{code/mm_block.c}
 \par  
-The memory manager allocates all RAM, starting from \cw{0000:0000h}, and assigns segments to the linked list. Since the engine is compiled using the medium memory model, there are two heaps: the near heap between the global variables and stack, and the far heap starting right behind the stack . The total available free memory space for the near heap can be obtained by\\
+The memory manager allocates all RAM, starting from \cw{0000:0000h}, and assigns segments to the linked list. Since the engine is compiled using the medium memory model, there are two heaps: the near heap between the global variables and stack, and the far heap starting right behind the stack. The total available free memory space for the near heap can be obtained by\\
 \par
 \lstinputlisting[language=C]{code/nearheap.c}
 
@@ -249,7 +249,7 @@ The stack is the next unusable memory block. Since the stack will grow or shrink
 \lstinputlisting[language=C]{code/mm_savenearheap.c}
 \par  
 
-The next step is allocate the far heap, which can be obtained by\\
+The next step is allocating the far heap, which can be obtained by\\
 
 \par
 \lstinputlisting[language=C]{code/farheap.c}
@@ -375,7 +375,7 @@ On the EGA video card each 8 pixels take up 1 byte of VRAM (as explained in sect
 Instead of manually shifting every pixel in your character bitmaps, the game engine uses pre-calculated bitshift tables. These tables are essentially lookup guides that help quickly adjust how characters are drawn based on their starting position. Here's how the process works:
 \begin{enumerate}
   \item Start with a base table (called \cw{shiftdata0}) that holds all the possible values for a byte, from 0 to 255, and store this in an integer (16 bits). 
-  \item Next, you generate seven more tables by shifting each value in \cw{shiftdata0} one bit to the right for each table. So for \cw{shiftdata1} the value 198 becomes 99, and for \cw{shiftdata2} it becomes 32817, and so on. This process continues until you have eight tables, each representing a different bitshift.
+  \item Next, you generate seven more tables by shifting each value in \cw{shiftdata0} one bit to the right for each table. So, for \cw{shiftdata1} the value 198 becomes 99, and for \cw{shiftdata2} it becomes 32817, and so on. This process continues until you have eight tables, each representing a different bitshift.
 \end{enumerate}
 
 \begin{figure}[H]
@@ -409,7 +409,7 @@ Printing the letter "N" with an offset of 3 pixels involves a simple lookup in \
 \end{minipage}
 \par
 \subsection{Sound Manager (SD)}
-The Sound Manager abstracts interaction with all sound systems supported: PC Speaker, AdLib, and Sound Blaster. It is a beast of its own since it doesn't run inside the engine. Instead it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). The sound manager is described extensively in the "\nameref{audio_and_heartbeat}" section on page \pageref{audio_and_heartbeat}. \\
+The Sound Manager abstracts interaction with all sound systems supported: PC Speaker, AdLib, and Sound Blaster. It is a beast of its own since it doesn't run inside the engine. Instead, it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). The sound manager is described extensively in the "\nameref{audio_and_heartbeat}" section on page \pageref{audio_and_heartbeat}. \\
  \par
 \begin{figure}[H]
 \centering
@@ -429,7 +429,7 @@ The primary function of the Softdisk files is to load and display the intro scre
 
 
 \section{Startup}
-When the game engine starts, it first loads the Memory Manager. It then checks if at least 335KiB of RAM is available. If not, a warning is displayed, but the game can still continue. However, the game will likely crash or display an "Out of memory" error soon after. \\
+When the game engine starts, it first loads the Memory Manager. It then checks if at least 335KiB of RAM is available. If not, a warning is displayed, but the game can continue. However, the game will likely crash or display an "Out of memory" error soon after. \\
 
 \par
 Once the game has successfully started, the intro image, a Deluxe Paint bitmap image (\cw{*.LBM}), is displayed. After the user presses any key, the intro image (using 320x200 = 64,000 bytes) is unloaded from RAM to free up memory for runtime, and the control panel is displayed.\\
