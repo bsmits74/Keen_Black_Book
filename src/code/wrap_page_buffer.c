@@ -1,7 +1,9 @@
 #define	SCREENSPACE		(SCREENWIDTH*240)
 #define FREEEGAMEM		(0x10000l-3l*SCREENSPACE)
 
+//Calculate new startring point of the screen
 screenmove = deltay*16*SCREENWIDTH + deltax*TILEWIDTH;
+
 for (i=0;i<3;i++)
 {
   screenstart[i]+= screenmove;
@@ -12,6 +14,7 @@ for (i=0;i<3;i++)
     oldscreen = screenstart[i] - screenmove;
     newscreen = oldscreen + screencopy;
     screenstart[i] = newscreen + screenmove;
+    
     // Copy the screen to new location
     VW_ScreenToScreen (oldscreen,newscreen,
        PORTTILESWIDE*2,PORTTILESHIGH*16);

@@ -490,7 +490,7 @@ I was in a tough position. Do I have to track every single one of these [SUPER V
 As explained in section "\nameref{section:ega_memmap}" on page \pageref{section:ega_memmap} each pixel is encoded by four bits, which are spread across the four EGA banks. So how can we copy four VRAM planes fast enough, without noticing any performance hit? To copy eight pixels, byte-aligned, one would have to do four read and four writes.\\
 
 \par
-Having a closer look at the EGA card one notice there is a latch placed in front of the ALU, which can be re-purposed for the greater good. With a little creativity the ALU in front of each bank can be setup to use only the latch for writing\footnote{The mask trick is discussed in \textit{Game Engine Black Book: Wolfenstein 3D} for the VGA card. The trick is the same for the EGA card.}. With such a setup, upon doing one read, four latches are populated at once and four bytes in the bank are written with only one write to the RAM. Now it is possible to copy the entire buffer fast enough, without notifying any performance impact.\\ 
+Having a closer look at the EGA card one notice there is a latch placed in front of the ALU, which can be re-purposed for the greater good. With a little creativity the ALU in front of each bank can be setup to use only the latch for writing and ignoring the RAM value\footnote{The mask trick is discussed in \textit{Game Engine Black Book: Wolfenstein 3D} for the VGA card. The trick is the same for the EGA card.}. By enabling the mask to write to all banks, all latch values are written to VRAM. With such a setup, upon doing one read, \circled{1} four latches are populated at once and \circled{2} four bytes in the bank are written with only one write to the RAM. Now it is possible to copy the entire buffer fast enough, without notifying any performance impact.\\ 
 
 \par
  \begin{figure}[H]
@@ -500,7 +500,9 @@ Having a closer look at the EGA card one notice there is a latch placed in front
  \label{fig:latch_memory}
  \end{figure}
  
- 
+\par
+The setup requires to configure the grapics controller to only read the content of the latches and the map mask register to enable writing to all 4 planes at once.\\ 
+
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/EGA_LATCH_COPY.ASM}
@@ -527,12 +529,12 @@ This problem results from the timing between updating the CRTC start address and
 \par
 This issue can be illustrated with the following setup: the current CRTC start address (Page 0) points to \cw{0000h}, while the buffer (Page 1) points to \cw{3C00h}. After moving one tile to the left, Page 0 now points to \cw{FFFEh} in VRAM, and Page 1 points to \cw{3BFEh}. Since Page 1 is the updated buffer, it will be displayed in the next refresh cycle. However, due to poor timing in updating the vertical retrace and start address, the CRTC only picks up the first byte of the address, \cw{3Bh}, setting the start address to \cw{3B00h} instead of \cw{3BFEh}.\\
 
-\par
+\bigskip
 \begin{minipage}{\textwidth}
 \lstinputlisting[language={[x86masm]Assembler}]{code/pageflip_error.c}
 \end{minipage}
 
-\pagebreak
+\par
 One solution to this issue is to update the start address when the vertical retrace signal is detected through the Input Status 1 Register, specifically bit 3 of \cw{3DAh}. Unfortunately, by the time this status is observed by the program, the start address for the next frame has already been latched, occurring immediately when the vertical retrace pulse begins.\\
 
 \par
@@ -549,7 +551,10 @@ To address this issue, the start address must be updated at a point sufficiently
 \par
 To guarantee that the start address updates at the very beginning of a new scan line, the process first waits until the current scan line completes. Then, it waits for a full retrace, checking that the Display Enable Status returns to '0'. At this point, the CRTC address is updated.\\
 
-\trivia{Regardless of CPU speed, the game's speed is limited by the CRTC sync to the monitor's refresh rate, which is 60Hz for EGA and 70Hz for VGA.}
+\trivia{Regardless of CPU speed, the game's speed is limited by the CRTC sync to the monitor's refresh rate, which is 60Hz for EGA and 70Hz for VGA.}\\
+
+\par
+A different solution is applied in Wolfenstein 3D. Here, each virtual screen has a fixed starting address and only differ by their high byte value: page 0 is at \cw{0000h}, page 1 at \cw{4100h} and the master page at \cw{8200h}. Moving from any page to another requires updating only the high 8 bits, ensuring a smooth screen refresh. This solution is not possible for Commander Keen as the virtual screen moves around in VRAM. 
 
 \par
 \begin{minipage}{\textwidth}
