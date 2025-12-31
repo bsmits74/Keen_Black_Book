@@ -27,7 +27,7 @@ After downloading the repository from \cw{github}, a folder named 'keen' is crea
 Approximately 85\% of the code is in C, with assembly\footnote{All the assembly in Keen is done with TASM (a.k.a Turbo Assembler by Borland). It uses Intel notation where the destination is before the source: \cw{instr} \cw{dest} \cw{source}.} used for bottleneck optimizations and low-level I/O operations such as video and audio handling. \\
 
 \par
-Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, \cw{curl} (a command-line tool for downloading URLs) has 154,134 SLOC, Google Chrome has 1,700,000 SLOC, and the Linux kernel consists of 15,000,000 SLOC.\\
+Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, \cw{inkscape} (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Google Chrome has 37,000,000 SLOC.\\
 
 \par
 \begin{figure}[H]
@@ -118,7 +118,7 @@ Now it's time to compile. Go to Compile -> Build All, and voil\`a! The final ste
 
 
 \section{Big Picture}
-The game engine is divided into three blocks:
+The game engine is divided into three blocks: 
 \begin{itemize}
 \item Control panel which lets users configure and start the game.
 \item 2D game renderer where the users spend most of their time.
@@ -196,7 +196,7 @@ There are six managers in total:\\
 	\item Input
 \end{itemize}
 \par
-The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer id Software games (\textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolf3D}). Next to the hard drives (HDD) you can see the assets packed as described in section "\nameref{section:graphic_assets}" on page \pageref{section:graphic_assets}.
+The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer id Software games (\textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolf3D}). Next to the hard drives (HDD) you can see the graphic, level and sound assets files as described in chapter \ref{chapter:assets}.
 
 \begin{figure}[H] 
 \centering
@@ -408,7 +408,7 @@ Printing the letter "N" with an offset of 3 pixels involves a simple lookup in \
   \lstinputlisting[language={[x86masm]Assembler}]{code/unrolled_ShiftPropChar.asm}
 \end{minipage}
 \par
-\subsection{Sound Manager (SD)}
+\subsection{Sound Manager (SD)} 
 The Sound Manager abstracts interaction with all sound systems supported: PC Speaker, AdLib, and Sound Blaster. It is a beast of its own since it doesn't run inside the engine. Instead, it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). The sound manager is described extensively in the "\nameref{audio_and_heartbeat}" section on page \pageref{audio_and_heartbeat}. \\
  \par
 \begin{figure}[H]

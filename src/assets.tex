@@ -63,7 +63,7 @@ Foreground tiles, or "masked tiles", are similar to normal tiles but contain fiv
 By combining tiles on the screen, a map is created. These maps define the entire game world in terms of background and foreground tiles. Maps also contain a list of all actors and their starting positions within the world. Essentially, everything the player encounters while progressing through the levels is specified in a map.
 
 \subsection{Assets Workflow}
-After the graphic assets were generated, a tool (IGRAB) packed all ILBM files into a compressed data asset file (\cw{EGA}-file) and generated a \cw{HEAD} table, \cw{DICT} file (\cw{KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs.\\
+After the graphic assets were generated, a tool (IGRAB) packed all ILBM files into a compressed data asset file (\cw{*.EGA}) and generated a \cw{HEAD} table, \cw{DICT} file (\cw{KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs.\\
 
 
 \begin{figure}[H]

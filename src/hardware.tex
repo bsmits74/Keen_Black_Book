@@ -177,7 +177,7 @@ The four functional units can be described by
 
 \par
 The performance increase of the 80286 over the 8088 was mainly to the fact that address calculations (such as segment+offset) were less expensive. They were performed by the dedicated address unit in the 80286, while the older 8088 had to do effective address computation using its ALU, consuming several extra clock cycles in many cases.
-
+ 
 
 \par
 \begin{figure}[H] 
@@ -188,7 +188,7 @@ The performance increase of the 80286 over the 8088 was mainly to the fact that 
 
 
 \par
-The three units in the execution group form a three stage pipeline: Prefetch, Decode, and Execute. The Prefetch Unit wakes up when the Execution unit is performing but not using the bus and fetches instructions in a 6-byte queue. The prefetcher is linear and cannot predict the result of a branch. As a result, a jump (\cw{JMP}) instruction triggers a flush of the entire pipeline. Instructions go down the pipeline and are decoded by the Decode Unit: the result of the decode operation is stored in a three-element FIFO where it is picked up by the Execution Unit.\\
+The three units in the execution group form a three stage pipeline: Prefetch, Decode, and Execute. The Prefetch Unit wakes up when the Execution unit is performing but not using the bus and fetches instructions in a 6-byte queue. The prefetcher is linear and cannot predict the result of a branch. As a result, a jump (\cw{JMP}) or \cw{CALL} instruction triggers a flush of the entire pipeline. Instructions go down the pipeline and are decoded by the Decode Unit: the result of the decode operation is stored in a three-element FIFO where it is picked up by the Execution Unit.\\
 
 
 
@@ -618,7 +618,8 @@ EGA can be summarized as three major systems made of input, storage, and output:
 \begin{itemize}
 \item The Graphic Controller and Sequence Controller controlling how EGA RAM is accessed (the CPU-VRAM interface)
 \item The framebuffer (the VRAM) made of four memory banks with 64KiB (rather than one bank of 256KiB).  
-\item The CRT Controller and the Attribute Controller taking care of converting the palette-indexed framebuffer to RGB and then to digital TTL\footnote{Transistor-Transistor Logic} signal for display
+\item The Sequence Controller is responsible to read the four memory banks and convert video memory to color indexes.
+\item The CRT Controller and the Attribute Controller taking care of converting the color-indexed framebuffer to RGB and then to digital TTL\footnote{Transistor-Transistor Logic} signal for display
 \end{itemize}
 
 \par
@@ -646,7 +647,8 @@ Keep in mind that this architecture reduced the penalty of read operations, but 
 \subsection{EGA Planar Madness}
 \label{section:EGA_Planar_Madness}
  
-Four memory banks grant enough throughput to reach high resolutions at 60Hz. This type of architecture is called "planar". Each plane is like a black-and-white image that stores information about a single color. For EGA there are 4 planes, where combining one bit from each plane results in a color index. This color index is then via the attribute controller translated into a color to the screen. This layout is better explained with a drawing.\\
+Four memory banks grant enough throughput to reach high resolutions at 60Hz. This type of architecture is called "planar". Each plane carries one bit of a pixel's palette index. For EGA there are 4 planes, where combining one bit from each plane produces a 4-bit color index. This color index is then via the attribute controller translated into a color to the screen. This layout is better explained with a drawing.\\
+
 
 \par
 To write the color of the first pixel, a developer has to write the first bit of the first byte in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) and converts them via the Attribute Controller into 8 pixels on screen. \\
