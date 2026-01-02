@@ -360,7 +360,6 @@ potential of the machines and ditch the 20-year-old real mode. It would have wor
 However, in the name of backward compatibility, Microsoft's DOS could only handle real
 mode which effectively locked developers into 16-bit programming.\\
 
-
 \par
   With protected mode unavailable, 1990 developers programmed like it was 1976: with a 20-bit-wide address bus offering only 1MiB of addressable RAM. Regardless of how much memory was installed on the machine, only 1MiB could be addressed. The memory layout for the real mode is as follows:
 \begin{itemize}
@@ -807,13 +806,10 @@ For example, if the color brown (rgbRGB = \cw{010100b}) is assigned to a color i
 So how did an EGA monitor recognize that it was connected to an EGA video card? in fact, it could only distinguish EGA and CGA cards based on the Vertical Sync signal (pin 9), which is either 200- or 350-line mode. If the Vertical Sync is 350-line mode, the monitor switched to Mode 2 operation which supported the extended rgbRGB-color information\footnote{IBM Enhanced Color Display technical documentation}. But in the 200-line mode, the monitor cannot distinguish between being connected to a CGA or an EGA card. \\
 
 \par
-For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-line modes so the monitor can also be used with a CGA card and vice versa. Consequently, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, in contrast to a CGA card, which can show only 4 colors at once.\\
-
-
-
+For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-line modes so the monitor can also be used with a CGA card and vice versa. Consequently, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, in contrast to a CGA card, which can show only 4 colors at once.
 
 \begin{figure}[H]
-\renewcommand{\arraystretch}{0.7}
+\renewcommand{\arraystretch}{0.95}
 \centering
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{+X +X +X +X }
@@ -1003,12 +999,15 @@ The original IBM PC and XT keyboards featured 83 keys. After receiving feedback 
 \end{figure}
 
 \par
-This design was further updated in 1986 with the release of the IBM Model M. It officially became the IBM PC standard in 1987 with the introduction of the IBM Personal System/2 (PS/2). The function keys were moved to the top, F11 and F12 were added, and the total number of keys increased to 101. The Model M was widely adopted and is still being used today.\\
+This design was further updated in 1986 with the release of the IBM Model M. It officially became the IBM PC standard in 1987 with the introduction of the IBM Personal System/2 (PS/2). The function keys were moved to the top, F11 and F12 were added, and the total number of keys increased to 101 (ANSI) or 102 (ISO). The Model M was widely adopted and is still being used today.\\
+
+\par
+The IBM Model M came in two main versions: the ANSI layout with 101 keys for the US and Canada, and the ISO layout with 102 keys, primarily used in Europe and other international markets. The primary differences between both layouts are the shape of the Enter key, the size of the left Shift key, and the presence of an extra key on the ISO variant to provide better support for typing in multiple languages with accents and special characters.\\
 
 \begin{figure}[H] 
   \centering 
   \scaledimage{1.0}{hardware/keyboard_PS2.png} 
-  \caption{IBM Keyboard model M (PS/2).}
+  \caption{IBM Keyboard model M 101-key layout (PS/2).}
 \end{figure}
 
 At the time, keyboards were connected either via PS/2 or AT ports.\\

@@ -27,7 +27,7 @@ After downloading the repository from \cw{github}, a folder named 'keen' is crea
 Approximately 85\% of the code is in C, with assembly\footnote{All the assembly in Keen is done with TASM (a.k.a Turbo Assembler by Borland). It uses Intel notation where the destination is before the source: \cw{instr} \cw{dest} \cw{source}.} used for bottleneck optimizations and low-level I/O operations such as video and audio handling. \\
 
 \par
-Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, \cw{inkscape} (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Google Chrome has 37,000,000 SLOC.\\
+Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, Inkscape (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Google Chrome has 37,000,000 SLOC.\\
 
 \par
 \begin{figure}[H]
@@ -318,7 +318,7 @@ The cache manager is a small but critical component. It loads and decompresses m
 \end{itemize}
 
 \par
-Details of each asset file are explained in section "\nameref{section:programming}" on page \pageref{section:programming}. The header and dictionary files are provided in the \cw{static} folder with the \cw{*.KDR} extension. These file types are integrated into the engine code and are required during compilation (converted into an \cw{*.OBJ} file using \cw{makeobj.c}). \\
+The header and dictionary files are provided in the \cw{static} folder with the \cw{*.KDR} extension. These file types are integrated into the engine code and are required during compilation (converted into an \cw{*.OBJ} file using \cw{makeobj.c}). \\
 
 \par
 \begin{fancyquotes}
@@ -331,7 +331,7 @@ When I was trying to fit all the data for Keen 2 and Keen 3 on a 360K floppy and
 \end{fancyquotes}\\
 \addtocounter{footnote}{-1}
 \stepcounter{footnote}
-\footnotetext{Great article regarding history of Commander Keen on https://legacy.3drealms.com/keenhistory.}
+\footnotetext{History of Commander Keen on https://legacy.3drealms.com/keenhistory.}
 
 
 \pagebreak
@@ -369,7 +369,7 @@ Each character is 10 pixels tall, but the width varies, as illustrated in Figure
  \end{figure}
  \par
  
-On the EGA video card each 8 pixels take up 1 byte of VRAM (as explained in section "\nameref{section:EGA_Planar_Madness}" on page \pageref{section:EGA_Planar_Madness}). When you need to print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
+On the EGA video card each 8 pixels take up 1 byte of VRAM, as explained in section "\nameref{section:EGA_Planar_Madness}" on page \pageref{section:EGA_Planar_Madness}. When you need to print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
 
 \par
 Instead of manually shifting every pixel in your character bitmaps, the game engine uses pre-calculated bitshift tables. These tables are essentially lookup guides that help quickly adjust how characters are drawn based on their starting position. Here's how the process works:
