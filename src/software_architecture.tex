@@ -1,5 +1,6 @@
 \documentclass[book.tex]{subfiles}
 \begin{document}
+\chapter{Software}
 \label{chapter_software_architecture}
 \section{About the source code}
 Commander Keen episodes 1-5 source code is unavailable, as the current owner Zenimax\footnote{June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, at the time of writing, shown no interest in selling the intellectual property. Luckily the ownership of Commander Keen in Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the owners of Softdisk at the time, and released a version for Android devices.\\
@@ -27,55 +28,19 @@ After downloading the repository from \cw{github}, a folder named 'keen' is crea
 Approximately 85\% of the code is in C, with assembly\footnote{All the assembly in Keen is done with TASM (a.k.a Turbo Assembler by Borland). It uses Intel notation where the destination is before the source: \cw{instr} \cw{dest} \cw{source}.} used for bottleneck optimizations and low-level I/O operations such as video and audio handling. \\
 
 \par
-Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, Inkscape (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Google Chrome has 37,000,000 SLOC.\\
+Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, Inkscape (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Microsoft Office 2013 is estimated at 45,000,000 SLOC.\\
 
-\par
-\begin{figure}[H]
-\centering
-  \begin{tikzpicture}[font=\small]
-    \begin{axis}[
-      width=\textwidth,
-      height=0.9\textwidth,
-      ybar=0.6\textwidth,
-      bar width=20pt,
-      ylabel={Lines of Code},
-      ymin=0,
-      ytick=\empty,
-      xtick=data,
-      axis x line=bottom,
-      axis y line=left,
-      enlarge x limits=0.11,
-      symbolic x coords={Keen, Wolf 3D,Doom,Quake,Quake 2,Quake 3, Doom 3},
-      xticklabel style={},
-      yticklabel style={},
-      nodes near coords={\pgfmathprintnumber[fixed,precision=0]\pgfplotspointmeta}
-    ]
-      \addplot[fill=black!20,draw=black] coordinates {
-        (Keen, 19237)
-        (Wolf 3D,27223)
-        (Doom,39080)
-        (Quake,78961)
-        (Quake 2, 138240)
-        (Quake 3, 233952)
-        (Doom 3, 601047)
-      };
-    \end{axis}
-   \end{tikzpicture} 
-   \caption{Lines of code from id Software game engines.}
- \end{figure}
- 
-\par
-
+\trivia{At time of writing the game Red Dead Redemption II is estimated to have the highest lines of code count: 60 million lines of code.}\\
 
  
+\par 
 The archive contains more than just source code; it also features:
 \begin{itemize}
-\item A \cw{static} folder with static header files for loading assets and maps (as explained in section "\nameref{section:graphic_assets}" on page \pageref{section:graphic_assets}).
+\item A \cw{static} folder with static header and dictionary files for loading assets and maps (as explained in section "\nameref{section:graphic_assets}" on page \pageref{section:graphic_assets}).
 \item An \cw{lscr} folder for loading and decompressing Softdisk text files.
 \item A \cw{README} file explaining how to build the executable.
 \end{itemize}
 
-\pagebreak
 \section{Compile source code}
 Now let's start to compile the source code. To compile the code like it's 1990 you need the following software:
 \begin{itemize}
@@ -86,22 +51,20 @@ Now let's start to compile the source code. To compile the code like it's 1990 y
 \end{itemize}
 
 \par
-After setting up DOSBox and installing Borland C++ 3.1\footnote{you can find a complete tutorial in "Let's compile like it's 1992" on fabiensanglard.net}, download the source code from github.\\
-
-\par
-Once DOSBox is running and you've navigated to the \cw{keen} folder, create a folder to store your compiled object files. \\
+After setting up DOSBox and installing Borland C++ 3.1\footnote{You can find a complete tutorial in "Let's compile like it's 1992" on fabiensanglard.net}, download the source code from github. Once DOSBox is running and you've navigated to the \cw{keen} folder, create a folder to store your compiled object files. \\
 
 \par
 \tcode{mkdir.txt}\\
 \par
-Then, generate the static \cw{OBJ} header files.\\
+The \cw{static} folder contains the Huffman dictionaries (\cw{DICT}) and headers (\cw{HEAD}) from the generated graphic, sound and map assets, stored as raw game data files. The team created a special tool called \cw{makeobj} that takes these data files and wraps them into DOS-compatible \cw{.OBJ} files, so that a C compiler (like Borland C++) can link them directly into the game's executable. The tool creates a "symbol" within the object file so that the game's source code can access the embedded data just like any other global variable or array. To generate the static \cw{OBJ} header files, simply enter.\\
 \par
 \tcode{static.txt}\\
+
 \par
 After that, return to the \cw{keen} folder and open Borland C++. Open the \cw{kdreams.prj} project file. Before compiling, adjust the directory settings by selecting Options -> Directories and change the values as shown on the next page. \\
 
 \par
-Now it's time to compile. Go to Compile -> Build All, and voil\`a! The final step is to copy \cw{kdreams.exe} into the Keen shareware folder. You can now play your compiled version of \textit{Commander Keen}. \\
+Now it's time to compile. Go to Compile -> Build All, and voil\`a! The game executable is stored in the \textbackslash{}OBJ folder. The final step is to copy \cw{kdreams.exe} into the Keen shareware folder. You can now play your compiled version of \textit{Commander Keen}. \\
 
 \begin{figure}[H]
 \centering
@@ -116,7 +79,82 @@ Now it's time to compile. Go to Compile -> Build All, and voil\`a! The final ste
 %\caption{Borland C++ 3.1 directory settings and compiling}
 \end{figure}
 
+\section{Executable compression}
+Checking the size of the compiled program, we see\\
+\par
+\tcode{source_compile_size.txt}\\
 
+\par
+The game was distributed on a single 5\nicefrac{1}{4}-inch, 360 KiB floppy disk. The compiled executable alone already occupies 349 KiB, and it still needed to accommodate graphics, level, and audio assets. With only 11 KiB remaining, the team needed a way to compress the executable to ensure everything would fit on one floppy disk.\\
+
+\par
+To compress the executable, the team made used a small utility called LZEXE. It was one of the first widely known executable file compression tools for DOS computers. LZEXE allowed DOS executables to be launched without requiring an explicit decompression step. Most other compression or packing utilities required an additional step (and often additional disk space) to accomplish this.\\
+
+
+\par
+\begin{fancyquotes}
+I wrote LZEXE in 1989 and 1990 when I was 17. At that time, hard disks were small and expensive, and 5\nicefrac{1}{4}-inch floppies were small (360KiB). Since I had only two floppy drives on my PC (an Amstrad PC1512), saving space was really an issue.\\
+
+\par
+Although I wrote LZEXE for my own use, I gave it to some friends, and it was then put on some BBS’s. LZEXE became then very famous, although I did not do anything to promote it. This success was quite unexpected for me.\\
+
+\par
+\textbf{Fabrice Bellard, LZEXE creator\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{See homepage of Fabrice Bellard: https://bellard.org/lzexe/.}
+
+
+\par
+The compression engine was built around the Lempel–Ziv–Storer–Szymanski (LZSS) algorithm\footnote{See https://en.wikipedia.org/wiki/Lempel-Ziv-Storer-Szymanski.}, and the decompressor was designed to operate without using more memory than the final decompressed program required. This was more difficult than it might seem at first, because the tool had to ensure that there was never a moment when decompressed data overwrote an unread portion of the compressed data.\\
+
+\par
+An LZEXE-compressed program is a standard DOS executable, loaded in the standard way without any special trickery. Each executable file contains an EXE header, which specifies the initial values of the SS and SP stack registers. These are set up to point to a high area of uninitialized memory.
+
+\par
+The first task performed by the program is to move itself, including the decompression code and relocation table. This step is necessary because, if the compressed payload were decompressed in the same location where DOS originally loaded it, the decompressor would begin writing decompressed program data faster than it could read the compressed data, destroying its own source material.\\
+
+\par
+\begin{figure}[H]
+\centering
+ \includegraphics[width=1.0\textwidth]{imgs/drawings/LZ_decompresss_1.eps}
+ \caption{Loading and relocate EXE program in memory (simplified).}
+ \end{figure}
+
+\par
+Once relocated, the decompression code begins reading the compressed program and decompresses it back into the program’s original starting address. The heart of the decompressor is the LZSS algorithm, which operates by replacing repeated occurrences of data with references to earlier instances of that same data in the decompressed output\footnote{The detailed working of LZSS compression is beyond the scope of this book. If you are interested, here is a great explanation: https://cosmodoc.org/topics/lzexe/.}.\\
+
+\par
+\begin{figure}[H]
+\centering
+ \includegraphics[width=0.7\textwidth]{imgs/drawings/LZ_decompresss_2.eps}
+ \caption{Decompression and final result in memory.}
+ \end{figure}
+ 
+\par
+After the entire program has been decompressed, special attention is required for \cw{JMP} (jump) and \cw{CALL} instructions. Normal program execution is linear, with each instruction directly following the previous one. Jump and call instructions interrupt this flow and force the program to branch to arbitrary absolute addresses in the code. However, under DOS there are no guarantees about the memory address at which an executable will be loaded. Depending on DOS itself, device drivers, reserved memory regions, and other factors, this address can — and frequently does — change from run to run.\\
+
+\par
+To solve this problem, the DOS uses a relocation table, as illustrated below.
+
+\par
+\begin{figure}[H]
+\centering
+ \includegraphics[width=1.0\textwidth]{imgs/drawings/relocation_table.eps}
+ \end{figure}
+
+When an EXE file is created, all absolute addresses in the code are calculated under the assumption that the program will be loaded at address \cw{0000:0000h}, the absolute beginning of memory. The relocation table contains a list of locations within the executable where such absolute addresses appear. The DOS loader iterates through this table and patches each address \circled{1} by adding the program’s actual load address \circled{2}.\\
+
+\par
+DOS is storing each relocation table entry as a 4-byte segment:offset pointer. This takes up quite a bit of space, since an average game has over 1,300 relocation table entries, which would occupy well over 5 KiB of space using the MS-DOS scheme. LZEXE, by contrast, encodes only the distance from the previous fixup. This results in a far more efficient format, with most relocations requiring only a single byte. In practice, an LZEXE-compressed relocation table can be one-quarter the size of the equivalent DOS relocation table.\\
+
+
+\par
+At this point, memory contains exactly what it would have contained if the executable had never been compressed with LZEXE in the first place. And that’s how it all worked — everything happening in the split second between the user pressing the enter key at the DOS prompt and the screen clearing to launch the game. The executable file is ultimately compressed to 80 KiB, achieving a 77\% reduction in file size.\\
+
+
+\pagebreak
 \section{Big Picture}
 The game engine is divided into three blocks: 
 \begin{itemize}
