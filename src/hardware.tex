@@ -29,12 +29,16 @@ A lot of friction was present since manufacturers had not embraced the gaming in
 
 
 \section{CPU: Central Processing Unit}
+In 1989, around 15\% of the households owned a computer\footnote{https://www.statista.com/statistics/184685/percentage-of-households-with-computer-in-the-united-states-since-1984/}. The performance of these machines was so overwhelmingly determined by the CPU that a PC was referred to not by its brand or GPU\footnote{There was no GPU yet. The term was coined by Nvidia in 1999, who marketed the GeForce 256 as "the world's first GPU", or Graphics Processing Unit.}, but by the main chip inside. If a PC had an Intel 8088 or equivalent, it was called an "XT". If it had an Intel 80286, it was a "286" or "AT".
 
-  In 1989, around 15\% of the households owned a computer\footnote{https://www.statista.com/statistics/184685/percentage-of-households-with-computer-in-the-united-states-since-1984/}. The performance of these machines was so overwhelmingly determined by the CPU that a PC was referred to not by its brand or GPU\footnote{There was no GPU yet. The term was coined by Nvidia in 1999, who marketed the GeForce 256 as "the world's first GPU", or Graphics Processing Unit.}, but by the main chip inside. If a PC had an Intel 8088 or equivalent, it was called an "XT". If it had an Intel 80286, it was a "286" or "AT".\\
+
 \subsection{Overview}
   Intel released the 8086 in 1978, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 6Mhz and later popular versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. Its successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus. Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on an 8088 CPU. An 80286 or higher was recommended to play the game.\\   
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 6Mhz and later popular versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. Its successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus.\\
+
+\par  
+Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on an 8088 CPU. An 80286 or higher was recommended to play the game primarily due to its reliance on the 16-bit data bus, as well as its raw speed. This section (and the bulk of this book) is written from the perspective of an 80286, but most of the information is applicable to 8086, as well as PC's many generations newer\footnote{Ideas from the Deep developed Commander Keen on a 80386 computer.}.\\   
 
 \par
 
@@ -76,8 +80,8 @@ A lot of friction was present since manufacturers had not embraced the gaming in
   \footnotetext{Roy Longbottom's PC Benchmark Collection: http://www.roylongbottom.org.uk/mips.htm.}
    % \stepcounter{footnote}
  \par
-  \textbf{\underline{Trivia :}} A modern processor such as the Intel Core i7 3.33 GHz operates at close to 180,000 MIPS.\\
-  \par
+  \textbf{\underline{Trivia :}} A modern processor such as the Intel Core i7 3.33 GHz operates at close to 180,000 MIPS.
+  
 
 \subsection{The Intel 80286}
   \begin{wrapfigure}[7]{r}{0.3\textwidth}
@@ -90,6 +94,7 @@ The Intel 80286 chip, first introduced in 1982, is the CPU behind the original I
 \par
 When IBM developed the AT, it selected the 286 as the basis for the new system because the chip provided compatibility with the 8088 used in the PC and the XT. Therefore, software written for those chips should run on the 286. The 286 chip is many times faster than the 8088 used in the XT, and at the time it offered a major performance boost to PCs used in businesses. The processing speed, or throughput, of the original AT (which ran at 6MHz) is five times greater than that of the PC running at 4.77MHz.
 The 286 computers are faster than their predecessors for several reasons. The main reason is that 286 processors are much more efficient in executing instructions. An average instruction takes 12 clock cycles on the 8088, but takes an average of only 4.5 cycles on the 286 processor. Additionally, the 286 chip can handle up to 16 bits of data at a time through an external data bus twice the size of the 8088.\\
+
 \par
 The 286 chip has two modes of operation: real mode and protected mode. The two modes are distinct enough to make the 286 resemble two chips in one. In real mode, a 286 acts essentially the same as an 8086 chip and is fully compatible with the 8086 and 8088. In the protected mode of operation, the 286 was truly something new. In this mode, a program designed to take advantage of the chip's capabilities has access to 1GB of memory (including virtual memory). The 286 chip, however, can address only 16MB of hardware memory. A significant failing of the 286 chip is that it cannot switch from protected mode to real mode without a hardware reset (a warm reboot) of the system (It can, however, switch from real mode to protected mode without a reset).\\
 
@@ -397,9 +402,9 @@ The x86 real mode provides different memory segment layouts, called "memory mode
 
 
 \begin{figure}[H]
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.6}
 \centering
-\begin{tabularx}{\textwidth}{ X X X X X >{\hsize=.3\textwidth}Y} \hline
+\begin{tabularx}{\textwidth}{ X X X X X >{\hsize=.3\textwidth}Y} 
   &  \multicolumn{2}{c}{\textbf{Default pointer type}} & \multicolumn{2}{c}{\textbf{Size}} &  \\ \cline{2-5}
  \textbf{Model}   & \textbf{Code} & \textbf{Data} & \textbf{Code} & \textbf{Data} & \textbf{Definition} \\ \hline
  Tiny & near & near & \multicolumn{2}{c}{<64KiB} & CS=DS=SS \\ \hline
@@ -670,7 +675,7 @@ In order to configure this mess of planes and the controllers, 50 poorly documen
  \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/ibm_ega.eps}
-\caption{IBM's EGA Documentation.}
+\caption{IBM's EGA documentation.}
 \label{fig:ibm_ega}
 \end{figure}
 
@@ -906,8 +911,14 @@ The AdLib card dominated the PC market for almost three years. Then, in 1989, Cr
   Creative Labs, the company behind the SoundBlaster, didn't enter the sound card industry until 1987 with the introduction of their Creative Music System (C/MS). From inception in 1981, they were a computer repair shop in Singapore. Creative Music System, or "Game Blaster" as it was renamed a year later, was a FM synthesizer card similar to AdLib. Based on the Philips SAA1099 chip, which was essentially a square-wave generator, it sounded much like twelve simultaneous PC speakers would have, except for each channel having amplitude control. The card did not sell well.\\
   
   \par
-The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to their Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the SoundBlaster was \$90 cheaper than the AdLib.\\
+The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to the Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the Sound Blaster was \$90 cheaper than the AdLib, which led many consumers to choose it instead. In less than a year, the Sound Blaster became the top-selling expansion card for the PC. \\
 
+\par
+\begin{fancyquotes}
+At Comdex [1989], we sold one Sound Blaster every four minutes.\\ 
+\par
+\textbf{Sim Wong Hoo, founder, on their rapid success}
+\end{fancyquotes}\\
 
 \par
 Figure \ref{asb15} is the SoundBlaster model CT1320B. Notice the OPL2 chip (labeled FM1312) and the CT1321 DSP on the middle top. In the middle of the card are the two CMS-301 chips, to ensure backwards compatibility with the Creative Music System. The CT1320B model (Sound Blaster 1.5) was a cost-cutting measure. Having recognized that C/MS was unpopular, they replaced the two C/MS chips with sockets. You could still purchase the C/MS chips for \$29.95 if you wished and install them into these sockets.\\
