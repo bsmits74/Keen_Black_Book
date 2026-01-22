@@ -2,9 +2,7 @@ CRTC_INDEX	=	03D4h
 CRTC_OFFSET	=	19
 
 ;==============
-;
 ; set wide virtual screen
-;
 ;==============
 
 mov	dx,CRTC_INDEX

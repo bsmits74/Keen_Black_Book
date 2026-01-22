@@ -30,19 +30,14 @@ The index of this array corresponds to the graphic asset IDs. Using eight bits, 
   TILE8M &  & & & & & & & \\ \hline
   TILE16 \#1 &  & & & & & & & \\ \hline
   TILE16 \#2 &  & & & & & & & \\ \hline
+  TILE16 \#3 &  & & & & & & & \\ \hline
   ... &  & & & & & & & \\ \hline
 \end{tabular}\\
 \setlength{\tabcolsep}{6pt} % reset border margin
 \caption{Initiating \cw{grneeded[]} array, current cache level is 1.}
 \end{figure}
 
-When new resources for a level need to be cached in memory, all required assets are marked by setting the current level bit (bit 1). \\
-
-\lstinputlisting[language=C]{code/unrolled_mark_cache.c}
-
-\par
-The function \cw{CA\_CacheMarks} then iterates through the cache array, checking if any of the required assets are not yet available in memory. If not, it loads and decompresses the asset from disk into memory.
-
+When new graphics for a map need to be cached in memory, all required assets are marked by setting the current level bit (bit 1). \\
 
 \begin{figure}[H]
 \centering
@@ -62,12 +57,22 @@ The function \cw{CA\_CacheMarks} then iterates through the cache array, checking
   TILE8M &  & & & & & & & \cellcolor{black} \\ \hline
   TILE16 \#1 &  & & & & & & & \cellcolor{black} \\ \hline
   TILE16 \#2 &  & & & & & & & \\ \hline
+  TILE16 \#3 &  & & & & & & & \cellcolor{black} \\ \hline
   ... &  & & & & & & & \\ \hline
 \end{tabular}\\
 \setlength{\tabcolsep}{6pt} % reset border margin
 \caption{Mark and load assets required for the new map in cache level 1.}
 \end{figure}
 
+\lstinputlisting[language=C]{code/unrolled_mark_cache.c}
+
+\par
+The function \cw{CA\_CacheMarks} then iterates through the cache array, checking if any of the required assets are not yet available in memory. If not, it loads and decompresses the asset from disk into memory.
+
+
+
+
+\lstinputlisting[language=C]{code/unrolled_CA_CacheMarks.c}
 
 \par
 Now, during gameplay, the user opens the control panel (e.g. to pause the game), which requires loading assets for the control panel into memory. The cache level is increased to level two and for all required control panel assets the second bit is marked.\\
@@ -76,7 +81,6 @@ Now, during gameplay, the user opens the control panel (e.g. to pause the game),
 \lstinputlisting[language=C]{code/CA_level_up.c}
 
 \par
-
 The \cw{grneeded[]} cache array then appears as below.\\
 
 \begin{figure}[H]
@@ -96,7 +100,8 @@ The \cw{grneeded[]} cache array then appears as below.\\
   TILE8 &  & & & & & & \cellcolor{black} & \cellcolor{black} \\  \hline
   TILE8M &  & & & & & & \cellcolor{black} & \cellcolor{black} \\ \hline
   TILE16 \#1 &  & & & & & & & \cellcolor{black} \\ \hline
-  TILE16 \#2 &  & & & & & & & \\ \hline
+  TILE16 \#2 &  & & & & & & \cellcolor{black} & \\ \hline
+  TILE16 \#3 &  & & & & & & & \cellcolor{black} \\ \hline
   ... &  & & & & & & & \\ \hline
 
 \end{tabular}\\
@@ -106,25 +111,14 @@ The \cw{grneeded[]} cache array then appears as below.\\
 \par
 
 \par
-The function \cw{CA\_CacheMarks()} is called again to load all cache level 2 assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level 2, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory.\\
-
-\pagebreak
-In this example, this applies to 
-\begin{itemize}
-  \item \cw{KEENSTANDRSPR}
-  \item \cw{KEENRUNR1SPR}
-  \item \cw{TILE16 \#1} 
-\end{itemize}
-
-\lstinputlisting[language=C]{code/unrolled_CA_CacheMarks.c}
-
-
+The function \cw{CA\_CacheMarks()} is called again to load all cache level 2 assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level 2, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory. In this example, this applies to \cw{KEENSTANDRSPR}, \cw{KEENRUNR1SPR}, \cw{TILE16 \#1} and \cw{TILE16 \#3}.\\ 
 
 \par
-When the user closes the control panel, the engine lowers the cache level back to 1, where all assets required for playing the level are memorized. Simply calling the function \cw{CA\_CacheMarks()} again reloads any assets that were removed from memory.\\
+When the user closes the control panel, the engine lowers the cache level back to 1 by calling \cw{CA\_DownLevel}, the cache level where all assets required for playing the current map are memorized. After the cache is lowered, \cw{CA\_CacheMarks()} is called again to purge unnecessary assets and reload any assets that were removed from memory.\\
 
-\pagebreak
+\par
 \lstinputlisting[language=C]{code/CA_level_down.c}
+
 \par
 To avoid frequently used assets, such as fonts and Commander Keen sprites, being reloaded every time from the disk, they are loaded permanently into memory by flagging them as non-movable, unpurgeable blocks of memory. \\
 
@@ -133,7 +127,7 @@ To avoid frequently used assets, such as fonts and Commander Keen sprites, being
 \par
  
 \subsection{Asset compression}
-Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KB or 1.44MB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. Ideas from the Deep used "Huffman compression" for all asset and map files, with additional "RLE compression" applied to further reduce the size of map files.\\
+Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilobit per second is a unit of data transfer rate equal to 1,000 bits per second or 125 bytes per second.}) and storage capacity (3\nicefrac{1}{2}-inch disk size is either 720KiB or 1.44MiB), file compression was essential. Compression ensures that the game occupies less space and loads more quickly. Ideas from the Deep used "Huffman compression" for all asset and map files, with additional "RLE compression" applied to further reduce the size of map files.\\
 
 
 \par
@@ -177,7 +171,7 @@ Next, an optimal binary tree, also known as a dictionary, is created. This is do
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.5\textwidth]{imgs/drawings/huffman_tree_1.eps}
+ \includegraphics[width=0.45\textwidth]{imgs/drawings/huffman_tree_1.eps}
  \end{figure}
 
  \par
@@ -185,7 +179,7 @@ The process continues by creating a new node with left and right branches and re
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.6\textwidth]{imgs/drawings/huffman_tree_2.eps}
+ \includegraphics[width=0.55\textwidth]{imgs/drawings/huffman_tree_2.eps}
  \end{figure}
 
  \par
@@ -214,7 +208,7 @@ This results in a total of 13 bytes used for a 31-byte message, more than a 50\%
  \end{minipage}\\
 
 \par
-The tile map asset files use a second compression technique, on top of Huffman. Upon closer inspection of a level, you'll notice large chunks of the same tile. For example, consider the first level you enter (Horse Radish Hill), which contains extensive areas of blue sky. Here, \textit{Run-length encoding} (RLE) compression comes in useful.\\
+The tile map asset files use a second compression technique, on top of Huffman. Upon closer inspection of a map, you'll notice large chunks of the same tile. For example, consider the first map you enter (Horse Radish Hill), which contains extensive areas of blue sky. Here, \textit{Run-length encoding} (RLE) compression comes in useful.\\
 
 \par
 The essence of this compression method is to compress data by saving the "run-length" of the encountered values, essentially storing the data as a collection of length/value pairs. To illustrate, the string 'aaaaaaaabbb' could be compressed to '8a3b' (8 bytes of 'a', 3 bytes of 'b'). The trick with RLE is to ensure that the data does not end up becoming larger after processing. For instance, using pure length/value pairs, 'abracadabra' would become '1a1b1r1a1c1a1d1a1b1r1a'.\\
@@ -222,7 +216,7 @@ The essence of this compression method is to compress data by saving the "run-le
 \par
 In Commander Keen, this is solved by using a 'tag'. This special tag value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE tag value is encountered. When this tag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on 16-bits, and therefore is named RLEW, where the 'W' stands for word. The RLEW tag is defined as \cw{ABCDh}.\\
 
-The overall result of applying Huffman and RLEW compression results in almost 65\% file size reduction.\\
+The overall result of applying Huffman and RLEW compression results in almost 65\% asset file size reduction. Together with the LZEXE-compressed executable file (80KiB), the entire game fits nicely on a 360KiB floppy disk, just as was required by Softdisk.\\
 
 \begin{figure}[H]
 \centering
@@ -231,7 +225,7 @@ The overall result of applying Huffman and RLEW compression results in almost 65
   \hline
   \textbf{Asset type} & \textbf{filename} & \textbf{Uncompressed size\protect\footnotemark} & \textbf{Compressed size}\\ \hline
   Graphic assets & KDREAMS.EGA & 354,075 bytes & 213,045 bytes \\
-  Game levels & KDREAMS.MAP & 417,714 bytes & 65,673 bytes\\ 
+  Game maps & KDREAMS.MAP & 417,714 bytes & 65,673 bytes\\ 
   Sound assets & KDREAMS.AUD & 4,572 bytes & 3,498 bytes\\ \hline
   Total &  & 776,361 bytes & 282,216 bytes\\ \hline
 \end{tabularx}

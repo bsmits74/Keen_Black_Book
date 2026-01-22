@@ -5,7 +5,7 @@
 
 
 
-Development was done with Borland C++ 3.1 using an 80386 computer. John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
+Development was done with Borland C++ 3.1 using an 80386 computers. John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
 \par
 
 \begin{minipage}{.35\textwidth}
@@ -46,12 +46,12 @@ All graphic assets were produced by Adrian Carmack. All of the work was done wit
 Before diving into the details of game assets, let's first explore the basic principles behind platform games. Each level, or map, in a platform game is composed of "tiles". In Commander Keen, there are both background and foreground tiles. A background tile, or just tile, is an image that measures 16x16 pixels. Each tile occupies 128 bytes (2 x 16 x 4 planes) of storage space in the graphics assets file.\\
 
 \par
-Individual tile images are stored in a planar format, with blue, green, red and intensity bits separated. This arrangement, called "graphic planar", stores complete planes sequentially, with each plane containing data for the entire tile.\\
+Individual tile images are stored in a planar format, with blue, green, red, and intensity bits separated. This arrangement, called "graphic planar", stores complete planes sequentially, with each plane containing data for an entire tile. This layout aligns with the VRAM banks, allowing each bank to be loaded very quickly with a single \cw{memcpy} per bank (and only four bank switches) per image.\\
 
 \par
 \begin{figure}[H]
 \centering
- \includegraphics[width=.8\textwidth]{imgs/drawings/Tile_RGBI.eps}
+ \includegraphics[width=.9\textwidth]{imgs/drawings/Tile_RGBI.eps}
  \caption{Graphic Planar data storage.}
  \label{graphic_planar}
 \end{figure}
@@ -91,7 +91,7 @@ Figure \ref{fig:asset-file} illustrates the structure of the \cw{KDREAMS.EGA} as
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=.4\textwidth]{imgs/drawings/graphic_assets.eps}
+ \includegraphics[width=.43\textwidth]{imgs/drawings/graphic_assets.eps}
  \caption{File structure of \cw{KDREAMS.EGA} archive file.}
  \label{fig:asset-file}
 \end{figure}
@@ -108,7 +108,7 @@ Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for e
 \par
 All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)} from the sprite's top-left corner. The parameters \cw{(xl, xh, yl, yh)} define the sprite's hitbox, used for collision detection. 
 
-\vspace{-5pt}
+
 \par
 \begin{figure}[H]
 \centering
@@ -132,7 +132,7 @@ The font segment contains a table that stores the height and the width of the ea
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/font_structure.c}\par
- \end{minipage}
+ \end{minipage}\\
 
 
 \par

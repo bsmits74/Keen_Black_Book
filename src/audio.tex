@@ -26,7 +26,7 @@ The solution to this is "interrupts". At the processor level, an interrupt reque
 \par
  Since interrupts keep triggering constantly from various sources, an ISR must choose what should happen if an IRQ is raised while it is still running. There are two options.  The ISR can decide it needs a "long" time to run and disable other IRQs via the IMR\footnote{Interrupt Mask Register}. This path introduces the problem of discarding important information such as keyboard or mouse inputs.\\
  \par
- Alternately, the ISR can decide not to mask other IRQs and do what it is supposed to do as fast as possible to not delay the firing of other important interrupts that may lose data if they aren't serviced quickly enough. Keen Dreams uses the latter approach and keeps tasks in its ISR very small and short. 
+ Alternately, the ISR can decide not to mask other IRQs and do what it is supposed to do as fast as possible to not delay the firing of other important interrupts that may lose data if they aren't serviced quickly enough. Commander Keen uses the latter approach and keeps tasks in its ISR very small and short. 
 
 \subsection{IRQs and ISRs}
 The audio and heartbeat system relies on two chips: the Intel 8254, which functions as a Programmable Interval Timer (PIT), and the Intel 8259, which acts as a PIC. The PIT features a crystal oscillating at 1.193182 MHz. At its core, the PIT is a decrementing counter. The programmer loads a 16-bit value between 0 and 65,535 into a register in the PIT. With each clock pulse, the counter decrements toward zero. Once it reaches zero, it automatically resets to the original value stored in the register and starts over.\\
@@ -219,19 +219,20 @@ Earlier it was hinted that the PIT had three counter channels, of which channel 
 \par
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1.0\textwidth]{imgs/drawings/pc_speaker.eps}
+  \includegraphics[width=0.8\textwidth]{imgs/drawings/pc_speaker.eps}
   \caption{Built-in speaker hardware diagram.}
   \label{fig:pc_speaker}
 \end{figure}
 
 
 \par
-\vspace{10pt}
-A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, and the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. This is the value that must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats. To create a higher pitch, the counter value would need to be lower. \\
-
+A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, and the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. To create a higher pitch, the counter value would need to be lower.\\
 
 \par
-To adjust the frequency, write to port \cw{43h} to set the PIT command register, followed by writing the desired counter value to port \cw{42h}.\\
+This integer value must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats.  \\
+
+\par
+To adjust the frequency, write to port \cw{43h} to set the PIT command register, followed by writing the desired counter value to port \cw{42h}.
 
 \begin{figure}[H]
 	\centering
@@ -263,12 +264,12 @@ When instructed to play a PC Speaker sound effect, the audio system sets itself 
 \par
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/square_waves.eps}
+  \includegraphics[width=1.0\textwidth]{imgs/drawings/square_waves.eps}
   \caption{Sound pitch approximated with square wave and frequency changes.}
 \end{figure}
 
 \par
-The connection to the speaker can be deactivated without changing any timer parameters through the system's keyboard controller (Intel 8042 UPI). Setting port \cw{61h}, bit 0 and bit 1, to 0 turns off both counter \#2 and the speaker.\\
+The connection to the speaker can be deactivated without changing any timer parameters through the system's keyboard controller (Intel 8042 UPI\footnote{Universal Peripheral Interface.}). Setting port \cw{61h}, bit 0 and bit 1, to 0 turns off both counter \#2 and the speaker.\\
 
 \par
 \begin{minipage}{\textwidth}

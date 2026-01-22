@@ -38,4 +38,5 @@
 #define BROCCOLASH_LUMP_END       256
 #define TOMATO_LUMP_START         257
 #define TOMATO_LUMP_END           260
+#define CARROT_LUMP_START         261
 ...

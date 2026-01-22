@@ -38,7 +38,7 @@ In 1989, around 15\% of the households owned a computer\footnote{https://www.sta
   In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 6Mhz and later popular versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. Its successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus.\\
 
 \par  
-Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on an 8088 CPU. An 80286 or higher was recommended to play the game primarily due to its reliance on the 16-bit data bus, as well as its raw speed. This section (and the bulk of this book) is written from the perspective of an 80286, but most of the information is applicable to 8086, as well as PC's many generations newer\footnote{Ideas from the Deep developed Commander Keen on a 80386 computer.}.\\   
+Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on an 8088 CPU. An 80286 or higher was recommended to play the game primarily due to its reliance on the 16-bit data bus, as well as its raw speed. This section (and the bulk of this book) is written from the perspective of an 80286, but most of the information is applicable to 8086, as well as PC's many generations newer.\\   
 
 \par
 
@@ -382,7 +382,7 @@ Out of the original 1024KiB, only 640KiB (called Conventional Memory) was access
 \par
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{imgs/drawings/real_mode_v2.eps}
+\includegraphics[width=0.65\textwidth]{imgs/drawings/real_mode_v2.eps}
 \caption{First 1MiB of RAM layout.} 
 \label{fig:fp_internals}
 \end{figure}
@@ -402,7 +402,7 @@ The x86 real mode provides different memory segment layouts, called "memory mode
 
 
 \begin{figure}[H]
-\renewcommand{\arraystretch}{1.6}
+\renewcommand{\arraystretch}{1.7}
 \centering
 \begin{tabularx}{\textwidth}{ X X X X X >{\hsize=.3\textwidth}Y} 
   &  \multicolumn{2}{c}{\textbf{Default pointer type}} & \multicolumn{2}{c}{\textbf{Size}} &  \\ \cline{2-5}
@@ -482,12 +482,10 @@ Fortunately, there is a way to access additional memory using the medium model. 
 \section{Video}
 
 PCs had dedicated video cards and were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio.\\
-\par
-
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{screenshots_300dpi/hardware/monitor.jpg}
+\includegraphics[width=0.7\textwidth]{screenshots_300dpi/hardware/monitor.jpg}
 \caption{14" CRT monitor.}
 \label{fig:lcd_vs_crt}
 \end{figure}
@@ -496,18 +494,15 @@ PCs had dedicated video cards and were connected to CRT monitors: big, heavy, sm
 \subsection{Raster-scan display}
 All standard PC monitors use a raster-scan display to create the image.
 In a raster-scan display, the position of the electron beam is continually sweeping across the surface of the tube. The tube's surface is coated with phosphors that glow when struck by electrons (and for a short time thereafter), and, of course, the beam may be turned on to light a phosphor or off to leave it black.\\
-\par
 
-The electron beam scans the phosphor-coated screen from left to right and
-top to bottom. The period during which the beams return to the left is known as
-the horizontal retrace. During most of the retrace, the guns must be turned off
-to prevent writing in the active display area (the area which contains the actual
+\par
+The electron beam scans the phosphor-coated screen from left to right and from top to bottom. Because the horizontal sweep occurs continuously while the beam slowly moves downward, each horizontal line ends slightly lower than where it began, resulting in a minor downward slope\footnote{See https://www.analog.com/en/resources/technical-articles/basics-of-analog-video.html.}. This downward slope is exaggerated in Figure 2.15, but with 200 or more scan lines it is hardly noticeable. The period during which the beams return to the left is known as the horizontal retrace. During most of the retrace, the guns must be turned off to prevent writing in the active display area (the area which contains the actual
 character and/or graphics data); this is known as horizontal blanking.\\
 
 \par
 The area immediately surrounding the display area, in which the beam may be turned on
 during the retrace interval, is called the overscan or border. The active display
-area is the portion of the screen that contains characters and/or graphics.\\
+area is the portion of the screen that contains characters and/or graphics.
 
 \begin{figure}[H]
 \centering
@@ -655,7 +650,7 @@ Four memory banks grant enough throughput to reach high resolutions at 60Hz. Thi
 
 
 \par
-To write the color of the first pixel, a developer has to write the first bit of the first byte in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The CRT Controller then reads 4 bytes at a time (one from each plane) and converts them via the Attribute Controller into 8 pixels on screen. \\
+To write the color of the first pixel, a developer has to write the first bit of the first byte in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The Sequence Controller then reads 4 bytes at a time (one from each plane) and converts them via the CRT Controller and Attribute Controller into 8 pixels on screen. \\
 
 
 \begin{figure}[H]
@@ -952,7 +947,7 @@ Creative Labs boasts in their own advert AdLib compatibility and even uses an im
   
 
 \section{Floppy Disk Drive}
-In the time before the internet, a floppy disk was the main medium to share and distribute software and data. The original XT systems were equipped with 5\nicefrac{1}{4}-inch floppy disk with a capacity of 360Kb. In 1984, IBM introduced with its PC AT the 1.2 MB dual-sided 5\nicefrac{1}{4}-inch floppy disk, but it never became very popular. IBM started using the 720 KB double density 3\nicefrac{1}{2}-inch floppy disk in 1986 and the 1.44 MB high-density version in 1987. The advantages of the 3\nicefrac{1}{2}-inch disk were its higher capacity, its smaller physical size, and its rigid case which provided better protection from dirt and other environmental risks. By the mid-1990s, 5\nicefrac{1}{4}-inch drives had virtually disappeared, as the 3\nicefrac{1}{2}-inch disk became the predominant floppy disk. \\
+In the time before the internet, a floppy disk was the main medium to share and distribute software and data. The original XT systems were equipped with 5\nicefrac{1}{4}-inch floppy disk with a capacity of 360KiB\footnote{Manufactureres often rounded this down to 360K or 360KB for simplicity, using the decimal definition of KB (1000 bytes) in marketing.}. In 1984, IBM introduced with its PC AT the 1.2MB dual-sided 5\nicefrac{1}{4}-inch floppy disk, but it never became very popular. IBM started using the 720KiB double density 3\nicefrac{1}{2}-inch floppy disk in 1986 and the 1.44MB high-density version in 1987. The advantages of the 3\nicefrac{1}{2}-inch disk were its higher capacity, its smaller physical size, and its rigid case which provided better protection from dirt and other environmental risks. By the mid-1990s, 5\nicefrac{1}{4}-inch drives had virtually disappeared, as the 3\nicefrac{1}{2}-inch disk became the predominant floppy disk. \\
 
 \vspace{10pt}
 \bu{Trivia :} An USB stick of 128GB contains more than 91K high-density 3\nicefrac{1}{2}-inch (1.44MB) floppy disks.\\
@@ -1001,11 +996,11 @@ The floppy disk is controlled via the Floppy Disk Controller (FDC), and a typica
 The controller waited a few seconds before turning off the motor. The reason to leave the motor on for a few seconds is that the controller may not know if there is a queue for sector reads or writes that are going to be executed next. If there are going to be more drive accesses immediately, they won't need to wait for the motor to spin up again.\\
 
 \section{Keyboard}
-The original IBM PC and XT keyboards featured 83 keys. After receiving feedback from users frustrated by the layout, IBM introduced the 84-key PC AT keyboard, which included a rearranged layout and the addition of the "Sys Req" key. It also introduced 3 status LEDs for Caps Lock, Num Lock and Scroll Lock.\\
+The original IBM PC and XT keyboards featured 83 keys. After receiving feedback from users frustrated by the layout, IBM introduced the 84-key PC AT keyboard, which included a rearranged layout and the addition of the "Sys Req" key. It also introduced 3 status LEDs for Caps Lock, Num Lock and Scroll Lock.
 
 \begin{figure}[H] 
   \centering 
-  \scaledimage{1.0}{hardware/keyboard_AT.png} 
+  \scaledimage{0.95}{hardware/keyboard_AT.png} 
   \caption{IBM AT Keyboard.}
 \end{figure}
 
@@ -1013,11 +1008,11 @@ The original IBM PC and XT keyboards featured 83 keys. After receiving feedback 
 This design was further updated in 1986 with the release of the IBM Model M. It officially became the IBM PC standard in 1987 with the introduction of the IBM Personal System/2 (PS/2). The function keys were moved to the top, F11 and F12 were added, and the total number of keys increased to 101 (ANSI) or 102 (ISO). The Model M was widely adopted and is still being used today.\\
 
 \par
-The IBM Model M came in two main versions: the ANSI layout with 101 keys for the US and Canada, and the ISO layout with 102 keys, primarily used in Europe and other international markets. The primary differences between both layouts are the shape of the Enter key, the size of the left Shift key, and the presence of an extra key on the ISO variant to provide better support for typing in multiple languages with accents and special characters.\\
+The IBM Model M came in two main versions: the ANSI layout with 101 keys for the US and Canada, and the ISO layout with 102 keys, primarily used in Europe and other international markets. The primary differences between both layouts are the shape of the Enter key, the size of the left Shift key, and the presence of an extra key on the ISO variant to provide better support for typing in multiple languages with accents and special characters.
 
 \begin{figure}[H] 
   \centering 
-  \scaledimage{1.0}{hardware/keyboard_PS2.png} 
+  \scaledimage{0.95}{hardware/keyboard_PS2.png} 
   \caption{IBM Keyboard model M 101-key layout (PS/2).}
 \end{figure}
 
@@ -1028,11 +1023,11 @@ At the time, keyboards were connected either via PS/2 or AT ports.\\
   \centering
   \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.3\textwidth]{imgs/drawings/ports/MiniDIN-6_PS2.eps}
+    \includegraphics[width=0.25\textwidth]{imgs/drawings/ports/MiniDIN-6_PS2.eps}
   \end{subfigure}%
   \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.3\textwidth]{imgs/drawings/ports/AT_Diagram.eps}
+    \includegraphics[width=0.25\textwidth]{imgs/drawings/ports/AT_Diagram.eps}
   \end{subfigure}
   \caption{PS/2 (left) and AT (right) keyboard connector.}
   \label{fig:keyboard_connector}
@@ -1040,10 +1035,10 @@ At the time, keyboards were connected either via PS/2 or AT ports.\\
 
 
 \section{Summary}
-To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface had a complex architecture to write a single pixel to the screen, different keyboard layouts, and several memory models only allowed 1 MiB with an address composed of two separate 16-bit registers. Last, but not least, the default sound system could only produce square waves and sound cards were in a very early stage of development.\\
+To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface had a complex architecture to write a single pixel to the screen, different keyboard layouts, and a memory model only allowed 1 MiB with an address composed of two separate 16-bit registers. Last, but not least, the default sound system could only produce square waves and sound cards were in a very early stage of development.\\
 
 \par
-Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves \textit{Ideas From the Deep}.
+Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves \textit{Ideas From the Deep}\footnote{Throughout the book, \textit{Ideas from the Deep} and \textit{id Software} will be used interchangeably.}.
 \end{document}
 
 

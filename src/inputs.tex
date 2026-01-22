@@ -43,7 +43,7 @@ Once a key is pressed or released, the scancode is decoded and processed by the 
 \end{figure}
 
 \par
-With the advent of the IBM AT and the need for bidirectional communication with the keyboard for features like keyboard status LEDs, the Intel 8042 UPI\footnote{Universal Peripheral Interface.} chip was introduced. The UPI retained backward compatibility with the PPI chip, handling all scancodes from the keyboard. When a key is pressed, the interrupt is routed to ISR \#9 in the Vector Interrupt Table. The engine installs its own ISR there.\\
+With the advent of the IBM AT and the need for bidirectional communication with the keyboard for features like keyboard status LEDs, the Intel 8042 UPI chip was introduced. The UPI retained backward compatibility with the PPI chip, handling all scancodes from the keyboard. When a key is pressed, the interrupt is routed to ISR \#9 in the Vector Interrupt Table. The engine installs its own ISR there.\\
 
 
 \par

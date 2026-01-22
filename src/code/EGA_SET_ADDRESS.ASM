@@ -2,12 +2,8 @@ CRTC_INDEX	=	03D4h
 CRTC_STARTHIGH	=	12
 
 ;==============
-;
 ; VW_SetScreen
-;
 ;==============
-
-  cli                     ;disable interrupts
 
   mov  cx,[crtc]          ;[crtc] is start address
   mov  dx,CRTC_INDEX      ;set CRTR register
@@ -23,6 +19,3 @@ CRTC_STARTHIGH	=	12
   inc  dx                 ;port 03D5h
   out  dx,al              ;set address low
 
-  sti                     ;enable interrupts
-
-  ret
