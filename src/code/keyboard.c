@@ -25,5 +25,5 @@ static void interrupt INL_KeyService ( void ) {
 			[...]       //Process the key
 		}
 	}
-	outportb (0 x20 ,0 x20 ); // ACK interrupt to interrupt system
+	outportb (0 x20 ,0 x20 ); // ACK interrupt
 }

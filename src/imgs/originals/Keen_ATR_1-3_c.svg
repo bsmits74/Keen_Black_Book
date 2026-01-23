@@ -7,7 +7,7 @@
    viewBox="0 0 490.79671 531.30908"
    version="1.1"
    id="svg1191"
-   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
    sodipodi:docname="Keen_ATR_1-3_c.svg"
    inkscape:export-filename="../../screenshots_300dpi/game/Keen_ATR_1-3_step3.png"
    inkscape:export-xdpi="96"
@@ -22,6 +22,25 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs1185">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
     <marker
        inkscape:stockid="TriangleOutL"
        orient="auto"
@@ -127,15 +146,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="434.28571"
-     inkscape:cy="1168.5714"
+     inkscape:cx="672.14286"
+     inkscape:cy="677.14286"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2048"
-     inkscape:window-height="1208"
+     inkscape:window-width="2560"
+     inkscape:window-height="1528"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1440"
      inkscape:window-maximized="1"
      inkscape:showpageshadow="2"
      inkscape:pagecheckerboard="0"
@@ -13393,12 +13412,12 @@
        y="199.75601"
        ry="4.2787161" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.509;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1838-6-0-9)"
+       style="fill:none;stroke:#ff4cff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
        d="M 2.3256176,204.99665 H 13.387287"
        id="path1828-8-2-9"
        inkscape:connector-curvature="0" />
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#ddff55;stroke-width:1.33059609;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#ff4cff;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect1478"
        width="169.25618"
        height="105.68778"

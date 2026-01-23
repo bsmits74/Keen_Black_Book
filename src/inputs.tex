@@ -10,10 +10,7 @@ Before Microsoft introduced the DirectInput API in Windows 95, developers needed
 
 \subsection{Keyboard scancodes}
 \par
-Each key on a PC keyboard is linked to a scancode. When a key is pressed, circuitry in the keyboard generates the scancode and sends it serially to the keyboard controller. This key-down event, also known as a "make code", signals the key press. When a key is released, its scancode high-bit (\cw{80h}) is set, producing a "break code" that is sent by the same mechanism.\\
-
-\par
-For example, pressing "A" generates the make code \cw{1Eh}, while releasing it sends the break code \cw{9Eh}. Holding down a key will type a repeating sequence of that character after a short delay, resulting in retransmitting the make code at regular intervals for as long as the key is being held.\\
+Each key on a PC keyboard is linked to a scancode. When a key is pressed, circuitry in the keyboard generates the scancode and sends it serially to the keyboard controller. This key-down event, also known as a "make code", signals the key press. When a key is released, its scancode high-bit (\cw{80h}) is set, producing a "break code" that is sent by the same mechanism. For example, pressing "A" generates the make code \cw{1Eh}, while releasing it sends the break code \cw{9Eh}. Holding down a key will type a repeating sequence of that character after a short delay, resulting in retransmitting the make code at regular intervals for as long as the key is being held.\\
 
 \par
 The PS/2 keyboard includes 14 keys, such as "Right Ctrl", "Right Alt", and the arrow keys, that duplicate functions from the original 84-key AT layout. To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "/"-key produces the scancode \cw{35h}, while the numeric keypad's "Num /"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
@@ -21,7 +18,15 @@ The PS/2 keyboard includes 14 keys, such as "Right Ctrl", "Right Alt", and the a
 \par
 This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "/" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists.\\
 
-\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "Shift" + "Num /" should produce a "/", as indicated on the keycap. However, older software may interpret this sequence incorrectly: Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "?".}
+\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "Shift" + "Num /" should produce a "/", as indicated on the keycap. However, older software may interpret this sequence incorrectly: Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "?".}\\
+
+\par
+The Input Manager maintains several tables to translate the scancodes to ASCII\footnote{American Standard Code for Information Interchange.} codes
+\begin{itemize}
+	\item Unshifted ASCII codes.
+	\item Shifted ASCII codes.
+	\item ASCII codes for the 14 duplicate keys (\cw{E0h} prefix).
+\end{itemize}
 
 
 \begin{figure}[H]
@@ -43,7 +48,7 @@ Once a key is pressed or released, the scancode is decoded and processed by the 
 \end{figure}
 
 \par
-With the advent of the IBM AT and the need for bidirectional communication with the keyboard for features like keyboard status LEDs, the Intel 8042 UPI chip was introduced. The UPI retained backward compatibility with the PPI chip, handling all scancodes from the keyboard. When a key is pressed, the interrupt is routed to ISR \#9 in the Vector Interrupt Table. The engine installs its own ISR there.\\
+With the advent of the IBM AT and the need for bidirectional communication with the keyboard for features like keyboard status LEDs, the Intel 8042 UPI chip was introduced. The UPI retained backward compatibility with the PPI chip, handling all scancodes from the keyboard. When a key is pressed, the interrupt is routed to ISR \#9 in the Vector Interrupt Table. Again, the engine installs its own ISR there.\\
 
 
 \par
@@ -59,15 +64,17 @@ The state of the keyboard is maintained in a global array \cw{Keyboard}, availab
 \end{minipage}
 
 \par
-When a scancode byte arrives from the keyboard, it is copied to a buffer in the keyboard controller and an IRQ \#1 is raised. Scancodes arrive one byte at a time, and one interrupt at a time, even if it is a multi-byte code. The interrupt handler can read a byte from I/O port \cw{60h} to capture the scancode for further processing. Once that is complete, the interrupt handler must explicitly acknowledge the IRQ at the interrupt controller to re-arm it for the next keyboard event. This is accomplished by writing an "end of interrupt" signal byte to I/O port \cw{20h}. \\
-
-\par
-There is a slight difference between the PPI and the UPI in terms of how the keyboard input buffer is managed. The PPI will hold a byte in its input buffer indefinitely until the software acknowledges that it has completed the read. The acknowledgment procedure is to briefly strobe the high bit of I/O port \cw{61h} on, then off. When this occurs, the keyboard controller resets its buffer status and resumes reading from the keyboard. The UPI simplifies this process. Reading from I/O port \cw{60h} automatically resets the buffer, eliminating the need for a separate acknowledgment. However, to maintain backward compatibility, most programs still toggle the high bit of I/O port \cw{61h}, even though this has no effect on 286-based systems.\\
-
-\par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/keyboard.c}
 \end{minipage}
+
+\par
+When a scancode byte arrives from the keyboard, it is copied to a buffer in the keyboard controller and an IRQ \#1 is raised. Scancodes arrive one byte at a time, and one interrupt at a time, even if it is a multi-byte code. The interrupt handler can read a byte from I/O port \cw{60h} to capture the scancode for further processing. Once that is complete, the interrupt handler must explicitly acknowledge the IRQ at the interrupt controller to re-arm it for the next keyboard event. This is accomplished by writing an "end of interrupt" signal byte to I/O port \cw{20h}. \\
+
+\par
+There is a slight difference between the PPI and the UPI in terms of how the keyboard input buffer is managed. The PPI will hold a byte in its input buffer indefinitely until the software acknowledges that it has completed the read. The acknowledgment procedure is to briefly strobe the high bit of I/O port \cw{61h} on, then off. When this occurs, the keyboard controller resets its buffer status and resumes reading from the keyboard. The UPI simplifies this process. Reading from I/O port \cw{60h} automatically resets the buffer, eliminating the need for a separate acknowledgment. However, to maintain backward compatibility, most programs still toggle the high bit of I/O port \cw{61h}, even though this has no effect on 286 or higher based systems.\\
+
+
 
 
 \end{document}

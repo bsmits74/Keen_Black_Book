@@ -42,6 +42,7 @@ The audio and heartbeat system relies on two chips: the Intel 8254, which functi
 In fact, there are three counters in the PIT. Counter \#1 is connected to the RAM in order to automatically perform something called "memory refresh" and was considered a "do not touch" part of the PIT\footnote{Without frequent refresh, DRAM will lose its content. This is one of the reasons it is slower and SRAM is preferred in the caching system.}. Counter \#2 is connected to the PC speaker and generates sounds, and will be explained in detail in the next section. Counter \#0 is connected to the PIC and when it hits zero it triggers IRQ 0 and sends it to the PIC. The PIC manages hardware interrupts, mapping IRQ 0 - IRQ 8 to the Interrupt Vector Table (IVT), a list of pointers to the corresponding ISR addresses. Notice that IRQ 0 (mapped to IVT entry \#8) is associated with the System timer and usually updates the operating system clock.
 
 \begin{figure}[H]
+	\renewcommand{\arraystretch}{1.1}
 	\centering
 	\begin{tabularx}{\textwidth}{ l p{.5\textwidth}  }
 	  \toprule
@@ -86,6 +87,7 @@ IVT \#8, in its original configuration, not only operates the system clock but a
 The current status of the disk motors is stored in the BIOS Data Area (BDA), which is a section of memory located at segment \cw{0040h}. The BDA stores many variables indicating information about the state of the computer.\\
 
 \begin{figure}[H]
+	\renewcommand{\arraystretch}{1.1}
 	\centering
 	\begin{tabularx}{\textwidth}{ l p{.5\textwidth}  }
 	  \toprule

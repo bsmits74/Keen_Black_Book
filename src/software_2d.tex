@@ -95,6 +95,10 @@ Smooth horizontal pixel scrolling is managed by the "Horizontal Pel Panning" reg
   \lstinputlisting[language=C]{code/EGA_PELPAN.ASM}
   \end{minipage}
   \label{ega_pel_pan}
+
+
+\trivia{"Pel" stands for "Picture element" and was introduced alongside pixel in the 1960s. While pixel became the standard term in graphics and modern computing, pel was frequently used in early image processing, computer technical references (notably IBM), and video coding.}\\
+
  
 \par
 By combining both EGA hardware tricks, smooth scrolling on EGA is achieved by adjusting the CRTC start address and fine-tuning the horizontal display using the horizontal pel panning register. The process consists of the following steps:
@@ -118,7 +122,7 @@ The engine is now capable of moving the entire screen one pixel at a time in all
 
 
 
-\section{Adaptive Tile Refresh}
+\subsection{Adaptive Tile Refresh}
 So far, we have built a virtual screen in VRAM allowing smooth one pixel moves in both axes. However, once the virtual screen edge is reached, a full-screen redraw would be too slow, causing a drop to 5 fps.\\
 
 \par
@@ -134,7 +138,9 @@ Now, if we perform a difference on both images, you can see which tiles need to 
 
 \par
 \begin{fancyquotes}
-The trick behind the scrolling in the first Commander Keen games was to only redraw tiles that actually changed after panning 16 pixels, since most maps had large swathes of constant background. Text consoles have similar statistics with spaces, so the same trick is a big win.\\
+The trick behind the scrolling in the first Commander Keen games was to only redraw tiles that actually changed after panning 16 pixels, since most maps had large swathes of constant background.\\
+\par
+Text consoles have similar statistics with spaces, so the same trick is a big win.\\
 \par
 \textbf{John Carmack\protect\footnotemark}
 \end{fancyquotes}\\
@@ -145,12 +151,6 @@ The trick behind the scrolling in the first Commander Keen games was to only red
 \par
 This is also the part where the game designers Tom Hall and John Romero had to help the engine. Smooth scrolling is inversely proportional to the number of tiles to redraw. A checkerboard tile pattern basically means a full-screen redraw and would kill the CPU. So, to avoid costly "jolts", the game designers built tile maps with a lot of repeating tiles. \\
 
-\par
-The source code for the first three episodes of Commander Keen is not publicly available, but thanks to reverse engineering\footnote{Chocolate Keen is a reverse engineering of Commander Keen in C and SDL. The goal is to be super accurate versus the original, see https://github.com/jamesfmackenzie/chocolatekeen} the ATR algorithm could be explained in detail.
-
-
-
-\pagebreak
 \begin{figure}[H] 
   \centering 
   \includegraphics[width=.66\textwidth]{screenshots_300dpi/game/keen-ATR-diff.png}
@@ -215,7 +215,7 @@ In the next three snapshots, we take you step-by-step through each of the stages
  
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.9\textwidth]{screenshots_300dpi/game/Keen_ATR_1-3_a.png}
+ \includegraphics[width=0.84\textwidth]{screenshots_300dpi/game/Keen_ATR_1-3_a.png}
  \caption{Start: Reach the end of the virtual screen.}
  \label{fig:kc1_3_start}
 \end{figure}
@@ -253,17 +253,17 @@ In the final step, point the visible screen to virtual page 1 by updating the CR
 
 \pagebreak
 
-Now the buffer is refreshed and the CRTC address is updated, the final step is fine adjustment using the Pel Panning register.
+Now the buffer is refreshed and the CRTC address is updated, the final step is fine adjustment using the Pel Panning register.\\
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.89\textwidth]{screenshots_300dpi/game/Keen_ATR_1-3_b.png}
+ \includegraphics[width=0.84\textwidth]{screenshots_300dpi/game/Keen_ATR_1-3_b.png}
  \caption{Screen is refreshed and scrolled to the right.}
  \label{fig:kc1_3_start}
 \end{figure}
 
 
 
-\section{Virtual Screen Tile Refresh}
+\subsection{Virtual Screen Tile Refresh}
 \label{section:wrap_ega_memory}
 \label{section:optimize_tile}
 John Carmack explored what would happen if you push the virtual screen over the 64kB border (address \cw{FFFFh}) in video memory. It turned out that the EGA continues the virtual screen at \cw{0000h}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
@@ -372,12 +372,11 @@ Next, the engine scans all '1's and copies the corresponding tiles from the mast
  \label{fig:kc4_6_step2}
 \end{figure}
 
-\pagebreak
+\par
 Each sprite removed from the screen has its location and size stored in the sprite removal list, which removes the sprite by copying a specific section from the master screen to the virtual page. Tiles overlapping with the removal block are marked with a '2'.\\
 
 \par
 \textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
-
 
 \par
 \begin{minipage}{\textwidth}
@@ -385,6 +384,10 @@ Each sprite removed from the screen has its location and size stored in the spri
   \end{minipage}
   \label{block_removal}
 \\
+
+\par
+Notice that the block is perfectly aligned on an even memory address by using the \cw{\& \textasciitilde{}1} bitwise operator to clear the least significant bit, ensuring 16-bit transfers per CPU cycle.\\
+
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/erase_blocks.c}
@@ -417,7 +420,7 @@ Once the buffer refresh is completed, the engine needs only to update the CRTC s
 The final step in scrolling is to adjust the horizontal fine-pixel alignment by setting the Pel Pan register. \textit{Et voil\`a}, the screen scrolls smoothly to the left.\\
 
 \par
-If the player continues to move to the left, the tile update array 0 pointer lowers a second time, underscoring why additional space is needed to allow the entire viewport to float up to two tiles in all directions.\\
+If the player continues to move to the left, the tile update array 0 pointer lowers a second time, underscoring why the viewport needs to float up to two tiles in all directions.\\
 
 \begin{figure}[H]
 \centering
@@ -504,7 +507,7 @@ Having a closer look at the EGA card one notice there is a latch placed in front
  \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/latches.eps}
- \caption{Latches memorize read operations from each bank. The memorized value can be used for later writes.}
+ \caption{Read operation stored in latches which are later used to write back into VRAM, ignoring the RAM value.}
  \label{fig:latch_memory}
  \end{figure}
  
@@ -543,10 +546,13 @@ This issue can be illustrated with the following setup: the current CRTC start a
 \end{minipage}
 
 \par
-One solution to this issue is to update the start address when the vertical retrace signal is detected through the Input Status 1 Register, specifically bit 3 of \cw{3DAh}. Unfortunately, by the time this status is observed by the program, the start address for the next frame has already been latched, occurring immediately when the vertical retrace pulse begins.\\
+One approach to this problem is to update the start address when the vertical retrace signal is detected via the Input Status 1 Register, specifically bit 3 at port \cw{3DAh}. Unfortunately, by the time the program observes this status, the start address for the next frame has already been latched, as this occurs immediately at the beginning of the vertical retrace pulse.\\
 
 \par
-To address this issue, the start address must be updated at a point sufficiently distant from the start of the vertical retrace. This requires identifying a signal that confirms the completion of a horizontal or vertical retrace and the beginning of a new scan line, far enough from the vertical retrace to ensure the new start address is latched during the next vertical sync. The Display Enable Status signal, accessible via the Input Status 1 Register, provides this information; a value of 1 indicates that the display is within a horizontal or vertical retracement\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high. The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}.\\
+An alternative approach is to update the CRTC start address at a point sufficiently distant from the start of the vertical retrace. The Display Enable Status signal from the same Input Status Register can be used for this purpose; a value of 1 indicates that the display is currently within a horizontal or vertical retrace\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high. The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}. What we want to detect is the completion of a horizontal or vertical retrace and the beginning of a new scan line, which is far enough from the vertical retrace to ensure that the new start address is latched during the next vertical sync.\\
+
+\par
+To guarantee that the start address is updated at the very beginning of a new scan line, it first waits for the current scan line to complete. It then waits for a full retrace, verifying that the Display Enable Status returns to 0. At this point, the CRTC start address is updated.\\
 
  
 \begin{figure}[H]
@@ -556,13 +562,12 @@ To address this issue, the start address must be updated at a point sufficiently
   \caption{Update CRTC start address at beginning of new scan line.}
 \end{figure}
  
-\par
-To guarantee that the start address updates at the very beginning of a new scan line, the process first waits until the current scan line completes. Then, it waits for a full retrace, checking that the Display Enable Status returns to '0'. At this point, the CRTC address is updated.\\
+
 
 \trivia{Regardless of CPU speed, the game's speed is limited by the CRTC sync to the monitor's refresh rate, which is 60Hz for EGA and 70Hz for VGA.}\\
 
-\par
-A different solution is applied in Wolfenstein 3D. Here, each virtual screen has a fixed starting address and only differ by their high byte value: page 0 is at \cw{0000h}, page 1 at \cw{4100h} and the master page at \cw{8200h}. Moving from any page to another requires updating only the high 8 bits, ensuring a smooth screen refresh. This solution is not possible for Commander Keen as the virtual screen moves around in VRAM. 
+
+Wolfenstein 3D is using an even faster solution. Here, each virtual screen has a fixed starting address and only differ by their high byte value: page 0 is at \cw{0000h}, page 1 at \cw{4100h} and the master page at \cw{8200h}. Moving from any page to another requires updating only the high 8 bits, ensuring a smooth screen refresh\footnote{See \textit{Game Engine Black Book: Wolfenstein 3D} section "Solving the VGA Problem".}. This solution is not possible for Commander Keen as the virtual screen moves around in VRAM. 
 
 \par
 \begin{minipage}{\textwidth}
@@ -689,17 +694,17 @@ Drawing the background layer is straightforward, as it only requires copying 128
 \centering
  \begin{subfigure}{0.32\textwidth}
  	\centering
- 	\includegraphics[width=0.7\textwidth]{screenshots_300dpi/game/mask_tiles_1.png}
+ 	\includegraphics[width=0.8\textwidth]{screenshots_300dpi/game/mask_tiles_1.png}
  	\caption{Background tile.}
  \end{subfigure}
  \begin{subfigure}{0.32\textwidth}
  	\centering
- 	\includegraphics[width=0.7\textwidth]{screenshots_300dpi/game/mask_tiles_2.png}
+ 	\includegraphics[width=0.8\textwidth]{screenshots_300dpi/game/mask_tiles_2.png}
  	\caption{\cw{AND} foreground mask.}
  \end{subfigure}
  \begin{subfigure}{0.32\textwidth}
  	\centering
- 	\includegraphics[width=0.7\textwidth]{screenshots_300dpi/game/mask_tiles_3.png}
+ 	\includegraphics[width=0.8\textwidth]{screenshots_300dpi/game/mask_tiles_3.png}
  	\caption{\cw{OR} foreground bitmap.}
  \end{subfigure} 
 
@@ -707,7 +712,8 @@ Drawing the background layer is straightforward, as it only requires copying 128
 \label{fig:foreground_tile}
 \end{figure}
 
-Combining the background and foreground layers involves an \cw{AND}-bitwise operator clearing the background and the \cw{OR}-bitwise operator to write the foreground layer.\\
+\par
+Combining the background and foreground layers involves using a bitwise \cw{AND}-operation to clear the background pixels, followed by a bitwise \cw{OR}-operation to write the foreground pixels. Because each tile is 2 bytes wide, writes to VRAM always occur on even memory addresses, ensuring full utilization of the 80286 CPU's 16-bit data bus.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -747,15 +753,31 @@ Displaying the correct shifted sprite is as simple as\\
   \lstinputlisting[language=C]{code/sprite_shift.c}
   \end{minipage}
   \label{sprite_shift}  
-
-\par 
+  
+\par
+Creating and storing the bit-shifted sprites takes place during loading and caching the sprites from disk. The first sprite keeps the original width (\cw{smallplane}), every next shift is one byte wider to support the 8-bit shift (\cw{bigplane}). 
+\\
+  
+\par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/shift_sprite.c}
   \end{minipage}
-  \label{shift_sprite}
-  
+  \label{sprite_shift}  
 
-\pagebreak
+\par
+To achieve a perfect one-pixel shift for each sprite, a total of eight copies would be required. The character Commander Keen uses 91 different sprites, consuming a total of 41,095 bytes of RAM. Fully pixel-aligned Commander Keen sprites would require 328,760 bytes, and this does not include the additional memory needed for enemy sprites. This cost was deemed too high. To save RAM, the number of bit-shifted copies is limited to four, resulting in a two-pixel alignment.\\
+
+
+\par
+As a result, the game cannot scroll more smoothly than two pixels. Remember the map itself scrolls with one-pixel alignment using the EGA Pel Pan register. To keep the sprites and the world synchronized, pixel panning must therefore also be limited to two pixels. A simple technique is used to enforce this constraint: the least significant bit of the Pel Pan value is cleared using a mask.\\
+
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language=C]{code/pixel_mask.c}
+  \end{minipage}
+  
+  
+\par
 If multiple sprites are displayed on the same tile, each sprite is assigned a priority from 0 to 3 to determine the drawing order. A sprite with a higher priority number is always drawn on top of sprites with a lower priority. Since sprites are always drawn on top of tiles, this can create unnatural situations, such as when Commander Keen is climbing through a hole, as illustrated in Figure \ref{fig:draw_layers}.\\
 
 \setlength{\fboxsep}{0pt}

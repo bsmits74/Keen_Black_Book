@@ -25,7 +25,7 @@ void CA_CacheMarks (char *title, boolean cachedownlevel)
 
 	if (!numcache)			// nothing to cache!
 		return;
-	...
+	[...]
 	//
 	// go through and load in anything still needed
 	//
@@ -33,7 +33,7 @@ void CA_CacheMarks (char *title, boolean cachedownlevel)
 		if ( (grneeded[i]&ca_levelbit) && !grsegs[i])
 		{
             //load asset from disk
-            ...
+            [...]
 
             CAL_ExpandGrChunk (i,source);   // decompress
 		}
