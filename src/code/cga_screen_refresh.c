@@ -32,6 +32,4 @@ void VW_CGAFullUpdate (void)
 
     asm	dec	bx
     asm	jnz	copytwolines
-
-    [...]
 }

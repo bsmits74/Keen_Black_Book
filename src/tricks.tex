@@ -1,6 +1,5 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
-\pagebreak
 
 \section{Random Tricks}
 Various smart techniques were employed to ensure every CPU cycle counted. This section describes random tricks used to increase game speed.
@@ -9,18 +8,19 @@ Various smart techniques were employed to ensure every CPU cycle counted. This s
 \subsection{Bouncing Physics}
 When Keen throws a flower, it bounces off walls. For flat walls and floors, the bounce is easily calculated by reversing either the x-speed (for vertical walls) or the y-speed (for horizontal walls). However, handling bounces on slopes is more complex. Accurately calculating a bounce on a slope would require computationally expensive \cw{cos} and \cw{sin} operations.\\
 
-\par
-To simplify this, the game uses an algorithm that approximates the angle to one of four  values: 22$^{\circ}$, 45$^{\circ}$, 67$^{\circ}$ or 90$^{\circ}$. Based on the ratio between the x-speed and y-speed, the corresponding angle and speed is calculated. The angle values 0-3 refer to a positive \cw{xspeed}, and the values 4-7 to a negative \cw{xspeed}.\\
+
 
 \par
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{imgs/drawings/angle_ratio.eps}
+\includegraphics[width=0.8\textwidth]{imgs/drawings/angle_ratio_new.eps}
+\caption{Simplify to 22$^{\circ}$ for xspeed > 2x yspeed.}
 \label{fig:angles}
 \end{figure}
 
 \par
-The resulting speed is determined as a factor of either the \cw{xspeed} or \cw{yspeed}, depending on which of the two has the larger absolute value. For higher precision, the speed is expressed in global coordinates and therefore multiplied by 256.\\
+To simplify calculations, the game restricts incoming angles to four discrete values -- 22$^{\circ}$, 45$^{\circ}$, 67$^{\circ}$ or 90$^{\circ}$ -- based on the \cw{xspeed} to \cw{yspeed} ratio. Eight angle indices are then defined,where indices 0–3 represent negative \cw{xspeed}, while indices 4–7 represent positive \cw{xspeed}.\\
+
 
 \par
 \begin{minipage}{\textwidth}
@@ -28,12 +28,16 @@ The resulting speed is determined as a factor of either the \cw{xspeed} or \cw{y
 \end{minipage}
 
 \par
-For each combination of the eight slope types and incoming angle, the bounce angle is determined using a simple lookup table. \\
+ 
+
+\vspace{10pt}
+\par
+For each combination of the eight slope types and angle index, the bounce angle is determined using a simple lookup table. \\
 
 \begin{figure}[H]
 \centering
 \setlength{\tabcolsep}{2pt} % set border margin to 3
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.1}
 \small
 \begin{tabular}{
       >{\centering}p{0.18\textwidth}
@@ -47,7 +51,7 @@ For each combination of the eight slope types and incoming angle, the bounce ang
       >{\centering\arraybackslash}p{0.09\textwidth}
 }
 
- & \multicolumn{8}{c}{\textbf{incoming angle}} \\ 
+ & \multicolumn{8}{c}{\textbf{incoming angle index}} \\ 
 \textbf{Wall type} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\ \hline
 \textbf{0} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
 \textbf{1} & 7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\ \hline
@@ -65,35 +69,32 @@ For each combination of the eight slope types and incoming angle, the bounce ang
 
 
 \par
-Each entry in the table corresponds to one of 16 possible bounce angles. For example, when a wall type 3 slope is hit with an incoming angle of 22$^{\circ}$ and postive \cw{xspeed}, the lookup table refers to bounce angle \#5. Each bounce angle is decomposed into a new \cw{xspeed} and \cw{yspeed}.\\
+Each entry in the table corresponds to one of 16 possible bounce angles. For example, when a wall type 3 slope is hit with an incoming angle of 22$^{\circ}$ (angle index 0) and postive \cw{xspeed}, the lookup table refers to bounce angle \#5. Each bounce angle is decomposed into a new \cw{xspeed} and \cw{yspeed}.\\
 
 
 \par
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{imgs/drawings/bounce_angle.eps}
+\includegraphics[width=0.6\textwidth]{imgs/drawings/bounce_angle.eps}
 \caption{Wall type 3 with incoming angle of 22$^{\circ}$.}
 \label{fig:bounce_angles}
+\end{figure}
+\par
+
+\par
+It is worth noting that in some cases, the resulting bounce angle does not follow the laws of physics. For instance, an incoming angle of 22$^{\circ}$ (incoming angle index 0) on a 45$^{\circ}$ slope (walltype index 4) results in a bounce angle of 90$^{\circ}$ instead of the expected 67$^{\circ}$.\\
+
+\par
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.38\textwidth]{imgs/drawings/bounce_physics.eps}
+\caption{Incoming angle of 22$^{\circ}$ results in bounce angle of 90$^{\circ}$.}
 \end{figure}
 \par
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/angle.c}
 \end{minipage}
-
-\bigskip
-\par
-It is worth noting that in some cases, the resulting bounce angle does not follow the laws of physics. For instance, an incoming angle of 22$^{\circ}$ on a 45$^{\circ}$ slope results in a bounce angle of 90$^{\circ}$ instead of the expected 67$^{\circ}$.\\
-
-\par
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.4\textwidth]{imgs/drawings/bounce_physics.eps}
-\caption{Incoming angle of 22$^{\circ}$ results in bounce angle of 90$^{\circ}$.}
-\end{figure}
-\par
-
-
 
 
 \subsection{Screen fades}
@@ -106,12 +107,15 @@ When a new level is loaded, the screen fades from black to the default colors by
 \label{ega_set_palette}
 
 \par
-By using \cw{\_AX=1002h}, the entire palette can be reprogrammed at once. In this process, \cw{ES:BX} points to 17 bytes, where each byte represents an RGBI value for one of the 16 palette indices, plus one for the border.
+By using \cw{\_AX=1002h}, the entire palette can be reprogrammed at once. In this process, \cw{ES:BX} points to 17 bytes, where each byte represents an RGBI value for one of the 16 palette indices, plus one for the border. \\
+
+\par
+In total, six pre-defined color palettes are stored in the \cw{color[][]} table, ranging from completely black to completely white. The default table with CGA colors is defined in row 3.\\
 
 \begin{figure}[H]
 \centering
 \setlength{\tabcolsep}{2pt} % set border margin to 2
-\renewcommand{\arraystretch}{0.9}
+\renewcommand{\arraystretch}{1.0}
 \small
 \begin{tabularx}{\textwidth}[c]{|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|+X|}  
 \hline
@@ -132,7 +136,7 @@ By using \cw{\_AX=1002h}, the entire palette can be reprogrammed at once. In thi
 
 \end{tabularx}\\
 \setlength{\tabcolsep}{6pt} % reset border margin
-\caption{Color fading table \cw{colors[7][17]}.}
+\caption{Color palette table \cw{colors[][]}.}
 \end{figure}
 
 Fading the screen from black to color is straightforward.\\

@@ -145,10 +145,7 @@ The engine can decide at what frequency to be interrupted, depending on the type
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/sound_mode_struct.c}
 \end{minipage}
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C]{code/set_sound_mode.c}
-\end{minipage}
+
 
 \par
 Each time the interrupt system triggers, it runs another small (yet paramount) system before taking care of audio requests. The sole goal of this heartbeat system is to maintain a 32-bit variable: \cw{TimeCount}.\\

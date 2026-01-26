@@ -105,12 +105,6 @@ The default palette when switching to Mode \cw{04h} is palette 2 with high inten
 
 
 
-
-
-
-
-
-
 \subsection{Interlacing}
 In the early days of television and computer monitors, technology was far less advanced than it is today. Picture resolution was constrained by the limitations of the hardware, and engineers were constantly devising clever solutions to maximize performance. During the 1950s and 1960s, when CRT monitors and TVs were standard, one major challenge engineers faced was how to produce clear images without overwhelming the hardware. The solution was a technique called interlacing.\\
 
@@ -122,6 +116,9 @@ The CGA memory layout in graphics mode utilized a similar interlaced architectur
 
 \par
 In CGA graphics, each pair of two bits represented a single pixel, allowing for a color value between 0 and 3, based on the CGA color palette. The two leftmost bits in a byte represented pixel 0, the next two bits represented pixel 1, and so on. Each byte in VRAM corresponded to four pixels on the screen.\\
+
+\par
+The CGA card employed memory mapping, similar to EGA. In Mode 4, VRAM bank 0 is mapped to memory addresses ranging from \cw{B0000h} to \cw{B1FFFh}, and VRAM bank 1 was mapped to \cw{B2000h} to \cw{B3FFFh}. Unlike EGA, the CGA memory model didn't require masking since the total 16 KiB of VRAM easily fit within a 64 KiB memory segment.\\
 
 \begin{figure}[H]
 \centering
@@ -138,8 +135,7 @@ In CGA graphics, each pair of two bits represented a single pixel, allowing for 
 \trivia{Interestingly, interlacing was never actually implemented in CGA monitors. When displaying VRAM to the screen, the CGA used a progressive (linear) scan, alternately reading from bank 0 and bank 1.}\\
 
 
-\par
-The CGA card employed memory mapping, similar to EGA. In Mode 4, VRAM bank 0 is mapped to memory addresses ranging from \cw{B0000h} to \cw{B1FFFh}, and VRAM bank 1 was mapped to \cw{B2000h} to \cw{B3FFFh}. Unlike EGA, the CGA memory model didn't require masking since the total 16 KiB of VRAM easily fit within a 64 KiB memory segment.
+
 
 
 
@@ -166,7 +162,7 @@ This memory buffer contains both the video buffer page and a master page. The bu
 With double buffering in place, the same algorithm used for EGA can be applied. The final step of the algorithm involves updating the screen display by copying the buffer page to VRAM and perform fine pixel adjustment. However, there are two complications with CGA.\\
 
 \par
-The first complication is that the CGA card does not support pixel panning. As a result, the smoothest scrolling achievable is in increments of one byte. Since one byte represents four pixels, horizontal scrolling is limited to steps of four pixels, resulting in a choppier scrolling experience compared to EGA. \\
+The first complication is that the CGA card does not support pixel panning. As a result, the smoothest scrolling achievable is in increments of one byte. Since one byte represents four pixels, smooth horizontal scrolling is limited to steps of four pixels, which means a more choppier scrolling experience compared to EGA. \\
 
 \par
 \begin{minipage}{\textwidth}
@@ -175,24 +171,19 @@ The first complication is that the CGA card does not support pixel panning. As a
 \label{state_type}
 
 \par
-The second complication is copying the RAM buffer to the interlaced VRAM. This requires splitting the linear memory buffer into copying all even rows to VRAM bank 0 and odd rows to VRAM bank 1.
+The second complication is copying the RAM buffer to the interlaced VRAM. This requires splitting the linear memory buffer into copying all even rows to VRAM bank 0 and odd rows to VRAM bank 1.\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{imgs/drawings/cga_VRAM_copy.eps}
-\caption{CGA memory to VRAM copy.}
+\includegraphics[width=1.0\textwidth]{imgs/drawings/cga_VRAM_copy_new.eps}
+\caption{Copy RAM buffer to VRAM in CGA.}
 \label{fig:cga_interlaced}
 \end{figure}
 
 \par
-To avoid screen tearing, the system must wait for a vertical retrace, just as it does with EGA. However, the 286 CPU simply lacked the speed to copy all the necessary bytes from the RAM buffer to VRAM within the vertical retrace period. Consequently, in the CGA version of Commander Keen, screen tearing was unavoidable.\\
+The CPU lacked the speed to copy the entire RAM buffer to VRAM during the vertical retrace period, which was the only time the CGA hardware did not output to the screen. Consequently, screen tearing in the CGA version of Commander Keen was unavoidable.\\
 
-
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language=C]{code/cga_screen_refresh.c}
-\end{minipage}
-\label{cga_screen_refresh}
+\trivia{Because the video memory on the original IBM CGA was not dual-ported, when both the CPU and the video output attempted to access the same byte of video RAM, the CPU took precedence. As a result, the card ends up reading a random value, causing white snow on the screen.}
 
 
 \end{document}

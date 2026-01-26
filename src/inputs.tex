@@ -42,7 +42,7 @@ Once a key is pressed or released, the scancode is decoded and processed by the 
 \par
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1.0\textwidth]{imgs/drawings/keyboard.eps}
+  \includegraphics[width=0.7\textwidth]{imgs/drawings/keyboard.eps}
   \caption{Keyboard hardware diagram.}
   \label{fig:pc_keyboard}
 \end{figure}
@@ -69,12 +69,9 @@ The state of the keyboard is maintained in a global array \cw{Keyboard}, availab
 \end{minipage}
 
 \par
-When a scancode byte arrives from the keyboard, it is copied to a buffer in the keyboard controller and an IRQ \#1 is raised. Scancodes arrive one byte at a time, and one interrupt at a time, even if it is a multi-byte code. The interrupt handler can read a byte from I/O port \cw{60h} to capture the scancode for further processing. Once that is complete, the interrupt handler must explicitly acknowledge the IRQ at the interrupt controller to re-arm it for the next keyboard event. This is accomplished by writing an "end of interrupt" signal byte to I/O port \cw{20h}. \\
+When a scancode byte arrives from the keyboard, it is copied to a buffer in the keyboard controller and an IRQ \#1 is raised. Scancodes arrive one byte at a time, and one interrupt at a time, even if it is a multi-byte code. The interrupt handler can read a byte from I/O port \cw{60h} to capture the scancode for further processing. Once that is complete, the interrupt handler must explicitly acknowledge the IRQ at the interrupt controller to re-arm it for the next keyboard event. This is accomplished by writing an "end of interrupt" signal byte to I/O port \cw{20h}. 
 
 \par
 There is a slight difference between the PPI and the UPI in terms of how the keyboard input buffer is managed. The PPI will hold a byte in its input buffer indefinitely until the software acknowledges that it has completed the read. The acknowledgment procedure is to briefly strobe the high bit of I/O port \cw{61h} on, then off. When this occurs, the keyboard controller resets its buffer status and resumes reading from the keyboard. The UPI simplifies this process. Reading from I/O port \cw{60h} automatically resets the buffer, eliminating the need for a separate acknowledgment. However, to maintain backward compatibility, most programs still toggle the high bit of I/O port \cw{61h}, even though this has no effect on 286 or higher based systems.\\
-
-
-
 
 \end{document}
