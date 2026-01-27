@@ -22,7 +22,7 @@ void CA_RLEWexpand (unsigned huge *source, unsigned huge *dest,long length, unsi
   asm	lodsw
   asm	cmp	ax,bx              // value is RLEW tag?
   asm	je	repeat      
-  asm	stosw          
+  asm	stosw                  // normal value
   asm	jmp	next
 
   repeat:

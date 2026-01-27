@@ -5,7 +5,7 @@
 
 
 
-Development was done with Borland C++ 3.1 using an 80386 computers. John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
+Development was done with Borland C++ 3.1 using an 80386 computers, but none of the 80386 specifics are utilized for the game. John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
 \par
 
 \begin{minipage}{.35\textwidth}
@@ -14,7 +14,7 @@ Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some
 \begin{minipage}{.65\textwidth}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.7\linewidth]{screenshots_300dpi/borland_programmer_guide.png}
+  \includegraphics[width=.65\linewidth]{screenshots_300dpi/borland_programmer_guide.png}
 \caption*{Borland C++ 3.1 Programmer guide.}
 \end{figure}
 \end{minipage}
@@ -296,7 +296,7 @@ TED5 allows the placement of tiles across multiple layers, referred to as "plane
   \item Information plane tiles, which contain actor locations and special areas.
 \end{itemize}
 
-A level is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), which controls interactions such as clipping, "deadly" tiles, and animated tiles. 
+A map is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), which controls interactions such as clipping, "deadly" tiles, and animated tiles. 
 
 \par
 \begin{figure}[H] 
@@ -307,7 +307,7 @@ A level is created by placing tiles on each of these three layers. Foreground an
 
  
 \par
-Similar to IGRAB, TED5 compresses all levels into a \cw{MAP} archive and generates corresponding \cw{HEAD} and \cw{DICT} files.
+Similar to IGRAB, TED5 compresses all maps into a \cw{MAP} archive and generates corresponding \cw{HEAD} and \cw{DICT} files.
 
  
 \subsection{Map header structure}
@@ -440,7 +440,7 @@ In 1990, the Internet was still in its infancy and the best medium was the 3\nic
  \item KDREAMS.EXE: Game engine.
  \item KDREAMS.EGA: Contains all the assets (sprites, tiles) needed during the game.
  \item KDREAMS.AUD: Sound effect files.
- \item KDREAMS.MAP: Contains all level layouts.
+ \item KDREAMS.MAP: Contains all maps.
  \item KDREAMS.CMP: Introduction picture of the game, a compressed LBM image file.
  \item Softdisk Help Library files, which are text screens, shown when starting and ending the game
  \item Several *.TXT files which can be read by typing the corresponding *.BAT file. 

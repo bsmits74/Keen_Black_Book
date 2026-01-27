@@ -6,20 +6,18 @@ Various smart techniques were employed to ensure every CPU cycle counted. This s
 
 
 \subsection{Bouncing Physics}
-When Keen throws a flower, it bounces off walls. For flat walls and floors, the bounce is easily calculated by reversing either the x-speed (for vertical walls) or the y-speed (for horizontal walls). However, handling bounces on slopes is more complex. Accurately calculating a bounce on a slope would require computationally expensive \cw{cos} and \cw{sin} operations.\\
-
-
+When Keen throws a flower, it bounces off walls. For flat walls and floors, the bounce is easily calculated by reversing either the xspeed (for vertical walls) or the yspeed (for horizontal walls). However, handling bounces on slopes is more complex. Accurately calculating a bounce on a slope would require computationally expensive \cw{cos} and \cw{sin} operations.\\
 
 \par
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{imgs/drawings/angle_ratio_new.eps}
-\caption{Simplify to 22$^{\circ}$ for xspeed > 2x yspeed.}
+\includegraphics[width=0.7\textwidth]{imgs/drawings/angle_ratio_new.eps}
+\caption{Simplify to 22$^{\circ}$ for xspeed more than twice the yspeed.}
 \label{fig:angles}
 \end{figure}
 
 \par
-To simplify calculations, the game restricts incoming angles to four discrete values -- 22$^{\circ}$, 45$^{\circ}$, 67$^{\circ}$ or 90$^{\circ}$ -- based on the \cw{xspeed} to \cw{yspeed} ratio. Eight angle indices are then defined,where indices 0–3 represent negative \cw{xspeed}, while indices 4–7 represent positive \cw{xspeed}.\\
+To simplify the calculations, the game restricts incoming angles to four discrete values -- 22$^{\circ}$, 45$^{\circ}$, 67$^{\circ}$ or 90$^{\circ}$ -- based on the ratio of \cw{xspeed} to \cw{yspeed}. Eight angle indices are then defined, where indices 0–3 represent negative \cw{xspeed}, while indices 4–7 represent positive \cw{xspeed}. The resulting speed vector magnitude is calculated using either \cw{xspeed} or \cw{yspeed}, depending on which has the greater absolute value. This magnitude is multiplied by 256 to achieve higher precision.\\
 
 
 \par
@@ -32,7 +30,7 @@ To simplify calculations, the game restricts incoming angles to four discrete va
 
 \vspace{10pt}
 \par
-For each combination of the eight slope types and angle index, the bounce angle is determined using a simple lookup table. \\
+For each combination of the eight slope types and angle indices, the bounce angle is determined using a simple lookup table.
 
 \begin{figure}[H]
 \centering
@@ -69,7 +67,7 @@ For each combination of the eight slope types and angle index, the bounce angle 
 
 
 \par
-Each entry in the table corresponds to one of 16 possible bounce angles. For example, when a wall type 3 slope is hit with an incoming angle of 22$^{\circ}$ (angle index 0) and postive \cw{xspeed}, the lookup table refers to bounce angle \#5. Each bounce angle is decomposed into a new \cw{xspeed} and \cw{yspeed}.\\
+Each entry in the table corresponds to one of 16 possible bounce angles. For example, when a wall type 3 slope is hit with an incoming angle of 22$^{\circ}$ (angle index 0) and positive \cw{xspeed}, the lookup table specifies bounce angle \#5. Each bounce angle is then decomposed into a new \cw{xspeed} and \cw{yspeed}.\\
 
 
 \par
@@ -82,7 +80,8 @@ Each entry in the table corresponds to one of 16 possible bounce angles. For exa
 \par
 
 \par
-It is worth noting that in some cases, the resulting bounce angle does not follow the laws of physics. For instance, an incoming angle of 22$^{\circ}$ (incoming angle index 0) on a 45$^{\circ}$ slope (walltype index 4) results in a bounce angle of 90$^{\circ}$ instead of the expected 67$^{\circ}$.\\
+It is worth noting that in some cases, the resulting bounce angle does not follow the laws of physics. For instance, an incoming angle of 22$^{\circ}$ (angle index 0) on a 45$^{\circ}$ slope (wall type 4) results in a bounce angle of 90$^{\circ}$, rather than the expected 67$^{\circ}$.\\
+
 
 \par
 \begin{figure}[H]

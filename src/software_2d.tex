@@ -31,7 +31,7 @@ Well, you're going five frames a second.\\
 \par
 So, how did they create a smooth scrolling game with these limitations? The solution was twofold:
 \begin{itemize}
-  \item By exploiting specific EGA hardware tricks, and
+  \item By exploiting specific EGA hardware tricks.
   \item Updating only the portions of the screen that had actually changed between frames
 \end{itemize}
 
@@ -131,10 +131,10 @@ A naive approach for screen refresh is to load the entire level into VRAM, setti
 \textbf{\underline{Trivia :}} At the time of writing this book, most video cards contain more than 1GB VRAM,  sufficient to store all Commander Keen levels at once in VRAM. \\
 
 \par
-To solve the refresh issue, John Carmack invented "Adaptive Tile Refresh" (ATR). The core idea is to refresh only those areas of the screen that need to change\footnote{See https://retrocomputing.stackexchange.com/questions/22175/what-is-adaptive-tile-refresh-in-the-context-of-commander-keen}. Let's look at \textit{Commander Keen 1: Marooned on Mars} in Figure \ref{fig:keen_difference}. This is the first level of Marooned, immediately to the right of the crashed Bean-with-Bacon Megarocket. The first figure is the start of the level, the second figure is after Keen has scrolled one tile (16 pixels) to the right through the world. They look almost identical to the naked eye, don't they? \\
+To solve the refresh issue, John Carmack invented "Adaptive Tile Refresh" (ATR). The core idea is to refresh only those areas of the screen that need to change\footnote{See https://retrocomputing.stackexchange.com/questions/22175/what-is-adaptive-tile-refresh-in-the-context-of-commander-keen}. Let's look at \textit{Commander Keen 1: Marooned on Mars} in Figure \ref{fig:keen_difference} on the next page. This is the first level of Marooned, immediately to the right of the crashed Bean-with-Bacon Megarocket. The first figure is the start of the level, the second figure is after Keen has scrolled one tile (16 pixels) to the right through the world. They look almost identical to the naked eye, don't they? \\
 
 \par
-Now, if we perform a difference on both images, you can see which tiles need to be changed upon screen refresh. The trick behind the scrolling is to only redraw tiles that actually changed after panning 16 pixels (one tile). For matching tiles there is nothing to do and they are skipped entirely. In Figure 4.21, there are large swathes of constant background tiles. In total, only 69 tiles out of the 260 tiles need to be refreshed, which is 27\% of the screen!\\
+Now, if we perform a difference on both images, you can see which tiles need to be changed upon screen refresh. The trick behind the scrolling is to only redraw tiles that actually changed after panning 16 pixels (one tile). For matching tiles there is nothing to do and they are skipped entirely. In total, only 69 tiles out of the 260 tiles need to be refreshed, which is 27\% of the screen!\\
 
 \par
 \begin{fancyquotes}
@@ -266,7 +266,7 @@ Now the buffer is refreshed and the CRTC address is updated, the final step is f
 \subsection{Virtual Screen Tile Refresh}
 \label{section:wrap_ega_memory}
 \label{section:optimize_tile}
-John Carmack explored what would happen if you push the virtual screen over the 64kB border (address \cw{FFFFh}) in video memory. It turned out that the EGA continues the virtual screen at \cw{0000h}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
+John Carmack explored what would happen if you push the virtual screen over the 64KiB border (address \cw{FFFFh}) in video memory. It turned out that the EGA continues the virtual screen at \cw{0000h}. This means you could wrap the virtual screen around  the EGA memory and only need to add a stroke of tiles on one of the edges when Commander Keen moves more than 16 pixels.\\
 \par
 \begin{figure}[H]
   \centering
@@ -373,10 +373,7 @@ Next, the engine scans all '1's and copies the corresponding tiles from the mast
 \end{figure}
 
 \par
-Each sprite removed from the screen has its location and size stored in the sprite removal list, which removes the sprite by copying a specific section from the master screen to the virtual page. Tiles overlapping with the removal block are marked with a '2'.\\
-
-\par
-\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
+Each sprite removed from the screen has its location and size stored in the sprite removal list, which removes the sprite by copying the specific section from the master screen to the virtual page. Tiles overlapping with the removal block are marked with a '2'.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -384,6 +381,9 @@ Each sprite removed from the screen has its location and size stored in the spri
   \end{minipage}
   \label{block_removal}
 \\
+
+\par
+\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
 
 \par
 Notice that the block is perfectly aligned on an even memory address by using the \cw{\& \textasciitilde{}1} bitwise operator to clear the least significant bit, ensuring 16-bit transfers per CPU cycle.\\
@@ -549,10 +549,10 @@ This issue can be illustrated with the following setup: the current CRTC start a
 One approach to this problem is to update the start address when the vertical retrace signal is detected via the Input Status 1 Register, specifically bit 3 at port \cw{3DAh}. Unfortunately, by the time the program observes this status, the start address for the next frame has already been latched, as this occurs immediately at the beginning of the vertical retrace pulse.\\
 
 \par
-An alternative approach is to update the CRTC start address at a point sufficiently distant from the start of the vertical retrace. The Display Enable Status signal from the same Input Status Register can be used for this purpose; a value of 1 indicates that the display is currently within a horizontal or vertical retrace\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high. The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}. What we want to detect is the completion of a horizontal or vertical retrace and the beginning of a new scan line, which is far enough from the vertical retrace to ensure that the new start address is latched during the next vertical sync.\\
+An alternative approach is to update the CRTC start address at a point sufficiently distant from the start of the vertical retrace. The Display Enable Status signal at bit 1 from the same Input Status Register can be used for this purpose; a value of 1 indicates that the display is currently within a horizontal or vertical retrace\footnote{Documentation is a bit unclear here. The IBM technical documentation for VGA explains retrace takes place when bit 0 of the Input Status Register 1 is set to high. The IBM technical EGA documentation explains the opposite, saying when bit 0 is set low a retrace is taking place. For now, we assume source code and VGA documentation is correct, retrace takes place on a '1'.}. What we want to detect is the completion of a horizontal or vertical retrace and the beginning of a new scan line, which is far enough from the vertical retrace to ensure that the new start address is latched during the next vertical sync.\\
 
 \par
-To guarantee that the start address is updated at the very beginning of a new scan line, it first waits for the current scan line to complete. It then waits for a full retrace, verifying that the Display Enable Status returns to 0. At this point, the CRTC start address is updated.\\
+To guarantee that the start address is updated at the very beginning of a new scan line, it first waits for the current scan line to complete. It then waits for a full retrace, verifying that the Display Enable Status returns to 0. At this point, the CRTC start address is updated. Once the CRTC start address has been updated, the engine waits for a vertical retrace to set the Pel panning register.\\
 
  
 \begin{figure}[H]
@@ -561,10 +561,9 @@ To guarantee that the start address is updated at the very beginning of a new sc
   \label{fig:update_start_address}
   \caption{Update CRTC start address at beginning of new scan line.}
 \end{figure}
- 
 
 
-\trivia{Regardless of CPU speed, the game's speed is limited by the CRTC sync to the monitor's refresh rate, which is 60Hz for EGA and 70Hz for VGA.}\\
+\trivia{Regardless of CPU speed, the game's speed is limited by the monitor's refresh rate, which is 60Hz for EGA and 70Hz for VGA.}\\
 
 
 Wolfenstein 3D is using an even faster solution. Here, each virtual screen has a fixed starting address and only differ by their high byte value: page 0 is at \cw{0000h}, page 1 at \cw{4100h} and the master page at \cw{8200h}. Moving from any page to another requires updating only the high 8 bits, ensuring a smooth screen refresh\footnote{See \textit{Game Engine Black Book: Wolfenstein 3D} section "Solving the VGA Problem".}. This solution is not possible for Commander Keen as the virtual screen moves around in VRAM. 
@@ -617,7 +616,7 @@ Different types of enemies have their own state machines, often sharing reaction
 \end{figure}
 
 \par
-The \cw{*react} function is responsible for managing how an enemy reacts to the environment, like turning around upon hitting a wall or the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.\\
+The \cw{*react} function is responsible for managing how an enemy reacts to the environment, like turning around upon hitting a wall or the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.
 
 \par
 \begin{minipage}{\textwidth}
@@ -626,7 +625,7 @@ The \cw{*react} function is responsible for managing how an enemy reacts to the 
 \label{state_type}
 
 \par
-The \cw{*contact} function checks if an object has come into contact with another object and defines the resulting interaction, such as Commander Keen taking damage or losing a life.
+The \cw{*contact} function checks if an object has come into contact with another object and defines the resulting interaction, such as Commander Keen taking losing a life.
 
 
 

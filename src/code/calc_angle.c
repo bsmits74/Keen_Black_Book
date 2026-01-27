@@ -20,15 +20,15 @@ void	PowerReact (objtype *ob)
         absy = ob->yspeed;
         if (absx>absy)
         {
-            if (absx>absy*2)	// 22 degrees
+            if (absx>absy*2)	    // 22 degrees
             {
                 angle = 0;
-                speed = absx*286;	// x*sqrt(5)/2
+                speed = absx*286;	// x*sqrt(5)/2*256
             }
-            else				// 45 degrees
+            else                  // 45 degrees
             {
                 angle = 1;
-                speed = absx*362;	// x*sqrt(2)
+                speed = absx*362;	// x*sqrt(2)*256
             }
         }
         [...]       // Handle 67 and 90 degrees

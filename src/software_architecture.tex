@@ -84,7 +84,7 @@ Checking the size of the compiled program, we see\\
 \tcode{source_compile_size.txt}\\
 
 \par
-The game was distributed on a single 5\nicefrac{1}{4}-inch, 360 KiB floppy disk. The compiled executable alone already occupies 349 KiB, and it still needed to accommodate graphics, level, and audio assets. With only 11 KiB remaining, the team needed a way to compress the executable to ensure everything would fit on one floppy disk.\\
+The game was distributed on a single 5\nicefrac{1}{4}-inch, 360 KiB floppy disk. The compiled executable alone already occupies 349 KiB, and it still needed to accommodate graphics, map, and audio assets. With only 11 KiB remaining, the team needed a way to compress the executable to ensure everything would fit on one floppy disk.\\
 
 \par
 To compress the executable, the team made used a small utility called LZEXE. It was one of the first widely known executable file compression tools for DOS computers. LZEXE allowed DOS executables to be launched without requiring an explicit decompression step. Most other compression or packing utilities required an additional step (and often additional disk space) to accomplish this.\\
@@ -217,9 +217,7 @@ Then comes the core loop, where the menu and 2D renderer are called forever.
 \end{minipage} \\
 \par
  
-The interrupt system is started via the Sound Manager in \cw{SDL\_SetIntsPerSec(rate)}. While there is a famous game development library called Simple DirectMedia Layer (SDL), the prefix \cw{SDL\_} has nothing to do with it. It stands for SounD Low level (Simple DirectMedia Layer did not even exist in 1990).\\
-\par
-The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with an OS supporting neither processes nor threads, it was the only way to have something executed concurrently with the rest of the engine.
+The interrupt system is started via the Sound Manager in \cw{SDL\_SetIntsPerSec(rate)}. The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with an OS supporting neither processes nor threads, it was the only way to have something executed concurrently with the rest of the engine.
 
 
 \section{Architecture}
@@ -243,7 +241,7 @@ There are six managers in total:
 	\item Input
 \end{itemize}
 \par
-The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer id Software games (\textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolf3D}). Next to the hard drives (HDD) you can see the graphic, level and sound assets files as described in chapter \ref{chapter:assets}.
+The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer id Software games (\textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolf3D}). Next to the hard drives (HDD) you can see the graphic, map and sound assets files as described in chapter \ref{chapter:assets}.
 
 \begin{figure}[H] 
 \centering
@@ -424,7 +422,7 @@ The pre-calculated bitshift tables are stored in \cw{id\_vw\_a.asm}, below the \
 \label{wallclip_array}
 
 \par
-Bitshift tables are arranged after each other and made globally available for all assembly routines.\\
+Bitshift tables reference are made globally available for all assembly routines via the \linebreak \cw{shifttabletable} variable.\\
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language={[x86masm]Assembler}]{code/unrolles_bitshift_tables.asm}
@@ -440,14 +438,14 @@ The assembly routine \cw{ShiftPropChar} takes care of shifting and drawing the c
 
  
 \bigskip
-The macro \cw{SHIFTNOXOR} prints table shifts the character into the buffer.\\
+The macro \cw{SHIFTNOXOR} prints the bitshifted character into the buffer.\\
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language={[x86masm]Assembler}]{code/unrolled_byte_shift_font.asm}
 \end{minipage}\\
 
 \par
-The final step is copying the buffer to VRAM. Printing the letter "N" with an offset of 3 pixels involves a simple lookup in the \cw{shiftdata3} table. By sacrificing 4096 bytes of memory, a lot of CPU time is saved.\\
+The final step is copying the buffer to VRAM. Printing the letter "N" with an offset of 3 pixels involves only a simple lookup in the \cw{shiftdata3} table. By sacrificing 4096 bytes of memory, a lot of CPU time is saved.\\
 \begin{figure}[H]
 \centering
  \includegraphics[width=0.8\textwidth]{imgs/drawings/text_bitshift_N.eps}

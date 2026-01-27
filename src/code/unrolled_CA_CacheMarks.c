@@ -1,8 +1,6 @@
 void CA_CacheMarks (char *title, boolean cachedownlevel)
 {	
-	//
 	// save title so cache down level can redraw it
-	//
 	titleptr[ca_levelnum] = title;
 
 	numcache = 0;
@@ -12,7 +10,7 @@ void CA_CacheMarks (char *title, boolean cachedownlevel)
 	for (i=0;i<NUMCHUNKS;i++)
 		if (grneeded[i]&ca_levelbit)
 		{
-			if (grsegs[i])			// its allready in memory, make
+			if (grsegs[i])		// its allready in memory, make
 				MM_SetPurge(&grsegs[i],0);	// sure it stays there!
 			else
 				numcache++;
@@ -23,7 +21,7 @@ void CA_CacheMarks (char *title, boolean cachedownlevel)
 				MM_SetPurge(&grsegs[i],3);
 		}
 
-	if (!numcache)			// nothing to cache!
+	if (!numcache)			  // nothing to cache!
 		return;
 	[...]
 	//
@@ -32,8 +30,10 @@ void CA_CacheMarks (char *title, boolean cachedownlevel)
 	for (i=0;i<NUMCHUNKS;i++)
 		if ( (grneeded[i]&ca_levelbit) && !grsegs[i])
 		{
-            //load asset from disk
-            [...]
+            //load asset from disk into memory buffer
+            lseek(grhandle,pos,SEEK_SET);
+			      CA_FarRead(grhandle,bufferseg,endpos-pos);
+			      source = bufferseg;
 
             CAL_ExpandGrChunk (i,source);   // decompress
 		}

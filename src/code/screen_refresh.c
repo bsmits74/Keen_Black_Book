@@ -1,12 +1,9 @@
-;==============
-;
-; VW_SetScreen
-;
-;==============
+PROC	VW_SetScreen  crtc:WORD, pel:WORD
+PUBLIC	VW_SetScreen
 
 	mov	dx,03DAh         ;Status Register 1
 ;
-; wait util the CRTC just starts scaning a diplayed line 
+; wait util the CRTC just starts scanning a diplayed line 
 ; to set the CRTC start
 ;
 	cli
@@ -21,21 +18,25 @@
 	test	al,01b
 	jnz	@@waitdisplay
 
-endif
 
 ;
 ; set CRTC start
 ;
-	mov	cx,[crtc]
-	mov	dx,CRTC_INDEX
-	mov	al,0ch		;start address high register
-	out	dx,al
-	inc	dx
-	mov	al,ch
-	out	dx,al
-	dec	dx
-	mov	al,0dh		;start address low register
-	out	dx,al
-	mov	al,cl
-	inc	dx
-	out	dx,al
+	[...]
+
+;
+; wait for a vertical retrace to set pel panning
+;
+	mov	dx,03DAh
+@@waitvbl:
+	sti     		        ;service interrupts
+	jmp	$+2
+	cli
+	in	al,dx
+	test	al,00001000b	;look for vertical retrace
+	jz	@@waitvbl
+
+;
+; set horizontal pel panning
+;
+	[...]

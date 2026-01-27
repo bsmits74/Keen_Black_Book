@@ -394,7 +394,7 @@ When a program is compiled and executed, the operating system allocates a chunk 
   \item \textbf{Code section}: Stores the program executable. When you compile a C program, the compiler converts your code into assembly instructions that the CPU executes.
   \item \textbf{Data section}: Stores initialized and uninitialized global and static variables.
   \item \textbf{Stack section}: Memory used for local variables and data inside functions. The stack grows downwards, towards lower memory addresses.
-  \item \textbf{Heap section}: Memory that is dynamically allocated using the malloc() function. The heap typically grows upwards, meaning it expands towards larger memory addresses.
+  \item \textbf{Heap section}: Memory that is dynamically allocated using the \cw{malloc()} function. The heap typically grows upwards, meaning it expands towards larger memory addresses.
 \end{itemize}
 
 \par
@@ -463,11 +463,11 @@ The "compact memory model" is the opposite of the medium memory model, allowing 
 
 \subsection{Mixed Model Programming}
 
-In the medium memory model, the data segment remains limited to 64KiB. For most games, this is enough to store game state variables. However, the size of the heap is far too small to store game data such as graphics and game levels. One option is to use the large or huge memory models, but these come with the downside of slower data access due to the use of far pointers for all data.\\
+In the medium memory model, the data segment remains limited to 64KiB. For most games, this is enough to store game state variables. However, the size of the heap is far too small to store game data such as graphics and game maps. One option is to use the large or huge memory models, but these come with the downside of slower data access due to the use of far pointers for all data.\\
 
 
 \par
-Fortunately, there is a way to access additional memory using the medium model. A large portion of unallocated memory is available between the stack and the high address \cw{A0000h}. This memory, known as the "far heap", can be allocated using the \cw{farmalloc()} function. This technique, called mixed model programming, combines the advantages of one of the six standard memory models with custom near and far pointer allocation. In the case of the medium memory model, it allows the program to benefit from near pointer efficiency for global data and the stack, while also providing sufficient memory for dynamically allocated assets like graphics and levels.\\
+Fortunately, there is a way to access additional memory using the medium model. A large portion of unallocated memory is available between the stack and the high address \cw{A0000h}. This memory, known as the "far heap", can be allocated using the \cw{farmalloc()} function. This technique, called mixed model programming, combines the advantages of one of the six standard memory models with custom near and far pointer allocation. In the case of the medium memory model, it allows the program to benefit from near pointer efficiency for global data and the stack, while also providing sufficient memory for dynamically allocated assets like graphics and game maps.\\
 
 
 \begin{figure}[H]
@@ -806,10 +806,10 @@ For example, if the color brown (rgbRGB = \cw{010100b}) is assigned to a color i
 So how did an EGA monitor recognize that it was connected to an EGA video card? in fact, it could only distinguish EGA and CGA cards based on the Vertical Sync signal (pin 9), which is either 200- or 350-line mode. If the Vertical Sync is 350-line mode, the monitor switched to Mode 2 operation which supported the extended rgbRGB-color information\footnote{IBM Enhanced Color Display technical documentation}. But in the 200-line mode, the monitor cannot distinguish between being connected to a CGA or an EGA card. \\
 
 \par
-For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-line modes so the monitor can also be used with a CGA card and vice versa. Consequently, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI-)colors simultaneously, in contrast to a CGA card, which can show only 4 colors at once.
+For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-line modes so the monitor can also be used with a CGA card and vice versa. Consequently, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI) colors simultaneously, in contrast to a CGA card, which can show only 4 colors at once. The downside is that the 64-color EGA palette can only be used in 350-line mode.
 
 \begin{figure}[H]
-\renewcommand{\arraystretch}{0.95}
+\renewcommand{\arraystretch}{0.65}
 \centering
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{+X +X +X +X }
@@ -837,6 +837,7 @@ For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-li
 \label{default_ega_palette}
  \end{figure}
 
+\trivia{The color brown (\cw{06h}) is actually dark yellow. However, IBM engineers found this shade unappealing, so they implemented a special circuit in the monitor that targets color \cw{06h}. When detected, the monitor halves the green intensity, producing a golden brown instead of dark yellow.}\\
 
 
 \section{Audio}

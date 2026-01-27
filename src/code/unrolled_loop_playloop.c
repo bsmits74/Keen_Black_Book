@@ -17,7 +17,7 @@ void PlayLoop (void)
 
     [...]           // Handle collisions between objects
     ScrollScreen(); // Scroll if Keen is nearing an edge.
-    [...]           // React to whatever happened.
+    [...]           // Update sprites.
     RF_Refresh();   // Update buffer screen and switch  
                     // buffer and view screen
     CheckKeys();    // Check special keys

@@ -159,7 +159,7 @@ Each time the interrupt system triggers, it runs another small (yet paramount) s
 Once the interrupt is completed, the interrupt handler must explicitly acknowledge the IRQ at the interrupt controller to return to the game engine loop. This is accomplished by writing an "end of interrupt" signal byte to I/O port \cw{20h}.\\
 
 \par
-The heartbeat is updated at a rate of 70 units per second, to match the VGA update rate of 70Hz. These units are called "ticks". Depending on how fast the audio system runs (from 140Hz to 700Hz), it adjusts how frequent it should increase \cw{TimeCount} to keep the game rate at 70Hz.\\
+The heartbeat is updated at a rate of 70 units per second, these units are called "ticks". Depending on how fast the audio system runs (from 140Hz to 700Hz), it adjusts how frequent it should increase \cw{TimeCount} to keep the game rate at 70Hz.\\
 
 \par
 Every system in the engine uses this variable to pace itself. The renderer will not start rendering a frame until at least one tick has passed. The AI system expresses action duration in tick units. The input sampler checks how long a key was pressed, and the list goes on. Everything interacting with human players uses \cw{TimeCount}.
@@ -225,13 +225,13 @@ Earlier it was hinted that the PIT had three counter channels, of which channel 
 
 
 \par
-A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, and the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. To create a higher pitch, the counter value would need to be lower.\\
+A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, while the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. To create a higher pitch, the counter value would need to be lower.\\
 
 \par
 This integer value must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats.  \\
 
 \par
-To adjust the frequency, write to port \cw{43h} to set the PIT command register, followed by writing the desired counter value to port \cw{42h}.
+To adjust the frequency, write value \cw{b6h} to port \cw{43h} to set the PIT command register, followed by writing the desired counter value to port \cw{42h}.
 
 \begin{figure}[H]
 	\centering
