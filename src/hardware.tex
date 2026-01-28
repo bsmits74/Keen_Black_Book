@@ -481,46 +481,46 @@ Fortunately, there is a way to access additional memory using the medium model. 
 \pagebreak
 \section{Video}
 
-PCs had dedicated video cards and were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio.\\
+PCs had dedicated video cards and were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio. The conversion from the digital CPU output to the analogue monitor signal was handled by the video adapter.\\
+
+
+
+\subsection{Inner working of a CRT monitor}
+
+Computer monitors until the early 2000s were built around a Cathode Ray Tube (CRT). The picture on a CRT is generated primarily by a device called an electron gun, which converts electrical power into a narrow beam of electrons moving with substantial kinetic energy. The inside of the screen is coated with phosphor, which glows when struck by the electron beam (and for a short time thereafter).\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{screenshots_300dpi/hardware/monitor.jpg}
-\caption{14" CRT monitor.}
-\label{fig:lcd_vs_crt}
+\includegraphics[width=1.0\textwidth]{imgs/drawings/CRT_inner.eps}
+\caption{Inner working of CRT monitor.}
+\label{fig:CRT_inner_working}
 \end{figure}
 
-
-\subsection{Raster-scan display}
-All standard PC monitors use a raster-scan display to create the image.
-In a raster-scan display, the position of the electron beam is continually sweeping across the surface of the tube. The tube's surface is coated with phosphors that glow when struck by electrons (and for a short time thereafter), and, of course, the beam may be turned on to light a phosphor or off to leave it black.\\
-
 \par
-The electron beam scans the phosphor-coated screen from left to right and from top to bottom. Because the horizontal sweep occurs continuously while the beam slowly moves downward, each horizontal line ends slightly lower than where it began, resulting in a minor downward slope\footnote{See https://www.analog.com/en/resources/technical-articles/basics-of-analog-video.html.}. This downward slope is exaggerated in Figure 2.15, but with 200 or more scan lines it is hardly noticeable. The period during which the beams return to the left is known as the horizontal retrace. During most of the retrace, the guns must be turned off to prevent writing in the active display area (the area which contains the actual
-character and/or graphics data); this is known as horizontal blanking.\\
-
-\par
-The area immediately surrounding the display area, in which the beam may be turned on
-during the retrace interval, is called the overscan or border. The active display
-area is the portion of the screen that contains characters and/or graphics.
+The electron beam is highly susceptible to magnetic fields, allowing it to be deflected using magnets. By placing horizontal and vertical electromagnets around the neck of the tube (the deflection yoke), the beam can move anywhere on the screen.  By connecting the electromagnets to an oscillator that generates sawtooth waves, the beam can sweep rapidly across the screen.
+The vertical oscillator operates much more slowly than the horizontal oscillator. When running both oscillators together, the electron beam scans the phosphor-coated screen from left to right and from top to bottom. To provide smooth motion and reduce flicker, the screen must be redrawn at least 60 times per second. This requires a vertical oscillator operating at 60 Hz, known as the refresh rate.\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{imgs/drawings/monitor.eps}
-\caption{CRT monitor scan (simplified).}
-\label{fig:monitor}
+\includegraphics[width=1.0\textwidth]{imgs/drawings/monitor.eps}
+\caption{Horizontal/vertical oscillator and CRT monitor scan.}
+\label{fig:CRT_monitor_scan}
 \end{figure}
 
 \par
-After a horizontal scan has been completed, the beam is moved to the next
-line during the horizontal retrace. This sequence continues until the last line, at which point the vertical retrace begins. The vertical retrace is similar to the horizontal retrace; the electron beam may be enabled through a small overscan area and then turned off (vertical blanking) as the beam returns to the top left comer of the screen.\\
+If the screen is divided into 200 lines (as in the CGA standard), the horizontal oscillator must operate at approximately 12 kHz to maintain this refresh rate. CGA monitors use horizontal and vertical frequencies of 15.75 kHz and 60 Hz, respectively, which is sufficient to refresh 200 lines. EGA monitors support two synchronization modes: the CGA-compatible 15.75 kHz / 60 Hz mode, and an EGA-specific horizontal rate of 21.85 kHz to support the new 350-line display.\\
+
+\trivia{The 15.75 kHz horizontal frequency is the standard for NTSC television signals (used in North America and Japan). By using this rate, IBM allowed users to connect their CGA card to standard televisions and affordable monitors (using standard components).}\\
 
 \par
-If the vertical refresh is too slow, the display will flicker. Most people can detect flicker when the refresh rate drops below 60 Hz, and thus most displays use vertical refresh frequencies of about 60Hz (EGA) to 70Hz (VGA). 
+To generate an image, the output of the electron gun is modulated on and off, controlling which regions of phosphor get hit and which don’t. Each horizontal sweep of the beam is called a scan line. The time during which the beam returns to the left edge of the screen is known as the horizontal retrace, while the time required to return to the top is called the vertical retrace.\\
+
+\par
+The electron beam cannot instantly stop and reverse direction; it must slow down, change direction, and accelerate again at the edges of the screen. This is handled by moving the beam outside the visible display area during retrace. This practice, known as overscan, intentionally directs the beam over regions of the screen that are not visible to the viewer, resulting in an image that is slightly larger than the active display area (the area which contains the actual character and/or graphics data).
 
 
-
-  \subsection{History of Video Adapters}
+\pagebreak
+\subsection{History of Video Adapters}
 
 The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IBM PC 5150. It offered two colors, allowing 80 columns by 25 lines of text.  While not great, it was standard on every PC. Many other systems followed over the years, each of them preserving backward compatibility.
 
