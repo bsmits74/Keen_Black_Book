@@ -148,12 +148,12 @@ A full display screen in mode 4 requires 320 pixels x 2 bits per pixel x 200 lin
 \end{minipage}
 \label{state_type}
 \par
-This memory buffer contains both the video buffer page and a master page. The buffer page starts at offset \cw{0000h}, while the master page begins at \cw{8000h}. Both pages float within the 64 KiB memory segment, leveraging the same memory wrapping mechanism described in section "\nameref{section:wrap_ega_memory}" on page \pageref{section:wrap_ega_memory}.\\
+This memory buffer contains both the video buffer page and master page. The buffer page starts at offset \cw{0000h}, while the master page begins at \cw{8000h}. Both pages float within the 64 KiB memory segment, leveraging the same memory wrapping mechanism described in section "\nameref{section:wrap_ega_memory}" on page \pageref{section:wrap_ega_memory}.\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{imgs/drawings/cga_screenseg.eps}
-\caption{CGA double buffering memory layout.}
+\includegraphics[width=0.8\textwidth]{imgs/drawings/cga_screenseg.eps}
+\caption{CGA double buffering memory layout in RAM.}
 \label{fig:cga_screenseg}
 \end{figure}
 

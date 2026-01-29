@@ -1,5 +1,6 @@
 // If one of the drives is on, 
 // and we're not told to leave it on...
+
 if ((peekb(0x40,0x3f) & 3) && !LeaveDriveOn)
 {
 	if (!(--drivecount))

@@ -2,13 +2,13 @@ PROC	RFL_MaskForegroundTiles
 PUBLIC	RFL_MaskForegroundTiles
 
 [...]
-
 @@realstart:
 	mov	di,[updateptr]
 	mov	bp,(TILESWIDE+1)*TILESHIGH+2
 	add	bp,di         ; when di = bx, 
 	push di           ; all tiles have been scanned    
 	mov	cx,-1         ; definately scan the entire thing
+
 ;============
 ; scan for a 3 in the update list
 ;============
@@ -20,6 +20,7 @@ PUBLIC	RFL_MaskForegroundTiles
 	repne	scasb
 	cmp	di,bp
 	je	@@done
+
 ;============
 ; found a tile, see if it needs to be masked on
 ;============

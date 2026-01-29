@@ -87,7 +87,7 @@ IVT \#8, in its original configuration, not only operates the system clock but a
 The current status of the disk motors is stored in the BIOS Data Area (BDA), which is a section of memory located at segment \cw{0040h}. The BDA stores many variables indicating information about the state of the computer.\\
 
 \begin{figure}[H]
-	\renewcommand{\arraystretch}{1.1}
+	\renewcommand{\arraystretch}{1.2}
 	\centering
 	\begin{tabularx}{\textwidth}{ l p{.5\textwidth}  }
 	  \toprule
@@ -178,9 +178,8 @@ Without controlling the tick interval, the state and speed of actors can become 
 \label{time_ticks}
 
 
-\pagebreak
 \subsection{Audio System}
-The audio system is complex because of the fragmentation of audio devices it can deal with. The early 90's was a time before Windows 95 harnessed all audio cards under the DirectSound common API. Each development studio had to write their own abstraction layer and id Software was no exception. At a high level, the Sound Manager offers a lean API divided in two categories: one for sounds and one for music.\\
+The audio system is complex because of the fragmentation of audio devices it can deal with. At a high level, the Sound Manager offers a lean API divided in two categories: one for sounds and one for music.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -200,14 +199,14 @@ Sounds effects are stored in two formats.
 
 They are all packaged in the \cw{AudioT} archive created by Muse. Sounds are segregated by format but always stored in the same order. This way a sound can be accessed in two formats by using \cw{STARTPCSOUNDS} + \cw{sound\_ID} or \cw{STARTADLIBSOUNDS} + \cw{sound\_ID}.\\
 
-\par
-Although the Sound Manager was designed to support music and digital sound playback on SoundBlaster and Disney Sound Source, this functionality was never implemented in Keen Dreams (as explained in section "\nameref{section:audio}" on page \pageref{section:audio}) and will therefore not be further explained in this section.\\
+
 
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/muse_header.c}
 \end{minipage}
 
-
+\par
+Although the Sound Manager was designed to support music and digital sound playback on SoundBlaster and Disney Sound Source, this functionality was never implemented in Keen Dreams (as explained in section "\nameref{section:audio}" on page \pageref{section:audio}) and will therefore not be further explained in this section.\\
 
 \subsection{PC Speaker}
 The hardware chapter described a problem for sound effects: the default PC speaker could only generate square waves, resulting in long beeps which are not acceptable for gaming.\\
@@ -218,7 +217,7 @@ Earlier it was hinted that the PIT had three counter channels, of which channel 
 \par
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{imgs/drawings/pc_speaker.eps}
+  \includegraphics[width=0.7\textwidth]{imgs/drawings/pc_speaker.eps}
   \caption{Built-in speaker hardware diagram.}
   \label{fig:pc_speaker}
 \end{figure}
@@ -228,14 +227,11 @@ Earlier it was hinted that the PIT had three counter channels, of which channel 
 A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, while the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. To create a higher pitch, the counter value would need to be lower.\\
 
 \par
-This integer value must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats.  \\
-
-\par
-To adjust the frequency, write value \cw{b6h} to port \cw{43h} to set the PIT command register, followed by writing the desired counter value to port \cw{42h}.
+This integer value must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats. To adjust the frequency, write value \cw{b6h} to port \cw{43h} to set the PIT command register, followed by writing the desired counter value to port \cw{42h}.
 
 \begin{figure}[H]
 	\centering
-	\renewcommand{\arraystretch}{1.6}
+	\renewcommand{\arraystretch}{1.5}
 	\begin{tabularx}{\textwidth}{ c c p{.5\textwidth}  }
 	  \toprule
 	  \textbf{Bit \#} & \textbf{Value} & \textbf{Description} \\ \bottomrule

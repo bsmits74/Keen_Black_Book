@@ -370,7 +370,7 @@ The cache manager is a small but critical component. It loads and decompresses m
  \end{figure}
 
 \par
-The header (\cw{HEAD}) and dictionary (\cw{DICT}) files are provided in the \cw{static} folder after the conversion into \cw{*.OBJ} file using \cw{makeobj.c}). The data file containing the assets is not part of the source code and must be obtained by downloading the shareware version. All resources are compressed using Huffman compression, and maps have additional RLE compression. The cache manager is described extensively in the "Asset Caching and Compression" section.
+The header (\cw{HEAD}) and dictionary (\cw{DICT}) files are provided in the \cw{static} folder after the conversion into \cw{*.OBJ} file using \cw{makeobj.c}). The data file containing the assets is not part of the source code and must be obtained by downloading the shareware version. All resources are compressed using Huffman compression, and maps have additional RLE compression. The cache manager is described extensively in the "\nameref{section:cache_compression}" section on page \pageref{section:cache_compression}.
 
 
 
@@ -408,7 +408,7 @@ Instead of manually shifting every pixel in your character bitmaps, the game eng
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.7\textwidth]{imgs/drawings/shift_tables.eps}
+ \includegraphics[width=0.65\textwidth]{imgs/drawings/shift_tables.eps}
  \caption{Right bitshift for integer 198.}
  \label{fig:shiftttable}
  \end{figure}
@@ -421,41 +421,23 @@ The pre-calculated bitshift tables are stored in \cw{id\_vw\_a.asm}, below the \
 \end{minipage}
 \label{wallclip_array}
 
-\par
-Bitshift tables reference are made globally available for all assembly routines via the \linebreak \cw{shifttabletable} variable.\\
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language={[x86masm]Assembler}]{code/unrolles_bitshift_tables.asm}
-\end{minipage}\\
-
-\par
-The assembly routine \cw{ShiftPropChar} takes care of shifting and drawing the character to the \cw{(x,y)} location on screen.\\
-  
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language={[x86masm]Assembler}]{code/unrolled_ShiftPropChar.asm}
-\end{minipage}\\
-
- 
-\bigskip
-The macro \cw{SHIFTNOXOR} prints the bitshifted character into the buffer.\\
-\par
-\begin{minipage}{\textwidth}
-  \lstinputlisting[language={[x86masm]Assembler}]{code/unrolled_byte_shift_font.asm}
-\end{minipage}\\
-
-\par
-The final step is copying the buffer to VRAM. Printing the letter "N" with an offset of 3 pixels involves only a simple lookup in the \cw{shiftdata3} table. By sacrificing 4096 bytes of memory, a lot of CPU time is saved.\\
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.8\textwidth]{imgs/drawings/text_bitshift_N.eps}
+ \includegraphics[width=0.7\textwidth]{imgs/drawings/text_bitshift_N.eps}
  \caption{Bitshift 'N' over 3 bits using bit shift tables.}
  \label{fig:text_bitshift_N}
  \end{figure}
 
+\par
+The assembly routine \cw{ShiftPropChar} takes care of drawing the character to the \cw{(x,y)} location on screen. By sacrificing 4096 bytes of memory, a lot of CPU time is saved.\\
+  
+\par
+\begin{minipage}{\textwidth}
+  \lstinputlisting[language={[x86masm]Assembler}]{code/unrolled_ShiftPropChar.asm}
+\end{minipage}
+
  
- 
-\pagebreak 
+
 \subsection{Sound Manager (SD)} 
 The Sound Manager abstracts interaction with all sound systems supported: PC Speaker, AdLib, and Sound Blaster. It is a beast of its own since it doesn't run inside the engine. Instead, it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). The sound manager is described extensively in the "\nameref{audio_and_heartbeat}" section on page \pageref{audio_and_heartbeat}. \\
  \par

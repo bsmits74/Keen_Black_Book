@@ -3,11 +3,7 @@
 
 void RF_Refresh (void)
 {
-    [...]
-
-//
 // calculate tics since last refresh for adaptive timing
-//
     do
     {
         newtime = TimeCount;

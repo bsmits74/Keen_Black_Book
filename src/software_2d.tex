@@ -372,9 +372,21 @@ Next, the engine scans all '1's and copies the corresponding tiles from the mast
  \label{fig:kc4_6_step2}
 \end{figure}
 
+\vspace{5pt}
 \par
-Each sprite removed from the screen has its location and size stored in the sprite removal list, which removes the sprite by copying the specific section from the master screen to the virtual page. Tiles overlapping with the removal block are marked with a '2'.\\
+The final step is erasing all sprites which are listed in the sprite removal list from the buffer page, and copy new sprites from RAM to to the buffer page. Tiles overlapping with erased blocks are marked with a '2' in the tile update array, and tiles which have a new sprite are marked '3'.\\
 
+\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
+
+\begin{figure}[H]
+\centering
+ \scaledimage{1.0}{/game/Keen_ATR_4-6_d.png}
+ \caption{Removing and updating sprites to the buffer screen.}
+ \label{fig:kc4_6_step4}
+\end{figure}
+
+\par
+For each sprite that needs to be removed from the buffer screen, its location and size are stored in the sprite removal list, allowing the sprite to be removed by copying the corresponding section from the master screen to the virtual page.\\
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/erase_blocks_struct.c}
@@ -382,11 +394,10 @@ Each sprite removed from the screen has its location and size stored in the spri
   \label{block_removal}
 \\
 
-\par
-\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
+
 
 \par
-Notice that the block is perfectly aligned on an even memory address by using the \cw{\& \textasciitilde{}1} bitwise operator to clear the least significant bit, ensuring 16-bit transfers per CPU cycle.\\
+Notice that the removal block is perfectly aligned on an even memory address by using the \cw{\& \textasciitilde{}1} bitwise operator to clear the least significant bit, ensuring 16-bit transfers per CPU cycle.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -396,15 +407,7 @@ Notice that the block is perfectly aligned on an even memory address by using th
 
 
   
-\pagebreak
-The final step in updating the buffer is copying sprites to their new locations, with each corresponding tile marked with a '3' in the tile update array. 
 
-\begin{figure}[H]
-\centering
- \scaledimage{1.0}{/game/Keen_ATR_4-6_d.png}
- \caption{Removing and updating sprites to the buffer screen.}
- \label{fig:kc4_6_step4}
-\end{figure}
 
 \pagebreak
 Once the buffer refresh is completed, the engine needs only to update the CRTC start address to virtual page 1. At this point, the visible tile update array is emptied, and the pointer resets to its starting location. The new buffer array (virtual page 0) retains the marked tiles since this screen has not yet been refreshed. Finally, the refresh cycle restarts, with virtual page 0 now functioning as the buffer. 
@@ -437,7 +440,10 @@ If the player continues to move to the left, the tile update array 0 pointer low
 \end{figure}
 
 \par
-This scrolling process is significantly more efficient than the original adaptive tile refresh engine, requiring only 8\% of the tiles to be refreshed. In addition, level design is no longer constrained by the need to use large repeating patterns. This is illustrated on the next page with a comparison between a level from Commander Keen 2 (top) and one from Commander Keen 4 (bottom). Notice how in Commander Keen 4 almost nothing repeats except for the minimal path and underground sections.\\
+This scrolling process is significantly more efficient than the original adaptive tile refresh engine, requiring only 8\% of the tiles to be refreshed. In addition, level design is no longer constrained by the need to use large repeating patterns.\\
+
+\par
+This is illustrated on the next page with a comparison between a level from Commander Keen 2 (top) and one from Commander Keen 4 (bottom). Notice how in Commander Keen 4 almost nothing repeats except for the minimal path and underground sections.\\
 
 \begin{figure}[H]
 \centering

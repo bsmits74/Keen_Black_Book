@@ -1,7 +1,7 @@
 \documentclass[book.tex]{subfiles}
 \begin{document}
-\label{chapter_cache_compression}
 \section{Asset Caching and Compression}
+\label{section:cache_compression}
 
 The floppy disk is not only the slowest component of the PC but also constrained in terms of storage space. Therefore, it is crucial to load and store game assets as efficiently as possible in memory, avoiding long and unnecessary loading times from the disk. To make matters worse, the total amount of assets and maps cannot fit into RAM all at once. This is where a cache manager becomes essential. Its primary purpose is to increase data retrieval performance by reducing the need to load data from the slow floppy disk. 
 
@@ -131,11 +131,7 @@ Given that the floppy disk is limited in both speed (100-250 kbps\footnote{Kilob
 
 
 \par
-Huffman compression involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. \\
-
-
-\par
-To illustrate the various aspects of Huffman compression, the following text, where each character is one byte, will be Huffman compressed: \\
+Huffman compression involves changing how various characters are stored. Normally, all characters in a given segment of data are equal and take an equal amount of space to store. However, by making more common characters take up less space while allowing less commonly used characters to take up more, the overall size of a segment of data can be reduced. To illustrate the various aspects of Huffman compression, the following text, where each character is one byte, will be Huffman compressed: \\
 
 
 \par
@@ -148,7 +144,7 @@ The first step is to make a character frequency table.
 
 \begin{figure}[H]
 \centering
-{\renewcommand{\arraystretch}{1.2} %<- modify value to suit your needs
+{\renewcommand{\arraystretch}{1.3} %<- modify value to suit your needs
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \begin{tabularx}{\textwidth}[c]{|>{\hsize=.22\hsize}Y |>{\hsize=.22\hsize}Y |>{\hsize=.12\hsize}Y |>{\hsize=.22\hsize}Y |>{\hsize=.22\hsize}Y |}
   \cline{0-1}\cline{4-5}
@@ -200,7 +196,10 @@ Now, the entire text can be encoded by moving left (bit 0) or right (bit 1) thro
  \end{figure}
 
  \par
-This results in a total of 13 bytes used for a 31-byte message, more than a 50\% reduction. In Commander Keen, the dictionary is part of the game engine. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files in the source code\footnote{That's why a specific source code version is mentioned in section "\nameref{section:source_code}" on page \pageref{section:source_code}.}. Reading the Huffman-compressed asset file is straightforward: you read bit by bit from the file and follow the dictionary, starting from the top node, until you reach an end node. The engine then writes the byte to memory and returns to the top node in the dictionary for the next bit in the file.\\
+This results in a total of 13 bytes used for a 31-byte message, more than a 50\% reduction. In Commander Keen, the dictionary is part of the game engine. Therefore, it is important that the asset files from the shareware version correspond with the dictionary files in the source code\footnote{That's why a specific source code version is mentioned in section "\nameref{section:source_code}" on page \pageref{section:source_code}.}.\\
+
+\par
+Reading the Huffman-compressed asset file is straightforward: you read bit by bit from the file and follow the dictionary, starting from the top node, until you reach an end node. The engine then writes the byte to memory and returns to the top node in the dictionary for the next bit in the file.\\
 
 \par
 \begin{minipage}{\textwidth}

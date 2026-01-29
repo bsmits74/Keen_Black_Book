@@ -10,6 +10,5 @@ static void interrupt SDL_t0Service(void)
     count = t0CountTable[SoundMode]; 
     TimeCount++;
   }
-
   outportb(0x20,0x20);	// Acknowledge the interrupt
 }

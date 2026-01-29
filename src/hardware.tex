@@ -487,18 +487,25 @@ PCs had dedicated video cards and were connected to CRT monitors: big, heavy, sm
 
 \subsection{Inner working of a CRT monitor}
 
-Computer monitors until the early 2000s were built around a Cathode Ray Tube (CRT). The picture on a CRT is generated primarily by a device called an electron gun, which converts electrical power into a narrow beam of electrons moving with substantial kinetic energy. The inside of the screen is coated with phosphor, which glows when struck by the electron beam (and for a short time thereafter).\\
+The first computer monitors were built around a Cathode Ray Tube (CRT). The picture on a CRT is generated primarily by a device called an electron gun, which converts electrical power into a narrow beam of electrons moving with substantial kinetic energy. The inside of the screen is coated with phosphor, which glows when struck by the electron beam (and for a short time thereafter).\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{imgs/drawings/CRT_inner.eps}
+\includegraphics[width=0.9\textwidth]{imgs/drawings/CRT_inner.eps}
 \caption{Inner working of CRT monitor.}
 \label{fig:CRT_inner_working}
 \end{figure}
 
 \par
-The electron beam is highly susceptible to magnetic fields, allowing it to be deflected using magnets. By placing horizontal and vertical electromagnets around the neck of the tube (the deflection yoke), the beam can move anywhere on the screen.  By connecting the electromagnets to an oscillator that generates sawtooth waves, the beam can sweep rapidly across the screen.
-The vertical oscillator operates much more slowly than the horizontal oscillator. When running both oscillators together, the electron beam scans the phosphor-coated screen from left to right and from top to bottom. To provide smooth motion and reduce flicker, the screen must be redrawn at least 60 times per second. This requires a vertical oscillator operating at 60 Hz, known as the refresh rate.\\
+The electron beam is highly susceptible to magnetic fields, allowing it to be deflected using magnets. By placing horizontal and vertical electromagnets around the neck of the tube (the deflection yoke), the beam can be positioned anywhere on the screen. Manually controlling the beam would be tedious and impractical, so this process is automated by connecting the electromagnets to an oscillator that generate sawtooth waveforms.\\
+
+\par
+When both oscillators run together at precisely controlled frequencies, the electron beam scans the phosphor-coated screen from left to right and from top to bottom. The vertical oscillator determines how often the entire screen is redrawn, also known as the refresh rate. If the refresh rate is too low, the display will flicker. Most people can perceive flicker when the refresh rate drops below about 60 Hz, which is why most CRT displays operate at a  refresh rate of 60 Hz or higher.\\
+
+\par
+The CGA standard has a maximum vertical resolution of 200 lines, which requires the horizontal oscillator to operate at a higher frequency of approximately 12 kHz in order to maintain a 60 Hz refresh rate. Standard CGA monitors are equipped with a horizontal frequency of 15.75 kHz, which is sufficient to refresh 200 lines. EGA monitors support two synchronization modes: the CGA-compatible 15.75 kHz / 60 Hz mode, and an EGA-specific horizontal rate of 21.85 kHz to support the newer 350-line display.\\
+
+\trivia{The 15.75 kHz horizontal frequency is the standard used for NTSC television signals in North America and Japan. By adopting this frequency rate, IBM made it possible to connect a CGA card to standard televisions.}\\
 
 \begin{figure}[H]
 \centering
@@ -508,18 +515,46 @@ The vertical oscillator operates much more slowly than the horizontal oscillator
 \end{figure}
 
 \par
-If the screen is divided into 200 lines (as in the CGA standard), the horizontal oscillator must operate at approximately 12 kHz to maintain this refresh rate. CGA monitors use horizontal and vertical frequencies of 15.75 kHz and 60 Hz, respectively, which is sufficient to refresh 200 lines. EGA monitors support two synchronization modes: the CGA-compatible 15.75 kHz / 60 Hz mode, and an EGA-specific horizontal rate of 21.85 kHz to support the new 350-line display.\\
-
-\trivia{The 15.75 kHz horizontal frequency is the standard for NTSC television signals (used in North America and Japan). By using this rate, IBM allowed users to connect their CGA card to standard televisions and affordable monitors (using standard components).}\\
-
-\par
 To generate an image, the output of the electron gun is modulated on and off, controlling which regions of phosphor get hit and which don’t. Each horizontal sweep of the beam is called a scan line. The time during which the beam returns to the left edge of the screen is known as the horizontal retrace, while the time required to return to the top is called the vertical retrace.\\
+
 
 \par
 The electron beam cannot instantly stop and reverse direction; it must slow down, change direction, and accelerate again at the edges of the screen. This is handled by moving the beam outside the visible display area during retrace. This practice, known as overscan, intentionally directs the beam over regions of the screen that are not visible to the viewer, resulting in an image that is slightly larger than the active display area (the area which contains the actual character and/or graphics data).
 
+\subsection{And then there was color}
+So far, this explanation has described a monochrome display, which uses a single color of phosphor. To produce a color image, the screen is coated with three types of phosphor arranged in a very fine red, green, and blue (RGB) pattern. \\
 
-\pagebreak
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{imgs/drawings/crt_color.eps}
+\caption{Top-down view of CRT color display. }
+\label{fig:CRT_color}
+\end{figure}
+
+\par
+The color CRT contains three separate electron guns, each responsible for one of the RGB components of the image. In the figure above, the rays from the cannons are colored so the reader can follow, but electrons have no color. To ensure that each electron beam strikes only the phosphor of its corresponding color, a shadow mask is placed between the electron guns and the phosphor-coated screen.\\
+
+\par
+The shadow mask gives the appearance of discrete pixels, but in practice it is nearly impossible to control individual phosphor elements directly. Take the example below where we light up green. The beam, represented by the circle, will usually hit multiple adjacent green phosphor elements at once. As a result, the effective “dot” (or pixel)—the smallest addressable unit of information on the screen—is defined by the combined effects of the RGB phosphor pattern density and the diameter of the electron beam.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{imgs/drawings/CRT_dot.eps}
+\caption{"dot" or "pixel" on a CRT screen. }
+\label{fig:CRT_dot}
+\end{figure}
+
+\par
+Everything described up to this point occurs entirely inside the monitor. This is where the video adapter comes into play, controlling the display via the DE-9 video connector. The CGA and EGA adapters use
+\begin{itemize}
+	\item Two pins on the connector for synchronization signals 
+	\item Four (CGA) or six (EGA) pins to control the intensity of the electron guns
+\end{itemize}
+The horizontal and vertical synchronization pins carry timing signals that match the monitor’s operating frequencies (15.7 kHz / 60 Hz for CGA, and 21.85 kHz / 60 Hz for EGA's high-resolution mode). The monitor listens for these signals, synchronizes its internal oscillators to them, and deflects the electron beam accordingly.\\
+
+\par
+The CRT draws each scan line from left to right, while the control pins from the video adapter determine which portions of the scan line are illuminated. When a scan line is completed, the video adapter generates a horizontal synchronization pulse (HSYNC), to indicate a return to the left side of the screen. This process continues line by line until the bottom of the screen is reached. At that point, the adapter generates a vertical synchronization pulse (VSYNC), and the electron beam retraces back to the top of the screen to begin drawing the next frame.\\
+
 \subsection{History of Video Adapters}
 
 The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IBM PC 5150. It offered two colors, allowing 80 columns by 25 lines of text.  While not great, it was standard on every PC. Many other systems followed over the years, each of them preserving backward compatibility.
@@ -566,15 +601,15 @@ Each iteration added new features and by 1990 the predominant graphic system was
 IBM introduced the Enhanced Graphics Adapter (EGA) in 1985 as the successor of CGA. The standard card was shipped with only 64KiB video memory, but it had the option to expand the memory using the onboard graphics memory expansion card.
 Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast full of discrete components. The memory consists out of TMS4416 RAM, a common memory chip for (home) computers around that period. Each chip contains 16KiB of 4-bits memory, so one needs two chips to end up having 16KiB of 8-bit memory and eight chips for 64KiB of 8-bit memory. \\
 
-\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still, it took until 1984 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
-
-
 \begin{figure}[H]
   \centering 
   \includegraphics[width=1.3\textwidth, angle =90 ]{screenshots_300dpi/hardware/ibm_ega_card.png} 
   \caption{Original IBM EGA card}
   \label{fig:ibm_ega_card}
 \end{figure}
+
+\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still, it took until 1984 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
+
 
 \par
 To add additional video memory to the IBM EGA card a Graphics Memory Expansion Card could be purchased. By default, only the bottom row of memory was populated with chips, expanding the total EGA video memory to 128KiB. The expansion card provided DIP (dual in-line package) sockets for further memory expansion. Populating the DIP sockets with a Graphics Memory Module Kit adds two additional rows of 64KiB, bringing the EGA memory to its maximum of 256KiB. \\
@@ -588,15 +623,10 @@ To add additional video memory to the IBM EGA card a Graphics Memory Expansion C
 \end{figure}
 
 
-
-
-
-
 \par
 The EGA clones that started coming along in 1986-87 were based on integrated chipsets, and the vast majority of them came with the maximum of 256KiB on board. When Commander Keen came out, the headcount of EGA cards with less than 256KiB would've been practically negligible\footnote{PC Tech Journal Oct 1986 (page 82-83) and PC Tech Journal Nov 1986 (page 148-149)}.\\
 
-\par
-The next page shows an ATI EGA Wonder 800 (top) and Paradise AutoSwitch EGA 350 (bottom),  both are 8-bit ISA. The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
+
 
 \begin{figure}[H] 
   \centering 
@@ -609,7 +639,8 @@ The next page shows an ATI EGA Wonder 800 (top) and Paradise AutoSwitch EGA 350 
 \pagebreak
 
 
-
+\par
+The previous page shows an ATI EGA Wonder 800 (top) and Paradise AutoSwitch EGA 350 (bottom),  both are 8-bit ISA. The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
 
 \subsection{EGA Architecture}
 

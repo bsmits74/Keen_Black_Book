@@ -9,7 +9,6 @@ void RFL_EraseBlocks (void)
 	while (block != done)
 	{
     [...]
-
 	  //
 	  // erase the block by copying from the master screen
 	  //
