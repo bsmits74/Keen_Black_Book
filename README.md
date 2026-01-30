@@ -14,6 +14,6 @@ Everything is build on Ubuntu (Mint), to compile:
     - `sudo apt install texlive texlive-font-utils texlive-fonts-recommended texlive-latex-extra texmaker`
  - Install Inkscape:
     - `sudo apt install inkscape`
- - Open Texmaker and load 'book.tex' and run "Quick Build" 
+ - Open 'book.tex' in Texmaker and run "Quick Build" 
 
 _Bas Smits_
