@@ -3,39 +3,36 @@
 \section{Programming setup}
 \label{section:programming}
 
+Development was done with Borland C++ 3.1 using 80386 computers; however, none of the 80386-specific features were utilized for the game. John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
 
-
-Development was done with Borland C++ 3.1 using an 80386 computers, but none of the 80386 specifics are utilized for the game. John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
+\begin{wrapfigure}[18]{r}{0.5\textwidth}
+\centering
+\vspace{-10pt}
+\includegraphics[width=.5\textwidth]{screenshots_300dpi/borland_documentation.png}
+\captionof{figure}{Borland C++ 3.1 manuals.}
+%\caption*{Borland C++ 3.1 Programmer guide.}
+\end{wrapfigure}
 \par
+Borland's solution was an all-in-one package. The software came with two thick manuals, explaining everything regarding the IDE (238 pages) and programming in C++ (483 pages). The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}. \\
 
-\begin{minipage}{.35\textwidth}
-Borland's solution was an all-in-one package. The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}. There was no need to enter command-line mode however. The IDE allowed to create a project, build, run and debug. The software came with two thick manuals, explaining everything regarding the IDE (238 pages) and programming in C++ (483 pages).\\
-\end{minipage}
-\begin{minipage}{.65\textwidth}
-\vspace{-8pt} 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=.65\linewidth]{screenshots_300dpi/borland_programmer_guide.png}
-\caption*{Borland C++ 3.1 Programmer guide.}
-\end{figure}
-\end{minipage}
-
-\pagebreak
-The IDE allowed to create a project, build, run and debug. It contained a "high resolution" 50x80 text mode, which doubled the standard vertical resolution.\\
 \par
-  \fullimage{borland_memory_model.png} 
+There was no need to enter command-line mode however. The IDE allowed to create a project, build, run and debug. The IDE allowed to create a project, build, run and debug. It contained a "high resolution" 50x80 text mode, which doubled the vertical resolution.\\
 \par
-  \fullimage{borland_compile.png}
-  %\caption{Selecting memory model and compiling Keen Dreams with Borland C++ 3.1}
-\vspace{-35pt}  
+  \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/borland_memory_model.png}}
+\par\bigskip\par
+  \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/borland_compile.png}}
+\captionof{figure}{Borland C++ 3.1 IDE in high resolution mode.}
+
+  
 
 
 
 
-\section{Graphic Assets}
+
+\section{Graphical Assets}
 \label{section:graphic_assets}
 
-All graphic assets were produced by Adrian Carmack. All of the work was done with Deluxe Paint (by Brent Iverson, Electronic Arts) and saved in ILBM\footnote{InterLeaved BitMap.} files (Deluxe Paint proprietary format). All assets were hand drawn with a mouse.
+All graphical assets were produced by Adrian Carmack. All of the work was done with Deluxe Paint (by Brent Iverson, Electronic Arts) and saved in ILBM\footnote{InterLeaved BitMap.} files (Deluxe Paint proprietary format). All assets were hand drawn with a mouse.
 
 \begin{figure}[H]
   \centering
@@ -44,27 +41,27 @@ All graphic assets were produced by Adrian Carmack. All of the work was done wit
 \end{figure}
 
 \subsection{Tile planar arrangement}
-Before diving into the details of game assets, let's first explore the basic principles behind platform games. Each level, or map, in a platform game is composed of "tiles". In Commander Keen, there are both background and foreground tiles. A background tile, or just tile, is an image that measures 16x16 pixels. Each tile occupies 128 bytes (2 x 16 x 4 planes) of storage space in the graphics assets file.\\
+Before diving into the details of game assets, let's first explore the basic principles behind platform games. Each level, or map, in a platform game is composed of "tiles". In Commander Keen, there are both background and foreground tiles. A background tile---or simply a "tile"---is a picture that measures 16x16 pixels. Each tile occupies 128 bytes (2 bytes x 16 lines x 4 planes) of storage space in the graphics assets file.\\
 
 \par
-Individual tile images are stored in a planar format, with blue, green, red, and intensity bits separated. This arrangement, called "graphic planar", stores complete planes sequentially, with each plane containing data for an entire tile. This layout aligns with the VRAM banks, allowing each bank to be loaded very quickly with a single \cw{memcpy} per bank (and only four bank switches) per image.\\
+Individual tile images are stored in a planar format, with blue, green, red, and intensity bits separated. This arrangement, called "planar graphic", stores complete planes sequentially, with each plane containing data for an entire tile. This layout aligns with the VRAM banks, allowing each bank to be loaded very quickly with a single \cw{memcpy} per bank (and only four bank switches) per picture.\\
 
 \par
 \begin{figure}[H]
 \centering
  \includegraphics[width=.9\textwidth]{imgs/drawings/Tile_RGBI.eps}
- \caption{Graphic Planar data storage.}
+ \caption{Graphic planar data storage.}
  \label{graphic_planar}
 \end{figure}
 
 \par
-Foreground tiles, or "masked tiles", are similar to normal tiles but contain five planes instead of four. The extra plane stores the mask, and the order of planes is mask, blue, green, red, intensity. Consequently, a single masked tile requires 160 bytes (128 + 32) of storage. A mask bit of '0' means the background tile color is erased and replaced by the foreground tile color, while a mask bit of '1' blends the background color with the foreground color. If the foreground color is '0', the background color remains visible. \\
+Foreground tiles, or "masked tiles", are similar to normal tiles but contain five planes instead of four. The extra plane stores the mask; the plane order is mask, blue, green, red, and intensity. Consequently, a single masked tile requires 160 bytes (128 + 32) of storage. A mask bit of '0' means the background tile color is erased and replaced by the foreground tile color, whereas a mask bit of '1' preserves the background color behind the foreground. If the foreground color is '0', the background color remains visible. \\
 
 \par
-By combining tiles on the screen, a map is created. These maps define the entire game world in terms of background and foreground tiles. Maps also contain a list of all actors and their starting positions within the world. Essentially, everything the player encounters while progressing through the levels is specified in a map.
+By combining tiles on the screen, a map is created. These maps define the entire game world in terms of background and foreground tiles. Maps also include a list of all actors and their starting positions within the world. Essentially, everything the player encounters while progressing through the levels is specified in a map.
 
 \subsection{Assets Workflow}
-After the graphic assets were generated, a tool (IGRAB) packed all ILBM files into a compressed data asset file (\cw{*.EGA}) and generated a \cw{HEAD} table, \cw{DICT} file (\cw{KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs.\\
+After the graphical assets were generated, a tool (IGRAB) packed all ILBM files into a compressed data asset file (\cw{*.EGA}) and generated a \cw{HEAD} table, \cw{DICT} file (\cw{KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs.\\
 
 
 \begin{figure}[H]
@@ -135,9 +132,9 @@ The font segment contains a table that stores the height and the width of the ea
  \lstinputlisting[language=C]{code/font_structure.c}\par
  \end{minipage}\\
 
-
+\vspace{10pt}
 \par
-The remainder of the archive file holds all graphic assets, including pictures, sprites, and tiles. Each asset contains four planes, aligned with the EGA architecture. All masked tiles and sprites also include an additional mask plane.\\
+The remainder of the archive file contains all graphical assets, including pictures, sprites, and tiles. Each asset contains four planes, aligned with the EGA architecture. All masked tiles and sprites also include an additional mask plane. The picture assets are illustrated below; they consist solely of buttons used in the control panels.\\
 
 
 
@@ -190,10 +187,12 @@ The remainder of the archive file holds all graphic assets, including pictures, 
   \includegraphics[width=0.15\textwidth]{screenshots_300dpi/game/picture42.jpg} \\
   \end{tabularx}
   \end{table}
-  \caption{Picture assets.}
+  \caption{Picture assets used in control panel.}
   \label{fig:picture_assets}
  \end{figure} 
  
+\par
+On the next two pages, you will find several sprite assets, as well as background and foreground tiles. The intersection of the horizontal and vertical axes indicates the corresponding tile asset ID.\\
 
 \begin{figure}[H]
 \centering
@@ -253,6 +252,8 @@ The remainder of the archive file holds all graphic assets, including pictures, 
   \caption{Sprite assets.}
   \label{fig:sprite_assets}
  \end{figure}
+ 
+
 
 
 \pagebreak
@@ -264,7 +265,7 @@ The remainder of the archive file holds all graphic assets, including pictures, 
 \begin{figure}[H] 
   \centering 
   \includegraphics[width=0.99\textwidth, frame]{screenshots_300dpi/tile16M_assets.png}
-  \caption{Background (Tile-16) and foreground (masked Tile-16) assets.}
+  \caption{Background (top) and foreground (bottom) tile assets.}
   \label{fig:tile16_assets}
 \end{figure} 
 
@@ -297,7 +298,7 @@ TED5 allows the placement of tiles across multiple layers, referred to as "plane
   \item Information plane tiles, which contain actor locations and special areas.
 \end{itemize}
 
-A map is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), which controls interactions such as clipping, "deadly" tiles, and animated tiles. 
+A map is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), that controls interactions such as clipping, "deadly" tiles, and animated tiles. 
 
 \par
 \begin{figure}[H] 
@@ -392,7 +393,7 @@ id Software intended for Keen Dreams to have music and digital effects support f
 
 \begin{figure}[H]
 \centering
-\scaledimage{1.0}{music.png}{}
+\fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/music.png}}
 \caption{Setup music menu in Keen Dreams, although there is no music in the game.}
 \end{figure}
 
@@ -405,7 +406,7 @@ Consequently, only two sets of each audio effect are shipped with the game:
 
 \begin{figure}[H]
 \centering
-\scaledimage{1.0}{sound.png}{}
+\fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/sound.png}}
 \caption{Both Sound Blaster and Sound System are disabled.}
 \end{figure}
 \par
@@ -430,7 +431,7 @@ On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 a
 %\setlength{\fboxsep}{0pt}
 \begin{figure}[H]
 \centering
-\scaledimage{0.68}{shareware.jpg}{}
+\fbox{\includegraphics[width=0.68\textwidth]{screenshots_300dpi/shareware.jpg}}
 \caption{Retail version of Commander Keen in Keen Dreams by Softdisk.}
 \end{figure}
 

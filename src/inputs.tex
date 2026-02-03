@@ -15,25 +15,43 @@ Each key on a PC keyboard is linked to a scancode. When a key is pressed, circui
 \par
 The PS/2 keyboard includes 14 keys, such as "Right Ctrl", "Right Alt", and the arrow keys, that duplicate functions from the original 84-key AT layout. To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "/"-key produces the scancode \cw{35h}, while the numeric keypad's "Num /"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
 
+\vfill
+      \includegraphics[width=1.0\textwidth]{imgs/drawings/keyboard_model_M_left.eps}
+
+
+
+
+
+
+
 \par
 This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "/" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists.\\
 
-\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "Shift" + "Num /" should produce a "/", as indicated on the keycap. However, older software may interpret this sequence incorrectly: Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "?".}\\
+\trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "Shift" + "Num /" should produce a "/", as indicated on the keycap. However, older software may interpret this sequence incorrectly: \textit{Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "?".}}\\
 
 \par
-The Input Manager maintains several tables to translate the scancodes to ASCII\footnote{American Standard Code for Information Interchange.} codes
+The keys "Print Screen/SysRq" and "Pause/Break" are special cases. The former produces scancode "\cw{e0h,2ah,e0h,37h}", together with Shift or Ctrl it produces "\cw{e0h,37h}", and \cw{54h} together with (left or right) Alt. The latter produces scancode sequence \linebreak "\cw{e1h,1dh,45h,e1h,9dh,c5h}" when pressed and nothing when released. Together with (left or right) Ctrl, one gets "\cw{e0h,46h,e0h,c6h}", and again nothing at release. The picture below on this and previous page shows the full IBM PS/2 keyboard scancode layout.\\
+
+
+\par
+The Input Manager maintains several lookup tables to translate the scancodes to ASCII or special codes
 \begin{itemize}
-	\item Unshifted ASCII codes.
-	\item Shifted ASCII codes.
-	\item ASCII codes for the 14 duplicate keys (\cw{E0h} prefix).
+	\item Shifted and unshifted ASCII codes tables.
+	\item Table for the 14 duplicate keys with \cw{E0h} prefix.
+	\item Special keys like "ESC", "Shift", "Backspace", etc.
 \end{itemize}
 
+\vfill
+      \includegraphics[width=1.0\textwidth]{imgs/drawings/keyboard_model_M_right.eps}
 
-\begin{figure}[H]
-\centering
-      \includegraphics[width=0.40\textwidth]{imgs/drawings/keyboard_model_M.eps}
-      \caption{IBM PS/2 Keyboard scancode layout (scancodes in hexadecimal).}
-\end{figure}
+
+
+
+%\begin{figure}[H]
+%\centering
+%      \includegraphics[width=0.40\textwidth]{imgs/drawings/%keyboard_model_M.eps}
+%      \caption{IBM PS/2 Keyboard scancode layout (scancodes in %hexadecimal).}
+%\end{figure}
 
 
 \subsection{Keyboard controller}

@@ -181,9 +181,9 @@ The second complication is copying the RAM buffer to the interlaced VRAM. This r
 \end{figure}
 
 \par
-The CPU lacked the speed to copy the entire RAM buffer to VRAM during the vertical retrace period, which was the only time the CGA hardware did not output to the screen. Consequently, screen tearing in the CGA version of Commander Keen was unavoidable.\\
+The CPU lacked the speed to copy the entire RAM buffer to VRAM during the vertical retrace, which was the only window where the CGA hardware was not actively scanning to the display. Consequently, screen tearing in the CGA version of Commander Keen was unavoidable.\\
 
-\trivia{Because the video memory on the original IBM CGA was not dual-ported, when both the CPU and the video output attempted to access the same byte of video RAM, the CPU took precedence. As a result, the card ends up reading a random value, causing white snow on the screen.}
+\trivia{Because the video memory on the original IBM CGA was not dual-ported, when both the CPU and the video output attempted to access the same byte of video RAM, the CPU took precedence. This causes the card to read random values, resulting in 'snow' artifacts on the display.}
 
 
 \end{document}

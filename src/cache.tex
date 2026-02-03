@@ -120,7 +120,7 @@ When the user closes the control panel, the engine lowers the cache level back t
 \lstinputlisting[language=C]{code/CA_level_down.c}
 
 \par
-To avoid frequently used assets, such as fonts and Commander Keen sprites, being reloaded every time from the disk, they are loaded permanently into memory by flagging them as non-movable, unpurgeable blocks of memory. \\
+To prevent frequently used assets---such as fonts and Commander Keen sprites---from being reloaded from disk repeatedly, they are kept permanently in memory by flagging them as non-movable, unpurgeable blocks of memory. \\
 
 \par
 \lstinputlisting[language=C]{code/cache_setlock.c}
@@ -207,13 +207,13 @@ Reading the Huffman-compressed asset file is straightforward: you read bit by bi
  \end{minipage}\\
 
 \par
-The tile map asset files use a second compression technique, on top of Huffman. Upon closer inspection of a map, you'll notice large chunks of the same tile. For example, consider the first map you enter (Horse Radish Hill), which contains extensive areas of blue sky. Here, \textit{Run-length encoding} (RLE) compression comes in useful.\\
+The tile map asset files use a second compression technique, on top of Huffman. Upon closer inspection of a map, you'll notice large chunks of the same tile. For example, consider the first map you enter (Horse Radish Hill), which contains extensive areas of blue sky. In this case, \textit{Run-length encoding} (RLE) compression is particularly effective.\\
 
 \par
 The essence of this compression method is to compress data by saving the "run-length" of the encountered values, essentially storing the data as a collection of length/value pairs. To illustrate, the string 'aaaaaaaabbb' could be compressed to '8a3b' (8 bytes of 'a', 3 bytes of 'b'). The trick with RLE is to ensure that the data does not end up becoming larger after processing. For instance, using pure length/value pairs, 'abracadabra' would become '1a1b1r1a1c1a1d1a1b1r1a'.\\
 
 \par
-In Commander Keen, this is solved by using a 'tag'. This special tag value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE tag value is encountered. When this tag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on 16-bits, and therefore is named RLEW, where the 'W' stands for word. The RLEW tag is defined as \cw{ABCDh}.\\
+In Commander Keen, this is solved by using a 'tag'. This special tag value instructs the program to take specific action upon encountering it. Every value is passed through unchanged until an RLE tag value is encountered. When this tag is read, instead of directly outputting it like other values, two further values are read. The first indicates the number of times to repeat, and the second represents the value to be repeated. The algorithm used in Commander Keen is based on word-size data, and therefore is named RLEW. The RLEW tag in Commander Keen is defined as \cw{ABCDh}.\\
 
 The overall result of applying Huffman and RLEW compression results in almost 65\% asset file size reduction. Together with the LZEXE-compressed executable file (80KiB), the entire game fits nicely on a 360KiB floppy disk, just as was required by Softdisk.\\
 
@@ -234,14 +234,6 @@ The overall result of applying Huffman and RLEW compression results in almost 65
 \addtocounter{footnote}{-1}
 \stepcounter{footnote}
 \footnotetext{See Appendix \ref{asset_details} for details per asset file.}
-
-
-\par
-\begin{minipage}{\textwidth}
- \lstinputlisting[language=C]{code/RLEWexpand.c}\par
- \end{minipage}\\
- 
- 
 
 
 \end{document}

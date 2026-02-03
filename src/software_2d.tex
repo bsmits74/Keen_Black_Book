@@ -149,7 +149,7 @@ Text consoles have similar statistics with spaces, so the same trick is a big wi
 \footnotetext{John Carmack on X, July 11, 2020.}
 
 \par
-This is also the part where the game designers Tom Hall and John Romero had to help the engine. Smooth scrolling is inversely proportional to the number of tiles to redraw. A checkerboard tile pattern basically means a full-screen redraw and would kill the CPU. So, to avoid costly "jolts", the game designers built tile maps with a lot of repeating tiles. \\
+This is also the part where the game designers Tom Hall and John Romero had to help the engine. Smooth scrolling is inversely proportional to the number of tiles to redraw. A checkerboard tile pattern basically means a full-screen redraw and would kill the CPU. So, to avoid costly "jolts", the game designers built tile maps with a lot of repeating tiles. \\ 
 
 \begin{figure}[H] 
   \centering 
@@ -210,7 +210,7 @@ The steps to refresh the screen are as follows (ignore sprites for now):
 \end{enumerate}
 
 \par
-In the next three snapshots, we take you step-by-step through each of the stages. The player has reached the edge of the virtual screen and moves further to the right.\\
+In the next three snapshots, we take you step-by-step through each of the stages. The player has reached the edge of the virtual screen and moves further to the right.\\ 
 
  
 \begin{figure}[H]
@@ -351,7 +351,7 @@ Let's go over the refresh cycle step by step. At the start, all three virtual pa
 \end{figure}
 
 \par
-Both VRAM and tile update array pointers shift left to introduce a new column of tiles. The VRAM pointer is lowered by 2 bytes (1 tile), and the tile update array pointer is decreased by 1 byte.
+Both VRAM and tile update array pointers shift left to introduce a new column of tiles. The VRAM pointer \cw{screenstart[]} is lowered by 2 bytes (1 tile), and the tile update array pointer is decreased by 1 byte.
 A new column of tiles is copied from RAM to the master page, while the leftmost column in both tile update arrays is marked with '1' to ensure it updates in the next refresh cycle. Animated tiles are then copied to the master page, and the corresponding tiles in the array are also marked with '1'.\\
 
 \begin{figure}[H]
@@ -443,16 +443,16 @@ If the player continues to move to the left, the tile update array 0 pointer low
 This scrolling process is significantly more efficient than the original adaptive tile refresh engine, requiring only 8\% of the tiles to be refreshed. In addition, level design is no longer constrained by the need to use large repeating patterns.\\
 
 \par
-This is illustrated on the next page with a comparison between a level from Commander Keen 2 (top) and one from Commander Keen 4 (bottom). Notice how in Commander Keen 4 almost nothing repeats except for the minimal path and underground sections.\\
+This is illustrated on the next page with a comparison between a level from Commander Keen II - \textit{The Earth Explodes} (top) and one from Keen IV - \textit{Secret of the Oracle} (bottom). Notice how in Commander Keen 4 almost nothing repeats except for the minimal path and underground sections.\\
 
 \begin{figure}[H]
 \centering
 \begin{subfigure}[b]{\textwidth}
-  \includegraphics[width=1.0\textwidth]{screenshots_300dpi/keen2.png}
+  \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/keen2.png}}
 \end{subfigure}
 \par\bigskip\bigskip % force a bit of vertical whitespace
 \begin{subfigure}[b]{\textwidth}
-  \includegraphics[width=1.0\textwidth]{screenshots_300dpi/keen4.png}
+  \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/keen4.png}}
 \end{subfigure}
 \end{figure}
 
@@ -695,7 +695,7 @@ It must run quickly and therefore most of the code is written in assembly.
 \subsection{Draw background and foreground tiles}
 Drawing the background layer is straightforward, as it only requires copying 128 bytes to VRAM. Drawing foreground tiles on top of the background layer requires an additional mask, which defines which pixels are overwritten by the foreground tile.\\
 
-\begin{figure}[H]
+\begin{figure}[H] 
 \centering
  \begin{subfigure}{0.32\textwidth}
  	\centering

@@ -2,7 +2,7 @@
 \begin{document}
 \label{chapter_software_architecture}
 \section{About the source code}
-Commander Keen episodes 1-5 source code is unavailable, as the current owner Zenimax\footnote{June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, at the time of writing, shown no interest in selling the intellectual property. Luckily the ownership of Commander Keen in Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the owners of Softdisk at the time, and released a version for Android devices.\\
+Commander Keen episodes 1-5 source code is unavailable, as the current owner Zenimax\footnote{June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, at the time of writing, shown no interest in selling the intellectual property. Fortunately, the ownership of Commander Keen in Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the owners of Softdisk at the time, and released a version for Android devices.\\
 
 \par
 The following September, an Indiegogo crowdfunding campaign was started to attempt to buy the rights from Flat Rock for US\$1500 in order to release the source code to the game and start publishing it on multiple platforms. The campaign did not reach the goal, but its creator Javier Chavez made up the difference, and the source code was released under GNU GPL-2.0-or-later soon after.
@@ -67,15 +67,12 @@ Now it's time to compile. Go to Compile -> Build All, and voil\`a! The game exec
 
 \begin{figure}[H]
 \centering
-  \fullimage{borland_directories.png}
-  %\includegraphics[width=\textwidth]{screenshots_300dpi/borland_directories.png}
-%\caption{Borland C++ 3.1 directory settings}
+  \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/borland_directories.png}}
 \end{figure}
 
  \begin{figure}[H]
 \centering
-  \fullimage{borland_compile.png}
-%\caption{Borland C++ 3.1 directory settings and compiling}
+  \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/borland_compile.png}}
 \end{figure}
 
 \section{Executable compression}
@@ -146,7 +143,7 @@ To solve this problem, DOS uses a relocation table, as illustrated below.
 When an EXE file is created, all absolute addresses in the code are calculated under the assumption that the program will be loaded at address \cw{0000:0000h}, the absolute beginning of memory. The relocation table contains a list of locations within the executable where such absolute addresses appear. The DOS loader iterates through this table and patches each address \circled{1} by adding the program’s actual load address \circled{2}.\\
 
 \par
-DOS is storing each relocation table entry as a 4-byte segment:offset pointer. This takes up quite a bit of space, since an average game has over 1,300 relocation table entries, which would occupy well over 5 KiB of space using the DOS scheme. LZEXE, by contrast, encodes only the distance from the previous fixup. This results in a far more efficient format, with most relocations requiring only a single byte. In practice, an LZEXE-compressed relocation table can be one-quarter the size of the equivalent DOS relocation table.\\
+DOS is storing each relocation table entry as a 4-byte segment:offset pointer. This takes up quite a bit of space, since an average game has over 1,300 relocation table entries, which would occupy well over 5 KiB of space using the DOS scheme. LZEXE, by contrast, encodes only the distance from the previous fixup. This results in a far more efficient format, where most relocations requiring only a single byte. In practice, an LZEXE-compressed relocation table can be one-quarter the size of the equivalent DOS relocation table.\\
 
 
 \par
@@ -469,7 +466,7 @@ Once the game has successfully started, the intro image, a Deluxe Paint bitmap i
 
 \begin{figure}[H]
 \centering
-\fullimage{Keen_intro_screen.png}
+\fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/Keen_intro_screen.png}}
 \caption{Keen Dreams intro screen}
 \end{figure}
 \pagebreak

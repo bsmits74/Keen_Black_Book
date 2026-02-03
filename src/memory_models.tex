@@ -10,7 +10,7 @@ four segment registers (CS, DS, SS, ES) are set to the same address, so you have
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{imgs/drawings/memory/tiny_mm_v2.eps}
-\caption{Tiny memory model, total of 64 KiB.}
+\caption{Tiny memory model layout, total of 64 KiB.}
 \label{fig:mm_tiny}
 \end{figure}
 
@@ -22,7 +22,7 @@ always used. This is a good size for average applications.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{imgs/drawings/memory/small_mm_v2.eps}
-\caption{Small memory model, code and data each have 64KiB.}
+\caption{Small memory model layout, code and data each have 64KiB.}
 \label{fig:mm_small}
 \end{figure}
 
@@ -33,7 +33,7 @@ plus stack are limited to 64K, but code can occupy up to 1 MiB.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{imgs/drawings/memory/medium_mm_v2.eps}
-\caption{Medium memory model, code can be larger than 64KiB.}
+\caption{Medium memory model layout, code can be larger than 64KiB.}
 \label{fig:mm_medium}
 \end{figure}
 
@@ -43,7 +43,7 @@ The opposite of the medium model is the "compact memory model". Here the total f
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{imgs/drawings/memory/compact_mm_v2.eps}
-\caption{Compact memory model, data can be larger than 64KiB.}
+\caption{Compact memory model layout, data can be larger than 64KiB.}
 \label{fig:mm_compact}
 \end{figure}
 
@@ -51,7 +51,7 @@ The opposite of the medium model is the "compact memory model". Here the total f
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.65\textwidth]{imgs/drawings/memory/large_mm_v2.eps}
-\caption{Large memory model, code and data can be larger than 64KiB.}
+\caption{Large memory model layout, code and data can be larger than 64KiB.}
 \label{fig:mm_large}
 \end{figure}
 
@@ -65,7 +65,7 @@ In all models so far, Borland C++ limits the size of global data to 64KiB. The "
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.68\textwidth]{imgs/drawings/memory/huge_mm.eps}
-\caption{Huge memory model, code and global data can be larger than 64KiB.}
+\caption{Huge memory model layout, code and global data can be larger than 64KiB.}
 \label{fig:mm_large}
 \end{figure}
 

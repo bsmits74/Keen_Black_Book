@@ -35,7 +35,7 @@ In 1989, around 15\% of the households owned a computer\footnote{https://www.sta
 \subsection{Overview}
   Intel released the 8086 in 1978, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77Mhz, where the 80286 was running at 6Mhz and later popular versions at 12-16Mhz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. Its successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus.\\
+  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77MHz, where the 80286 was running at 6MHz and later popular versions at 12-16MHz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. Its successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus.\\
 
 \par  
 Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on an 8088 CPU. An 80286 or higher was recommended to play the game primarily due to its reliance on the 16-bit data bus, as well as its raw speed. This section (and the bulk of this book) is written from the perspective of an 80286, but most of the information is applicable to 8086, as well as PC's many generations newer.\\   
@@ -48,7 +48,7 @@ Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly play
   \begin{tikzpicture}[font=\small]
     \begin{axis}[
       width=1.0\textwidth,
-      height=0.45\textwidth,
+      height=0.48\textwidth,
       ybar,
       bar width=20pt,
       ylabel={MIPS},
@@ -58,15 +58,14 @@ Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly play
       axis x line=bottom,
       axis y line=left,
       enlarge x limits=0.11,
-      symbolic x coords={8088 4.77Mhz, 8088 10Mhz, 286 8MHz,286 10MHz,286 16MHz,386DX 33},
+      symbolic x coords={8088 4.77MHz, 8088 10MHz, 286 8MHz,286 16MHz,386DX 33},
       xticklabel style={anchor=base,yshift=-\baselineskip},
       nodes near coords={\pgfmathprintnumber\pgfplotspointmeta}
     ]
       \addplot[fill=black!20,draw=black] coordinates {
-		(8088 4.77Mhz,0.2)      	
-      	(8088 10Mhz,0.75)
+		(8088 4.77MHz,0.2)      	
+      	(8088 10MHz,0.75)
         (286 8MHz,1.5)
-        (286 10MHz,1.7)
         (286 16MHz,2.5)
         (386DX 33,8)
       };
@@ -80,7 +79,7 @@ Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly play
   \footnotetext{Roy Longbottom's PC Benchmark Collection: http://www.roylongbottom.org.uk/mips.htm.}
    % \stepcounter{footnote}
  \par
-  \textbf{\underline{Trivia :}} A modern processor such as the Intel Core i7 3.33 GHz operates at close to 180,000 MIPS.
+  \trivia{A modern processor such as the Intel Core i7 3.33 GHz operates at close to 180,000 MIPS.}\\
   
 
 \subsection{The Intel 80286}
@@ -92,8 +91,10 @@ Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly play
 \par
 The Intel 80286 chip, first introduced in 1982, is the CPU behind the original IBM PC AT (Advanced Technology). Other computer makers manufactured what came to be known as IBM clones, with many of these manufacturers calling their systems AT-compatible or AT-class computers. \\
 \par
-When IBM developed the AT, it selected the 286 as the basis for the new system because the chip provided compatibility with the 8088 used in the PC and the XT. Therefore, software written for those chips should run on the 286. The 286 chip is many times faster than the 8088 used in the XT, and at the time it offered a major performance boost to PCs used in businesses. The processing speed, or throughput, of the original AT (which ran at 6MHz) is five times greater than that of the PC running at 4.77MHz.
-The 286 computers are faster than their predecessors for several reasons. The main reason is that 286 processors are much more efficient in executing instructions. An average instruction takes 12 clock cycles on the 8088, but takes an average of only 4.5 cycles on the 286 processor. Additionally, the 286 chip can handle up to 16 bits of data at a time through an external data bus twice the size of the 8088.\\
+When IBM developed the AT, it selected the 286 as the basis for the new system because the chip provided compatibility with the 8088 used in the PC and the XT. Therefore, software written for those chips should run on the 286. The 286 chip is many times faster than the 8088 used in the XT, and at the time it offered a major performance boost to PCs used in businesses.\\
+
+\par
+The main reason the 286 computer was faster than its predecessor is that it executes instructions much more efficiently. An average instruction takes 12 clock cycles on the 8088, but takes an average of only 4.5 cycles on the 286 processor. Additionally, the 286 chip can handle up to 16 bits of data at a time through an external data bus twice the size of the 8088.\\
 
 \par
 The 286 chip has two modes of operation: real mode and protected mode. The two modes are distinct enough to make the 286 resemble two chips in one. In real mode, a 286 acts essentially the same as an 8086 chip and is fully compatible with the 8086 and 8088. In the protected mode of operation, the 286 was truly something new. In this mode, a program designed to take advantage of the chip's capabilities has access to 1GB of memory (including virtual memory). The 286 chip, however, can address only 16MB of hardware memory. A significant failing of the 286 chip is that it cannot switch from protected mode to real mode without a hardware reset (a warm reboot) of the system (It can, however, switch from real mode to protected mode without a reset).\\
@@ -109,7 +110,7 @@ While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The
   \begin{tikzpicture}[font=\small]
     \begin{axis}[
       width=1.0\textwidth,
-      height=0.5\textwidth,
+      height=0.45\textwidth,
       ybar,
       bar width=20pt,
       ylabel={transistors},
@@ -136,7 +137,7 @@ While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The
    \caption{Comparison of CPUs with \# of transistors.}
  \end{figure}
  \par
-  \textbf{\underline{Trivia :}} Fast forward to today, the AMD Ryzen 9 7950X contains over 13 billion transistors. We've come a long way.\\
+  \trivia{Fast forward to today, the AMD Ryzen 9 7950X contains over 13 billion transistors. We've come a long way.}\\
 
 
 
@@ -209,7 +210,7 @@ From a programming perspective, a 286 CPU can be summarized by the following ele
   \item 16-bit Status and Control Register
   \item 16-bit Program Counter: IP
 \end{itemize}
-\item A 24-bit address bus for up to 16MiB of flat addressable RAM
+\item A 24-bit address bus for up to 16MiB of addressable RAM
 \item Memory Management Unit
 \end{itemize}
  \par
@@ -247,7 +248,7 @@ Despite its pipeline design, the 286 cannot do an operation in less than two cyc
 
 
 \subsection{16-bit Data alignment}
-Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus where the 8088 only had an 8-bit bus. Thanks to its 16-bit bus, the 286 can access and write word-sized memory variables just as fast as byte-sized variables. There's a catch, however: That's only true for word-sized variables that start at even memory addresses. When the 286 is asked to perform a word-sized access starting at an odd memory address, it actually performs two separate accesses, each of which fetches 1 byte, just as the 8088 does for all word-sized accesses. In other words, the effective capacity of the 286's external data bus is halved when a word-sized access to an odd address is performed\footnote{See Michael Abrash's Graphics Programming Black Book Special Edition, chapter 11.}.\\
+Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus where the 8088 only had an 8-bit bus. Thanks to its 16-bit bus, the 286 can access and write word-sized memory variables just as fast as byte-sized variables. There's a catch, however: this is only true for word-sized variables that start at even memory addresses. When the 286 is asked to perform a word-sized access starting at an odd memory address, it actually performs two separate accesses, each of which fetches 1 byte, just as the 8088 does for all word-sized accesses. In other words, the effective capacity of the 286's external data bus is halved when a word-sized access to an odd address is performed\footnote{See Michael Abrash's Graphics Programming Black Book Special Edition, chapter 11.}.\\
 
 \begin{figure}[H]
 \centering
@@ -267,8 +268,8 @@ The first CPUs in the Intel x86 family were designed in 1976. It was introduced 
 But everyone was hungry for a way to run much larger programs. Rather than create a CPU with larger register sizes, the designers at Intel decided to keep the 16-bit registers for their new 8086 and 8088 CPU and added a different way to access more memory: They expanded the instruction set, so programs could tell the CPU to group  two 16-bit registers together whenever they needed to refer to an absolute memory location beyond 64 KiB.\\
 
 \subsection{Memory addressing}
-If the designers had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data\footnote{We've often heard that Bill Gates said something to the effect: "640K of memory should be enough for anyone.". Though many of us no longer believe he ever said those exact words, he did, however, during a video interview with David Allison in 1993 for the National Museum of American History, Smithsonian Institution, say: "I laid out memory so the bottom 640KiB was general purpose RAM and the upper 384KiB I reserved for video and ROM, and things like that."}. So, instead of dealing with whatever problems a linear addressing scheme of 32-bits would have produced, they created the Segment:Offset scheme 
-which allows a CPU to effectively address about 1 MiB\footnote{This book uses IEC notation where MiB is $2^{20}$ and MB is $10^6$.} of memory. The Segment:Offset schema combines two 16-bit registers, one designating a segment and the other an offset within that segment.
+If the designers had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data\footnote{We've often heard that Bill Gates said something to the effect: "640K of memory should be enough for anyone.". Though many of us no longer believe he ever said those exact words, he did, however, during a video interview with David Allison in 1993 for the National Museum of American History, Smithsonian Institution, say: "I laid out memory so the bottom 640KiB was general purpose RAM and the upper 384KiB I reserved for video and ROM, and things like that."}. So, instead of dealing with whatever problems a linear addressing scheme of 32-bits would have produced, they created the segment:offset scheme 
+which allows a CPU to effectively address about 1 MiB\footnote{This book uses IEC notation where MiB is $2^{20}$ and MB is $10^6$.} of memory. The segment:offset schema combines two 16-bit registers, one designating a segment and the other an offset within that segment.
 \\
 
 \par
@@ -326,7 +327,7 @@ Will output the address:\\
  \end{minipage}\\
 \par
 
-The huge pointer is based on the absolute (or lineair) 20-bit memory location and \\ \mbox{Segment:Offset} normalized address. The absolute memory address can be calculated by\\
+The huge pointer is based on the absolute (or linear) 20-bit memory location and \\ \mbox{segment:offset} normalized address. The absolute memory address can be calculated by\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -334,7 +335,7 @@ The huge pointer is based on the absolute (or lineair) 20-bit memory location an
 \end{minipage}\\
 
 \par
-For example, the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}. By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all Segment:Offset memory pair locations. This results in the normalized address \cw{A002:000F}. A huge pointer is normalized when pointer arithmetic is performed on it. \\
+For example, the absolute address of \cw{A000:002F} is \cw{A0000h} + \cw{002Fh} = \cw{A002Fh}. By confining the offset to just the hexadecimal values \cw{0h} through \cw{Fh}, we have a unique way to reference all segment:offset memory pair locations. This results in the normalized address \cw{A002:000F}. A huge pointer is normalized when pointer arithmetic is performed on it. \\
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/huge_pointer_normalized.c}\par
@@ -356,11 +357,10 @@ A \cw{huge} reference is much slower than the \cw{far} reference as it comes wit
 \subsection{80286 Real and Protected mode}
 By 1986, hardware had gotten cheaper and Intel made a departure from the old architecture
 with its 286. This new CPU could be put in what is called "protected mode" featuring
-a 24-bit-wide address bus for up to 16 MiB of flat RAM protectable with a MMU\footnote{Memory Management Unit}. To make sure old programs could still run, the 286 processor could be put in "real mode" which replicates how the Intel 8086 and 8088 operated: 16-bit registers, 20-bit address bus giving 1MiB addressable RAM with segmented addressing.\\
+a 24-bit-wide address bus for up to 16 MiB of RAM protectable with a MMU\footnote{Memory Management Unit}. To make sure old programs could still run, the 286 processor could be put in "real mode" which replicates how the Intel 8086 and 8088 operated: 16-bit registers, 20-bit address bus giving 1MiB addressable RAM with segmented addressing.\\
 
 \par
-For compatibility reasons all PCs have to start in real mode. You may assume that programmers
-of the late 80s promptly switched the CPU to protected mode to unleash the full
+For compatibility reasons all PCs have to start in real mode. One might assume that programmers in the late 1980s promptly switched the CPU to protected mode to unleash the full
 potential of the machines and ditch the 20-year-old real mode. It would have worked out if the operating system had been able to run in protected mode.
 However, in the name of backward compatibility, Microsoft's DOS could only handle real
 mode which effectively locked developers into 16-bit programming.\\
@@ -423,7 +423,7 @@ The smallest is the "tiny memory model", where all three segment registers (CS, 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{imgs/drawings/memory/tiny_mm.eps}
-\caption{Tiny memory model.}
+\caption{Tiny memory model layout.}
 \label{fig:mm_tiny}
 \end{figure}
 
@@ -439,7 +439,7 @@ In the "small memory model", instructions and data are separated, each having it
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.7\textwidth]{imgs/drawings/memory/small_mm.eps}
-\caption{Small memory model, code and data each have 64KiB.}
+\caption{Small memory model layout, code and data each have 64KiB.}
 \label{fig:mm_small} 
 \end{figure}
 
@@ -454,7 +454,7 @@ The "compact memory model" is the opposite of the medium memory model, allowing 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{imgs/drawings/memory/medium_mm.eps}
-\caption{Medium memory model, code can be larger than 64KiB.}
+\caption{Medium memory model layout, code can be larger than 64KiB.}
 \label{fig:mm_medium}
 \end{figure}
 
@@ -473,7 +473,7 @@ Fortunately, there is a way to access additional memory using the medium model. 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{imgs/drawings/memory/farheap_medium_model.eps}
-\caption{Medium memory model with far heap memory.}
+\caption{Medium memory model layout with far heap memory.}
 \label{fig:mm_farheap}
 \end{figure}
 
@@ -481,11 +481,11 @@ Fortunately, there is a way to access additional memory using the medium model. 
 \pagebreak
 \section{Video}
 
-PCs had dedicated video cards and were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio. The conversion from the digital CPU output to the analogue monitor signal was handled by the video adapter.\\
+PCs had dedicated video cards and were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio. The conversion from the digital CPU output to the analog monitor signal was handled by the video adapter.\\
 
 
 
-\subsection{Inner working of a CRT monitor}
+\subsection{Inner workings of a CRT monitor}
 
 The first computer monitors were built around a Cathode Ray Tube (CRT). The picture on a CRT is generated by an electron gun, which converts electrical power into a narrow beam of electrons moving with substantial kinetic energy. The inside of the screen is coated with phosphor, which glows when struck by the electron beam (and for a short time thereafter).\\
 
@@ -497,7 +497,7 @@ The first computer monitors were built around a Cathode Ray Tube (CRT). The pict
 \end{figure}
 
 \par
-The electron beam is highly susceptible to magnetic fields, allowing it to be deflected using magnets. By placing horizontal and vertical electromagnets around the neck of the tube (the deflection yoke), the beam can be positioned anywhere on the screen. Manually controlling the beam would be tedious and impractical, so this process is automated by connecting the electromagnets to an oscillator that generate sawtooth waveforms.\\
+The electron beam is highly susceptible to magnetic fields, allowing it to be deflected using magnets. By placing horizontal and vertical electromagnets around the neck of the tube (the deflection yoke), the beam can be positioned anywhere on the screen. Manually controlling the beam would be tedious and impractical, so this process is automated by connecting the electromagnets to an oscillator that generates sawtooth waveforms.\\
 
 \par
 When both oscillators run together at precisely controlled frequencies, the electron beam scans the phosphor-coated screen from left to right and from top to bottom. The vertical oscillator determines how often the entire screen is redrawn, also known as the refresh rate. If the refresh rate is too low, the display will flicker. Most people can perceive flicker when the refresh rate drops below about 60 Hz, which is why most CRT displays operate at a  refresh rate of 60 Hz or higher.\\
@@ -526,8 +526,8 @@ So far, this explanation has described a monochrome display, which uses a single
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{imgs/drawings/crt_color.eps}
-\caption{Top-down view of CRT color display. }
+\includegraphics[width=1.0\textwidth]{imgs/drawings/CRT_color_display.eps}
+\caption{CRT color display. }
 \label{fig:CRT_color}
 \end{figure}
 
@@ -659,9 +659,9 @@ The most surprising part of the architecture is obviously the framebuffer. Why h
 \par
 The main reason was RAM latency and the need for minimum bandwidth. A CRT running at 60Hz and displaying 640x350 in 16 colors needs a pixel every $\frac{1}{640*350*60}=74$ nanosecond. At this resolution, one pixel is encoded with 4 bits. Each nibble is translated to a RGB color via the TTL. So that means it requires one byte every 148 nano-seconds.\\
 \par
- Unfortunately, RAM access latency was 200ns - not nearly fast enough\footnote{Computer Graphics: Principles and Practice 2nd Edition, page 168.} to refresh the screen at 60hz, so the TTL would starve. If latency could not be reduced, the throughput could still be improved by reading from four banks at a time. Reading in parallel gave an amortized RAM latency of 200/4 = 50ns, which was fast enough.\\
+ Unfortunately, RAM access latency was 200ns - not nearly fast enough\footnote{Computer Graphics: Principles and Practice 2nd Edition, page 168.} to refresh the screen at 60 Hz, so the TTL would starve. If latency could not be reduced, the throughput could still be improved by reading from four banks at a time. Reading in parallel gave an amortized RAM latency of 200/4 = 50ns, which was fast enough.\\
 \par
-Keep in mind that this architecture reduced the penalty of read operations, but plotting a pixel in the framebuffer with a write operation was still slow. Writing to the VRAM as little as possible was crucial to maintaining a decent framerate. 
+Keep in mind that this architecture reduced the penalty of read operations, but plotting a pixel in the framebuffer with a write operation was still slow. Writing to the VRAM as little as possible was crucial to maintaining a decent frame rate. 
 
 
 \begin{figure}[H]
@@ -677,7 +677,7 @@ Keep in mind that this architecture reduced the penalty of read operations, but 
 \subsection{EGA Planar Madness}
 \label{section:EGA_Planar_Madness}
  
-Four memory banks grant enough throughput to reach high resolutions at 60Hz. This type of architecture is called "planar". Each plane carries one bit of a pixel's palette index. For EGA there are 4 planes, where combining one bit from each plane produces a 4-bit color index. This color index is then via the attribute controller translated into a color to the screen. This layout is better explained with a drawing.\\
+Four memory banks provide sufficient throughput to reach high resolutions at 60 Hz. This type of architecture is called "planar". Each plane carries one bit of a pixel's palette index. For EGA there are 4 planes, where combining one bit from each plane produces a 4-bit color index. This color index is then translated into a color on the screen via the attribute controller. This layout is better explained with a drawing.\\
 
 
 \par
@@ -693,7 +693,7 @@ To write the color of the first pixel, a developer has to write the first bit of
 
 
 \subsection{EGA Modes}
-In order to configure this mess of planes and the controllers, 50 poorly documented internal registers must be set. Needless to say few programmers dove into the internals of the EGA.\\
+In order to configure this complex arrangement of planes and the controllers, 50 poorly documented internal registers must be set. Needless to say few programmers dove into the internals of the EGA.\\
 \par
   Figure \ref{fig:ega_arch}, which described the architecture, was actually deceptively simplified. Figure \ref{fig:ibm_ega} shows how IBM's reference documentation explained the EGA. The maze of wire showcases well the actual complexity of the system.\\
  \par
@@ -744,7 +744,7 @@ To setup the EGA in Mode \cw{0Dh} using the BIOS is incredibly easy. It can be d
   
   \subsection{EGA Programming: Memory Mapping}
  \label{section:ega_memmap}
-To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from \cw{A0000h} to \cw{AFFFFh}. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{fig:ram_to_ega_mapping_label}. Write and Read operations are routed based on a mask register indicating which bank should be read or written to. Writing a color to a pixel was a tedious process, requiring the programmer to switch between each of the four VRAM banks using the mask register and write bytes to each bank individually.
+To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from \cw{A0000h} to \cw{AFFFFh}. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{fig:ram_to_ega_mapping_label}. Write and read operations are routed based on a mask register indicating which bank should be read or written to. Writing a color to a pixel was a tedious process, requiring the programmer to switch between each of the four VRAM banks using the mask register and write bytes to each bank individually.
 
 
 
@@ -938,7 +938,7 @@ The AdLib card dominated the PC market for almost three years. Then, in 1989, Cr
   Creative Labs, the company behind the SoundBlaster, didn't enter the sound card industry until 1987 with the introduction of their Creative Music System (C/MS). From inception in 1981, they were a computer repair shop in Singapore. Creative Music System, or "Game Blaster" as it was renamed a year later, was a FM synthesizer card similar to AdLib. Based on the Philips SAA1099 chip, which was essentially a square-wave generator, it sounded much like twelve simultaneous PC speakers would have, except for each channel having amplitude control. The card did not sell well.\\
   
   \par
-The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to the Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the Sound Blaster was \$90 cheaper than the AdLib, which led many consumers to choose it instead. In less than a year, the Sound Blaster became the top-selling expansion card for the PC. \\
+The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to the Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05 kHz sampling rate. The card also came with a DA-15 port allowing joystick connection. Most importantly, the Sound Blaster was \$90 cheaper than the AdLib, which led many consumers to choose it instead. In less than a year, the Sound Blaster became the top-selling expansion card for the PC. \\
 
 \par
 \begin{fancyquotes}
@@ -964,8 +964,7 @@ Figure \ref{asb15} is the SoundBlaster model CT1320B. Notice the OPL2 chip (labe
 
   
 \par
-  \bu{Trivia :}
-Creative Labs boasts in their own advert AdLib compatibility and even uses an image of AdLib Inc's product\footnote{Advert p20 in Compute!, April 1990.}! On the other hand, they sued every company that tried to market a 'Sound Blaster compatible' product for using the name of their product.\\
+  \trivia{Creative Labs boasts in their own advert AdLib compatibility and even uses an image of AdLib Inc's product\footnote{Advert p20 in Compute!, April 1990.}! On the other hand, they sued every company that tried to market a 'Sound Blaster compatible' product for using the name of their product.}\\
 
 \begin{figure}[H] 
   \centering 
@@ -979,10 +978,10 @@ Creative Labs boasts in their own advert AdLib compatibility and even uses an im
   
 
 \section{Floppy Disk Drive}
-In the time before the internet, a floppy disk was the main medium to share and distribute software and data. The original XT systems were equipped with 5\nicefrac{1}{4}-inch floppy disk with a capacity of 360KiB\footnote{Manufactureres often rounded this down to 360K or 360KB for simplicity, using the decimal definition of KB (1000 bytes) in marketing.}. In 1984, IBM introduced with its PC AT the 1.2MB dual-sided 5\nicefrac{1}{4}-inch floppy disk, but it never became very popular. IBM started using the 720KiB double density 3\nicefrac{1}{2}-inch floppy disk in 1986 and the 1.44MB high-density version in 1987. The advantages of the 3\nicefrac{1}{2}-inch disk were its higher capacity, its smaller physical size, and its rigid case which provided better protection from dirt and other environmental risks. By the mid-1990s, 5\nicefrac{1}{4}-inch drives had virtually disappeared, as the 3\nicefrac{1}{2}-inch disk became the predominant floppy disk. \\
+Before the internet, floppy disks were the primary medium for sharing and distributing software and data. The original XT systems were equipped with 5\nicefrac{1}{4}-inch floppy disk with a capacity of 360KiB\footnote{Manufactureres often rounded this down to 360K or 360KB for simplicity, using the decimal definition of KB (1000 bytes) in marketing.}. In 1984, IBM introduced with its PC AT the 1.2MB dual-sided 5\nicefrac{1}{4}-inch floppy disk, but it never became very popular. IBM started using the 720KiB double density 3\nicefrac{1}{2}-inch floppy disk in 1986 and the 1.44MB high-density version in 1987. The advantages of the 3\nicefrac{1}{2}-inch disk were its higher capacity, its smaller physical size, and its rigid case which provided better protection from dirt and other environmental risks. By the mid-1990s, 5\nicefrac{1}{4}-inch drives had virtually disappeared, as the 3\nicefrac{1}{2}-inch disk became the predominant floppy disk. \\
 
 \vspace{10pt}
-\bu{Trivia :} An USB stick of 128GB contains more than 91K high-density 3\nicefrac{1}{2}-inch (1.44MB) floppy disks.\\
+\trivia{An USB stick of 128GB contains more than 91K high-density 3\nicefrac{1}{2}-inch (1.44MB) floppy disks.}\\
 \par
 
 \begin{figure}[H]
