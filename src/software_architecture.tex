@@ -29,7 +29,7 @@ Approximately 85\% of the code is in C, with assembly\footnote{All the assembly 
 \par
 Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, Inkscape (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Microsoft Office 2013 is estimated at 45,000,000 SLOC.\\
 
-\trivia{The game Red Dead Redemption II is estimated to have 60 million lines of code, the highest amount for a game at time of writing this book.}\\
+\trivia{The game \textit{Red Dead Redemption II} is estimated to have 60 million lines of code, the highest amount for a game at time of writing this book.}\\
 
  
 \par 
@@ -81,7 +81,7 @@ Checking the size of the compiled program, we see\\
 \tcode{source_compile_size.txt}\\
 
 \par
-The game was distributed on a single 5\nicefrac{1}{4}-inch, 360 KiB floppy disk. The compiled executable alone already occupies 349 KiB, and it still needed to accommodate graphics, map, and audio assets. With only 11 KiB remaining, the team needed a way to compress the executable to ensure everything would fit on one floppy disk.\\
+As mentioned earlier, Softdisk did not allow the distribution of games larger than 360 KiB. The compiled executable alone already occupies 349 KiB, and it still needed to accommodate graphics, map, and audio assets. With only 11 KiB remaining, the team needed a way to compress the executable to ensure everything would fit on one floppy disk.\\
 
 \par
 To compress the executable, the team made used a small utility called LZEXE. It was one of the first widely known executable file compression tools for DOS computers. LZEXE allowed DOS executables to be launched without requiring an explicit decompression step. Most other compression or packing utilities required an additional step (and often additional disk space) to accomplish this.\\
@@ -103,7 +103,7 @@ Although I wrote LZEXE for my own use, I gave it to some friends, and it was the
 
 
 \par
-The compression engine was built around the Lempel–Ziv–Storer–Szymanski (LZSS) algorithm\footnote{See https://en.wikipedia.org/wiki/Lempel-Ziv-Storer-Szymanski.}, and the decompressor was designed to operate without using more memory than the final decompressed program required. This was more difficult than it might seem at first, because the tool had to ensure that there was never a moment when decompressed data overwrote an unread portion of the compressed data.\\
+The compression engine was built around the Lempel–Ziv–Storer–Szymanski (LZSS) algorithm, and the decompressor was designed to operate without using more memory than the final decompressed program required. This was more difficult than it might seem at first, because the tool had to ensure that there was never a moment when decompressed data overwrote an unread portion of the compressed data.\\
 
 \par
 An LZEXE-compressed program is a standard DOS executable, loaded in the standard way without any special trickery. Each executable file contains an EXE header, which specifies the initial values of the SS and SP stack registers. These are set up to point to a high area of uninitialized memory.

@@ -14,9 +14,7 @@ Performing a full-screen redraw per frame would kill the CPU, as it would requir
 \bigskip
 \par
 \begin{fancyquotes}
-Clearly, there is a whole world of awesome things there that we just couldn't do on the PC...\\
-
-\par 
+Clearly, there is a whole world of awesome things there that we just couldn't do on the PC...
 You can just redraw the whole screen, but then it turns out...\\
 \par
 Well, you're going five frames a second.\\
@@ -190,7 +188,7 @@ Each virtual screen has a size of 44*240*4=42,420 bytes. So, within a 256KB EGA 
 \end{figure}
 
 \par
-For both the buffer and visible screen a tile update array is created to maintain which tiles are changed since last refresh.\\
+For both the buffer and visible screen a tile array is created to maintain which tiles are updated since last refresh.\\
 
 
 \par
@@ -230,7 +228,7 @@ The engine keeps track of which tile numbers are part of the virtual screen. Sin
  \label{fig:kc1_3_step1}
 \end{figure}
 
-\pagebreak
+\par
 The next step is to scan all tiles in buffer tile update array (array 1) and for each tile marked '1', copy the corresponding tile from master to virtual page 1 page.\\
 
 \begin{figure}[H]
@@ -351,9 +349,10 @@ Let's go over the refresh cycle step by step. At the start, all three virtual pa
 \end{figure}
 
 \par
-Both VRAM and tile update array pointers shift left to introduce a new column of tiles. The VRAM pointer \cw{screenstart[]} is lowered by 2 bytes (1 tile), and the tile update array pointer is decreased by 1 byte.
-A new column of tiles is copied from RAM to the master page, while the leftmost column in both tile update arrays is marked with '1' to ensure it updates in the next refresh cycle. Animated tiles are then copied to the master page, and the corresponding tiles in the array are also marked with '1'.\\
+Both VRAM \cw{screenstart[]} pointer and tile update array pointer shift left to introduce a new column of tiles. The new column of tiles is copied from RAM to the master page, while the leftmost column in both tile update arrays is marked with '1' to ensure it updates in the next refresh cycle. Animated tiles are then copied to the master page, and the corresponding tiles in the array are also marked with '1'.\\
 
+
+\vspace{-5pt}
 \begin{figure}[H]
 \centering
  \scaledimage{1.0}{/game/Keen_ATR_4-6_b.png}
@@ -364,7 +363,7 @@ A new column of tiles is copied from RAM to the master page, while the leftmost 
 \pagebreak
 Next, the engine scans all '1's and copies the corresponding tiles from the master to the buffer page. \\
 
-
+\vspace{-5pt}
 \begin{figure}[H]
 \centering
  \scaledimage{1.0}{/game/Keen_ATR_4-6_c.png}
@@ -372,11 +371,9 @@ Next, the engine scans all '1's and copies the corresponding tiles from the mast
  \label{fig:kc4_6_step2}
 \end{figure}
 
-\vspace{5pt}
-\par
-The final step is erasing all sprites which are listed in the sprite removal list from the buffer page, and copy new sprites from RAM to to the buffer page. Tiles overlapping with erased blocks are marked with a '2' in the tile update array, and tiles which have a new sprite are marked '3'.\\
 
-\textbf{\underline{Trivia :}} The '2' marking is nowhere used in the engine, most likely it is used in the original ATR algorithm.\\
+\par
+The final step is to erase all sprites listed in the sprite removal list from the buffer page and copy new sprites from RAM to the buffer page. Tiles overlapping with erased blocks are marked with '2' in the tile update array, while tiles containing new sprites are marked with '3'. Note that the '2' marker is not used anywhere in the engine; it was most likely part of the original ATR algorithm.\\
 
 \begin{figure}[H]
 \centering
@@ -393,7 +390,6 @@ For each sprite that needs to be removed from the buffer screen, its location an
   \end{minipage}
   \label{block_removal}
 \\
-
 
 
 \par
@@ -422,9 +418,6 @@ Once the buffer refresh is completed, the engine needs only to update the CRTC s
 \pagebreak
 The final step in scrolling is to adjust the horizontal fine-pixel alignment by setting the Pel Pan register. \textit{Et voil\`a}, the screen scrolls smoothly to the left.\\
 
-\par
-If the player continues to move to the left, the tile update array 0 pointer lowers a second time, underscoring why the viewport needs to float up to two tiles in all directions.\\
-
 \begin{figure}[H]
 \centering
 \begin{subfigure}{.5\textwidth}
@@ -438,6 +431,9 @@ If the player continues to move to the left, the tile update array 0 pointer low
 \caption{Left screen is before scrolling, right screen after scrolling.}
 \label{fig:kc4_6_scroll}
 \end{figure}
+
+\par
+If the player continues to move to the left, the tile update array 0 pointer lowers a second time, underscoring why the viewport needs to float up to two tiles in all directions.\\
 
 \par
 This scrolling process is significantly more efficient than the original adaptive tile refresh engine, requiring only 8\% of the tiles to be refreshed. In addition, level design is no longer constrained by the need to use large repeating patterns.\\
@@ -466,17 +462,6 @@ There was however an issue with the introduction of Super VGA cards, which had t
 \par
 There is an easy solution to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} on page \pageref{fig:ega_ram_arch}, the space between \cw{B400h} and \cw{FFFFh} is not used and contains enough space for another virtual screen. In case the start address is between \cw{C400h} and \cw{FFFFh} the corresponding screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
 
-\par
-
-\begin{fancyquotes}
-I was in a tough position. Do I have to track every single one of these [SUPER VGA CARDS] and it was a madhouse back then with 20 different video card vendors with all slightly different implementations of their non-standard functionality. Either I needed to natively program all of the cards or I kind of punt. I took the easy solution of when you finally did run to the edge of the screen I accepted a hitch and just copied the whole screen up.\\
-\par
-\textbf{John Carmack\protect\footnotemark}
-\end{fancyquotes}\\
-\addtocounter{footnote}{-1}
-\stepcounter{footnote}
-\footnotetext{And again the same interview with Lex Fridman in 2022.}
-
 \par 
 \begin{figure}[H]
 \centering 
@@ -496,7 +481,15 @@ I was in a tough position. Do I have to track every single one of these [SUPER V
 \label{fig:page_wrapping}
 \end{figure}
 
-
+\par
+\begin{fancyquotes}
+I was in a tough position. Do I have to track every single one of these [SUPER VGA CARDS] and it was a madhouse back then with 20 different video card vendors with all slightly different implementations of their non-standard functionality. Either I needed to natively program all of the cards or I kind of punt. I took the easy solution of when you finally did run to the edge of the screen I accepted a hitch and just copied the whole screen up.\\
+\par
+\textbf{John Carmack\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{And again the same interview with Lex Fridman in 2022.}
 
 \par
 \begin{minipage}{\textwidth}

@@ -30,7 +30,7 @@ This encoding also has the additional benefit that, if the underlying software o
 \trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "Shift" + "Num /" should produce a "/", as indicated on the keycap. However, older software may interpret this sequence incorrectly: \textit{Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "?".}}\\
 
 \par
-The keys "Print Screen/SysRq" and "Pause/Break" are special cases. The former produces scancode "\cw{e0h,2ah,e0h,37h}", together with Shift or Ctrl it produces "\cw{e0h,37h}", and \cw{54h} together with (left or right) Alt. The latter produces scancode sequence \linebreak "\cw{e1h,1dh,45h,e1h,9dh,c5h}" when pressed and nothing when released. Together with (left or right) Ctrl, one gets "\cw{e0h,46h,e0h,c6h}", and again nothing at release. The picture below on this and previous page shows the full IBM PS/2 keyboard scancode layout.\\
+The keys "Print Screen/SysRq" and "Pause/Break" are special cases. The former produces scancode (\cw{e0h,2ah,e0h,37h}), together with Shift or Ctrl it produces (\cw{e0h,37h}), and \cw{54h} together with (left or right) Alt. The latter produces scancode sequence \linebreak (\cw{e1h,1dh,45h,e1h,9dh,c5h}) when pressed and nothing when released. Together with (left or right) Ctrl, one gets (\cw{e0h,46h,e0h,c6h}), and again nothing at release. The picture below on this and previous page shows the full IBM PS/2 keyboard scancode layout.\\
 
 
 \par
