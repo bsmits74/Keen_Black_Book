@@ -13,10 +13,10 @@ Development was done with Borland C++ 3.1 using 80386 computers; however, none o
 %\caption*{Borland C++ 3.1 Programmer guide.}
 \end{wrapfigure}
 \par
-Borland's solution was an all-in-one package. The software came with two thick manuals, explaining everything regarding the IDE (238 pages) and programming in C++ (483 pages). The IDE, \cw{BC.EXE}, despite some instabilities allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}. \\
+Borland's solution was an all-in-one package. The software came with two thick manuals, explaining everything regarding the IDE (238 pages) and programming in C++ (483 pages). The IDE, \cw{BC.EXE}, despite some instabilities, allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}. \\
 
 \par
-There was no need to enter command-line mode however. The IDE allowed to create a project, build, run and debug. The IDE allowed to create a project, build, run and debug. It contained a "high resolution" 50x80 text mode, which doubled the vertical resolution.\\
+There was no need to enter command-line mode however. The IDE allowed the user to create a project, build, run and debug. The IDE allowed to create a project, build, run and debug. It contained a "high resolution" 50x80 text mode, which doubled the vertical resolution.\\
 \par
   \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/borland_memory_model.png}}
 \par\bigskip\par
@@ -55,7 +55,7 @@ Individual tile images are stored in a planar format, with blue, green, red, and
 \end{figure}
 
 \par
-Foreground tiles, or "masked tiles", are similar to normal tiles but contain five planes instead of four. The extra plane stores the mask; the plane order is mask, blue, green, red, and intensity. Consequently, a single masked tile requires 160 bytes (128 + 32) of storage. A mask bit of '0' means the background tile color is erased and replaced by the foreground tile color, whereas a mask bit of '1' preserves the background color behind the foreground. If the foreground color is '0', the background color remains visible. \\
+Foreground tiles, or "masked tiles", are similar to normal tiles but contain five planes instead of four. The extra plane stores the mask; the plane order is mask, blue, green, red, and intensity. Consequently, a single masked tile requires 160 bytes (128 + 32) of storage. A mask bit of '0' means the background tile color is erased and replaced by the foreground tile color, whereas a mask bit of '1' preserves the background color behind the foreground tile. If the foreground color is '0', the background color remains visible. \\
 
 \par
 By combining tiles on the screen, a map is created. These maps define the entire game world in terms of background and foreground tiles. Maps also include a list of all actors and their starting positions within the world. Essentially, everything the player encounters while progressing through the levels is specified in a map.
@@ -72,7 +72,7 @@ After the graphical assets were generated, a tool (IGRAB) packed all ILBM files 
 \end{figure}
 
 \par
-In the engine's code, asset usage is hardcoded via an enum. This enum serves as an offset into the \cw{HEAD} table, which then provides an offset within the data asset file. With this indirection layer, assets could be regenerated and reordered at will with no modification in the source code.\\
+In the engine's code, asset usage is hardcoded via an enum. This enum serves as an offset into the \cw{HEAD} table, which then provides an offset within the data asset file. With this indirection layer, assets could be regenerated and reordered at will with no modification to the source code.\\
 
 \trivia{The \cw{HEAD} and \cw{DICT} files in the source code must match the data asset file from the shareware version of \textit{Keen Dreams}. However, the latest release of the source code (v1.93) does not match with shareware version v1.13. To ensure that the \cw{HEAD}, \cw{DICT}, and data asset file are compatible, you will need to retrieve a specific git commit, which will be explained in the next chapter.}
 
@@ -95,7 +95,7 @@ Figure \ref{fig:asset-file} illustrates the structure of the \cw{KDREAMS.EGA} as
 \end{figure}
 
 \pagebreak
-Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for each picture in the asset file. The \cw{spritetable[]} includes not only width and height but also information on the sprite's center, hitbox, and number of bit shifts (explained section "\nameref{section:drawing_sprites}" on page \pageref{section:drawing_sprites}). \\
+Both the \cw{pictable[]} and \cw{picmtable[]} contain the width and height for each picture in the asset file. The \cw{spritetable[]} includes not only width and height but also information on the sprite's center, hitbox, and number of bit shifts (explained in section "\nameref{section:drawing_sprites}" on page \pageref{section:drawing_sprites}). \\
 
 \par
 \begin{minipage}{\textwidth}
@@ -124,7 +124,7 @@ All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)
 
 
 \par
-The font segment contains a table that stores the height and the width of the each character, along with a reference to where the character data is located in the archive file.\\
+The font segment contains a table that stores the height and the width of each character, along with a reference to where the character data is located in the archive file.\\
 
 
 \par
@@ -272,7 +272,7 @@ On the next two pages, you will find several sprite assets, as well as backgroun
 
 
 \section{Maps}
-Maps were created using an in-house editor called TED5, short for Tile EDitor. Over the years TED5 had improvements and the same tool is later used for creating maps for both side-scrolling games and top-down games like \textit{Wolfenstein 3D}.\\
+Maps were created using an in-house editor called TED5, short for Tile EDitor. Over the years TED5 was improved, and the same tool was later used for creating maps for both side-scrolling games and top-down games like \textit{Wolfenstein 3D}.\\
 
 \par
 \begin{fancyquotes}
@@ -298,7 +298,7 @@ TED5 allows the placement of tiles across multiple layers, referred to as "plane
   \item Information plane tiles, which contain actor locations and special areas.
 \end{itemize}
 
-A map is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), that controls interactions such as clipping, "deadly" tiles, and animated tiles. 
+A map is created by placing tiles on each of these three layers. Foreground and background tiles can be enhanced with additional properties ("Tile info"), that control interactions such as clipping, "deadly" tiles, and animated tiles. 
 
 \par
 \begin{figure}[H] 
@@ -339,7 +339,7 @@ For background tile animations, two information tables are defined: "tile animat
   \end{table}
   
   \par
-Tiles also contain clipping information and a column called \cw{intile}. The \cw{intile} column tells what the tile "does" to the player, like kill, climb, points, etc. Values between 128-255 are used for foreground tiles only. The \cw{intile} column is customized for each version of \textit{Commander Keen}. In \textit{Keen Dreams} it is used for e.g. climbing poles.\\
+Tiles also contain clipping information and a column called \cw{intile}. The \cw{intile} column tells what the tile "does" to the player, such as kill, climb, points, etc. Values between 128-255 are used for foreground tiles only. The \cw{intile} column is customized for each version of \textit{Commander Keen}. In \textit{Keen Dreams} it is used for e.g. climbing poles.\\
 \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXXXXXX}
   \hline
@@ -383,7 +383,7 @@ The structure of the \cw{KDREAMS.MAP} archive is illustrated in Figure \ref{fig:
 
 \section{Audio}
 \label{section:audio}
-The original Commander Keen Trilogy only supported the default PC Speaker. With the introduction of Commander Keen in Keen Dreams the team decided to support sound cards as well.\\
+The original Commander Keen Trilogy only supported the default PC Speaker. With the introduction of Commander Keen in Keen Dreams, the team decided to support sound cards as well.\\
 
 \par
 \bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with AdLib support until \textit{Dark Ages} in 1991. And even then, it still had pc speaker music.\\
@@ -415,14 +415,14 @@ Consequently, only two sets of each audio effect are shipped with the game:
 
 
 \par
-All sound effects are done by Robert Prince. Sound effects are created using Cakewalk and inhouse MUSE tool\footnote{See \textit{Game Engine Black Book - Wolfenstein 3D}, section 3.6 for a extensive description.}.
+All sound effects are done by Robert Prince. Sound effects are created using Cakewalk and inhouse MUSE tool\footnote{See \textit{Game Engine Black Book - Wolfenstein 3D}, section 3.6 for an extensive description.}.
 Just like described before, the MUSE tool packed all sound effects together in a compressed \cw{SOUND} archive and generated a \cw{HEAD}, \cw{DICT} file and a \mbox{C header} file with asset IDs.\\
 
 
 
 
 \section{Distribution}
-On December 14th, 1990 the first episode was released via Apogee. Episodes 1-5 are all published by Apogee Software. The game engine and first episode were given for free and encouraged to be copied and distributed to a maximum number of people. To receive the other episodes, each player had to pay \$30 (for Episode 1-3) to \textit{ideas from the Deep}.\\
+On December 14th, 1990, the first episode was released via Apogee. Episodes 1-5 were all published by Apogee Software. The game engine and first episode were given for free and were encouraged to be copied and distributed to as many people as possible. To receive the other episodes, each player had to pay \$30 (for Episode 1-3) to \textit{Ideas from the Deep}.\\
 
 \par
 \textit{Commander Keen in Keen Dreams} was published as a retail title by Softdisk, as part of a settlement for using Softdisk resources to make their own game\footnote{The settlement with Softdisk is explained in Appendix \ref{sec:id_software}}.\\
@@ -445,7 +445,7 @@ In 1990, the Internet was still in its infancy and the best medium was the 3\nic
  \item KDREAMS.MAP: Contains all maps.
  \item KDREAMS.CMP: Introduction picture of the game, a compressed LBM image file.
  \item Softdisk Help Library files, which are text screens, shown when starting and ending the game
- \item Several *.TXT files which can be read by typing the corresponding *.BAT file. 
+ \item Several *.TXT files, which can be read by typing the corresponding *.BAT file. 
 
 \end{itemize}
 

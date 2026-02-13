@@ -67,7 +67,7 @@ The displayed area of the virtual screen at any time is determined by setting th
 
 
 \par
-To pan down a scan line, it requires only to increase the CRTC start address by the logical width.\\
+To pan down a scan line, it only requires increasing the CRTC start address by the logical width.\\
 
 \begin{figure}[H]
 \centering
@@ -115,7 +115,7 @@ By combining both EGA hardware tricks, smooth scrolling on EGA is achieved by ad
 \end{figure}
 
 \par
-The engine is now capable of moving the entire screen one pixel at a time in all direction, just by tweaking the EGA registers, enabling smooth scrolling across the display.\\
+The engine is now capable of moving the entire screen one pixel at a time in all directions, just by tweaking the EGA registers, enabling smooth scrolling across the display.\\
 
 
 
@@ -124,7 +124,7 @@ The engine is now capable of moving the entire screen one pixel at a time in all
 So far, we have built a virtual screen in VRAM allowing smooth one pixel moves in both axes. However, once the virtual screen edge is reached, a full-screen redraw would be too slow, causing a drop to 5 fps.\\
 
 \par
-A naive approach for screen refresh is to load the entire level into VRAM, setting the logical width to match the level width. By adjusting the CRTC Start Address and Horizontal Pel Panning registers, smooth scrolling can be achieved. However, loading the entire level requires far more VRAM than is available. The first level, \textit{Horse Radish Hill}, is 136 tiles wide and 37 tiles high. Each tile is 128 bytes,  which means a total of 136 x 37 x 128 bytes = 644KB is required to store the entire level in VRAM. Since we only have 256KB available, this is not a feasible option.\\
+A naive approach for screen refresh is to load the entire level into VRAM, setting the logical width to match the level width. By adjusting the CRTC Start Address and Horizontal Pel Panning registers, smooth scrolling can be achieved. However, loading the entire level requires far more VRAM than is available. The first level, \textit{Horse Radish Hill}, is 136 tiles wide and 37 tiles high. Each tile is 128 bytes,  which means a total of 136 x 37 x 128 bytes = 644KB is required to store the entire level in VRAM. Since we only have 256KiB available, this is not a feasible option.\\
 
 \textbf{\underline{Trivia :}} At the time of writing this book, most video cards contain more than 1GB VRAM,  sufficient to store all Commander Keen levels at once in VRAM. \\
 
@@ -176,7 +176,7 @@ The EGA screen in mode \cw{0Dh} has a resolution of 320x200 pixels, or 40x200 by
 \end{figure}
 
 \par
-Each virtual screen has a size of 44*240*4=42,420 bytes. So, within a 256KB EGA card there is enough VRAM available to keep all three virtual screens in memory. The page that is displayed on screen is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
+Each virtual screen has a size of 44*240*4=42,420 bytes. So, within a 256KiB EGA card there is enough VRAM available to keep all three virtual screens in memory. The page that is displayed on screen is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
 
 
 
@@ -439,7 +439,7 @@ If the player continues to move to the left, the tile update array 0 pointer low
 This scrolling process is significantly more efficient than the original adaptive tile refresh engine, requiring only 8\% of the tiles to be refreshed. In addition, level design is no longer constrained by the need to use large repeating patterns.\\
 
 \par
-This is illustrated on the next page with a comparison between a level from Commander Keen II - \textit{The Earth Explodes} (top) and one from Keen IV - \textit{Secret of the Oracle} (bottom). Notice how in Commander Keen 4 almost nothing repeats except for the minimal path and underground sections.\\
+This is illustrated on the next page with a comparison between a level from Commander Keen II - \textit{The Earth Explodes} (top) and one from Keen IV - \textit{Secret of the Oracle} (bottom). Notice how in Commander Keen IV almost nothing repeats except for the minimal path and underground sections.\\
 
 \begin{figure}[H]
 \centering
@@ -458,9 +458,19 @@ This is illustrated on the next page with a comparison between a level from Comm
 \pagebreak
 \subsection{Crippled Super VGA compatibility}
 \par
-There was however an issue with the introduction of Super VGA cards, which had typically more than 256kB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring at least 256kB RAM, which from a hardware constraint resulted in 512kB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{FFFFh} did not work anymore on these cards. \\
+There was however an issue with the introduction of Super VGA cards, which had typically more than 256KiB RAM\footnote{In 1989 the VESA consortium standardized an API to use Super VGA modes in a generic way. One of the first modes was 640x480 at 256 colors requiring at least 256KiB RAM, which from a hardware constraint resulted in 512KiB.}. This resulted in crippled backwards compatibility and the wrapping around \cw{FFFFh} did not work anymore on these cards. \\
 \par
 There is an easy solution to resolve this issue. As you can see in Figure \ref{fig:ega_ram_arch} on page \pageref{fig:ega_ram_arch}, the space between \cw{B400h} and \cw{FFFFh} is not used and contains enough space for another virtual screen. In case the start address is between \cw{C400h} and \cw{FFFFh} the corresponding screen is copied to the opposite end of the buffer, as illustrated in Figure \ref{fig:page_wrapping}.\\
+
+\par
+\begin{fancyquotes}
+I was in a tough position. Do I have to track every single one of these [SUPER VGA CARDS] and it was a madhouse back then with 20 different video card vendors with all slightly different implementations of their non-standard functionality. Either I needed to natively program all of the cards or I kind of punt. I took the easy solution of when you finally did run to the edge of the screen I accepted a hitch and just copied the whole screen up.\\
+\par
+\textbf{John Carmack\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{And again the same interview with Lex Fridman in 2022.}
 
 \par 
 \begin{figure}[H]
@@ -481,15 +491,7 @@ There is an easy solution to resolve this issue. As you can see in Figure \ref{f
 \label{fig:page_wrapping}
 \end{figure}
 
-\par
-\begin{fancyquotes}
-I was in a tough position. Do I have to track every single one of these [SUPER VGA CARDS] and it was a madhouse back then with 20 different video card vendors with all slightly different implementations of their non-standard functionality. Either I needed to natively program all of the cards or I kind of punt. I took the easy solution of when you finally did run to the edge of the screen I accepted a hitch and just copied the whole screen up.\\
-\par
-\textbf{John Carmack\protect\footnotemark}
-\end{fancyquotes}\\
-\addtocounter{footnote}{-1}
-\stepcounter{footnote}
-\footnotetext{And again the same interview with Lex Fridman in 2022.}
+
 
 \par
 \begin{minipage}{\textwidth}

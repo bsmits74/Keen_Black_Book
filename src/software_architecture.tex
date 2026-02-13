@@ -10,13 +10,13 @@ The following September, an Indiegogo crowdfunding campaign was started to attem
 
 \section{Getting the source code}
 \label{section:source_code}
-The source code is available on \cw{github}. It is essential to use the source code from the shareware version 1.13, or you may encounter issues due to incompatible map and graphs headers\footnote{See issue \#7 on https://github.com/keendreams/keen.}. To get the correct source code, use the following commands in the console \\
+The source code is available on GitHub. It is essential to use the source code from the shareware version 1.13, or you may encounter issues due to incompatible map and graphics headers\footnote{See issue \#7 on https://github.com/keendreams/keen.}. To get the correct source code, use the following commands in the console \\
 
 \par
 \tcode{keen13_github.txt}\\
 
 \section{First contact}
-After downloading the repository from \cw{github}, a folder named 'keen' is created, containing all the source files. The \cw{cloc.pl} tool can be used to analyze the folder and generate statistics about the source code. This tool is useful for getting an idea of what to expect.\\
+After downloading the repository from GitHub, a folder named 'keen' is created, containing all the source files. The \cw{cloc.pl} tool can be used to analyze the folder and generate statistics about the source code. This tool is useful for getting an idea of what to expect.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -27,9 +27,9 @@ After downloading the repository from \cw{github}, a folder named 'keen' is crea
 Approximately 85\% of the code is in C, with assembly\footnote{All the assembly in Keen is done with TASM (a.k.a Turbo Assembler by Borland). It uses Intel notation where the destination is before the source: \cw{instr} \cw{dest} \cw{source}.} used for bottleneck optimizations and low-level I/O operations such as video and audio handling. \\
 
 \par
-Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, Inkscape (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Microsoft Office 2013 is estimated at 45,000,000 SLOC.\\
+Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, Inkscape (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Microsoft Office 2013 is estimated to have 45,000,000 SLOC.\\
 
-\trivia{The game \textit{Red Dead Redemption II} is estimated to have 60 million lines of code, the highest amount for a game at time of writing this book.}\\
+\trivia{The game \textit{Red Dead Redemption II} is estimated to have 60 million SLOC, the highest amount for a game at the time of writing this book.}\\
 
  
 \par 
@@ -41,21 +41,21 @@ The archive contains more than just source code; it also features:
 \end{itemize}
 
 \section{Compile source code}
-Now let's start to compile the source code. To compile the code like it's 1990 you need the following software:
+Now let's start to compile the source code. To compile the code like it's 1990, you need the following software:
 \begin{itemize}
 \item Commander Keen source code.
 \item DosBox.
-\item The Compiler Borland C++ 3.1.
+\item The compiler Borland C++ 3.1.
 \item Commander Keen: Keen Dreams 1.13 shareware (for the assets).
 \end{itemize}
 
 \par
-After setting up DOSBox and installing Borland C++ 3.1\footnote{You can find a complete tutorial in "Let's compile like it's 1992" on fabiensanglard.net}, download the source code from github. Once DOSBox is running and you've navigated to the \cw{keen} folder, create a folder to store your compiled object files. \\
+After setting up DOSBox and installing Borland C++ 3.1\footnote{You can find a complete tutorial in "Let's compile like it's 1992" on fabiensanglard.net}, download the source code from GitHub. Once DOSBox is running and you've navigated to the \cw{keen} folder, create a folder to store your compiled object files. \\
 
 \par
 \tcode{mkdir.txt}\\
 \par
-The \cw{static} folder contains the Huffman dictionaries (\cw{DICT}) and headers (\cw{HEAD}) from the generated graphic, sound and map assets, stored as raw game data files. The team created a special tool called \cw{makeobj} that takes these data files and wraps them into DOS-compatible \cw{.OBJ} files, so that a C compiler (like Borland C++) can link them directly into the game's executable. The tool creates a "symbol" within the object file so that the game's source code can access the embedded data just like any other global variable or array. To generate the static \cw{OBJ} header files, simply enter.\\
+The \cw{static} folder contains the Huffman dictionaries (\cw{DICT}) and headers (\cw{HEAD}) from the generated graphics, sound and map assets, stored as raw game data files. The team created a special tool called \cw{makeobj} that takes these data files and wraps them into DOS-compatible \cw{.OBJ} files, so that a C compiler (like Borland C++) can link them directly into the game's executable. The tool creates a "symbol" within the object file so that the game's source code can access the embedded data just like any other global variable or array. To generate the static \cw{OBJ} header files, simply enter.\\
 \par
 \tcode{static.txt}\\
 
@@ -81,10 +81,10 @@ Checking the size of the compiled program, we see\\
 \tcode{source_compile_size.txt}\\
 
 \par
-As mentioned earlier, Softdisk did not allow the distribution of games larger than 360 KiB. The compiled executable alone already occupies 349 KiB, and it still needed to accommodate graphics, map, and audio assets. With only 11 KiB remaining, the team needed a way to compress the executable to ensure everything would fit on one floppy disk.\\
+As mentioned earlier, Softdisk did not allow distribution of games larger than 360 KiB. The compiled executable alone already occupies 349 KiB, and it still needed to accommodate graphics, map, and audio assets. With only 11 KiB remaining, the team needed a way to compress the executable to ensure everything would fit on one floppy disk.\\
 
 \par
-To compress the executable, the team made used a small utility called LZEXE. It was one of the first widely known executable file compression tools for DOS computers. LZEXE allowed DOS executables to be launched without requiring an explicit decompression step. Most other compression or packing utilities required an additional step (and often additional disk space) to accomplish this.\\
+To compress the executable, the team used a small utility called LZEXE. It was one of the first widely known executable file compression tools for DOS computers. LZEXE allowed DOS executables to be launched without requiring an explicit decompression step. Most other compression or packing utilities required an additional step (and often additional disk space) to accomplish this.\\
 
 
 \par
@@ -115,7 +115,7 @@ The first task performed by the program is to move itself, including the decompr
 \begin{figure}[H]
 \centering
  \includegraphics[width=1.0\textwidth]{imgs/drawings/LZ_decompresss_1.eps}
- \caption{Loading and relocate EXE program in memory (simplified).}
+ \caption{Loading and relocating EXE program in memory (simplified).}
  \end{figure}
 
 \par
@@ -129,25 +129,30 @@ Once relocated, the decompression code begins reading the compressed program and
  \end{figure}
  
 \par
-After the entire program has been decompressed, special attention is required for \cw{JMP} (jump) and \cw{CALL} instructions. Normal program execution is linear, with each instruction directly following the previous one. Jump and call instructions interrupt this flow and force the program to branch to arbitrary absolute addresses in the code. However, under DOS there are no guarantees about the memory address at which an executable will be loaded. Depending on DOS itself, device drivers, reserved memory regions, and other factors, this address can — and frequently does — change from run to run.\\
+After the entire program has been decompressed, special attention is required for \cw{JMP} (jump) and \cw{CALL} instructions. Normal program execution is linear, with each instruction directly following the previous one. Jump and call instructions interrupt this flow and force the program to branch to arbitrary absolute addresses in the code.
+However, under DOS there are no guarantees about the memory address at which an executable will be loaded. Depending on DOS itself, device drivers, reserved memory regions, and other factors, this address can — and frequently does — change from run to run. \\
+
+
 
 \par
-To solve this problem, DOS uses a relocation table, as illustrated below.
+To solve this problem, DOS uses a relocation table. 
+When an EXE file is created, all absolute addresses in the code are calculated under the assumption that the program will be loaded at address \cw{0000:0000h}, the absolute beginning of memory. The relocation table contains a list of locations within the executable where such absolute addresses appear. The DOS loader iterates through this table and patches each address \circled{1} by adding the program’s actual load address \circled{2}.\\
 
 \par
 \begin{figure}[H]
 \centering
  \includegraphics[width=1.0\textwidth]{imgs/drawings/relocation_table.eps}
+ \caption{DOS relocation table.}
  \end{figure}
-
-When an EXE file is created, all absolute addresses in the code are calculated under the assumption that the program will be loaded at address \cw{0000:0000h}, the absolute beginning of memory. The relocation table contains a list of locations within the executable where such absolute addresses appear. The DOS loader iterates through this table and patches each address \circled{1} by adding the program’s actual load address \circled{2}.\\
 
 \par
 DOS is storing each relocation table entry as a 4-byte segment:offset pointer. This takes up quite a bit of space, since an average game has over 1,300 relocation table entries, which would occupy well over 5 KiB of space using the DOS scheme. LZEXE, by contrast, encodes only the distance from the previous fixup. This results in a far more efficient format, where most relocations requiring only a single byte. In practice, an LZEXE-compressed relocation table can be one-quarter the size of the equivalent DOS relocation table.\\
 
 
+
+
 \par
-At this point, memory contains exactly what it would have contained if the executable had never been compressed with LZEXE in the first place. And that’s how it all worked — everything happening in the split second between the user pressing the enter key at the DOS prompt and the screen clearing to launch the game. The executable file is ultimately compressed to 80 KiB, achieving a 77\% reduction in file size.\\
+At this point, memory contains exactly what it would have contained if the executable had never been compressed with LZEXE in the first place. And that’s how it all worked — everything happening in the split second between the user pressing the Enter key at the DOS prompt and the screen clearing to launch the game. The executable file is ultimately compressed to 80 KiB, achieving a 77\% reduction in file size.\\
 
 \par
 \begin{fancyquotes}
@@ -167,11 +172,11 @@ When I was trying to fit all the data for Keen 2 and Keen 3 on a 360K floppy and
 \section{Big Picture}
 The game engine is divided into three blocks: 
 \begin{itemize}
-\item Control panel which lets users configure and start the game.
-\item 2D game renderer where the users spend most of their time.
-\item Sound system which runs concurrently with either the Menu or 2D renderer. 
+\item Control panel, which lets users configure and start the game.
+\item 2D game renderer, where the users spend most of their time.
+\item Sound system, which runs concurrently with either the Menu or 2D renderer. 
 \end{itemize}
-The three systems communicate via shared memory. The renderer writes sound requests to the RAM (also making sure the assets are ready). These requests are read by the sound "loop". The sound system also writes to the RAM for the renderers since it is in charge of the heartbeat of the whole engine. The renderers update the screen according to the wall-time tracked by \cw{TimeCount} variable.
+The three systems communicate via shared memory. The renderer writes sound requests to RAM (also making sure the assets are ready). These requests are read by the sound "loop". The sound system also writes to RAM for the renderers since it is in charge of the heartbeat of the whole engine. The renderers update the screen according to the wall-time tracked by \cw{TimeCount} variable.
 \par
 \begin{figure}[H]
 \centering
@@ -238,7 +243,7 @@ There are six managers in total:
 	\item Input
 \end{itemize}
 \par
-The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer id Software games (\textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolf3D}). Next to the hard drives (HDD) you can see the graphic, map and sound assets files as described in chapter \ref{chapter:assets}.
+The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer id Software games (\textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolfenstein 3D}). Next to the hard drive (HDD) you can see the graphics, map and sound assets files as described in Chapter \ref{chapter:assets}.
 
 \begin{figure}[H] 
 \centering
@@ -251,7 +256,7 @@ The KD\_ stuff was written specifically for Commander Keen while the ID\_ manage
 
 
 \subsection{Memory Manager (MM)}
-The engine has its own memory manager, to have more control over memory fragmentation and optimization. The memory manager is made of a linked list of "blocks" keeping track of the RAM. A block points to a starting point in RAM, has a size and can be marked with attributes:
+The engine has its own memory manager to have more control over memory fragmentation and optimization. The memory manager is made of a linked list of "blocks" keeping track of RAM. A block points to a starting point in RAM, has a size, and can be marked with attributes:
 \begin{itemize}
   \item LOCKBIT : This block of RAM cannot be moved during compaction.
   \item PURGEBITS : Two levels available, 0= unpurgeable, 3=purge first.
@@ -260,7 +265,7 @@ The engine has its own memory manager, to have more control over memory fragment
 \par
 \lstinputlisting[language=C]{code/mm_block.c}
 \par  
-The memory manager allocates all RAM, starting from \cw{0000:0000h}, and assigns segments to the linked list. Since the engine is compiled using the medium memory model, there are two heaps: the near heap between the global variables and stack, and the far heap starting right behind the stack. The total available free memory space for the near heap can be obtained by\\
+The memory manager allocates all RAM, starting from \cw{0000:0000h}, and assigns segments to the linked list. Since the engine is compiled using the medium memory model, there are two heaps: the near heap in the data segment between the global variables and stack, and the far heap starting right behind the stack. The total available free memory space for the near heap can be obtained by\\
 \par
 \lstinputlisting[language=C]{code/nearheap.c}
 
@@ -377,7 +382,7 @@ The header (\cw{HEAD}) and dictionary (\cw{DICT}) files are provided in the \cw{
 The user manager is responsible for the layout of text and control panels, such as loading/saving games, configuring controls, and setting sound devices. Once we start the game, we move the display to EGA graphic mode \cw{0x0D}. Here we cannot print characters on the screen using the \cw{printf()} command. \\
 
 \par
-A key function of the user manager is to render text at a specific pixel location. When the engine needs to draw a string, it is passed to \cw{US\_Print} which does all measurement (\cw{VW\_MeasurePropString}) and then passes this information to \cw{VWB\_DrawPropString}, which takes care of drawing the string on screen.\\
+A key function of the user manager is to render text at a specific pixel location. When the engine needs to draw a string, it is passed to \cw{US\_Print} which performs all measurements (\cw{VW\_MeasurePropString}) and then passes this information to \cw{VWB\_DrawPropString}, which takes care of drawing the string on screen.\\
 
 \par
 In the graphics asset file, each font character is stored with:
@@ -447,7 +452,7 @@ The Sound Manager abstracts interaction with all sound systems supported: PC Spe
 
 
 \subsection{Input Manager (IN)}
-The input manager abstracts interactions with joystick, keyboard, and mouse. It features the code to deal with PS/2, Serial, and DA-15 ports, with each using their own I/O addresses and custom interrupt routines. The keyboard is descibed in the "\nameref{keyboard}" section on page \pageref{keyboard}.\\
+The input manager abstracts interactions with joystick, keyboard, and mouse. It features the code to deal with PS/2, Serial, and DA-15 ports, with each using their own I/O addresses and custom interrupt routines. The keyboard is described in the "\nameref{keyboard}" section on page \pageref{keyboard}.\\
 
 \subsection{Softdisk files}
 The primary function of the Softdisk files is to load and display the intro screen bitmap using the \cw{LoadLIBShape} function from soft.c. Most of the functions in these files are not used and are therefore not discussed further in this book.

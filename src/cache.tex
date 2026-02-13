@@ -111,10 +111,10 @@ The \cw{grneeded[]} cache array then appears as below.\\
 \par
 
 \par
-The function \cw{CA\_CacheMarks()} is called again to load all cache level 2 assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level 2, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory. In this example, this applies to \cw{KEENSTANDRSPR}, \cw{KEENRUNR1SPR}, \cw{TILE16 \#1} and \cw{TILE16 \#3}.\\ 
+The function \cw{CA\_CacheMarks} is called again to load all cache level 2 assets into memory. It iterates over all assets, loading any missing ones into memory. Any asset that is not required for cache level 2, but is already in memory will be marked for purging, meaning the memory manager can remove it from memory in case of insufficient memory. In this example, this applies to \cw{KEENSTANDRSPR}, \cw{KEENRUNR1SPR}, \cw{TILE16 \#1} and \cw{TILE16 \#3}.\\ 
 
 \par
-When the user closes the control panel, the engine lowers the cache level back to 1 by calling \cw{CA\_DownLevel}, the cache level where all assets required for playing the current map are memorized. After the cache is lowered, \cw{CA\_CacheMarks()} is called again to purge unnecessary assets and reload any assets that were removed from memory.\\
+When the user closes the control panel, the engine lowers the cache level back to 1 by calling \cw{CA\_DownLevel}, the cache level where all assets required for playing the current map are memorized. After the cache is lowered, \cw{CA\_CacheMarks} is called again to purge unnecessary assets and reload any assets that were removed from memory.\\
 
 \par
 \lstinputlisting[language=C]{code/CA_level_down.c}

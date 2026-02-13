@@ -10,7 +10,7 @@ void CA_CacheMarks (char *title, boolean cachedownlevel)
 	for (i=0;i<NUMCHUNKS;i++)
 		if (grneeded[i]&ca_levelbit)
 		{
-			if (grsegs[i])		// its allready in memory, make
+			if (grsegs[i])		// its already in memory, make
 				MM_SetPurge(&grsegs[i],0);	// sure it stays there!
 			else
 				numcache++;
