@@ -1,54 +1,48 @@
 \documentclass[book.tex]{subfiles}
 \begin{document}
-To study the IBM PC, it is easiest to first break it down to small parts. Six sub-systems form a pipeline: Inputs, CPU, RAM, Disk, Video, and Audio.\\
+\chapter{Hardware}
+The original IBM PC 5150 was released in September 1981 and marked a turning point in personal computing. Unlike many earlier systems, it was intentionally designed with an open architecture and built using widely available, off-the-shelf components rather than proprietary hardware developed exclusively by IBM. This strategic decision significantly reduced development time and helped make the system more affordable.\\
+
+\par
+The system included internal expansion slots that allowed third-party manufacturers to develop compatible hardware such as graphics adapters, memory expansion cards, sound cards and (hard)disk controllers. This openness encouraged a rapidly growing ecosystem of compatible components and clone systems, which played a major role in establishing the IBM-compatible PC as an industry standard.\\
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{imgs/drawings/fun_pipeline.eps}
-\caption{Hardware pipeline.}
+\includegraphics[width=1.0\textwidth]{imgs/drawings/fun_pipeline.eps}
+\caption{IBM PC subsystems.}
 \label{fig:digraph}
 \end{figure}
 
-A lot of friction was present since manufacturers had not embraced the gaming industry yet. Parts quality varied from  bad, terrible, to downright impossible to deal with.\\
 \par
-
-\begin{figure}[H]
-\centering
-\begin{tabularx}{\textwidth}{ X X  }
-  \toprule
-  \textbf{Stage} & \textbf{Quality} \\ \bottomrule
-  RAM & Bearable \\ 
-  Video & Impossible \\ 
-  Audio & Very Poor \\ 
-  Inputs & Ok \\ 
-  CPU & Good \\ 
-  Disk & Ok \\ \bottomrule
-\end{tabularx}
-\caption{Component quality for a game engine.}
-\end{figure}
-
-
+The IBM PC can be divided into six essential subsystems that determine the overall system performance and the gaming experience: 
+\begin{itemize}
+	\item CPU
+	\item RAM
+	\item Video
+	\item Disk
+	\item Audio
+	\item Input devices
+\end{itemize}
+Each of these subsystems is described in this chapter.
 
 \section{CPU: Central Processing Unit}
-In 1989, around 15\% of the households owned a computer\footnote{https://www.statista.com/statistics/184685/percentage-of-households-with-computer-in-the-united-states-since-1984/}. The performance of these machines was so overwhelmingly determined by the CPU that a PC was referred to not by its brand or GPU\footnote{There was no GPU yet. The term was coined by Nvidia in 1999, who marketed the GeForce 256 as "the world's first GPU", or Graphics Processing Unit.}, but by the main chip inside. If a PC had an Intel 8088 or equivalent, it was called an "XT". If it had an Intel 80286, it was a "286" or "AT".
+In the late 1980s, Intel’s x86 architecture dominated the IBM-compatible PC market, while Motorola’s 68000 series powered systems such as the Apple Macintosh, the Commodore Amiga, and workstations from Sun Microsystems. By 1989, approximately 15\% of US households owned a personal computer\footnote{https://www.statista.com/statistics/184685/percentage-of-households-with-computer-in-the-united-states-since-1984/}.
 
 
-\subsection{Overview}
-  Intel released the 8086 in 1978, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  However, because it retained the full 16-bit internal registers and the 20-bit address bus, the 8088 ran 16-bit software and was capable of addressing a full 1MB of RAM. IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
+\subsection{Introduction of Intel x86 CPU}
+  Intel released the 8086 in 1978, which was the first microchip of the successful x86 family line. One year later, in 1979, it released the 8088 which was a variant of the 8086. The main difference between the two is that there are only eight data lines for the external data bus in the 8088 instead of the 8086's 16 lines.  IBM chose the 8088 over the 8086 for its original PC/XT, because Intel offered a better price for the former and could supply more units. \\
   \par
-  In 1982 Intel released the 80286 microchip. A typical 8088 chip was running at 4.77MHz, where the 80286 was running at 6MHz and later popular versions at 12-16MHz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. Its successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus.\\
+  In 1982 Intel released the 80286 microchip, simply called the "286". A typical 8088 chip was running at 4.77MHz, where the 80286 was running at 6MHz and later popular versions at 12-16MHz. The 80286 was employed for the IBM PC/AT, introduced in 1984, and then widely used in most PC/AT compatible computers until the early 1990s\footnote{By the end of 1988, Intel estimates there were around 15 million 286-based PCs in use worldwide.}. It would be the last, fastest 16-bit PC processor Intel made. Its successor, the Intel 80386, was a true 32-bit processor with a 32-bit data bus.\\
 
-\par  
-Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on an 8088 CPU. An 80286 or higher was recommended to play the game primarily due to its reliance on the 16-bit data bus, as well as its raw speed. This section (and the bulk of this book) is written from the perspective of an 80286, but most of the information is applicable to 8086, as well as PC's many generations newer.\\   
-
-\par
-
+ \par  
+Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly playable on an 8088 CPU. An 286 or higher was recommended to play the game primarily due to its reliance on the 16-bit data bus, as well as its raw speed. This section (and the bulk of this book) is written from the perspective of an 286 CPU, but most of the information is applicable to 8086, as well as PC's many generations newer.\\   
 
 \begin{figure}[H]
 \centering
   \begin{tikzpicture}[font=\small]
     \begin{axis}[
       width=1.0\textwidth,
-      height=0.48\textwidth,
+      height=0.45\textwidth,
       ybar,
       bar width=20pt,
       ylabel={MIPS},
@@ -81,7 +75,7 @@ Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly play
  \par
   \trivia{A modern processor such as the Intel Core i7 3.33 GHz operates at close to 180,000 MIPS.}\\
   
-
+  
 \subsection{The Intel 80286}
   \begin{wrapfigure}[7]{r}{0.3\textwidth}
 \centering
@@ -89,20 +83,12 @@ Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly play
 \includegraphics[width=.3\textwidth]{imgs/drawings/intel_logo.eps}
 \end{wrapfigure}
 \par
-The Intel 80286 chip, first introduced in 1982, is the CPU behind the original IBM PC AT (Advanced Technology). Other computer makers manufactured what came to be known as IBM clones, with many of these manufacturers calling their systems AT-compatible or AT-class computers. \\
+The Intel 80286 chip is the CPU behind the original IBM PC AT (Advanced Technology). Other computer makers manufactured what came to be known as IBM clones, with many of these manufacturers calling their systems AT-compatible or AT-class computers. \\
 \par
 When IBM developed the AT, it selected the 286 as the basis for the new system because the chip provided compatibility with the 8088 used in the PC and the XT. Therefore, software written for those chips should run on the 286. The 286 chip is many times faster than the 8088 used in the XT, and at the time it offered a major performance boost to PCs used in businesses.\\
 
 \par
 The main reason the 286 computer was faster than its predecessor is that it executes instructions much more efficiently. An average instruction takes 12 clock cycles on the 8088, but takes an average of only 4.5 cycles on the 286 processor. Additionally, the 286 chip can handle up to 16 bits of data at a time through an external data bus twice the size of the 8088.\\
-
-\par
-The 286 chip has two modes of operation: real mode and protected mode. The two modes are distinct enough to make the 286 resemble two chips in one. In real mode, a 286 acts essentially the same as an 8086 chip and is fully compatible with the 8086 and 8088. In the protected mode of operation, the 286 was truly something new. In this mode, a program designed to take advantage of the chip's capabilities has access to 1GB of memory (including virtual memory). The 286 chip, however, can address only 16MB of hardware memory. A significant failing of the 286 chip is that it cannot switch from protected mode to real mode without a hardware reset (a warm reboot) of the system (It can, however, switch from real mode to protected mode without a reset).\\
-
-\trivia{Gordon Letwin of Microsoft found a way to switch back from protected to real mode, using a "triple fault"\footnote{https://en.wikipedia.org/wiki/Triple\_fault.} to soft reset the 286 CPU into real mode. However, it could take nearly 1 second, making switching from protected to real not feasible to be done often.}\\
-
-\par
-While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on an 8088 chip.\\
 
 \par
 \begin{figure}[H]
@@ -137,11 +123,22 @@ While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The
    \caption{Comparison of CPUs with \# of transistors.}
  \end{figure}
  \par
-  \trivia{Fast forward to today, the AMD Ryzen 9 7950X contains over 13 billion transistors. We've come a long way.}\\
-
+  \trivia{Fast forward to today, the AMD Ryzen 9 7950X contains over 13 billion transistors.}\\
 
 
 \par
+The 286 CPU has two operating modes: real mode and protected mode. These modes are sufficiently distinct that the 286 can be regarded as two processors in one. In real mode, the 286 behaves essentially like an 8086 and is fully compatible with the 8088. In protected mode, however, the 286 introduced significant new capabilities. Programs designed to take advantage of this mode can access up to 16 MB of physical memory through its 24-bit address bus.\\
+
+\par
+A major limitation of the 286 is that it cannot switch from protected mode back to real mode without a hardware reset (a warm reboot) of the system. It can, however, switch from real mode to protected mode without a reset.\\
+
+\trivia{Gordon Letwin of Microsoft found a way to switch back from protected to real mode, using a "triple fault"\footnote{https://en.wikipedia.org/wiki/Triple\_fault.} to soft reset the 286 CPU into real mode. However, it could take nearly 1 second, making switching from protected to real not feasible to be done often.}\\
+
+\par
+While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on an 8088 chip.
+
+
+\pagebreak
 If you are holding a physical 9.25"x7.5" copy of this book, the CPU packaging is 25x25
 mm square and the die is 7x7 mm, at 1:1 scale.\\
 
@@ -164,7 +161,8 @@ mm square and the die is 7x7 mm, at 1:1 scale.\\
 
  \pagebreak
 
-\par Despite the apparent complexity, the 80286 can be summarized by four functional units and a three-stage instruction pipeline.
+\par 
+To better understand why the 286 is much faster compared to the 8088, we need to understand the architecture of the chip. The 286 architecture can be summarized by four functional units as illustrated below.
 
 
 \begin{figure}[H]
@@ -175,15 +173,17 @@ mm square and the die is 7x7 mm, at 1:1 scale.\\
 \par
 The four functional units can be described by
 \begin{itemize}
-\item \textbf{address unit (AU)} is used to determine the physical addresses of instructions and operands which are stored in memory. The address lines derived by AU can be used to address different peripheral devices such as memory and I/O devices. 
-\item \textbf{bus unit (BU)} interfaces the 80286 with memory and I/O devices. The bus unit is used to fetch instruction bytes from the memory and stores them in the prefetch queue.
-\item \textbf{instruction unit (UI)} receives instructions from the prefetch queue and an instruction decoder decodes them one by one. The decoded instructions are latched onto a decoded instruction queue.
-\item \textbf{execution unit (EU)} is responsible for executing the instructions received from the decoded instruction queue. The execution unit consists of the register bank, arithmetic and logic unit (ALU) and control block. The ALU is the core of the EU and performs all the arithmetic and logical operations.\\
+\item \textbf{Address Unit (AU)} is used to determine the physical addresses of instructions and operands which are stored in memory. The address lines derived by AU can be used to address different peripheral devices such as memory and I/O devices. 
+\item \textbf{Bus Unit (BU)} interfaces the CPU with memory and I/O devices. The BU is used to fetch instruction bytes from the memory and stores them in the prefetch queue.
+\item \textbf{Instruction Unit (UI)} receives instructions from the prefetch queue and an instruction decoder decodes them one by one. The decoded instructions are latched onto a decoded instruction queue.
+\item \textbf{Execution Unit (EU)} is responsible for executing the instructions received from the decoded instruction queue. The EU consists of the register bank, arithmetic and logic unit (ALU) and control block. The ALU is the core of the EU and performs all the arithmetic and logical operations.\\
 \end{itemize}
 
 \par
-The performance increase of the 80286 over the 8088 was mainly to the fact that address calculations (such as segment+offset) were less expensive. They were performed by the dedicated address unit in the 80286, while the older 8088 had to do effective address computation using its ALU, consuming several extra clock cycles in many cases.
- 
+The 8088 had a two-unit architecture consisting of the Execution Unit and the Bus Interface Unit. The introduction of four independent units operating in parallel was one of the primary reasons the 286 was significantly faster than the 8088.\\
+
+\par
+A good example is the calculation of physical memory addresses. In the 286, address calculations are performed by the dedicated address unit, whereas the 8088 computes effective addresses using the ALU, often consuming several additional clock cycles.\\
 
 \par
 \begin{figure}[H] 
@@ -191,39 +191,14 @@ The performance increase of the 80286 over the 8088 was mainly to the fact that 
 \includegraphics[width=\textwidth]{imgs/drawings/processing_unit.eps}
 \end{figure}
 
-
+\par
+The remaining three units form a three stage pipeline. When the execution unit is not using the system bus, the bus unit fetches instructions and stores them in a 6-byte prefetch queue. The decode unit reads bytes from this queue, translates them into decoded instructions, and places them into a secondary three-instruction queue. Finally, the execution unit retrieves these decoded instructions and executes them.\\
 
 \par
-The three units in the execution group form a three stage pipeline: Prefetch, Decode, and Execute. The Prefetch Unit wakes up when the Execution unit is performing but not using the bus and fetches instructions in a 6-byte queue. The prefetcher is linear and cannot predict the result of a branch. As a result, a jump (\cw{JMP}) or \cw{CALL} instruction triggers a flush of the entire pipeline. Instructions go down the pipeline and are decoded by the Decode Unit: the result of the decode operation is stored in a three-element FIFO where it is picked up by the Execution Unit.\\
-
-
+In practical terms, an 286 system running at the same clock frequency as an 8088 will typically be three to six times faster due to its pipelined architecture and dedicated functional units\footnote{https://www.tomshardware.com/reviews/processor-cpu-apu-specifications-upgrade,3566-6.html.}. \\
 
 \par
-From a programming perspective, a 286 CPU can be summarized by the following elements:
-\begin{itemize}
-\item Arithmetic Logic Unit performing \cw{add}, \cw{sub}, \cw{mul} et cetera.
-\item 14 registers:
-\begin{itemize}
-  \item 16-bit General Purpose Registers: AX, BX, CX, DX
-  \item 16-bit Index Registers: SI, DI, BP, SP
-  \item 16-bit Segment Registers: CS, DS, ES, SS
-  \item 16-bit Status and Control Register
-  \item 16-bit Program Counter: IP
-\end{itemize}
-\item A 24-bit address bus for up to 16MiB of addressable RAM
-\item Memory Management Unit
-\end{itemize}
- \par
-
-\begin{figure}[H]
-\centering
-  \fullimage{Intel80286.png}
-\caption{The Intel 286, 7mm by 7mm packing 134,000 transistors}
-\end{figure}
-
-Despite its pipeline design, the 286 cannot do an operation in less than two cycles. Even a simple \cw{ADD reg, reg} or \cw{INC reg} takes two clocks. This is due to the absence of a SRAM on-chip cache and a slow decoding unit. Also have a look at multiplications which cost 24 cycles. So as a game developer you really want to avoid many multiplications during game runtime.\\
- \par
- 
+The table below shows the average instruction costs for the 80286. Multiplication and division operations require significantly more cycles than most other instructions. For applications where every cycle counts, such as games, minimizing the use of multiplication and division during runtime was critical.\\
 
   \begin{figure}[H]
 \centering  
@@ -246,30 +221,78 @@ Despite its pipeline design, the 286 cannot do an operation in less than two cyc
 \stepcounter{footnote}
 \footnotetext{Intel 80286 programmer's reference manual - 1987.}
 
-
-\subsection{16-bit Data alignment}
-Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus where the 8088 only had an 8-bit bus. Thanks to its 16-bit bus, the 286 can access and write word-sized memory variables just as fast as byte-sized variables. There's a catch, however: this is only true for word-sized variables that start at even memory addresses. When the 286 is asked to perform a word-sized access starting at an odd memory address, it actually performs two separate accesses, each of which fetches 1 byte, just as the 8088 does for all word-sized accesses. In other words, the effective capacity of the 286's external data bus is halved when a word-sized access to an odd address is performed\footnote{See Michael Abrash's Graphics Programming Black Book Special Edition, chapter 11.}.\\
-
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{imgs/drawings/data_alignment.eps}\\
+  \includegraphics[width=0.95\textwidth]{screenshots_300dpi/Intel80286.png}
+\caption{The Intel 286, 7mm by 7mm packing 134,000 transistors}
 \end{figure}
+
 \par
- 
-\par
-The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized access to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying large memory blocks. 
+For programming purposes, the 286 CPU can be summarized as follows::
+\begin{itemize}
+\item Arithmetic Logic Unit performing \cw{add}, \cw{sub}, \cw{mul}, etc.
+\item 14 registers, all 16-bits wide:
+\begin{itemize}
+  \item General Purpose Registers: AX, BX, CX, DX
+  \item Index Registers: SI, DI, BP, SP
+  \item Segment Registers: CS, DS, ES, SS
+  \item Status and Control Register
+  \item Program Counter: IP
+\end{itemize}
+\item A 24-bit address bus for up to 16MiB of addressable RAM
+\item Memory Management Unit (MMU), used in Protected Mode
+\end{itemize}
+ \par
 
 
 
 \section{RAM}
-The first CPUs in the Intel x86 family were designed in 1976. It was introduced at a time when the largest register in a CPU was only 16-bits long which meant it could address only 65,536 bytes (64 KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}) of memory, directly. For example, the Apple II and the Commodore 64 both shipped with 64KiB, which was enough to write and run amazing things.\\
+When the first IBM PC was introduced in 1981, it came with a base memory of 16 KiB or 64 KiB and could be expanded up to 256 KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}. This was a large amount of memory at the time, considering that the average home computer, such as the Commodore 64 or MSX systems, contained a maximum of 64 KiB. With the introduction of the 8088 CPU and the IBM XT, the maximum memory increased to 640 KiB. Later, with the introduction of the 80286, one could, in theory, address up to 16 MiB of memory. In practice, however, this was never fully utilized due to the constraints of the DOS operating system.\\
+
+
+\subsection{x86 Real and Protected Mode}
+With the 16-bit architecture of the 8088, only 64 KiB could be addressed using a single 16-bit address register. To address more memory, Intel introduced the "Real Mode" architecture. It combined two 16-bit address values into a 20-bit physical address, thereby providing access to up to 1 MiB of RAM. There was no memory protection and direct access to all hardware, meaning that applications could (un)intentionally overwrite each other’s memory.\\
 
 \par
-But everyone was hungry for a way to run much larger programs. Rather than create a CPU with larger register sizes, the designers at Intel decided to keep the 16-bit registers for their new 8086 and 8088 CPU and added a different way to access more memory: They expanded the instruction set, so programs could tell the CPU to group  two 16-bit registers together whenever they needed to refer to an absolute memory location beyond 64 KiB.\\
+As memory requirements increased, there was a need for an improved CPU architecture supporting larger address spaces and access protection. With the introduction of the 80286, Protected Mode was added to the architecture. It provided 24-bit memory addressing, allowing up to 16 MiB of memory, along with memory protection through an MMU that prevented applications from accessing or overwriting memory belonging to other programs.\\
+
+\par 
+To maintain backward compatibility with older software, the 80286 also retained Real Mode. The system always booted in Real Mode and could then switch to Protected Mode. A significant failing of the 80286 chip is that it cannot switch back from protected mode to real mode without a hardware reset (a warm reboot) of the system.\\
+
+
+\trivia{Gordon Letwin of Microsoft found a way to switch back from protected to real mode, using a "triple fault"\footnote{https://en.wikipedia.org/wiki/Triple\_fault.} to soft reset the 286 CPU into real mode. It could take nearly 1 second, making switching from protected to real not feasible to be done often.}\\
+
+\par
+The protected mode could not run existing MS-DOS software. To use it, a completely new operating system had to be rewritten, and there was little incentive for developers to do this when they could target the 8086, which held the largest market share. As a result, developers on DOS continued programming within the limitations of the 8088 architecture, where only 1 MiB of RAM could be addressed without memory protection.\\
+
+\par
+To make matters worse, only the first 640 KiB of the 1 MiB address space was available for applications. This area, also called Conventional Memory, included system-specific data, the DOS operating system, as well as drivers needed to run the system (e.g., a mouse driver), which effectively left \textasciitilde{}620 KiB of usable memory for applications. The remaining 384 KiB, known as the Upper Memory Area (UMA), was reserved for video memory, BIOS ROM, and memory-mapped I/O.\\
+
+
+\par
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{imgs/drawings/real_mode_v2.eps}
+\caption{First 1MiB of RAM layout.} 
+\label{fig:fp_internals}
+\end{figure}
+
+
 
 \subsection{Memory addressing}
-If the designers had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data\footnote{We've often heard that Bill Gates said something to the effect: "640K of memory should be enough for anyone.". Though many of us no longer believe he ever said those exact words, he did, however, during a video interview with David Allison in 1993 for the National Museum of American History, Smithsonian Institution, say: "I laid out memory so the bottom 640KiB was general purpose RAM and the upper 384KiB I reserved for video and ROM, and things like that."}. So, instead of dealing with whatever problems a linear addressing scheme of 32-bits would have produced, they created the segment:offset scheme 
-which allows a CPU to effectively address about 1 MiB\footnote{This book uses IEC notation where MiB is $2^{20}$ and MB is $10^6$.} of memory. The segment:offset schema combines two 16-bit registers, one designating a segment and the other an offset within that segment.
+If Intel had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data.\\
+
+\par
+\begin{fancyquotes}
+I've said some stupid things and some wrong things, but not "640K is enough". No one involved in computers would ever say that a certain amount of memory is enough for all time.\\ 
+\par
+\textbf{Bill Gates - Founder of Microsoft}
+\end{fancyquotes}\\
+
+
+\par
+So, instead of dealing with whatever problems a linear addressing scheme of 32-bits would have produced, they created the segment:offset scheme 
+which allows a CPU to effectively address 1 MiB\footnote{This book uses IEC notation where MiB is $2^{20}$ and MB is $10^6$.} of memory. The segment:offset schema combines two 16-bit registers, one designating a segment and the other an offset within that segment.
 \\
 
 \par
@@ -281,9 +304,9 @@ which allows a CPU to effectively address about 1 MiB\footnote{This book uses IE
 \end{figure}
 \par
 
-To support this architecture, the CPU keeps track of four different segments. Each of these segments has its own purpose and segment register:
+To support this architecture, four segment registers are introduced. Each of these segment registers has its own purpose:
 \begin{itemize}
-  \item CS segment register, where the machine instructions reside.
+  \item CS segment register, where the machine code (instructions) reside.
   \item DS segment register, where the data resides.
   \item SS segment register, where the stack resides.
   \item ES segment register, which is used as extra data segment.
@@ -293,7 +316,13 @@ To support this architecture, the CPU keeps track of four different segments. Ea
 In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: "near" and "far". \\
 
 \par
-A near pointer refers to a function or data object that is within the default segment. It is 16 bits long and contains an offset into the current DS data segment if it's a data pointer, or into the current CS code segment if it's a function pointer. A far pointer could refer to a function or data that is in a different segment than the current, default segment. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
+A near pointer refers to a function or data object that is within the default code or data segment. It is 16 bits long and contains an offset into the current DS data segment if it's a data pointer, or into the current CS code segment if it's a function pointer. A far pointer could refer to a function or data that is in a different segment than the current, default segment. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
+
+\par
+\begin{figure}[H] 
+\centering
+\includegraphics[width=0.7\textwidth]{imgs/drawings/near_far_pointer.eps}
+\end{figure}
 
 \par
 Accessing code or data with a near pointer is much faster than using a far pointer. When you use a near pointer, the program only needs to locate the code or data through the offset (or index) register. However, when using a far pointer, the program must first find the segment and then locate the code or data within that segment. For faster execution, one should use as many near pointers as possible. The drawback of using only near pointers is that they limit the program or data to 64KiB of memory.\\
@@ -310,7 +339,7 @@ Will output:\\
 \par
 \begin{minipage}{\textwidth}
  \lstinputlisting[language=C]{code/far_pointer_out.c}\par
- \end{minipage}\\
+ \end{minipage}
 
 \par
 To work with memory beyond this limit, you can use another type of pointer called a "huge" pointer, which allows pointer arithmetic to function correctly beyond the 64KiB boundary.\\
@@ -354,42 +383,11 @@ Will output:\\
 \par
 A \cw{huge} reference is much slower than the \cw{far} reference as it comes with additional overhead to update the segment and address normalization after every arithmetic manipulation. So, most programmers avoided the \cw{huge} pointer, unless really needed.\\
 
-\subsection{80286 Real and Protected mode}
-By 1986, hardware had gotten cheaper and Intel made a departure from the old architecture
-with its 286. This new CPU could be put in what is called "protected mode" featuring
-a 24-bit-wide address bus for up to 16 MiB of RAM protectable with a MMU\footnote{Memory Management Unit}. To make sure old programs could still run, the 286 processor could be put in "real mode" which replicates how the Intel 8086 and 8088 operated: 16-bit registers, 20-bit address bus giving 1MiB addressable RAM with segmented addressing.\\
 
-\par
-For compatibility reasons all PCs have to start in real mode. One might assume that programmers in the late 1980s promptly switched the CPU to protected mode to unleash the full
-potential of the machines and ditch the 20-year-old real mode. It would have worked out if the operating system had been able to run in protected mode.
-However, in the name of backward compatibility, Microsoft's DOS could only handle real
-mode which effectively locked developers into 16-bit programming.\\
 
-\par
-  With protected mode unavailable, 1990 developers programmed like it was 1976: with a 20-bit-wide address bus offering only 1MiB of addressable RAM. Regardless of how much memory was installed on the machine, only 1MiB could be addressed. The memory layout for the real mode is as follows:
-\begin{itemize}
-\item From 00000h to 003FFh : the Interrupt Vector Table.
-\item From 00400h to 004FFh : BIOS data.
-\item From 00500h to 005FFh : command.com+io.sys.
-\item From 00600h to 9FFFFh : Usable by a program (about 620KiB in the best case). 
-\item From A0000h to FFFFFh : UMA (Upper Memory Area): Reserved to BIOS ROM, video card and sound card mapped I/O.
-\end{itemize}
-
- 
-\bigskip
-Out of the original 1024KiB, only 640KiB (called Conventional Memory) was accessible to a program. 384KiB was reserved for the UMA and every single driver installed (\codeword{.SYS} and \codeword{.COM}) took away from the remaining 640KiB.\\
-
-\par
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.65\textwidth]{imgs/drawings/real_mode_v2.eps}
-\caption{First 1MiB of RAM layout.} 
-\label{fig:fp_internals}
-\end{figure}
-\pagebreak
 
 \subsection{Real mode: Memory models}
-When a program is compiled and executed, the operating system allocates a chunk of memory to the program. This memory is divided into different segments:
+When a program is compiled and executed, the operating system allocates a chunk of memory to the program. This memory is divided into different segments, aligned with the segment registers:
 \begin{itemize}
   \item \textbf{Code section}: Stores the program executable. When you compile a C program, the compiler converts your code into assembly instructions that the CPU executes.
   \item \textbf{Data section}: Stores initialized and uninitialized global and static variables.
@@ -476,28 +474,41 @@ Fortunately, there is a way to access additional memory using the medium model. 
 \caption{Medium memory model layout with far heap memory.}
 \label{fig:mm_farheap}
 \end{figure}
+ 
+
+\subsection{16-bit Data alignment}
+Compared to the Intel 8088, the 286 CPU contained a 16-bit external data bus where the 8088 only had an 8-bit bus. Thanks to its 16-bit bus, the 286 can access and write word-sized memory variables just as fast as byte-sized variables. There's a catch, however: this is only true for word-sized variables that start at even memory addresses. When the 286 is asked to perform a word-sized access starting at an odd memory address, it actually performs two separate accesses, each of which fetches 1 byte, just as the 8088 does for all word-sized accesses. In other words, the effective capacity of the 286's external data bus is halved when a word-sized access to an odd address is performed\footnote{See Michael Abrash's Graphics Programming Black Book Special Edition, chapter 11.}.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{imgs/drawings/data_alignment.eps}\\
+\end{figure}
+\par
+ 
+\par
+The way to deal with the data alignment cycle-eater is straightforward: Don't perform word-sized access to odd addresses on the 286 if you can help it. This is not an issue for small memory operations, but it will harm performance when copying large memory blocks. 
 
 
-\pagebreak
 \section{Video}
 
-PCs had dedicated video cards and were connected to CRT monitors: big, heavy, small diagonal, cathode ray-based, curved-surface screens. Most had a 14" diagonal with a 4:3 aspect ratio. The conversion from the digital CPU output to the analog monitor signal was handled by the video adapter.\\
-
+Unlike home computers, the IBM PC did not include onboard video hardware. Instead, it required a separate video adapter card, which was installed in one of the system’s expansion slots. Each video adapter was typically paired with its own dedicated CRT monitor—a large, heavy display, usually with a 14" diagonal screen.\\
 
 
 \subsection{Inner workings of a CRT monitor}
 
 The first computer monitors were built around a Cathode Ray Tube (CRT). The picture on a CRT is generated by an electron gun, which converts electrical power into a narrow beam of electrons moving with substantial kinetic energy. The inside of the screen is coated with phosphor, which glows when struck by the electron beam (and for a short time thereafter).\\
 
+\par
+The electron beam is highly susceptible to magnetic fields, allowing it to be deflected using magnets. By placing horizontal and vertical electromagnets around the neck of the tube (the deflection yoke), the beam can be positioned anywhere on the screen. Manually controlling the beam would be tedious and impractical, so this process is automated by connecting the electromagnets to an oscillator that generates sawtooth waveforms.\\
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{imgs/drawings/CRT_inner.eps}
+\includegraphics[width=1.0\textwidth]{imgs/drawings/CRT_inner.eps}
 \caption{Inner working of CRT monitor.}
 \label{fig:CRT_inner_working}
 \end{figure}
 
-\par
-The electron beam is highly susceptible to magnetic fields, allowing it to be deflected using magnets. By placing horizontal and vertical electromagnets around the neck of the tube (the deflection yoke), the beam can be positioned anywhere on the screen. Manually controlling the beam would be tedious and impractical, so this process is automated by connecting the electromagnets to an oscillator that generates sawtooth waveforms.\\
+
 
 \par
 When both oscillators run together at precisely controlled frequencies, the electron beam scans the phosphor-coated screen from left to right and from top to bottom. The vertical oscillator determines how often the entire screen is redrawn, also known as the refresh rate. If the refresh rate is too low, the display will flicker. Most people can perceive flicker when the refresh rate drops below about 60 Hz, which is why most CRT displays operate at a  refresh rate of 60 Hz or higher.\\
@@ -507,6 +518,9 @@ The CGA standard has a maximum vertical resolution of 200 lines, which requires 
 
 \trivia{The 15.75 kHz horizontal frequency is the standard used for NTSC television signals in North America and Japan. By adopting this frequency rate, IBM made it possible to connect a CGA card to standard televisions.}\\
 
+\par
+To generate an image, the output of the electron gun is modulated on and off, controlling which regions of phosphor get hit and which don’t. Each horizontal sweep of the beam is called a scan line. The time during which the beam returns to the left edge of the screen is known as the horizontal retrace, while the time required to return to the top is called the vertical retrace.\\
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{imgs/drawings/monitor.eps}
@@ -514,15 +528,15 @@ The CGA standard has a maximum vertical resolution of 200 lines, which requires 
 \label{fig:CRT_monitor_scan}
 \end{figure}
 
-\par
-To generate an image, the output of the electron gun is modulated on and off, controlling which regions of phosphor get hit and which don’t. Each horizontal sweep of the beam is called a scan line. The time during which the beam returns to the left edge of the screen is known as the horizontal retrace, while the time required to return to the top is called the vertical retrace.\\
-
 
 \par
 The electron beam cannot instantly stop and reverse direction; it must slow down, change direction, and accelerate again at the edges of the screen. This is handled by moving the beam outside the visible display area during retrace. This practice, known as overscan, intentionally directs the beam over regions of the screen that are not visible to the viewer, resulting in an image that is slightly larger than the active display area (the area which contains the actual character and/or graphics data).
 
-\subsection{And then there was color}
-So far, this explanation has described a monochrome display, which uses a single color of phosphor. To produce a color image, the screen is coated with three types of phosphor arranged in a very fine red, green, and blue (RGB) pattern. \\
+\subsection{And then there was color} 
+So far, this explanation has described a monochrome display, which uses a single color of phosphor. To produce a color image, the screen is coated with a red, a green, and a blue phosphor, arranged in a triangular shape. \\
+
+\par
+The color CRT contains three separate electron guns, each responsible for one of the RGB components of the image. In the figure below, the rays from the cannons are colored so the reader can follow, but electrons have no color. To ensure that each electron beam strikes only the phosphor of its corresponding color, a shadow mask is placed between the electron guns and the phosphor-coated screen.\\
 
 \begin{figure}[H]
 \centering
@@ -532,20 +546,30 @@ So far, this explanation has described a monochrome display, which uses a single
 \end{figure}
 
 \par
-The color CRT contains three separate electron guns, each responsible for one of the RGB components of the image. In the figure above, the rays from the cannons are colored so the reader can follow, but electrons have no color. To ensure that each electron beam strikes only the phosphor of its corresponding color, a shadow mask is placed between the electron guns and the phosphor-coated screen.\\
+The distance between the same-colored phosphor dots on the screen is called the "dot pitch". It dictates the image sharpness and for the EGA monitor it generally ranged from 0.28mm to 0.40mm.\\
 
 \par
-The shadow mask gives the appearance of discrete pixels, but in practice it is nearly impossible to control individual phosphor elements directly. Take the example below where we light up green. The beam, represented by the circle, will usually hit multiple adjacent green phosphor elements at once. As a result, the effective “dot” (or pixel)—the smallest addressable unit of information on the screen—is defined by the combined effects of the RGB phosphor pattern density and the diameter of the electron beam.\\
+The three dots in a triangle gives the appearance of discrete pixels, but in practice it is nearly impossible to control individual phosphor elements directly. Take the example of Figure \ref{fig:CRT_dot} where we light up green. The beam, represented by the circle, will usually hit multiple adjacent green phosphor elements at once. As a result, the effective “dot” (or pixel)—the smallest addressable unit of information on the screen—is defined by the combined effects of the RGB phosphor pattern density and the diameter of the electron beam.\\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.45\textwidth]{imgs/drawings/CRT_dot.eps}
+\includegraphics[width=0.43\textwidth]{imgs/drawings/CRT_dot.eps}
 \caption{"dot" or "pixel" on a CRT screen. }
 \label{fig:CRT_dot}
 \end{figure}
 
 \par
-Everything described up to this point occurs entirely inside the monitor. This is where the video adapter comes into play, controlling the display via the DE-9 video connector. The CGA and EGA adapters use
+Everything described up to this point occurs entirely inside the monitor. This is where the video adapter comes into play, controlling the display via the DE-9 video connector.\\
+
+ \begin{figure}[H]
+\centering
+\includegraphics[width=0.15\textwidth]{imgs/drawings/ports/DE9_serial_port.eps}
+\caption{DE-9 video output connector.}
+\label{fig:serialPort}
+\end{figure}
+
+\par
+The CGA and EGA adapters use
 \begin{itemize}
 	\item Two pins for horizontal and vertical synchronization signals 
 	\item Four (CGA) or six (EGA) pins to control the intensity of the electron guns
@@ -555,9 +579,11 @@ The horizontal and vertical synchronization pins carry timing signals that match
 \par
 The CRT draws each scan line from left to right, while the control pins from the video adapter determine which portions of the scan line are illuminated. When a scan line is completed, the video adapter generates a horizontal synchronization pulse (HSYNC), to indicate a return to the left side of the screen. This process continues line by line until the bottom of the screen is reached. At that point, the adapter generates a vertical synchronization pulse (VSYNC), and the electron beam retraces back to the top of the screen to begin drawing the next frame.\\
 
+\pagebreak
 \subsection{History of Video Adapters}
 
-The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IBM PC 5150. It offered two colors, allowing 80 columns by 25 lines of text.  While not great, it was standard on every PC. Many other systems followed over the years, each of them preserving backward compatibility.
+The original IBM PC and XT could choose between the Monochrome Display Adapter (MDA) and the Color Graphics Adapter (CGA) expansion cards. With the introduction of the IBM PC AT in 1984, IBM introduced the Enhanced Graphics Adapter (EGA). Three years later, the EGA was succeeded by the Video Graphics Array (VGA).\\
+
 
 \bigskip
  \begin{figure}[H]
@@ -569,15 +595,15 @@ The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IB
    (\textbf{M}onochrome
    \textbf{D}isplay
    \textbf{A}dapter) & 1981 & 4KiB & 80x25\footnotemark 
-   \\ \codeword{Hercules} & 1982 & 64KiB & 720x348
    \\ \codeword{CGA}
    (\textbf{C}olor
    \textbf{G}raphics
    \textbf{A}dapter) & 1981 & 16KiB & 640x200
+   \\ \codeword{Hercules} & 1982 & 64KiB & 720x348
     \\ \codeword{EGA}
    (\textbf{E}nhanced
    \textbf{G}raphics
-   \textbf{A}dapter) & 1985 & 64KiB & 640x350
+   \textbf{A}dapter) & 1984 & 64KiB & 640x350
    \\ \codeword{VGA}
    (\textbf{V}ideo
    \textbf{G}raphics
@@ -592,14 +618,15 @@ The Monochrome Display Adapter (\codeword{MDA}) was released in 1981 with the IB
 \stepcounter{footnote}
 \footnotetext{Text mode only.}
 
-
-Each iteration added new features and by 1990 the predominant graphic system was EGA, although the VGA system was rapidly becoming the new standard. All video cards installed on PCs had to follow the standard set by IBM. The universality of that system was a double-edged sword. While developers had to program for only one graphic system, there was no escaping its shortcomings.\\
+The EGA represented an interesting middle ground for game developers in the late 1980s and early 1990s. It supported a sufficiently high display resolution and enough colors to produce respectable games. However, programming the EGA proved to be incredibly difficult. The card has many dark corners and undocumented behaviors.  To fully master the hardware, one must delve deeply into its inner workings.\\
 
 
 \subsection{Introduction of EGA Video Card}
 
-IBM introduced the Enhanced Graphics Adapter (EGA) in 1985 as the successor of CGA. The standard card was shipped with only 64KiB video memory, but it had the option to expand the memory using the onboard graphics memory expansion card.
+IBM introduced the Enhanced Graphics Adapter (EGA) in 1984 as the successor of CGA. The standard card was shipped with only 64KiB video memory, but it had the option to expand the memory using the onboard graphics memory expansion card.
 Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast full of discrete components. The memory consists out of TMS4416 RAM, a common memory chip for (home) computers around that period. Each chip contains 16KiB of 4-bits memory, so one needs two chips to end up having 16KiB of 8-bit memory and eight chips for 64KiB of 8-bit memory. \\
+
+\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still, it took until 1984 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
 
 \begin{figure}[H]
   \centering 
@@ -608,11 +635,11 @@ Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast fu
   \label{fig:ibm_ega_card}
 \end{figure}
 
-\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still, it took until 1984 until they became widely available and lower priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64 KiB RAM was the way to go for new designs. Computers with only 16 KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
+
 
 
 \par
-To add additional video memory to the IBM EGA card a Graphics Memory Expansion Card could be purchased. By default, only the bottom row of memory was populated with chips, expanding the total EGA video memory to 128KiB. The expansion card provided DIP (dual in-line package) sockets for further memory expansion. Populating the DIP sockets with a Graphics Memory Module Kit adds two additional rows of 64KiB, bringing the EGA memory to its maximum of 256KiB. \\
+To add additional video memory to the IBM EGA card a Graphics Memory Expansion Card could be purchased. By default, only the bottom row of memory was populated with chips, expanding the total EGA video memory to 128KiB. The expansion card provided dual in-line package (DIP) sockets for further memory expansion. Populating the DIP sockets with a Graphics Memory Module Kit adds two additional rows of 64KiB, bringing the EGA memory to its maximum of 256KiB. \\
 
 
 \begin{figure}[H]
@@ -622,11 +649,12 @@ To add additional video memory to the IBM EGA card a Graphics Memory Expansion C
   \label{fig:ibm_ega_card}
 \end{figure}
 
-
+\vspace{5pt}
 \par
 The EGA clones that started coming along in 1986-87 were based on integrated chipsets, and the vast majority of them came with the maximum of 256KiB on board. When Commander Keen came out, the headcount of EGA cards with less than 256KiB would've been practically negligible\footnote{PC Tech Journal Oct 1986 (page 82-83) and PC Tech Journal Nov 1986 (page 148-149)}.\\
 
-
+\par
+The next page shows an ATI EGA Wonder 800 (top) and Paradise AutoSwitch EGA 350 (bottom),  both are 8-bit ISA. The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
 
 \begin{figure}[H] 
   \centering 
@@ -639,49 +667,109 @@ The EGA clones that started coming along in 1986-87 were based on integrated chi
 \pagebreak
 
 
-\par
-The previous page shows an ATI EGA Wonder 800 (top) and Paradise AutoSwitch EGA 350 (bottom),  both are 8-bit ISA. The eight chips on the left of the card form the VRAM where the framebuffers are stored. 
+
 
 \subsection{EGA Architecture}
+The EGA card was documented with a highly technical architectural diagram, filled with cryptic components and many wires between them. \\
 
-EGA can be summarized as three major systems made of input, storage, and output:
+ \vspace{10pt}
+ \begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{imgs/drawings/ibm_ega.eps}
+\caption{IBM's EGA documentation.}
+\label{fig:ibm_ega}
+\end{figure}
+
+\par
+The overall design can be simplified into several main components responsible for input, storage, and output:
 \begin{itemize}
-\item The Graphic Controller and Sequence Controller controlling how EGA RAM is accessed (the CPU-VRAM interface)
-\item The framebuffer (the VRAM) made of four memory banks with 64KiB (rather than one bank of 256KiB).  
-\item The Sequence Controller is responsible to read the four memory banks and convert video memory to color indexes.
-\item The CRT Controller and the Attribute Controller taking care of converting the color-indexed framebuffer to RGB and then to digital TTL\footnote{Transistor-Transistor Logic} signal for display
+\item Two discrete Graphics Controllers to control and translate data between the CPU and video memory.
+\item The framebuffer (VRAM), organized into four memory banks (planes), which stores the image data.  
+\item The Sequencer Controller, which reads data from the four memory banks and converts it into color indices.
+\item The CRT Controller and Attribute Controller, which convert color indices into synchronized RGBI signals and transmit them to the display using TTL\footnote{Transistor-Transistor Logic} signaling.
 \end{itemize}
 
 \par
 \trivia{In the 1980's integrated video DACs\footnote{Digital to Analog Converter} were expensive and difficult to embed into custom chips. Most home computers with RGB output used TTL for digital output. With the introduction of VGA the DAC became the standard}.\\
 
-The most surprising part of the architecture is obviously the framebuffer. Why have four small fragmented banks instead of one big linear one?\\
-\par
-The main reason was RAM latency and the need for minimum bandwidth. A CRT running at 60Hz and displaying 640x350 in 16 colors needs a pixel every $\frac{1}{640*350*60}=74$ nanosecond. At this resolution, one pixel is encoded with 4 bits. Each nibble is translated to a RGB color via the TTL. So that means it requires one byte every 148 nano-seconds.\\
-\par
- Unfortunately, RAM access latency was 200ns - not nearly fast enough\footnote{Computer Graphics: Principles and Practice 2nd Edition, page 168.} to refresh the screen at 60 Hz, so the TTL would starve. If latency could not be reduced, the throughput could still be improved by reading from four banks at a time. Reading in parallel gave an amortized RAM latency of 200/4 = 50ns, which was fast enough.\\
-\par
-Keep in mind that this architecture reduced the penalty of read operations, but plotting a pixel in the framebuffer with a write operation was still slow. Writing to the VRAM as little as possible was crucial to maintaining a decent frame rate. 
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{imgs/drawings/ega.eps}
-\caption{EGA Architecture.}
+\includegraphics[width=0.8\textwidth]{imgs/drawings/ega.eps}
+\caption{Simplified EGA architecture, it should not be considered 100\% correct.}
 \label{fig:ega_arch}
 \end{figure}
 
- 
-
-
-\subsection{EGA Planar Madness}
-\label{section:EGA_Planar_Madness}
- 
-Four memory banks provide sufficient throughput to reach high resolutions at 60 Hz. This type of architecture is called "planar". Each plane carries one bit of a pixel's palette index. For EGA there are 4 planes, where combining one bit from each plane produces a 4-bit color index. This color index is then translated into a color on the screen via the attribute controller. This layout is better explained with a drawing.\\
-
+\par
+A particularly interesting aspect of the architecture is the use of four memory banks. Let’s do some math to better understand why this architecture is chosen. A 640 x 350 image with 16 colors (4 bits per pixel) requires 640 x 350 x 4 bits = 896,000 bits, or 112KB of VRAM. This exceeds the 64KiB segment size imposed by the x86 Real Mode architecture, meaning the CPU could not access the entire framebuffer without performing relatively slow segment register changes while updating the screen.\\
 
 \par
-To write the color of the first pixel, a developer has to write the first bit of the first byte in plane 0, the second in plane 1, the third in plane 2 and the fourth in plane 3. The Sequence Controller then reads 4 bytes at a time (one from each plane) and converts them via the CRT Controller and Attribute Controller into 8 pixels on screen. \\
+A second, more serious issue was memory bandwidth. To support a CRT refresh rate of 60 Hz, the adapter needed to provide one byte every $\frac{1}{112,000*60}=149$ nanoseconds. At the time, typical RAM access latency was around 200ns, which would have choked the video adapter.\\
+
+\par
+The EGA card solved these limitations by dividing memory into four planes and accessing them in parallel. This type of architecture is called "planar". This reduced the effective address space per plane by a factor of four, meaning each plane only needed to supply one byte every 596 nanoseconds, thereby relaxing the timing constraints on memory access.\\
+
+
+
+
+\subsection{EGA Modes}
+The EGA card remained backward compatibility with previous video adapters. In addition to introducing new, higher-resolution graphics modes, EGA retained support for both Monochrome Display Adapter (MDA) and Color Graphics Adapter (CGA) modes. This ensured that existing software written for earlier IBM PCs would continue to function without modification. \\ 
+
+
+\vspace{-10pt}
+\begin{figure}[H]
+\centering
+\begin{table}[H]
+\begin{tabularx}{\textwidth}[c]{llllc}
+\hline
+\textbf{Mode} & \textbf{Type} & \textbf{Format} & \textbf{Colors} & \textbf{RAM Mapping}  \\ \hline
+00h             & text          & 40x25           & 16 (monochrome) & B8000h    \\ \hline
+01h             & text          & 40x25           & 16              & B8000h    \\ \hline
+02h             & text          & 80x25           & 16 (monochrome) & B8000h    \\ \hline
+03h             & text          & 80x25           & 16              & B8000h    \\ \hline
+04h             & CGA Graphics  & 320x200         & 4               & B8000h    \\ \hline
+05h             & CGA Graphics  & 320x200         & 4 (monochrome)  & B8000h    \\ \hline
+06h             & CGA Graphics  & 640x200         & 2               & B8000h    \\ \hline
+07h             & MDA text      & 9x14            & 4 (monochrome)  & B0000h    \\ \hline
+0Dh           & EGA graphic   & 320x200         & 16              & A0000h    \\ \hline
+0Eh           & EGA graphic   & 640x200         & 16              & A0000h    \\ \hline
+0Fh           & EGA graphic   & 640x350         & 4               & A0000h    \\ \hline
+10h           & EGA graphic   & 640x350         & 16 (out of 64)    & A0000h  \\ \hline
+\end{tabularx}
+\end{table}
+\caption{EGA Modes available.}
+\label{ega-modes-available}
+ \end{figure}
+ 
+\trivia{The Modes \cw{08h-0Ah}  are reserved for PCjr (or Tandy Graphics Adapter) graphics modes, which offered 160x200 with 16 colors, 320x200 with 16 colors and 640x200 with 4 colors. Modes \cw{0Bh} and \cw{0Ch} are reserved for internal EGA BIOS.}\\
+
+\par
+Changing the video mode is usually done using the \cw{0x10h} BIOS interrupt, which handles all kind of video display operations. Changes via the BIOS are regarded as a safe way to ensure all registers are setup properly.
+  \par
+  \lstinputlisting[ language={[x86masm]Assembler}]{code/ega_mode0d.c}
+  
+
+  
+\subsection{EGA Memory Mapping}
+\label{section:ega_memmap}
+Accessing video memory on the PC was not as straightforward as it might seem. Instead of communicating with the video card through special I/O instructions, the system relied on memory mapping. The video card’s VRAM was mapped directly into the CPU’s address space---on the EGA beginning at \cw{A0000h}---so the processor could treat it like conventional system RAM. This allowed for faster and more flexible data transfers.\\
+
+\par
+However, this design introduced a new challenge: how do you fit 256KiB of video memory into a 64KiB segment? The solution was "bank switching", implemented through a mapping mask configured via the EGA registers. By configuring the mask first, a program can select which memory plane it wants to write to.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{imgs/drawings/ram_to_ega_mapping.eps}
+  \caption{Mapping PC RAM to EGA VRAM banks.}
+  \label{fig:ram_to_ega_mapping_label}
+\end{figure}
+
+\par
+In mode \cw{0Dh}, each plane carries one bit of a pixel’s palette index. For EGA there are four planes, where combining one bit from each plane produces a 4-bit color index. This index is then translated into an on-screen color by the attribute controller, as illustrated below.\\
+
+\par
+To set the color of a single pixel, the programmer must write one bit in each of the four planes at the corresponding byte and bit position. Writing an individual pixel color was therefore CPU-intensive and should be minimized whenever possible.\\
 
 
 \begin{figure}[H]
@@ -692,69 +780,32 @@ To write the color of the first pixel, a developer has to write the first bit of
 \end{figure}
 
 
-\subsection{EGA Modes}
-In order to configure this complex arrangement of planes and the controllers, 50 poorly documented internal registers must be set. Needless to say few programmers dove into the internals of the EGA.\\
-\par
-  Figure \ref{fig:ega_arch}, which described the architecture, was actually deceptively simplified. Figure \ref{fig:ibm_ega} shows how IBM's reference documentation explained the EGA. The maze of wire showcases well the actual complexity of the system.\\
- \par
- \vspace{10pt}
- \begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{imgs/drawings/ibm_ega.eps}
-\caption{IBM's EGA documentation.}
-\label{fig:ibm_ega}
-\end{figure}
+\subsection{Programming on the EGA}	
+In the days of the EGA, there were no graphics drivers to rely on and no Windows DirectX to smooth things over. Programming graphics truly meant programming on the bare metal via I/O port addresses. The EGA card had multiple I/O port addresses that are generally directed to one of the sub-components.
 
-\par
-To compensate for the complexity, IBM provided a routine to initialize all the registers via one BIOS call. One mode can be selected out of 12 available with an associated resolution, number of colors, and memory layout. The BIOS can be called to configure the EGA as follows:
-\vspace{-10pt}
+\vspace{8pt}
 \begin{figure}[H]
 \centering
-\begin{table}[H]
-\begin{tabularx}{\textwidth}[c]{llllcr}
+\begin{tabularx}{\textwidth}[c]{|>{\hsize=.35\hsize}X |>{\hsize=.65\hsize}X |}
 \hline
-\textbf{Mode} & \textbf{Type} & \textbf{Format} & \textbf{Colors} & \hspace{10pt}\textbf{RAM Mapping}\hspace{10pt} & \textbf{Hz}        \\ \hline
-00h             & text          & 40x25           & 16 (monochrome) & B8000h     & 60                           \\ \hline
-01h             & text          & 40x25           & 16              & B8000h    & 60                            \\ \hline
-02h             & text          & 80x25           & 16 (monochrome) & B8000h    & 60                            \\ \hline
-03h             & text          & 80x25           & 16              & B8000h    & 60                            \\ \hline
-04h             & CGA Graphics  & 320x200         & 4               & B8000h    & 60                            \\ \hline
-05h             & CGA Graphics  & 320x200         & 4 (monochrome)  & B8000h    & 60                            \\ \hline
-06h             & CGA Graphics  & 640x200         & 2               & B8000h    & 60                            \\ \hline
-07h             & MDA text      & 9x14            & 3 (monochrome)  & B0000h    & 60                            \\ \hline
-0Dh           & EGA graphic   & 320x200         & 16              & A0000h    & 60                            \\ \hline
-0Eh           & EGA graphic   & 640x200         & 16              & A0000h    & 60                            \\ \hline
-0Fh           & EGA graphic   & 640x350         & 3               & A0000h    & 60                            \\ \hline
-10h           & EGA graphic   & 640x350         & 16              & A0000h    & 60                            \\ \hline
+\textbf{Component}     & \textbf{I/O port address} \\ \hline
+Miscellaneous          & \cw{3B2h}, \cw{3BAh}, \cw{3C2h}, \cw{3D2h}, \cw{2DAh} \\ \hline
+CRT Controller         & \cw{3B4h}, \cw{3B5h}, \cw{3D4h}, \cw{3D5h} \\ \hline
+Attribute Controller   & \cw{3C0h} 		\\ \hline
+Sequence Controller    & \cw{3C4h}/\cw{3C5h}  \\ \hline
+Graphics Controller    & \cw{3CCh}, \cw{3CAh}, \cw{3CEh}, \cw{3CFh} \\ \hline
 \end{tabularx}
-\end{table}
-\caption{EGA Modes available.}
-\label{ega-modes-available}
+\caption{EGA I/O port addresses.}
+\label{ega-IO-ports}
  \end{figure}
- 
-\trivia{The Modes \cw{08h-0Ah}  are reserved for PCjr (or Tandy Graphics Adapter) graphics modes, which offered 160x200 with 16 colors, 320x200 with 16 colors and 640x200 with 4 colors. Modes \cw{0Bh} and \cw{0Ch} are reserved for internal EGA BIOS.}\\
+
 
 \par
-To setup the EGA in Mode \cw{0Dh} using the BIOS is incredibly easy. It can be done with only two instructions:\\
-  \par
-  \lstinputlisting[ language={[x86masm]Assembler}]{code/ega_mode0d.c}
-  
-  \par
-  The \codeword{geninterrupt (0x10)} instruction is a software interrupt caught by the BIOS routine in charge of graphic setup. It looks up the \codeword{ax} register, which can be set in the Borland Compiler by \codeword{\_AX}, to setup all EGA registers with the corresponding mode.\\
-  
-  \subsection{EGA Programming: Memory Mapping}
- \label{section:ega_memmap}
-To write to the VRAM, the RAM's 1MiB address space maps 64KiB starting as indicated in figure \ref{ega-modes-available}. In mode \cw{0Dh} for example, the VRAM is mapped from \cw{A0000h} to \cw{AFFFFh}. One of the first questions to come to mind is "How can I access 256KiB of RAM with only 64KiB of address space?" The answer is "bank switching" as summarized in figure \ref{fig:ram_to_ega_mapping_label}. Write and read operations are routed based on a mask register indicating which bank should be read or written to. Writing a color to a pixel was a tedious process, requiring the programmer to switch between each of the four VRAM banks using the mask register and write bytes to each bank individually.
+In most cases, a component used one I/O address to select a parameter and another as a data register, allowing dozens of settings to be exposed and configured on the EGA card.
+Mastering the EGA card, however, was far from straightforward. Its many registers, bit masks, and undocumented quirks demanded patience and deep hardware knowledge. Only few programmers truly learned how to control the card to its full potential.
 
 
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1.0\textwidth]{imgs/drawings/ram_to_ega_mapping.eps}
-  \caption{Mapping PC RAM to EGA VRAM banks.}
-  \label{fig:ram_to_ega_mapping_label}
-\end{figure}
-\par
  
   
 \subsection{EGA Color Palette}
@@ -785,22 +836,13 @@ When calculating the intended value in the 64-color EGA palette, the 6-bit numbe
 \end{figure}
 
 \par
-Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output to the monitor.\\
- \begin{figure}[H]
-\centering
-\includegraphics[width=0.15\textwidth]{imgs/drawings/ports/DE9_serial_port.eps}
-\caption{DE-9 video output connector.}
-\label{fig:serialPort}
-\end{figure}
+Both CGA and EGA cards use a female nine-pin D-subminiature (DE-9) connector for output to the monitor. However, the pin configurations for CGA and EGA are different. CGA’s color output follows the "RGBI" model, where "I" stands for Intensity, adding brightness to the RGB color. As a result, CGA can produce up to 16 colors. Compared to CGA, the EGA card redefines some pins of the DE-9 connector to carry the extended rgbRGB-color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such.\\
 
 \par
-The pin configurations for CGA and EGA are different. CGA’s color output follows the "RGBI" model, where "I" stands for Intensity, adding brightness to the RGB color. As a result, CGA can produce up to 16 colors. Compared to CGA, the EGA card redefines some pins of the DE-9 connector to carry the extended rgbRGB-color information. If the monitor were connected to a CGA card, these pins would not carry valid color information, and the screen might be garbled if the monitor were to interpret them as such.\\
-
-\par
-For example, if the color brown (rgbRGB = \cw{010100b}) is assigned to a color index, the resulting output on a CGA pin configuration appears as light red. This occurs because the secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, producing the color red with intensity rather than the expected brown.\\
+For example, if the color brown (rgbRGB = \cw{010100b}) is assigned to a color index, the resulting output on a CGA pin configuration appears as light red. This occurs because the secondary green pin ("r" in rgbRGB) is mapped to the Intensity pin in CGA mode, producing the color red with intensity rather than the expected brown.
 
 \begin{figure}[H]
-\renewcommand{\arraystretch}{0.7}
+\renewcommand{\arraystretch}{0.9}
 \centering
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{|>{\hsize=.16\hsize}X |>{\hsize=.42\hsize}X |>{\hsize=.42\hsize}X |}
@@ -837,10 +879,10 @@ For example, if the color brown (rgbRGB = \cw{010100b}) is assigned to a color i
 So how did an EGA monitor recognize that it was connected to an EGA video card? in fact, it could only distinguish EGA and CGA cards based on the Vertical Sync signal (pin 9), which is either 200- or 350-line mode. If the Vertical Sync is 350-line mode, the monitor switched to Mode 2 operation which supported the extended rgbRGB-color information\footnote{IBM Enhanced Color Display technical documentation}. But in the 200-line mode, the monitor cannot distinguish between being connected to a CGA or an EGA card. \\
 
 \par
-For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-line modes so the monitor can also be used with a CGA card and vice versa. Consequently, the EGA card is fully backwards compatible with a standard CGA monitor. Thereby it is able to show all 16 CGA (RGBI) colors simultaneously, in contrast to a CGA card, which can show only 4 colors at once. The downside is that the 64-color EGA palette can only be used in 350-line mode.
+For this reason, EGA monitors use the CGA pin assignment for all 200-line modes (mode 1), allowing them to accept the same RGBI signal format as a CGA card. This makes an EGA monitor compatible with CGA output in those modes. Thereby it is able to show all 16 CGA colors simultaneously, whereas a CGA card is limited to four colors at once in graphics modes. The downside is that the 64-color EGA palette can only be used in 350-line mode.
 
 \begin{figure}[H]
-\renewcommand{\arraystretch}{0.65}
+\renewcommand{\arraystretch}{0.9}
 \centering
 \begin{table}[H]
 \begin{tabularx}{\textwidth}[c]{+X +X +X +X }
@@ -868,7 +910,7 @@ For this reason, EGA monitors will use the CGA pin assignment (mode 1) in 200-li
 \label{default_ega_palette}
  \end{figure}
 
-\trivia{The color brown (\cw{06h}) is actually dark yellow. However, IBM engineers found this shade unappealing, so they implemented a special circuit in the monitor that targets color \cw{06h}. When detected, the monitor halves the green intensity, producing a golden brown instead of dark yellow.}\\
+\trivia{The color brown (\cw{06h}) is actually dark yellow. IBM engineers found this shade unappealing, so they implemented a special hack in the monitor that targets color \cw{06h}. When detected, the monitor halves the green intensity, producing a golden brown instead of dark yellow.}\\
 
 
 \section{Audio}
