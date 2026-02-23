@@ -34,34 +34,41 @@ Then, on December 14\textsuperscript{th}, 1990, a small unknown software company
 
 \par
 \vspace{10pt}
-How was this possible on the IBM PC? Many obstacles had to be overcome:
-\begin{itemize}
-  \item The first 8086 CPU did not outperform the average home computer in terms of raw power. Only with the release of the 286 CPU did the PC start to outperform the market in terms of raw power.
-  \item The video adapter (called EGA) did not support any form of scrolling. It did not even support any form of sprites, which allowed movement of something on the screen by simply updating its \cw{(x,y)} coordinates.
-  \item The video adapter could not double buffer. It was not possible to have smooth scrolling without ugly artifacts called "tears" on the screen.
-  \item The PC Speaker, the default sound device, could only produce square waves resulting in a bunch of "beeps" which were more annoying than anything else.
-  \item The audio ecosystem was fragmented. Each of the various sound systems had
-different capabilities and expectations.
-  \item The RAM addressing mode was not flat but segmented, resulting in complex and
-error prone pointer arithmetic. It used different memory models, each with a trade-off between application size and performance.
-\end{itemize}
-\par
 
+
+\par
+The primary focus of the IBM PC was business. It excelled at word processing and crunching numbers in spreadsheets. Although the PC game market was growing rapidly, it was dominated by adventure games, role-playing games (RPGs), strategy titles, and simulations. Action and platform games remained largely the domain of consoles and home computers.\\
+
+\par
+So how was it possible to create Commander Keen on the IBM PC?\\
+
+\par
+With the introduction of the IBM AT, powered by the Intel 80286, the PC began to outperform consoles and home computers on the market. Not even the NES could compete with the IBM AT in terms of raw processing power.
+
+\par
 \input{imgs/drawings/available_hardware_mips.tex}
 
-Overall, it seemed impossible to create any reasonable side-scrolling game on the PC platform. But many around the world did not accept that and tinkered with the hardware to achieve unexpected results. Their ingenuity is what inspired me to write this book. \\
+\par
+But raw power was about the only area in which the PC excelled. Its other components were notoriously difficult to master:
+\begin{itemize}
+  \item The video adapter (called EGA) did not support any form of scrolling. Nor did it support any form of sprites, which allowed movement of something on the screen by simply updating their \cw{(x,y)} coordinates.
+  \item The PC speaker could produce little more than a series of (mostly) annoying "beeps". Sound cards did exist, but they were still in their infancy and far from standardized.
+  \item Memory available to applications was limited to 640 KiB. To make matters worse, RAM was not organized in a flat address space but accessed through segments and offsets. Different memory models existed, each involving trade-offs between program size and performance.
+\end{itemize}
+
+
+\par
+Overall, creating a fast side-scrolling action game on the PC seemed nearly impossible. Nevertheless, programmers around the world embraced the challenge, exploring the depths of the hardware and produced remarkable games. Their ingenuity is what inspired me to write this book.\\
 
 \par
 I've chosen to divide this book into three chapters:
 \begin{itemize}
-  \item Chapter 2: The Hardware. An exploration of PC components from 1990.
+  \item Chapter 2: The Hardware. An exploration of the main PC components from 1990 and the challenges they presented.
   \item Chapter 3: The tools and assets. Which tools are used for game development and how are assets created and structured.
-  \item Chapter 4: The Software. A deep dive into the Commander Keen game engine.
+  \item Chapter 4: The Software. A deep dive into the Commander Keen game engine and how the team bent the hardware to their will. Commander Keen targeted the 16-color EGA graphics card, but a CGA version was also released, which is discussed in this chapter as well.
 
 \end{itemize}
 
-\par
-By first showing the hardware constraints, I hope programmers will develop an appreciation for the software and how it navigated obstacles, sometimes turning limitations into advantages.\\
 
 \par
 This book focuses on \textit{Commander Keen in Keen Dreams}, which is developed after the first three releases in the series. The reason for this choice is straightforward: it is the only version with publicly released source code. Where relevant, I will also highlight technological differences across the versions of Commander Keen. However, code examples will be limited to Keen Dreams, due to the availability of the source material.\\

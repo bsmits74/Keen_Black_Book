@@ -1,6 +1,5 @@
 \documentclass[book.tex]{subfiles}
 \begin{document}
-\chapter{Hardware}
 The original IBM PC 5150 was released in September 1981 and marked a turning point in personal computing. Unlike many earlier systems, it was intentionally designed with an open architecture and built using widely available, off-the-shelf components rather than proprietary hardware developed exclusively by IBM. This strategic decision significantly reduced development time and helped make the system more affordable.\\
 
 \par
@@ -66,7 +65,7 @@ Although Commander Keen was 100\% compatible with the IBM-PC, it was hardly play
     \end{axis}
    
    \end{tikzpicture}
-   \caption{Comparison\protect\footnotemark of CPUs with MIPS}
+   \caption{Comparison\protect\footnotemark of Intel CPUs with MIPS}
  \end{figure}
  \par
  % \addtocounter{footnote}{0}
@@ -89,6 +88,17 @@ When IBM developed the AT, it selected the 286 as the basis for the new system b
 
 \par
 The main reason the 286 computer was faster than its predecessor is that it executes instructions much more efficiently. An average instruction takes 12 clock cycles on the 8088, but takes an average of only 4.5 cycles on the 286 processor. Additionally, the 286 chip can handle up to 16 bits of data at a time through an external data bus twice the size of the 8088.\\
+
+\par
+The 286 CPU has two operating modes: real mode and protected mode. These modes are sufficiently distinct that the 286 can be regarded as two processors in one. In real mode, the 286 behaves essentially like an 8086 and is fully compatible with the 8088. In protected mode, however, the 286 introduced significant new capabilities. Programs designed to take advantage of this mode can access up to 16 MB of physical memory through its 24-bit address bus.\\
+
+\par
+A major limitation of the 286 is that it cannot switch from protected mode back to real mode without a hardware reset (a warm reboot) of the system. It can, however, switch from real mode to protected mode without a reset.\\
+
+\trivia{Gordon Letwin of Microsoft found a way to switch back from protected to real mode, using a "triple fault"\footnote{https://en.wikipedia.org/wiki/Triple\_fault.} to soft reset the 286 CPU into real mode. However, it could take nearly 1 second, making switching from protected to real not feasible to be done often.}\\
+
+\par
+While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on an 8088 chip.
 
 \par
 \begin{figure}[H]
@@ -124,18 +134,6 @@ The main reason the 286 computer was faster than its predecessor is that it exec
  \end{figure}
  \par
   \trivia{Fast forward to today, the AMD Ryzen 9 7950X contains over 13 billion transistors.}\\
-
-
-\par
-The 286 CPU has two operating modes: real mode and protected mode. These modes are sufficiently distinct that the 286 can be regarded as two processors in one. In real mode, the 286 behaves essentially like an 8086 and is fully compatible with the 8088. In protected mode, however, the 286 introduced significant new capabilities. Programs designed to take advantage of this mode can access up to 16 MB of physical memory through its 24-bit address bus.\\
-
-\par
-A major limitation of the 286 is that it cannot switch from protected mode back to real mode without a hardware reset (a warm reboot) of the system. It can, however, switch from real mode to protected mode without a reset.\\
-
-\trivia{Gordon Letwin of Microsoft found a way to switch back from protected to real mode, using a "triple fault"\footnote{https://en.wikipedia.org/wiki/Triple\_fault.} to soft reset the 286 CPU into real mode. However, it could take nearly 1 second, making switching from protected to real not feasible to be done often.}\\
-
-\par
-While the 8088 used a 3.0$\mu$m process, the 20286 used a 1.5$\mu$m process. The smaller process and increased surface (from 33mm$^2$ to 49mm$^2$) allowed Intel to pack 134,000 transistors on a 286 chip versus 29,000 on an 8088 chip.
 
 
 \pagebreak
@@ -223,7 +221,7 @@ The table below shows the average instruction costs for the 80286. Multiplicatio
 
 \begin{figure}[H]
 \centering
-  \includegraphics[width=0.95\textwidth]{screenshots_300dpi/Intel80286.png}
+  \includegraphics[width=0.8\textwidth]{screenshots_300dpi/Intel80286.png}
 \caption{The Intel 286, 7mm by 7mm packing 134,000 transistors}
 \end{figure}
 
@@ -247,20 +245,22 @@ For programming purposes, the 286 CPU can be summarized as follows::
 
 
 \section{RAM}
-When the first IBM PC was introduced in 1981, it came with a base memory of 16 KiB or 64 KiB and could be expanded up to 256 KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}. This was a large amount of memory at the time, considering that the average home computer, such as the Commodore 64 or MSX systems, contained a maximum of 64 KiB. With the introduction of the 8088 CPU and the IBM XT, the maximum memory increased to 640 KiB. Later, with the introduction of the 80286, one could, in theory, address up to 16 MiB of memory. In practice, however, this was never fully utilized due to the constraints of the DOS operating system.\\
+When the first IBM PC was introduced in 1981, it came with a base memory of 16 KiB or 64 KiB and could be expanded up to 256 KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}. This was a large amount of memory at the time, considering that the average home computer, such as the Commodore 64 or MSX systems, contained a maximum of 64 KiB.\\
+
+\par
+ With the introduction of the 8088 CPU and the IBM XT, the maximum memory increased to 640 KiB. Later, with the introduction of the 80286, one could, in theory, address up to 16 MiB of memory. In practice, however, this was never fully utilized due to the constraints of the DOS operating system.\\
 
 
 \subsection{x86 Real and Protected Mode}
-With the 16-bit architecture of the 8088, only 64 KiB could be addressed using a single 16-bit address register. To address more memory, Intel introduced the "Real Mode" architecture. It combined two 16-bit address values into a 20-bit physical address, thereby providing access to up to 1 MiB of RAM. There was no memory protection and direct access to all hardware, meaning that applications could (un)intentionally overwrite each other’s memory.\\
+With the 16-bit architecture of the 8088, only 64 KiB could be addressed using a single 16-bit address register. To address more memory, Intel introduced the real mode architecture. It combined two 16-bit address values into a 20-bit physical address, thereby providing access to up to 1 MiB of RAM. There was no memory protection and direct access to all hardware, meaning that applications could (un)intentionally overwrite each other’s memory.\\
 
 \par
-As memory requirements increased, there was a need for an improved CPU architecture supporting larger address spaces and access protection. With the introduction of the 80286, Protected Mode was added to the architecture. It provided 24-bit memory addressing, allowing up to 16 MiB of memory, along with memory protection through an MMU that prevented applications from accessing or overwriting memory belonging to other programs.\\
+As memory requirements increased, there was a need for an improved CPU architecture supporting larger address spaces and memory access protection. With the introduction of the 80286, protected mode was added to the architecture. It provided 24-bit memory addressing, allowing up to 16 MiB of memory, along with memory protection through a Memory Management Unit that prevented applications from accessing or overwriting memory belonging to other programs.\\
 
-\par 
-To maintain backward compatibility with older software, the 80286 also retained Real Mode. The system always booted in Real Mode and could then switch to Protected Mode. A significant failing of the 80286 chip is that it cannot switch back from protected mode to real mode without a hardware reset (a warm reboot) of the system.\\
+\par
+To preserve compatibility with the vast library of existing software written for the 8086, the 80286 retained real mode. In fact, every time the CPU powered on, it started in real mode and could then switch to protected mode. This design decision ensured that older software would continue to run unchanged, a critical factor in IBM PC's commercial success.\\
 
-
-\trivia{Gordon Letwin of Microsoft found a way to switch back from protected to real mode, using a "triple fault"\footnote{https://en.wikipedia.org/wiki/Triple\_fault.} to soft reset the 286 CPU into real mode. It could take nearly 1 second, making switching from protected to real not feasible to be done often.}\\
+\trivia{Even in 2026, a modern Intel Core i9 still begins its boot process in 16-bit real mode. Beneath layers of gigahertz clocks and multi-core designs, the ghost of the 8088 still stirs at startup---a quiet reminder of where it all began.}\\
 
 \par
 The protected mode could not run existing MS-DOS software. To use it, a completely new operating system had to be rewritten, and there was little incentive for developers to do this when they could target the 8086, which held the largest market share. As a result, developers on DOS continued programming within the limitations of the 8088 architecture, where only 1 MiB of RAM could be addressed without memory protection.\\
@@ -278,7 +278,7 @@ To make matters worse, only the first 640 KiB of the 1 MiB address space was ava
 \end{figure}
 
 
-
+\pagebreak
 \subsection{Memory addressing}
 If Intel had allowed the CPU to combine two registers into a high and low pair of 32-bits, it could have referenced up to 4 GiB of memory in a linear fashion. Keep in mind, however, this was at a time when many never dreamed we'd need a PC with more than 640 KiB of memory for user applications and data.\\
 
@@ -316,7 +316,7 @@ To support this architecture, four segment registers are introduced. Each of the
 In C-language a memory address can be accessed directly using pointers. A pointer is a variable that stores the memory address of another variable as its value. There are two kinds of pointers: "near" and "far". \\
 
 \par
-A near pointer refers to a function or data object that is within the default code or data segment. It is 16 bits long and contains an offset into the current DS data segment if it's a data pointer, or into the current CS code segment if it's a function pointer. A far pointer could refer to a function or data that is in a different segment than the current, default segment. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
+A near pointer refers to a function or data object that is within the default code or data segment. It is 16 bits long and contains an offset into the current DS data segment if it is a data pointer, or into the current CS code segment if it is a function pointer. A far pointer could refer to a function or data that is in a different segment than the current, default segment. It is 32 bits long and contains a segment and offset, which identifies the location where the code or data is stored. \\
 
 \par
 \begin{figure}[H] 
@@ -553,7 +553,7 @@ The three dots in a triangle gives the appearance of discrete pixels, but in pra
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.43\textwidth]{imgs/drawings/CRT_dot.eps}
+\includegraphics[width=1.0\textwidth]{imgs/drawings/CRT_dot.eps}
 \caption{"dot" or "pixel" on a CRT screen. }
 \label{fig:CRT_dot}
 \end{figure}
@@ -577,7 +577,7 @@ The CGA and EGA adapters use
 The horizontal and vertical synchronization pins carry timing signals that match the monitor’s operating frequencies (15.7 kHz / 60 Hz for CGA, and 21.85 kHz / 60 Hz for EGA's high-resolution mode). The monitor listens for these signals, synchronizes its internal oscillators to them, and deflects the electron beam accordingly.\\
 
 \par
-The CRT draws each scan line from left to right, while the control pins from the video adapter determine which portions of the scan line are illuminated. When a scan line is completed, the video adapter generates a horizontal synchronization pulse (HSYNC), to indicate a return to the left side of the screen. This process continues line by line until the bottom of the screen is reached. At that point, the adapter generates a vertical synchronization pulse (VSYNC), and the electron beam retraces back to the top of the screen to begin drawing the next frame.\\
+The CRT draws each scan line from left to right, while the control pins from the video adapter determine which portions of the scan line are illuminated. When a scan line is completed, the video adapter generates a horizontal synchronization pulse (HSYNC), to indicate a return to the left side of the screen. This process continues line by line until the bottom of the screen is reached. At that point, the adapter generates a vertical synchronization pulse (VSYNC), and the electron beam retraces back to the top of the screen to begin drawing the next frame.
 
 \pagebreak
 \subsection{History of Video Adapters}
@@ -792,7 +792,7 @@ In the days of the EGA, there were no graphics drivers to rely on and no Windows
 Miscellaneous          & \cw{3B2h}, \cw{3BAh}, \cw{3C2h}, \cw{3D2h}, \cw{2DAh} \\ \hline
 CRT Controller         & \cw{3B4h}, \cw{3B5h}, \cw{3D4h}, \cw{3D5h} \\ \hline
 Attribute Controller   & \cw{3C0h} 		\\ \hline
-Sequence Controller    & \cw{3C4h}/\cw{3C5h}  \\ \hline
+Sequence Controller    & \cw{3C4h}, \cw{3C5h}  \\ \hline
 Graphics Controller    & \cw{3CCh}, \cw{3CAh}, \cw{3CEh}, \cw{3CFh} \\ \hline
 \end{tabularx}
 \caption{EGA I/O port addresses.}
@@ -1028,12 +1028,12 @@ Before the internet, floppy disks were the primary medium for sharing and distri
 
 \begin{figure}[H]
 
-  \begin{minipage}{0.48\textwidth}
+  \begin{minipage}{0.5\textwidth}
   \centering
   \scaledrawimage{4cm}{hardware/floppy_3_1_2.png} 
   \end{minipage}
   \hfill
-  \begin{minipage}{0.48\textwidth}
+  \begin{minipage}{0.5\textwidth}
   \centering
   \scaledrawimage{6cm}{hardware/floppy_5_1_4.png}
   \end{minipage}
@@ -1042,14 +1042,14 @@ Before the internet, floppy disks were the primary medium for sharing and distri
 \par
 
 
-A floppy disk is essentially a very flexible piece (hence the term floppy disk) of plastic coated on both sides in a magnetic material. This "disk" of plastic is contained within a protective envelope or hard plastic case, which is then inserted into the drive and automatically locked onto a spindle. It is then rotated at a constant speed, 360 rpm for standard PC floppy drives. A head assembly consisting of two magnetic read/write heads, one in contact with the upper surface and one in contact with the lower surface of the disk, may be moved in discrete steps across the disk and read the data from the disk.\\
+A floppy disk is essentially a very flexible piece (hence the term floppy disk) of plastic coated on both sides in a magnetic material. This "disk" of plastic is contained within a protective envelope or hard plastic case, which is then inserted into the drive and automatically locked onto a spindle. It is then rotated at a constant speed, 360 rpm for standard PC floppy drives. A head assembly consisting of two magnetic read/write heads, one in contact with the upper surface and one in contact with the lower surface of the disk, may be moved in discrete steps across the disk and read the data from the disk.
 
 \par
 The data on a floppy disk is stored in concentric circular tracks divided into arc-shaped sectors. The amount of data a disk can store is determined by the number of tracks and sectors and the density of the recorded information (single and double density). Near the center, there is a small hole called the index hole, which marks the start of a sector.\\
 
 \begin{figure}[H]
 \centering
-      \includegraphics[width=0.7\textwidth]{imgs/drawings/floppy_disk.eps}
+      \includegraphics[width=0.8\textwidth]{imgs/drawings/floppy_disk.eps}
       \caption{Floppy disk with tracks, sectors and the index hole.}
 \end{figure} 
 
@@ -1061,7 +1061,7 @@ When the floppy disk drive is powered up, the read/write heads move to the targe
 The floppy disk is controlled via the Floppy Disk Controller (FDC), and a typical read operation from the floppy disk contains the following steps:
 \begin{itemize}
   \item Turn the disk motor on. When you turn a floppy drive motor on, it takes quite a few milliseconds to "spin up", to reach the (stabilized) speed needed for data transfer.
-  \item Perform seek operation, which moves the head to the correct location for reading the data.
+  \item Perform seek operation, moving the head to the correct location for reading the data.
   \item Read the data from the floppy disk and store the data via the FDC to RAM memory.
   \item Turn the disk motor off. 
 \end{itemize}
@@ -1073,45 +1073,35 @@ The original IBM PC and XT keyboards featured 83 keys. After receiving feedback 
 
 \begin{figure}[H] 
   \centering 
-  \scaledimage{0.95}{hardware/keyboard_AT.png} 
+  \scaledimage{1.0}{hardware/keyboard_AT.png} 
   \caption{IBM AT Keyboard.}
 \end{figure}
 
 \par
-This design was further updated in 1986 with the release of the IBM Model M. It officially became the IBM PC standard in 1987 with the introduction of the IBM Personal System/2 (PS/2). The function keys were moved to the top, F11 and F12 were added, and the total number of keys increased to 101 (ANSI) or 102 (ISO). The Model M was widely adopted and is still being used today.\\
+This design was further updated in 1986 with the release of the IBM Model M. It officially became the IBM PC standard in 1987 with the introduction of the IBM Personal System/2 (PS/2). The function keys were moved to the top, F11 and F12 were added, and the total number of keys increased to 101 (ANSI) or 102 (ISO).\\
 
 \par
-The IBM Model M came in two main versions: the ANSI layout with 101 keys for the US and Canada, and the ISO layout with 102 keys, primarily used in Europe and other international markets. The primary differences between both layouts are the shape of the Enter key, the size of the left Shift key, and the presence of an extra key on the ISO variant to provide better support for typing in multiple languages with accents and special characters.
+The ANSI layout with 101 keys for the US and Canada, and the ISO layout with 102 keys, primarily used in Europe and other international markets. The primary differences between both layouts are the shape of the Enter key, the size of the left Shift key, and the presence of an extra key on the ISO variant to provide better support for typing in multiple languages with accents and special characters.
 
 \begin{figure}[H] 
   \centering 
-  \scaledimage{0.95}{hardware/keyboard_PS2.png} 
-  \caption{IBM Keyboard model M 101-key layout (PS/2).}
+  \scaledimage{1.0}{hardware/keyboard_PS2.png} 
+  \caption{IBM Keyboard model M 101-key ANSI layout.}
 \end{figure}
 
-At the time, keyboards were connected either via PS/2 or AT ports.\\
-
-\par
-\begin{figure}[H]
-  \centering
-  \begin{subfigure}{.5\textwidth}
-    \centering
-    \includegraphics[width=0.25\textwidth]{imgs/drawings/ports/MiniDIN-6_PS2.eps}
-  \end{subfigure}%
-  \begin{subfigure}{.5\textwidth}
-    \centering
-    \includegraphics[width=0.25\textwidth]{imgs/drawings/ports/AT_Diagram.eps}
-  \end{subfigure}
-  \caption{PS/2 (left) and AT (right) keyboard connector.}
-  \label{fig:keyboard_connector}
-\end{figure}
 
 
 \section{Summary}
-To say a PC was difficult to program for games would be an understatement. It was a nightmare. The CPU was good at doing the wrong thing, the best graphic interface had a complex architecture to write a single pixel to the screen, different keyboard layouts, and a memory model only allowed 1 MiB with an address composed of two separate 16-bit registers. Last, but not least, the default sound system could only produce square waves and sound cards were in a very early stage of development.\\
+By the late 1980s, programming games for the PC could feel like an uphill battle. The CPU still behaved as if it were 1978, constraining developers to a 1 MiB address space. Its memory model with near and far pointers was complex, and could cause even simple tasks into exercises of careful memory juggling.\\
 
 \par
-Yet despite all these unfavorable conditions, teams of developers gathered to tame the beast and unleash its power to gamers. One of these called themselves \textit{Ideas From the Deep}\footnote{Throughout the book, \textit{Ideas from the Deep} and \textit{id Software} will be used interchangeably.}.
+Graphics offered little relief. The EGA video card featured a complex planar architecture that made something as straightforward as setting a colored pixel surprisingly cumbersome. Writing to video memory required extensive hardware knowledge and a fair amount of patience.\\
+
+\par
+Sound was equally restrictive. Most PCs relied on the PC speaker, capable of little more than beeps and simple tones. Dedicated sound cards existed, but they were still in their infancy and far from standardized.\\
+
+\par
+And yet, despite these formidable technical constraints, small and determined development teams managed to create remarkable games. Among them was a group calling themselves \textit{Ideas From the Deep}\footnote{Throughout the book, \textit{Ideas from the Deep} and \textit{id Software} will be used interchangeably.}.
 \end{document}
 
 
