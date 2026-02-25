@@ -1,9 +1,10 @@
 \documentclass[book.tex]{subfiles}
 \begin{document}
+\chapter{Assets}
 \section{Programming setup}
 \label{section:programming}
 
-Development was done with Borland C++ 3.1 using 80386 computers; however, none of the 80386-specific features were utilized for the game. John Carmack took care of the runtime code. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager).\\
+Development was done with Borland C++ 3.1 using 80386 computers; however, none of the 80386-specific features were utilized for the game. John Carmack took care of the game engine. John Romero programmed many of the tools (TED5 map editor, IGRAB asset packer, MUSE sound packer). Jason Blochowiak wrote important subsystems of the game (Input manager, Sound manager, User manager). As the team did not have money to buy their own computers, they used the Softdisk computers after hours and on weekends to develop the game.\\
 
 \begin{wrapfigure}[18]{r}{0.5\textwidth}
 \centering
@@ -13,10 +14,10 @@ Development was done with Borland C++ 3.1 using 80386 computers; however, none o
 %\caption*{Borland C++ 3.1 Programmer guide.}
 \end{wrapfigure}
 \par
-Borland's solution was an all-in-one package. The software came with two thick manuals, explaining everything regarding the IDE (238 pages) and programming in C++ (483 pages). The IDE, \cw{BC.EXE}, despite some instabilities, allowed crude multi-windows code editing with pleasant syntax highlights. The compiler and linker were also part of the package under \cw{BCC.EXE} and \cw{TLINK.EXE}. \\
+In the late 1980s, the concept of an Integrated Development Environment (IDE) was just beginning to mature. One of the first all-in-one packages was Borland Turbo C++. It was considered the standard for development on the DOS system. \\
 
 \par
-There was no need to enter command-line mode however. The IDE allowed the user to create a project, build, run and debug. The IDE allowed to create a project, build, run and debug. It contained a "high resolution" 50x80 text mode, which doubled the vertical resolution.\\
+The software came with two thick manuals, explaining everything about the IDE (238 pages) and programming in C++ (483 pages). The IDE, \cw{BC.EXE}, featured a blue-window text-based user interface that integrated the editor, compiler (\cw{BCC.EXE}) and debugger into a single application. The IDE's standard resolution mode was 80$\times$25, but also included a "high resolution" 80$\times$50 text mode.\\
 \par
   \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/borland_memory_model.png}}
 \par\bigskip\par
@@ -32,19 +33,19 @@ There was no need to enter command-line mode however. The IDE allowed the user t
 \section{Graphical Assets}
 \label{section:graphic_assets}
 
-All graphical assets were produced by Adrian Carmack. All of the work was done with Deluxe Paint (by Brent Iverson, Electronic Arts) and saved in ILBM\footnote{InterLeaved BitMap.} files (Deluxe Paint proprietary format). All assets were hand drawn with a mouse.
+All graphical assets were produced by Adrian Carmack, using Deluxe Paint II (by Brent Iverson, Electronic Arts) and saved in ILBM\footnote{InterLeaved BitMap.} files (a proprietary Deluxe Paint format). Deluxe Paint II supported many graphic modes, including all EGA modes.
 
 \begin{figure}[H]
   \centering
- \fullimage{deluxe_paint.png}
- \caption{Deluxe Paint was used to draw all assets in the game.}
+ \fullimage{dp2.png}
+ \caption{Deluxe Paint II in EGA 640x350 mode with 16 colors.}
 \end{figure}
 
 \subsection{Tile planar arrangement}
 Before diving into the details of game assets, let's first explore the basic principles behind platform games. Each level, or map, in a platform game is composed of "tiles". In Commander Keen, there are both background and foreground tiles. A background tile---or simply a "tile"---is a picture that measures 16x16 pixels. Each tile occupies 128 bytes (2 bytes x 16 lines x 4 planes) of storage space in the graphics assets file.\\
 
 \par
-Individual tile images are stored in a planar format, with blue, green, red, and intensity bits separated. This arrangement, called "planar graphic", stores complete planes sequentially, with each plane containing data for an entire tile. This layout aligns with the VRAM banks, allowing each bank to be loaded very quickly with a single \cw{memcpy} per bank (and only four bank switches) per picture.\\
+Individual tile images are stored in a planar format, with blue, green, red, and intensity bits separated. This arrangement, called "planar graphics", stores complete planes sequentially, with each plane containing data for an entire tile. This structure mirrors the layout of EGA VRAM, enabling efficient data transfer. Each plane can be copied directly into its corresponding VRAM bank using a single \cw{memcpy}. As a result, rendering a tile requires only four bank switches---one per plane.\\
 
 \par
 \begin{figure}[H]
@@ -55,13 +56,13 @@ Individual tile images are stored in a planar format, with blue, green, red, and
 \end{figure}
 
 \par
-Foreground tiles, or "masked tiles", are similar to normal tiles but contain five planes instead of four. The extra plane stores the mask; the plane order is mask, blue, green, red, and intensity. Consequently, a single masked tile requires 160 bytes (128 + 32) of storage. A mask bit of '0' means the background tile color is erased and replaced by the foreground tile color, whereas a mask bit of '1' preserves the background color behind the foreground tile. If the foreground color is '0', the background color remains visible. \\
+Foreground tiles, or "masked tiles", are similar to normal tiles but contain five planes instead of four. The extra plane stores the mask. Consequently, a single masked tile requires 160 bytes (128 + 32) of storage. A mask bit of '0' means the background tile color is erased and replaced by the foreground tile color, whereas a mask bit of '1' preserves the background color behind the foreground tile. \\
 
 \par
 By combining tiles on the screen, a map is created. These maps define the entire game world in terms of background and foreground tiles. Maps also include a list of all actors and their starting positions within the world. Essentially, everything the player encounters while progressing through the levels is specified in a map.
 
 \subsection{Assets Workflow}
-After the graphical assets were generated, a tool (IGRAB) packed all ILBM files into a compressed data asset file (\cw{*.EGA}) and generated a \cw{HEAD} table, \cw{DICT} file (\cw{KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs.\\
+After the graphical assets were generated, a tool (IGRAB) packed all ILBM files into a compressed asset archive file (\cw{*.EGA}) and generated a \cw{HEAD} table and Huffman \cw{DICT} file (\cw{*.KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs via an enum. This enum serves as an offset into the \cw{HEAD} table, which then provides an offset within the asset archive file.\\
 
 
 \begin{figure}[H]
@@ -71,10 +72,8 @@ After the graphical assets were generated, a tool (IGRAB) packed all ILBM files 
  \label{asset-creation-pipeline}
 \end{figure}
 
-\par
-In the engine's code, asset usage is hardcoded via an enum. This enum serves as an offset into the \cw{HEAD} table, which then provides an offset within the data asset file. With this indirection layer, assets could be regenerated and reordered at will with no modification to the source code.\\
 
-\trivia{The \cw{HEAD} and \cw{DICT} files in the source code must match the data asset file from the shareware version of \textit{Keen Dreams}. However, the latest release of the source code (v1.93) does not match with shareware version v1.13. To ensure that the \cw{HEAD}, \cw{DICT}, and data asset file are compatible, you will need to retrieve a specific git commit, which will be explained in the next chapter.}
+The \cw{HEAD} and \cw{DICT} files in the source code must match the asset archive file from the shareware version of \textit{Keen Dreams}. However, the latest release of the source code (v1.93) does not match shareware version v1.13. To ensure that the \cw{HEAD}, \cw{DICT}, and asset archive file are compatible, you will need to retrieve a specific git commit, which will be explained in the next chapter.
 
 
 \par
@@ -83,9 +82,9 @@ In the engine's code, asset usage is hardcoded via an enum. This enum serves as 
  \end{minipage}
   
 
-\subsection{Assets file structure}
+\subsection{Asset file structure}
 \label{section:asset_file_structure}
-Figure \ref{fig:asset-file} illustrates the structure of the \cw{KDREAMS.EGA} asset file. The first section contains data tables for pictures and sprites, followed by the font, and all sprite and tile graphs. 
+Figure \ref{fig:asset-file} illustrates the structure of the \cw{KDREAMS.EGA} archive file. The first section contains data tables for pictures and sprites, followed by the font, and all sprite and tile graphs. 
 
 \begin{figure}[H]
 \centering
@@ -124,7 +123,7 @@ All sprite placement occurs from the origin, which is offset by \cw{(orgx, orgy)
 
 
 \par
-The font segment contains a table that stores the height and the width of each character, along with a reference to where the character data is located in the archive file.\\
+The font segment contains a table that stores the height and the width of each character, along with a reference indicating where the character data is located in the archive file.\
 
 
 \par
@@ -272,7 +271,7 @@ On the next two pages, you will find several sprite assets, as well as backgroun
 
 
 \section{Maps}
-Maps were created using an in-house editor called TED5, short for Tile EDitor. Over the years TED5 was improved, and the same tool was later used for creating maps for both side-scrolling games and top-down games like \textit{Wolfenstein 3D}.\\
+All maps were produced by Tom Hall and John Romero, using an in-house editor called TED, short for Tile EDitor. Over the years TED was improved, and the same tool was later used for creating maps for both side-scrolling games and top-down games like \textit{Wolfenstein 3D}.\\
 
 \par
 \begin{fancyquotes}
@@ -285,12 +284,11 @@ When we were first starting to make stuff together, I made TEd 1.0, and it evolv
 \footnotetext{Interview with David Lightbown from Gamasutra, February 2017}
 
 \par
- TED5 is not stand-alone; in order to start, it needs an asset archive and the  associated header (as described in Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, tile IDs are directly encoded in the map.\\
+TED is not standalone; in order to start, it needs an asset archive and the associated header and dictionary files (as described in Figure \ref{asset-creation-pipeline} on page \pageref{asset-creation-pipeline}). This way, tile and sprite IDs are directly encoded in the map.\\
 
 \vspace{-3pt}
-\fbox{\fullimage{Fill_2.png}}\\
+\fbox{\fullimage{Fill_2.png}}
  
-\pagebreak
 TED5 allows the placement of tiles across multiple layers, referred to as "planes". In Commander Keen, there are three types of planes: 
 \begin{itemize}
   \item Background plane tiles.
@@ -322,7 +320,7 @@ The map header structure is embedded in the engine code and contains a header of
 
 
 \par 
-For background tile animations, two information tables are defined: "tile animation" and "tile animation speed". The tile animation specifies the next tile in the animation sequence, relative to the current tile. For example, in Table \ref{table:background tile anim}, tile \#90 animates to tile \#91 (+1), followed by \#92 (+1), and \#93 (+1). After tile \#93, the sequence returns to tile \#90 (-3). The animation speed is expressed in number of ticks before the next tile is displayed. \\
+For background tile animations, two information tables are defined: "tile animation" and "tile animation speed". The tile animation specifies the next tile in the animation sequence, relative to the current tile. For example, in Table \ref{table:background tile anim}, tile \#90 animates to tile \#91 (+1), followed by \#92 (+1), and \#93 (+1). After tile \#93, the sequence returns to tile \#90 (-3). The animation speed is expressed as the number of ticks before the next tile is displayed. \\
  \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXX}
   \hline
@@ -339,7 +337,7 @@ For background tile animations, two information tables are defined: "tile animat
   \end{table}
   
   \par
-Tiles also contain clipping information and a column called \cw{intile}. The \cw{intile} column tells what the tile "does" to the player, such as kill, climb, points, etc. Values between 128-255 are used for foreground tiles only. The \cw{intile} column is customized for each version of \textit{Commander Keen}. In \textit{Keen Dreams} it is used for e.g. climbing poles.\\
+Tiles also contain clipping information and a column called \cw{intile}. The \cw{intile} column tells what the tile "does" to the player, such as kill, climb, points, etc. Values between 128--255 are used for foreground tiles only. The \cw{intile} column is customized for each version of \textit{Commander Keen}. In \textit{Keen Dreams}, it is used, for example, for climbing poles.\\
 \begin{table}[H]
   \begin{tabularx}{\textwidth}[c]{XXXXXXX}
   \hline
@@ -383,13 +381,13 @@ The structure of the \cw{KDREAMS.MAP} archive is illustrated in Figure \ref{fig:
 
 \section{Audio}
 \label{section:audio}
-The original Commander Keen Trilogy only supported the default PC Speaker. With the introduction of Commander Keen in Keen Dreams, the team decided to support sound cards as well.\\
+The original Commander Keen Trilogy only supported the default PC speaker. With the introduction of Commander Keen in Keen Dreams, the team decided to support sound cards as well.\\
 
 \par
-\bu{Trivia :} Apogee, the publisher of Ideas from the Deep, didn't publish any game with AdLib support until \textit{Dark Ages} in 1991. And even then, it still had pc speaker music.\\
+\bu{Trivia :} Apogee, the publisher of Ideas from the Deep, did not publish any game with AdLib support until \textit{Dark Ages} in 1991. And even then, it still had PC speaker music.\\
 
 \par
-id Software intended for Keen Dreams to have music and digital effects support for the SoundBlaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360KiB floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute\footnote{https://vimeo.com/4022128, at 2:00-4:55.}. The team didn't even have time to remove the music setup menu.
+id Software intended Keen Dreams to have music and digital effects support for the Sound Blaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360KiB floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute\footnote{https://vimeo.com/4022128, at 2:00-4:55.}. The team didn't even have time to remove the music setup menu.
 
 \begin{figure}[H]
 \centering
@@ -398,9 +396,9 @@ id Software intended for Keen Dreams to have music and digital effects support f
 \end{figure}
 
 \par
-Consequently, only two sets of each audio effect are shipped with the game:
+Consequently, only two sets of each audio effect were shipped with the game:
 \begin{enumerate}
-\item For PC Speaker
+\item For PC speaker
 \item For AdLib
 \end{enumerate}
 
@@ -415,14 +413,14 @@ Consequently, only two sets of each audio effect are shipped with the game:
 
 
 \par
-All sound effects are done by Robert Prince. Sound effects are created using Cakewalk and inhouse MUSE tool\footnote{See \textit{Game Engine Black Book - Wolfenstein 3D}, section 3.6 for an extensive description.}.
-Just like described before, the MUSE tool packed all sound effects together in a compressed \cw{SOUND} archive and generated a \cw{HEAD}, \cw{DICT} file and a \mbox{C header} file with asset IDs.\\
+All sound effects were done by Robert Prince. Sound effects were created using Cakewalk and the inhouse MUSE tool\footnote{See \textit{Game Engine Black Book - Wolfenstein 3D}, section 3.6.}.
+As described earlier, the MUSE tool packed all sound effects together in a compressed \cw{SOUND} archive and generated \cw{HEAD} and \cw{DICT} files and a \mbox{C header} file with asset IDs.\\
 
 
 
 
 \section{Distribution}
-On December 14th, 1990, the first episode was released via Apogee. Episodes 1-5 were all published by Apogee Software. The game engine and first episode were given for free and were encouraged to be copied and distributed to as many people as possible. To receive the other episodes, each player had to pay \$30 (for Episode 1-3) to \textit{Ideas from the Deep}.\\
+On December 14, 1990, the first episode was released via Apogee. Episodes 1--5 were all published by Apogee Software. The game engine and first episode were distributed for free and were intended to be copied and shared as widely as possible. To receive the other episodes, each player had to pay \$30 for Episode 1--3 to \textit{Ideas from the Deep}.\\
 
 \par
 \textit{Commander Keen in Keen Dreams} was published as a retail title by Softdisk, as part of a settlement for using Softdisk resources to make their own game\footnote{The settlement with Softdisk is explained in Appendix \ref{sec:id_software}}.\\
@@ -445,7 +443,7 @@ In 1990, the Internet was still in its infancy and the best medium was the 3\nic
  \item KDREAMS.MAP: Contains all maps.
  \item KDREAMS.CMP: Introduction picture of the game, a compressed LBM image file.
  \item Softdisk Help Library files, which are text screens, shown when starting and ending the game
- \item Several *.TXT files, which can be read by typing the corresponding *.BAT file. 
+ \item Several *.TXT files, which can be read by executing the corresponding *.BAT file. 
 
 \end{itemize}
 
