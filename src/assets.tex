@@ -1,6 +1,5 @@
 \documentclass[book.tex]{subfiles}
 \begin{document}
-\chapter{Assets}
 \section{Programming setup}
 \label{section:programming}
 
@@ -62,6 +61,7 @@ Foreground tiles, or "masked tiles", are similar to normal tiles but contain fiv
 By combining tiles on the screen, a map is created. These maps define the entire game world in terms of background and foreground tiles. Maps also include a list of all actors and their starting positions within the world. Essentially, everything the player encounters while progressing through the levels is specified in a map.
 
 \subsection{Assets Workflow}
+\label{section:assets_workflow}
 After the graphical assets were generated, a tool (IGRAB) packed all ILBM files into a compressed asset archive file (\cw{*.EGA}) and generated a \cw{HEAD} table and Huffman \cw{DICT} file (\cw{*.KDR}-files\footnote{both \cw{KDR}-files are located in the \cw{static} folder of the source code.}), and a C header file containing asset IDs. The engine references an asset directly using these IDs via an enum. This enum serves as an offset into the \cw{HEAD} table, which then provides an offset within the asset archive file.\\
 
 
@@ -381,40 +381,65 @@ The structure of the \cw{KDREAMS.MAP} archive is illustrated in Figure \ref{fig:
 
 \section{Audio}
 \label{section:audio}
-The original Commander Keen Trilogy only supported the default PC speaker. With the introduction of Commander Keen in Keen Dreams, the team decided to support sound cards as well.\\
+The original Commander Keen Trilogy only supported the default PC speaker. With the release of Commander Keen in Keen Dreams, the team decided to add support for sound cards as well.\\
 
 \par
 \bu{Trivia :} Apogee, the publisher of Ideas from the Deep, did not publish any game with AdLib support until \textit{Dark Ages} in 1991. And even then, it still had PC speaker music.\\
 
+
 \par
-id Software intended Keen Dreams to have music and digital effects support for the Sound Blaster \& Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. However, Softdisk Publishing wanted Keen Dreams to fit on a single 360KiB floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute\footnote{https://vimeo.com/4022128, at 2:00-4:55.}. The team didn't even have time to remove the music setup menu.
+id Software intended Keen Dreams to include music for the Sound Blaster and Sound Source devices. In fact, Bobby Prince composed the song "You've Got to Eat Your Vegetables!!" for the game's introduction. HHowever, Softdisk Publishing wanted Keen Dreams to fit on a single 360KiB floppy disk, and in order to do this, id Software had to scrap the game's music at the last minute\footnote{https://vimeo.com/4022128, at 2:00-4:55.}. The team did not even have time to remove the music setup menu.\\
+
 
 \begin{figure}[H]
 \centering
 \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/music.png}}
-\caption{Setup music menu in Keen Dreams, although there is no music in the game.}
+\caption{Music setup in Keen Dreams, even though the game contains no music.}
+\end{figure}
+
+\bu{Trivia :} The song "You've Got to Eat Your Vegetables!!", written for \textit{Keen Dreams}, would finally make its debut in \textit{Commander Keen IV: Secret of the Oracle}.\\
+
+\par
+As a result, the game shipped with sound effects only. The sound menu also suggests that digitized sound effects were planned, although they were never included.
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/sound_header.png}}
+\caption{Both Sound Blaster and Sound System are disabled.}
 \end{figure}
 
 \par
-Consequently, only two sets of each audio effect were shipped with the game:
+Consequently, only two versions of each sound effect were included with the game:
 \begin{enumerate}
 \item For PC speaker
 \item For AdLib
 \end{enumerate}
 
-\begin{figure}[H]
-\centering
-\fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/sound.png}}
-\caption{Both Sound Blaster and Sound System are disabled.}
-\end{figure}
-\par
 
-\bu{Trivia :} The song "You've Got to Eat Your Vegetables!!", written for \textit{Keen Dreams}, would finally make its debut in \textit{Commander Keen IV: Secret of the Oracle}.\\
 
 
 \par
 All sound effects were done by Robert Prince. Sound effects were created using Cakewalk and the inhouse MUSE tool\footnote{See \textit{Game Engine Black Book - Wolfenstein 3D}, section 3.6.}.
-As described earlier, the MUSE tool packed all sound effects together in a compressed \cw{SOUND} archive and generated \cw{HEAD} and \cw{DICT} files and a \mbox{C header} file with asset IDs.\\
+The MUSE tool packed all sound effects together in a compressed \cw{SOUND} archive and generated \cw{HEAD} and \cw{DICT} files and a \mbox{C header} file with asset IDs.\\
+
+\par
+\begin{fancyquotes}
+Muse --- Torture in the form of an executable. Oh, yeah, you can edit PC and AdLib 
+sounds in it. And import music. And see a digitized sound import that doesn't do 
+anything. And see funny blue lines march across your screen. And save out five 
+meg sound files. And have two red lines that show the end of the sound. And see a 
+red line and no sound, though you can play it. And have all the maximum values 
+suddenly disappear.\\
+
+\par
+All these features, and no damn cut and paste! For a fuckin' 
+year!!! (But i'm not bitter ... ) \\
+\par
+\textbf{Tom Hall\protect\footnotemark}
+\end{fancyquotes}\\
+\addtocounter{footnote}{-1}
+\stepcounter{footnote}
+\footnotetext{Tom Hall, The Doom Bible (http://5years.doomworld.com/doombible/).}
 
 
 

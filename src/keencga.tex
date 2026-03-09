@@ -2,7 +2,7 @@
 \begin{document}
 \pagebreak
 \section{Keen Dreams in CGA}
-The first Commander Keen series, \textit{Commander Keen in Invasion of the Vorticons}, was only released for the EGA video card. Keen Dreams and later versions included a CGA version as well. The game play was exactly the same, sounds were the same, it was just that the graphics were CGA. Before diving into  the source code, let's first get a better understanding of the CGA video hardware.\\
+The first Commander Keen series, \textit{Commander Keen in Invasion of the Vorticons}, was only released for the EGA video card. Keen Dreams included a CGA version as well. The game play was exactly the same, sounds were the same, it was just that the graphics were CGA. Before diving into  the source code, let's first get a better understanding of the CGA video hardware.\\
 
 \par
 \textbf{\underline{Trivia :}} It's an ironic twist that Softdisk did not use the original Keen's engine, as the code violated the company policy by depending on 16-color EGA hardware without supporting older 4-color CGA cards!\\
@@ -118,7 +118,7 @@ The CGA memory layout in graphics mode utilized a similar interlaced architectur
 In CGA graphics, each pair of two bits represented a single pixel, allowing for a color value between 0 and 3, based on the CGA color palette. The two leftmost bits in a byte represented pixel 0, the next two bits represented pixel 1, and so on. Each byte in VRAM corresponded to four pixels on the screen.\\
 
 \par
-The CGA card employed memory mapping, similar to EGA. In Mode 4, VRAM bank 0 is mapped to memory addresses ranging from \cw{B0000h} to \cw{B1FFFh}, and VRAM bank 1 was mapped to \cw{B2000h} to \cw{B3FFFh}. Unlike EGA, the CGA memory model didn't require masking since the total 16 KiB of VRAM easily fit within a 64 KiB memory segment.\\
+The CGA card employed memory mapping similar to EGA. In Mode 4, VRAM bank 0 is mapped to memory addresses ranging from \cw{B800:0000h} to \cw{B800:1FFFh} (absolute address \cw{B8000h}--\cw{B9FFFh}), and VRAM bank 1 is mapped to \cw{B800:2000h} to \cw{B800:3FFFh} (absolute address \cw{BA000h}--\cw{BBFFFh}). Unlike EGA, the CGA memory model does not require masking because the total 16KiB of VRAM easily fits within a 64KiB memory segment.
 
 \begin{figure}[H]
 \centering
@@ -127,20 +127,10 @@ The CGA card employed memory mapping, similar to EGA. In Mode 4, VRAM bank 0 is 
 \label{fig:cga_interlaced}
 \end{figure}
 
-
-
-
-
-
 \trivia{Interestingly, interlacing was never actually implemented in CGA monitors. When displaying VRAM to the screen, the CGA used a progressive (linear) scan, alternately reading from bank 0 and bank 1.}\\
 
-
-
-
-
-
 \subsection{Double buffering}
-A full display screen in mode 4 requires 320 pixels x 2 bits per pixel x 200 lines, which equals 16,000 bytes of memory. Since the display screen consumes all 16 KiB of available VRAM, there is no capacity for additional screens. The only way to implement double buffering on a CGA card is by creating a 64 KiB buffer in RAM memory.\\
+A full display screen in mode 4 requires 320 pixels$\times$2 bits per pixel$\times$200 lines, which equals 16,000 bytes of memory. Since the display screen consumes all 16KiB of available VRAM, there is no capacity for additional screens. The only way to implement double buffering on a CGA card is by creating a 64KiB buffer in RAM memory.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -148,7 +138,7 @@ A full display screen in mode 4 requires 320 pixels x 2 bits per pixel x 200 lin
 \end{minipage}
 \label{state_type}
 \par
-This memory buffer contains both the video buffer page and master page. The buffer page starts at offset \cw{0000h}, while the master page begins at \cw{8000h}. Both pages float within the 64 KiB memory segment, leveraging the same memory wrapping mechanism described in section "\nameref{section:wrap_ega_memory}" on page \pageref{section:wrap_ega_memory}.\\
+This memory buffer contains both the video buffer page and master page. The buffer page starts at offset \cw{0000h}, while the master page begins at \cw{8000h}. Both pages float within the 64KiB memory segment, leveraging the same memory wrapping mechanism described in section "\nameref{section:wrap_ega_memory}" on page \pageref{section:wrap_ega_memory}.\\
 
 \begin{figure}[H]
 \centering

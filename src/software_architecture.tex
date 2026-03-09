@@ -2,20 +2,20 @@
 \begin{document}
 \label{chapter_software_architecture}
 \section{About the source code}
-Commander Keen episodes 1-5 source code is unavailable, as the current owner Zenimax\footnote{June 24, 2009, it was announced that id Software had been acquired by ZeniMax Media (owner of Bethesda Softworks).} has, at the time of writing, shown no interest in selling the intellectual property. Fortunately, the ownership of Commander Keen in Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the owners of Softdisk at the time, and released a version for Android devices.\\
+The source code for Commander Keen Episodes 1--5 is unavailable, as the current owner Zenimax\footnote{June 24, 2009, id Software was acquired by ZeniMax Media (owner of Bethesda Softworks).} has shown no interest at the time of writing in selling the intellectual property. Fortunately, the ownership of Commander Keen in Keen Dreams was in the hands of Softdisk. In June 2013, developer Super Fighter Team licensed the game from Flat Rock Software, the owners of Softdisk at the time, and released a version for Android devices.\\
 
 \par
-The following September, an Indiegogo crowdfunding campaign was started to attempt to buy the rights from Flat Rock for US\$1500 in order to release the source code to the game and start publishing it on multiple platforms. The campaign did not reach the goal, but its creator Javier Chavez made up the difference, and the source code was released under GNU GPL-2.0-or-later soon after.
+The following September, an Indiegogo crowdfunding campaign was launched to purchase the rights from Flat Rock for US\$1500 in order to release the game's source code and publish it on multiple platforms. The campaign did not reach the goal, but its creator Javier Chavez made up the difference, and the source code was released under GNU GPL-2.0-or-later soon after.
 
 
 \section{Getting the source code}
 \label{section:source_code}
-The source code is available on GitHub. It is essential to use the source code from the shareware version 1.13, or you may encounter issues due to incompatible map and graphics headers\footnote{See issue \#7 on https://github.com/keendreams/keen.}. To get the correct source code, use the following commands in the console \\
+The source code is available on GitHub. It is essential to use the source code from shareware version 1.13, otherwise you may encounter compatibility issues due to incompatible map and graphics headers\footnote{See issue \#7 on https://github.com/keendreams/keen.}. To get the correct source code, run the following commands in the console \\
 
 \par
 \tcode{keen13_github.txt}\\
 
-\section{First contact}
+\section{Exploring the source code}
 After downloading the repository from GitHub, a folder named 'keen' is created, containing all the source files. The \cw{cloc.pl} tool can be used to analyze the folder and generate statistics about the source code. This tool is useful for getting an idea of what to expect.\\
 
 \par
@@ -23,39 +23,45 @@ After downloading the repository from GitHub, a folder named 'keen' is created, 
 \lstinputlisting[]{code/cloc.txt}
 \end{minipage}
 
+\vspace{8pt}
 \par
-Approximately 85\% of the code is in C, with assembly\footnote{All the assembly in Keen is done with TASM (a.k.a Turbo Assembler by Borland). It uses Intel notation where the destination is before the source: \cw{instr} \cw{dest} \cw{source}.} used for bottleneck optimizations and low-level I/O operations such as video and audio handling. \\
+Approximately 85\% of the code is in C, with assembly used for performance-critical optimizations and low-level I/O operations such as video and audio handling. \\
 
 \par
-Source lines of code (SLOC) are not particularly meaningful for comparing a single codebase but are helpful for determining the proportion of code in various components. Commander Keen has 19,237 SLOC, which is small compared to most modern software. For instance, Inkscape (a vector graphics editor tool I used to make the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Microsoft Office 2013 is estimated to have 45,000,000 SLOC.\\
+Source lines of code (SLOC) is helpful for understanding the relative size of the codebase compared to modern software. For instance, Inkscape (a vector graphics editor tool I used to create the drawings in this book) has 544,508 SLOC, Unreal Engine 4 has 2,300,000 SLOC and Microsoft Office 2013 is estimated to have 45,000,000 SLOC. This illustrates how small Commander Keen is compared to modern software codebases.\\
 
 \trivia{The game \textit{Red Dead Redemption II} is estimated to have 60 million SLOC, the highest amount for a game at the time of writing this book.}\\
 
  
 \par 
-The archive contains more than just source code; it also features:
+Besides the source code, the repository also contains two folders featuring:
 \begin{itemize}
-\item A \cw{static} folder with static header and dictionary files for loading assets and maps (as explained in section "\nameref{section:graphic_assets}" on page \pageref{section:graphic_assets}).
+\item A \cw{static} folder with header and dictionary files for loading assets and maps, and a tool \cw{makeobj.c} to convert these files into OBJ-files (this is explained in the next section).
 \item An \cw{lscr} folder for loading and decompressing Softdisk text files.
-\item A \cw{README} file explaining how to build the executable.
 \end{itemize}
 
-\section{Compile source code}
-Now let's start to compile the source code. To compile the code like it's 1990, you need the following software:
+\section{Compiling source code}
+Now let's compile the source code. To compile the code like it's 1990, you need the following software:
 \begin{itemize}
 \item Commander Keen source code.
-\item DosBox.
-\item The compiler Borland C++ 3.1.
+\item DOSBox.
+\item Borland C++ 3.1.
 \item Commander Keen: Keen Dreams 1.13 shareware (for the assets).
 \end{itemize}
 
 \par
-After setting up DOSBox and installing Borland C++ 3.1\footnote{You can find a complete tutorial in "Let's compile like it's 1992" on fabiensanglard.net}, download the source code from GitHub. Once DOSBox is running and you've navigated to the \cw{keen} folder, create a folder to store your compiled object files. \\
+After setting up DOSBox and installing Borland C++ 3.1\footnote{You can find a complete tutorial in "Let's compile like it's 1992" on fabiensanglard.net}, download the source code from GitHub. Once DOSBox is running and you have navigated to the \cw{keen} folder, create a folder to store your compiled object files. \\
 
 \par
 \tcode{mkdir.txt}\\
 \par
-The \cw{static} folder contains the Huffman dictionaries (\cw{DICT}) and headers (\cw{HEAD}) from the generated graphics, sound and map assets, stored as raw game data files. The team created a special tool called \cw{makeobj} that takes these data files and wraps them into DOS-compatible \cw{.OBJ} files, so that a C compiler (like Borland C++) can link them directly into the game's executable. The tool creates a "symbol" within the object file so that the game's source code can access the embedded data just like any other global variable or array. To generate the static \cw{OBJ} header files, simply enter.\\
+The \cw{static} folder contains the Huffman dictionaries (\cw{DICT}) and headers (\cw{HEAD}) from the generated graphics, sound and map assets, stored as raw game data files. The team created a special tool called \cw{makeobj} that takes these data files and wraps them into DOS-compatible \cw{.OBJ} files, so that a C compiler (such as Borland C++) can link them directly into the game's executable. The tool creates a "symbol" within the object file so that the game's source code can access the embedded data just like any other global variable. \\
+
+\par
+\tcode{makeobj.txt}\\
+
+\par
+To generate all static \cw{OBJ} header files, simply enter the following command:\\
 \par
 \tcode{static.txt}\\
 
@@ -73,6 +79,7 @@ Now it's time to compile. Go to Compile -> Build All, and voil\`a! The game exec
  \begin{figure}[H]
 \centering
   \fbox{\includegraphics[width=1.0\textwidth]{screenshots_300dpi/borland_compile.png}}
+  \caption{Compiling Commander Keen in Borland C++ 3.1.}
 \end{figure}
 
 \section{Executable compression}
@@ -84,7 +91,7 @@ Checking the size of the compiled program, we see\\
 As mentioned earlier, Softdisk did not allow distribution of games larger than 360 KiB. The compiled executable alone already occupies 349 KiB, and it still needed to accommodate graphics, map, and audio assets. With only 11 KiB remaining, the team needed a way to compress the executable to ensure everything would fit on one floppy disk.\\
 
 \par
-To compress the executable, the team used a small utility called LZEXE. It was one of the first widely known executable file compression tools for DOS computers. LZEXE allowed DOS executables to be launched without requiring an explicit decompression step. Most other compression or packing utilities required an additional step (and often additional disk space) to accomplish this.\\
+To compress the executable, the team used a small utility called LZEXE. It was one of the first widely used executable file compression tools for DOS computers. LZEXE allowed DOS executables to be launched without requiring an explicit decompression step. Most other compression or packing utilities required an additional step (and often additional disk space) to accomplish this.\\
 
 
 \par
@@ -146,7 +153,7 @@ When an EXE file is created, all absolute addresses in the code are calculated u
  \end{figure}
 
 \par
-DOS is storing each relocation table entry as a 4-byte segment:offset pointer. This takes up quite a bit of space, since an average game has over 1,300 relocation table entries, which would occupy well over 5 KiB of space using the DOS scheme. LZEXE, by contrast, encodes only the distance from the previous fixup. This results in a far more efficient format, where most relocations requiring only a single byte. In practice, an LZEXE-compressed relocation table can be one-quarter the size of the equivalent DOS relocation table.\\
+DOS stores each relocation table entry as a 4-byte segment:offset pointer. This takes up quite a bit of space, since an average game has over 1,300 relocation table entries, which would occupy well over 5 KiB of space using the DOS scheme. LZEXE, by contrast, encodes only the distance from the previous fixup. This results in a far more efficient format, where most relocations require only a single byte. In practice, an LZEXE-compressed relocation table can be one-quarter the size of the equivalent DOS relocation table.\\
 
 
 
@@ -169,14 +176,15 @@ When I was trying to fit all the data for Keen 2 and Keen 3 on a 360K floppy and
 
 
 \pagebreak
-\section{Big Picture}
+\section{Main overview}
 The game engine is divided into three blocks: 
 \begin{itemize}
-\item Control panel, which lets users configure and start the game.
-\item 2D game renderer, where the users spend most of their time.
-\item Sound system, which runs concurrently with either the Menu or 2D renderer. 
+\item Control panel, which lets players configure and start the game.
+\item 2D game engine, where players spend most of their time.
+\item Sound system, which runs concurrently with either the control panel or 2D engine. 
 \end{itemize}
-The three systems communicate via shared memory. The renderer writes sound requests to RAM (also making sure the assets are ready). These requests are read by the sound "loop". The sound system also writes to RAM for the renderers since it is in charge of the heartbeat of the whole engine. The renderers update the screen according to the wall-time tracked by \cw{TimeCount} variable.
+The 2D engine communicates with the sound engine via function calls. The 2D engine sends sound requests to the sound engine, which processes them in its main loop. The sound engine controls the game’s heartbeat. It updates the global \cw{TimeCount} variable, which is used to time-control the game flow and screen refresh.\\
+
 \par
 \begin{figure}[H]
 \centering
@@ -186,13 +194,10 @@ The three systems communicate via shared memory. The renderer writes sound reque
  \par
  
 \subsection{Unrolled Loop}
-With the big picture in mind, we can dive into the code and unroll the main loop, starting with \cw{void main()}. The control panel and 2D renderer follow regular loops, but due to limitations discussed later, the sound system is interrupt-driven and therefore operates outside the main loop. In real mode, C types do not behave as expected on a 16-bit architecture.
-\begin{itemize}
-\item \cw{int} and \cw{word} are 16 bits.
-\item \cw{long} and \cw{dword} are 32 bits.
-\end{itemize}
+The first programmer-defined function that runs in any C program is named \cw{main()}, which resides in \cw{kd\_main.c}. When started with the \cw{/?} argument, the program displays an overview of available configuration parameters, such as  disabling sound cards or mouse. The control panel and 2D engine follow regular loops, but due to limitations explained later, the sound system is interrupt-driven and therefore operates outside the main loop. \\
+
 \par
-The first action taken by the program is to set the text color to light grey and the background to black. \\
+The first action taken by the program is to set the text color to light grey and the background to black, followed by game initialization, after which the main loop begins. \\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/unrolled_loop_main.c}
@@ -200,31 +205,32 @@ The first action taken by the program is to set the text color to light grey and
 \par
 
 \par
-In \cw{InitGame()}, the program checks whether there is enough memory and brings up all the managers.\\
+In \cw{InitGame()}, the program checks whether there is enough memory and brings up all the managers. Next, it loads all sounds and frequently used graphics (e.g. font and Commander Keen sprites) into memory.\\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/unrolled_loop_init.c}
 \end{minipage}
 \par
-Then comes the core loop, where the menu and 2D renderer are called forever.
+Then comes the core loop, where the menu and 2D engine are called forever.\\
 
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/unrolled_loop_demoloop.c}
 \end{minipage}
 \par
-\cw{PlayLoop} contains the 2D renderer. It is pretty standard with getting inputs, update screen, and render screen approach.\\
+\cw{PlayLoop} contains the 2D engine. It is pretty standard with getting input, updating the state machine, scrolling, and refreshing the screen.\\
+
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/unrolled_loop_playloop.c}
-\end{minipage} \\
+\end{minipage} 
 \par
  
-The interrupt system is started via the Sound Manager in \cw{SDL\_SetIntsPerSec(rate)}. The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with an OS supporting neither processes nor threads, it was the only way to have something executed concurrently with the rest of the engine.
+The interrupt system is started via the Sound Manager in \cw{SDL\_SetIntsPerSec(rate)}. The reason for interrupts is extensively explained in Chapter \ref{audio_and_heartbeat} "\nameref{audio_and_heartbeat}". In short, with DOS supporting neither processes nor threads, it was the only way to have something executed concurrently with the rest of the engine.
 
 
 \section{Architecture}
 
-The source code is structured in two layers. KD\_* files are high-level layers relying on low-level ID\_* sub-systems called Managers interacting with the hardware.
+The source code is structured in two layers. The ID\_* files are sub-systems called managers interacting with the hardware. These ID\_* managers were generic and reused in other id Software games (e.g. \textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolfenstein 3D}). The KD\_* files were written specifically for Commander Keen.
 \par
 \begin{figure}[H]
 \centering
@@ -243,12 +249,12 @@ There are six managers in total:
 	\item Input
 \end{itemize}
 \par
-The KD\_ stuff was written specifically for Commander Keen while the ID\_ managers are generic and later re-used (with improvements) for newer id Software games (\textit{Hovertank One}, \textit{Catacomb 3-D} and \textit{Wolfenstein 3D}). Next to the hard drive (HDD) you can see the graphics, map and sound assets files as described in Chapter \ref{chapter:assets}.
+The figure below shows a more detailed architectural overview, illustrating the interaction between the different sub-systems. Next to the hard drive (HDD) you can see the graphics, map and sound assets files as described in Chapter \ref{chapter:assets}.
 
 \begin{figure}[H] 
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/architecture.eps}
-\caption{Architecture with engine and sub-systems (in white) connected to I/O (in gray).}
+\caption{Architecture with engine and sub-systems connected to devices (in gray).}
 \label{fig:architecture}
 \end{figure}
 
@@ -256,7 +262,7 @@ The KD\_ stuff was written specifically for Commander Keen while the ID\_ manage
 
 
 \subsection{Memory Manager (MM)}
-The engine has its own memory manager to have more control over memory fragmentation and optimization. The memory manager is made of a linked list of "blocks" keeping track of RAM. A block points to a starting point in RAM, has a size, and can be marked with attributes:
+The engine has its own Memory Manager to have more control over memory fragmentation and optimization. The Memory Manager consists of a linked list of "blocks" keeping track of RAM. A block points to a starting point in RAM, has a size, and can be marked with attributes:
 \begin{itemize}
   \item LOCKBIT : This block of RAM cannot be moved during compaction.
   \item PURGEBITS : Two levels available, 0= unpurgeable, 3=purge first.
@@ -265,12 +271,12 @@ The engine has its own memory manager to have more control over memory fragmenta
 \par
 \lstinputlisting[language=C]{code/mm_block.c}
 \par  
-The memory manager allocates all RAM, starting from \cw{0000:0000h}, and assigns segments to the linked list. Since the engine is compiled using the medium memory model, there are two heaps: the near heap in the data segment between the global variables and stack, and the far heap starting right behind the stack. The total available free memory space for the near heap can be obtained by\\
+The Memory Manager allocates all RAM, starting from \cw{0000:0000h}, and assigns segments to the linked list. Since the engine is compiled using the medium memory model, there are two heaps: the near heap in the data segment between the global variables and stack, and the far heap starting right behind the stack. The total available free memory space for the near heap can be obtained by\\
 \par
 \lstinputlisting[language=C]{code/nearheap.c}
 
 \par  
-The memory manager is segment-aligned, meaning it allocates memory blocks in chunks of 16 bytes. \\
+The Memory Manager is segment-aligned, meaning it allocates memory blocks in chunks of 16 bytes, called "paragraphs". \\
 
 
 \lstinputlisting[language=C]{code/mm_block_first.c}
@@ -312,17 +318,17 @@ The block of unusable memory is between the start of the stack memory (including
  \par
 
 \par
-Finally, the last unusable block of memory lies between the end of the far heap and the end of the 1MiB memory, the area that is typically for VRAM, ROM, etc. Now, the entire memory space from segment \cw{0000h} to \cw{FFFFh} is allocated, chained together, and fully controlled by the memory manager.\\
+Finally, the last unusable block of memory lies between the end of the far heap and the end of the 1MiB memory, the area that is typically for VRAM, ROM, etc. Now, the entire memory space from segment \cw{0000h} to \cw{FFFFh} is allocated, chained together, and fully controlled by the Memory Manager.\\
 
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/mm_final.eps}
- \caption{Final initial memory manager state.}
+ \caption{Final initial Memory Manager state.}
  \end{figure}
 
 \par
 The engine interacts with the Memory Manager by requesting RAM (\cw{MM\_GetPtr}) and freeing RAM (\cw{MM\_FreePtr}). To allocate memory, the manager searches for "holes" between
-blocks\footnote{See the "Game Engine Black book Wolfenstein 3D" for a detailed description how the memory manager is allocating memory}. \\
+blocks\footnote{See the "Game Engine Black book Wolfenstein 3D" for a detailed description how the Memory Manager allocates memory}. \\
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/mm_allocation.eps}
@@ -343,21 +349,21 @@ By calling \cw{MM\_ShowMemory}, you can inspect the current memory usage during 
 	\begin{subfigure}{1.0\linewidth}
 		\fbox{\includegraphics[width=\linewidth]{screenshots_300dpi/mm_dump_run.png}}
 	\end{subfigure}
-	\caption{Memory dump after (i) initializing memory manager and (ii) running the game.}
+	\caption{Memory dump after (i) initializing Memory Manager and (ii) running the game.}
 	\label{fig:subfigures}
 \end{figure}
 
 
 \subsection{Video Manager (VW \& RF)}
-The video manager features two parts:
+The Video Manager consists of two parts:
 \begin{itemize}
 \item The \cw{VW\_*} layer is made of both C and ASM, where the C functions abstract away EGA register manipulation via assembly routines. 
 \item The \cw{RF\_*} layer is used to refresh the screen, and is also made of both C and ASM code.
 \end{itemize}
-The video manager is described extensively in section "\nameref{section:adaptive_tile_refresh}" on page \pageref{section:adaptive_tile_refresh}.
+The Video Manager is described extensively in section "\nameref{section:adaptive_tile_refresh}" on page \pageref{section:adaptive_tile_refresh}.
 
 \subsection{Cache Manager (CA)}
-The cache manager is a small but critical component. It loads and decompresses maps, graphics and audio resources stored on the filesystem and makes them available in RAM. Assets are stored into three files: 
+The Cache Manager is a small but critical component. It loads and decompresses maps, graphics and audio resources stored on the filesystem and makes them available in RAM. Assets are stored in three files: 
 \begin{itemize}
 	\item A header file containing the offset to allow translation from asset ID to byte offset in the data file.
 	\item A compression dictionary to decompress each asset.
@@ -372,17 +378,17 @@ The cache manager is a small but critical component. It loads and decompresses m
  \end{figure}
 
 \par
-The header (\cw{HEAD}) and dictionary (\cw{DICT}) files are provided in the \cw{static} folder after the conversion into \cw{*.OBJ} file using \cw{makeobj.c}). The data file containing the assets is not part of the source code and must be obtained by downloading the shareware version. All resources are compressed using Huffman compression, and maps have additional RLE compression. The cache manager is described extensively in the "\nameref{section:cache_compression}" section on page \pageref{section:cache_compression}.
+The header (\cw{HEAD}) and dictionary (\cw{DICT}) files are provided in the \cw{static} folder after the conversion into \cw{*.OBJ} file using \cw{makeobj.c}. The data file containing the assets is not part of the source code and must be obtained by downloading the shareware version. All resources are compressed using Huffman compression, and maps have additional RLE compression. The Cache Manager is described extensively in the "\nameref{section:cache_compression}" section on page \pageref{section:cache_compression}.
 
 
 
  
 \subsection{User Manager (US)} 
 \label{section:bitshifting}
-The user manager is responsible for the layout of text and control panels, such as loading/saving games, configuring controls, and setting sound devices. Once we start the game, we move the display to EGA graphic mode \cw{0x0D}. Here we cannot print characters on the screen using the \cw{printf()} command. \\
+The User Manager is responsible for the layout of text and control panels, such as loading/saving games, configuring controls, and setting sound devices. Once we start the game, we move the display to EGA graphic mode \cw{0x0D}. Here we cannot print characters on the screen using the \cw{printf()} command. \\
 
 \par
-A key function of the user manager is to render text at a specific pixel location. When the engine needs to draw a string, it is passed to \cw{US\_Print} which performs all measurements (\cw{VW\_MeasurePropString}) and then passes this information to \cw{VWB\_DrawPropString}, which takes care of drawing the string on screen.\\
+A key function of the User Manager is to render text at a specific pixel location. When the engine needs to draw a string, it is passed to \cw{US\_Print} which performs all measurements (\cw{VW\_MeasurePropString}) and then passes this information to \cw{VWB\_DrawPropString}, which takes care of drawing the string on screen.\\
 
 \par
 In the graphics asset file, each font character is stored with:
@@ -399,10 +405,10 @@ Each character is 10 pixels tall, but the width varies, as illustrated in Figure
  \end{figure}
  \par
  
-On the EGA video card each 8 pixels take up 1 byte of VRAM, as explained on page \pageref{section:EGA_Planar_Madness}. When you need to print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
+On the EGA video card each 8 pixels take up 1 byte of VRAM, as explained on page \pageref{section:EGA_Planar_Madness}. When you print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
 
 \par
-Instead of manually shifting every pixel in your character bitmaps, the game engine uses pre-calculated bitshift tables. These tables are essentially lookup guides that help quickly adjust how characters are drawn based on their starting position. Here's how the process works:
+Instead of manually shifting every pixel in your character bitmaps, the game engine uses pre-calculated bitshift tables. These tables are essentially lookup guides that help quickly adjust how characters are drawn based on their starting position. The process works as follows:
 \begin{enumerate}
   \item Start with a base table (called \cw{shiftdata0}) that holds all the possible values for a byte, from 0 to 255, and store this in an integer (16 bits). 
   \item Next, you generate seven more tables by shifting each value in \cw{shiftdata0} one bit to the right for each table. So, for \cw{shiftdata1} the value 198 becomes 99, and for \cw{shiftdata2} it becomes 32817, and so on. This process continues until you have eight tables, each representing a different bitshift.
@@ -441,7 +447,7 @@ The assembly routine \cw{ShiftPropChar} takes care of drawing the character to t
  
 
 \subsection{Sound Manager (SD)} 
-The Sound Manager abstracts interaction with all sound systems supported: PC Speaker, AdLib, and Sound Blaster. It is a beast of its own since it doesn't run inside the engine. Instead, it is called via IRQ at a much higher frequency than the engine (the engine runs at a maximum 70Hz, while the sound manager ranges from 140Hz to 700Hz). The sound manager is described extensively in the "\nameref{audio_and_heartbeat}" section on page \pageref{audio_and_heartbeat}. \\
+The Sound Manager takes care of interaction with the different sound systems: PC speaker, AdLib and Sound Blaster. It is not part of the game engine loop, but runs on a separate loop via an interrupt system. Where the game engine runs at a maximum of 70Hz, the Sound Manager is capable of running between 140Hz to 700Hz. The Sound Manager is described extensively in the "\nameref{audio_and_heartbeat}" section on page \pageref{audio_and_heartbeat}. \\
  \par
 \begin{figure}[H]
 \centering
@@ -452,22 +458,24 @@ The Sound Manager abstracts interaction with all sound systems supported: PC Spe
 
 
 \subsection{Input Manager (IN)}
-The input manager abstracts interactions with joystick, keyboard, and mouse. It features the code to deal with PS/2, Serial, and DA-15 ports, with each using their own I/O addresses and custom interrupt routines. The keyboard is described in the "\nameref{keyboard}" section on page \pageref{keyboard}.\\
+The Input Manager is responsible for handling input from the keyboard, mouse, and joystick. It manages hardware-level details such as I/O port addresses, scan codes, and custom interrupt routines to ensure reliable communication between the input devices and the game engine.\\
+
+\par
+Because most players used the keyboard to play Commander Keen, section “\nameref{keyboard}” on page \pageref{keyboard} provides a detailed explanation of the keyboard input system and its implementation.\\
+
 
 \subsection{Softdisk files}
 The primary function of the Softdisk files is to load and display the intro screen bitmap using the \cw{LoadLIBShape} function from soft.c. Most of the functions in these files are not used and are therefore not discussed further in this book.
-\pagebreak
-
 
 
 \section{Startup}
-When the game engine starts, it first loads the Memory Manager. It then checks if at least 335KiB of RAM is available. If not, a warning is displayed, but the game can continue. However, the game will likely crash or display an error soon after. \\
+When the game engine starts, it first loads the Memory Manager. It then checks if at least 335KiB of RAM is available. If not, a warning is displayed, but the game can continue. However, the game will likely crash or display an error shortly thereafter.\\
 
 \par
 \tcode{out_of_memory.txt}\\
 
 \par
-Once the game has successfully started, the intro image, a Deluxe Paint bitmap image (\cw{*.LBM}), is displayed. After the user presses any key, the intro image (using 320x200 = 64,000 bytes) is unloaded from RAM to free up memory for runtime, and the control panel is displayed.\\
+Once the game has successfully started, the intro image, a Deluxe Paint bitmap image (\cw{*.LBM}), is displayed. After the user presses any key, the intro image (using 64KB) is unloaded from RAM to free up memory for runtime, and the control panel is displayed.
 
 \begin{figure}[H]
 \centering

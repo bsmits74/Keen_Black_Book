@@ -1,6 +1,8 @@
 void InitGame (void)
 {
-    ...
+    MM_Startup ();
+    if (mminfo.mainmem < 335l*1024)
+    { // Not enough memory}
 
 	US_TextScreen();
 
@@ -13,17 +15,9 @@ void InitGame (void)
 	CA_Startup ();
 	US_Setup ();
 
-    //
     // load in and lock down some basic chunks
-    //
-
-	CA_ClearMarks ();
-
-	...
 
 	CA_LoadAllSounds ();
-
-	fontcolor = WHITE;
 
 	US_FinishTextScreen();
 

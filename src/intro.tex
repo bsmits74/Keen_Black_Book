@@ -3,17 +3,17 @@
 My personal introduction to computer gaming began in 1985, when my parents bought an MSX-1 home computer. I was fascinated by games such as Konami's \textit{Knightmare} and \textit{Nemesis 2}. It was not only the gameplay that intrigued me, but also how such games were created. This curiosity sparked my interest in programming and game development, and I soon began creating my first games in MSX BASIC.\\
 
 \par
-That same year, Nintendo released \textit{Super Mario Bros.} for the Nintendo Entertainment System (NES). It became an instant blockbuster, combining colorful graphics with remarkably smooth side-scrolling. By comparison, the side-scrolling games I played on the MSX---such as Knightmare and Nemesis 2---moved at a constant and noticeably choppy speed.\\
+That same year, Nintendo released \textit{Super Mario Bros.} for the Nintendo Entertainment System (NES). It became an instant blockbuster, combining colorful graphics with remarkably smooth side-scrolling. By comparison, the side-scrolling games I played on the MSX-1, such as Knightmare and Nemesis 2, moved at a constant, noticeably choppy speed.\\
 
 \par
-Super Mario Bros. was different. The player dictated the scrolling speed: you could accelerate from walking to running or jumping, and the screen would smoothly follow your actions. The game was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform genre and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan.}. More importantly, it demonstrated the real power of the NES by utilizing a dedicated Picture Processing Unit (PPU) that handled sprites and scrolling independently of the CPU.\\
+Super Mario Bros. was different. The player dictated the scrolling speed: you could accelerate from walking to running or jumping, and the screen would smoothly follow your actions. The game was immensely successful, both commercially and critically. It helped popularize the side-scrolling platform genre and served as a killer app for the NES\footnote{Upon release in Japan, 1.2 million copies were sold during its September 1985 release month. Within four months, about 3 million copies were sold in Japan.}. More importantly, it demonstrated the true power of the NES by utilizing a dedicated Picture Processing Unit (PPU) that handled sprites and scrolling independently of the CPU.\\
 
 
 \par
-Most home computers of that era, such as the MSX, lacked hardware support for smooth scrolling. Some systems, like the Commodore 64, could scroll up to 8 pixels (one character) horizontally or vertically. However, once that limit was reached, developers had to rely on all kinds of tricks to achieve continuous, full-screen scrolling. This typically involved copying large amounts of data, just to move the screen by a single character\footnote{Some great programmers succeeded in implementing smooth scrolling on the Commodore 64, most notably in games such as \textit{Uridium} (1986) and \textit{Armalyte} (1988).}. Such approaches were extremely CPU-intensive and often beyond the capabilities of the hardware.
+My MSX-1 home computer lacked any hardware support for smooth scrolling. Other computers, like the MSX-2 and Commodore 64, could scroll up to 8 pixels (one character) horizontally or vertically. However, once that limit was reached, developers had to rely on all kinds of tricks to achieve continuous, full-screen smooth scrolling. This typically involved copying large amounts of data, simply to move the screen by a single character\footnote{Some great programmers succeeded in implementing smooth scrolling on the Commodore 64, most notably in games such as \textit{Uridium} (1986) and \textit{Armalyte} (1988).}. Such approaches were extremely CPU-intensive and often beyond the capabilities of the hardware.\\
 
 \par
-The NES was one of the very first home consoles to offer true smooth scrolling. Essentially, the PPU had a register that you could write to in order to set the fine (pixel) scroll. For example, to scroll the background 120 pixels horizontally and then 22 pixels vertically, you would first write the horizontal scroll value 120, followed by the vertical value 22 to the PPU\footnote{The PPU could only handle one-directional scrolling at a time. So bi-directional scrolling requires twice updating the PPU registers. }. Done deal! The video chip takes care of the rest, running at the same constant speed as it always has.\\
+The NES was one of the very first home consoles to offer true hardware-supported smooth scrolling. Essentially, the PPU had registers that could be written to, in order to set the fine (pixel) scroll. For example, to scroll the background 120 pixels horizontally and then 22 pixels vertically, you would first write the horizontal scroll value 120, followed by the vertical value 22 to the PPU\footnote{The PPU could only handle one-directional scrolling at a time. So bi-directional scrolling requires twice updating the PPU registers. }. Done deal! The video chip takes care of the rest, running at the same constant speed as it always has.\\
 
 \begin{figure}[H]
   \centering
@@ -21,10 +21,14 @@ The NES was one of the very first home consoles to offer true smooth scrolling. 
 \caption{Super Mario Bros on Nintendo Entertainment System}
 \end{figure}
 
+\vspace{10pt}
 \par
-In the late 1980s, the IBM PC lagged far behind the gaming power of the NES. It was designed for office work rather than gaming. It was meant to crunch integers and display static images for word processing and spreadsheet applications. Most PC games around that time were graphic adventure games (\textit{King's Quest}), static platform games (\textit{Prince of Persia}) and simulation games (\textit{Sim City}). Basically, the PC lacked all hardware support for sprites and smooth scrolling.\\
+In the late 1980s, the IBM PC lagged far behind the gaming power of the NES. It was designed for office work rather than gaming. It excelled at word processing and crunching numbers in spreadsheets. Although the PC game market was growing rapidly, it was dominated by adventure games (\textit{King's Quest}), role-playing games (\textit{Ultima series}), strategy titles, and simulations (\textit{SimCity}).
+Action and platform games remained largely the domain of consoles and home computers, as the PC lacked hardware support for sprites and smooth scrolling.\\
+
+
 \par
-Then, on December 14\textsuperscript{th}, 1990, a small, unknown software company called "Ideas from the Deep" released \textit{Commander Keen in Invasion of the Vorticons} for the PC. It was the first smooth side-scrolling game on a PC, similar to Super Mario Bros on the NES. 
+Then, on December 14\textsuperscript{th}, 1990, a small, unknown software company called "Ideas from the Deep" released \textit{Commander Keen in Invasion of the Vorticons} for the PC. It was the first PC game to feature smooth side-scrolling, similar to Super Mario Bros on the NES. \\
 
 \begin{figure}[H]
   \centering
@@ -33,29 +37,26 @@ Then, on December 14\textsuperscript{th}, 1990, a small, unknown software compan
 \end{figure}
 
 \par
-\vspace{10pt}
+So how was it possible to create a game like Commander Keen on the IBM PC?\\
 
 
-\par
-The primary focus of the IBM PC was business. It excelled at word processing and crunching numbers in spreadsheets. Although the PC game market was growing rapidly, it was dominated by adventure games, role-playing games (RPGs), strategy titles, and simulations. Action and platform games remained largely the domain of consoles and home computers.\\
 
 \par
-So how was it possible to create Commander Keen on the IBM PC?\\
+With the introduction of the IBM AT, powered by the Intel 80286, the PC began to outperform consoles and home computers on the market. In terms of raw processing power, not even the NES could compete with the IBM AT.\\
 
-\par
-With the introduction of the IBM AT, powered by the Intel 80286, the PC began to outperform consoles and home computers on the market. Not even the NES could compete with the IBM AT in terms of raw processing power.
 
-\par
-\input{imgs/drawings/available_hardware_mips.tex}
 
 \par
 But raw power was about the only area in which the PC excelled. Its other components were notoriously difficult to master:
 \begin{itemize}
-  \item The video adapter (called EGA) did not support any form of scrolling. Nor did it support any form of sprites, which allowed movement of objects on the screen by simply updating their \cw{(x,y)} coordinates.
+  \item The video adapter (called EGA) did not support hardware scrolling. It also lacked hardware sprites, which would have allowed objects to move on the screen simply by updating their \cw{(x,y)} coordinates.
   \item The PC speaker could produce little more than a series of (mostly) annoying "beeps". Sound cards did exist, but they were still in their infancy and far from standardized.
-  \item Memory available to applications was limited to 640 KiB. To make matters worse, RAM was not organized in a flat address space but accessed through segments and offsets. Different memory models existed, each involving trade-offs between program size and performance.
+  \item Memory available to applications was 640KiB, much more than an average home computer, which typically had 64KiB. However, RAM was not organized as a flat address space but accessed through segments and offsets. Different memory models existed, each involving trade-offs between program size and performance.
 \end{itemize}
 
+
+\par
+\input{imgs/drawings/available_hardware_mips.tex}
 
 \par
 Overall, creating a fast side-scrolling action game on the PC seemed nearly impossible. Nevertheless, programmers around the world embraced the challenge, exploring the depths of the hardware and produced remarkable games. Their ingenuity is what inspired me to write this book.\\

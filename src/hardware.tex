@@ -184,13 +184,13 @@ The 8088 had a two-unit architecture consisting of the Execution Unit and the Bu
 A good example is the calculation of physical memory addresses. In the 286, address calculations are performed by the dedicated address unit, whereas the 8088 computes effective addresses using the ALU, often consuming several additional clock cycles.\\
 
 \par
+The remaining three units form a three-stage pipeline. When the execution unit is not using the system bus, the bus unit fetches instructions and stores them in a 6-byte prefetch queue. The decode unit reads bytes from this queue, translates them into decoded instructions, and places them into a secondary three-instruction queue. Finally, the execution unit retrieves these decoded instructions and executes them.\\
+
+\par
 \begin{figure}[H] 
 \centering
 \includegraphics[width=\textwidth]{imgs/drawings/processing_unit.eps}
 \end{figure}
-
-\par
-The remaining three units form a three-stage pipeline. When the execution unit is not using the system bus, the bus unit fetches instructions and stores them in a 6-byte prefetch queue. The decode unit reads bytes from this queue, translates them into decoded instructions, and places them into a secondary three-instruction queue. Finally, the execution unit retrieves these decoded instructions and executes them.\\
 
 \par
 In practical terms, a 286 system running at the same clock frequency as an 8088 will typically be three to six times faster due to its pipelined architecture and dedicated functional units\footnote{https://www.tomshardware.com/reviews/processor-cpu-apu-specifications-upgrade,3566-6.html.}. \\

@@ -2,7 +2,6 @@
  \documentclass[book.tex]{subfiles}
 \begin{document}
 
-\pagebreak
 \section{Keyboard}
 \label{keyboard}
 Before Microsoft introduced the DirectInput API in Windows 95, developers needed to write custom drivers for each input device. This required direct communication with hardware using the vendor's protocol over physical ports. 
@@ -13,24 +12,19 @@ Before Microsoft introduced the DirectInput API in Windows 95, developers needed
 Each key on a PC keyboard is linked to a scancode. When a key is pressed, circuitry in the keyboard generates the scancode and sends it serially to the keyboard controller. This key-down event, also known as a "make code", signals the key press. When a key is released, its scancode high-bit (\cw{80h}) is set, producing a "break code" that is sent by the same mechanism. For example, pressing "A" generates the make code \cw{1Eh}, while releasing it sends the break code \cw{9Eh}. Holding down a key will type a repeating sequence of that character after a short delay, resulting in retransmitting the make code at regular intervals for as long as the key is being held.\\
 
 \par
-The PS/2 keyboard includes 14 keys, such as "Right Ctrl", "Right Alt", and the arrow keys, that duplicate functions from the original 84-key AT layout. To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "/"-key produces the scancode \cw{35h}, while the numeric keypad's "Num /"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
+The PS/2 keyboard includes 14 keys, such as "Right Ctrl", "Right Alt", and the arrow keys, that duplicate functions from the original 84-key AT layout.
 
 \vfill
       \includegraphics[width=1.0\textwidth]{imgs/drawings/keyboard_model_M_left.eps}
 
-
-
-
-
-
+\pagebreak
+To save encoding space, these keys are sent as two-byte scancodes: the first byte is always \cw{E0h}, followed by the make or break code of the equivalent key from the original AT layout. For instance, the standard "/"-key produces the scancode \cw{35h}, while the numeric keypad's "Num /"-key sends \cw{E0h} followed by \cw{35h}. This allows software to differentiate between the keys without expanding the scancode table.\\
 
 \par
-This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "/" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists.\\
+This encoding also has the additional benefit that, if the underlying software only understands the 84-key layout, it will (presumably) discard the \cw{E0h} byte in this example and only process the \cw{35h} byte. This would result in a "/" being correctly typed from the numeric keypad, even though the software doesn't understand that this key exists. The picture below on this and previous page shows the full IBM PS/2 keyboard scancode layout.\\
 
 \trivia{The \cw{E0h} scancode introduced some unexpected behaviors. For example, typing "Shift" + "Num /" should produce a "/", as indicated on the keycap. However, older software may interpret this sequence incorrectly: \textit{Shift is down, I don't understand \cw{E0h}, and here comes \cw{35h}. That means the user wanted to type "?".}}\\
 
-\par
-The keys "Print Screen/SysRq" and "Pause/Break" are special cases. The former produces scancode (\cw{e0h,2ah,e0h,37h}), together with Shift or Ctrl it produces (\cw{e0h,37h}), and \cw{54h} together with (left or right) Alt. The latter produces scancode sequence \linebreak (\cw{e1h,1dh,45h,e1h,9dh,c5h}) when pressed and nothing when released. Together with (left or right) Ctrl, one gets (\cw{e0h,46h,e0h,c6h}), and again nothing at release. The picture below on this and previous page shows the full IBM PS/2 keyboard scancode layout.\\
 
 
 \par

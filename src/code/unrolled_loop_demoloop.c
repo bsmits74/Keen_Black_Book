@@ -6,8 +6,10 @@ void DemoLoop() {
         VW_FixRefreshBuffer ();
         US_ControlPanel ();  // Menu
         GameLoop ();  
-        SetupGameLevel ();
-        PlayLoop () ; // 2D renderer (action)
+          //Functions in GameLoop()
+          SetupGameLevel ();
+          PlayLoop () ; // 2D engine (action)
+          GameOver ();
     }
     Quit("Demo loop exited???");
 }

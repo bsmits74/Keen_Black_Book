@@ -33,7 +33,7 @@
 \contentsline {section}{\numberline {3.2}Graphical Assets}{67}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Tile planar arrangement}{67}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Assets Workflow}{69}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Assets file structure}{71}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.3}Asset file structure}{71}{subsection.3.2.3}%
 \contentsline {section}{\numberline {3.3}Maps}{76}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Map header structure}{77}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Map archive structure}{80}{subsection.3.3.2}%
@@ -42,10 +42,10 @@
 \contentsline {chapter}{\numberline {4}Software}{85}{chapter.4}%
 \contentsline {section}{\numberline {4.1}About the source code}{85}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Getting the source code}{85}{section.4.2}%
-\contentsline {section}{\numberline {4.3}First contact}{86}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Compile source code}{87}{section.4.4}%
+\contentsline {section}{\numberline {4.3}Exploring the source code}{86}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Compiling source code}{87}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Executable compression}{89}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Big Picture}{93}{section.4.6}%
+\contentsline {section}{\numberline {4.6}Main overview}{93}{section.4.6}%
 \contentsline {subsection}{\numberline {4.6.1}Unrolled Loop}{93}{subsection.4.6.1}%
 \contentsline {section}{\numberline {4.7}Architecture}{96}{section.4.7}%
 \contentsline {subsection}{\numberline {4.7.1}Memory Manager (MM)}{98}{subsection.4.7.1}%
@@ -54,7 +54,7 @@
 \contentsline {subsection}{\numberline {4.7.4}User Manager (US)}{103}{subsection.4.7.4}%
 \contentsline {subsection}{\numberline {4.7.5}Sound Manager (SD)}{106}{subsection.4.7.5}%
 \contentsline {subsection}{\numberline {4.7.6}Input Manager (IN)}{106}{subsection.4.7.6}%
-\contentsline {subsection}{\numberline {4.7.7}Softdisk files}{106}{subsection.4.7.7}%
+\contentsline {subsection}{\numberline {4.7.7}Softdisk files}{107}{subsection.4.7.7}%
 \contentsline {section}{\numberline {4.8}Startup}{107}{section.4.8}%
 \contentsline {section}{\numberline {4.9}Asset Caching and Compression}{108}{section.4.9}%
 \contentsline {subsection}{\numberline {4.9.1}Asset caching}{108}{subsection.4.9.1}%
@@ -69,36 +69,36 @@
 \contentsline {section}{\numberline {4.11}Actors and AI}{148}{section.4.11}%
 \contentsline {subsection}{\numberline {4.11.1}State Machine}{148}{subsection.4.11.1}%
 \contentsline {subsection}{\numberline {4.11.2}Clipping}{150}{subsection.4.11.2}%
-\contentsline {section}{\numberline {4.12}Drawing layer for layer}{153}{section.4.12}%
+\contentsline {section}{\numberline {4.12}Rendering the layers}{153}{section.4.12}%
 \contentsline {subsection}{\numberline {4.12.1}Draw background and foreground tiles}{153}{subsection.4.12.1}%
 \contentsline {subsection}{\numberline {4.12.2}Drawing sprites}{155}{subsection.4.12.2}%
 \contentsline {subsection}{\numberline {4.12.3}Tile Draw Performance Tricks}{159}{subsection.4.12.3}%
 \contentsline {subsubsection}{\numberline {4.12.3.1}Background Tile Caching}{159}{subsubsection.4.12.3.1}%
 \contentsline {subsubsection}{\numberline {4.12.3.2}Word-aligned memory writing}{160}{subsubsection.4.12.3.2}%
 \contentsline {section}{\numberline {4.13}Audio and Heartbeat}{162}{section.4.13}%
-\contentsline {subsection}{\numberline {4.13.1}Interrupts}{162}{subsection.4.13.1}%
-\contentsline {subsection}{\numberline {4.13.2}IRQs and ISRs}{163}{subsection.4.13.2}%
+\contentsline {subsection}{\numberline {4.13.1}Introduction to interrupts}{162}{subsection.4.13.1}%
+\contentsline {subsection}{\numberline {4.13.2}The PIT and PIC}{163}{subsection.4.13.2}%
 \contentsline {subsection}{\numberline {4.13.3}Hijacking the System Timer}{164}{subsection.4.13.3}%
 \contentsline {subsection}{\numberline {4.13.4}Heartbeats}{166}{subsection.4.13.4}%
 \contentsline {subsection}{\numberline {4.13.5}Manage Refresh Timing}{168}{subsection.4.13.5}%
 \contentsline {subsection}{\numberline {4.13.6}Audio System}{169}{subsection.4.13.6}%
 \contentsline {subsection}{\numberline {4.13.7}PC Speaker}{171}{subsection.4.13.7}%
 \contentsline {subsection}{\numberline {4.13.8}AdLib}{174}{subsection.4.13.8}%
-\contentsline {section}{\numberline {4.14}Keyboard}{176}{section.4.14}%
-\contentsline {subsection}{\numberline {4.14.1}Keyboard scancodes}{176}{subsection.4.14.1}%
-\contentsline {subsection}{\numberline {4.14.2}Keyboard controller}{178}{subsection.4.14.2}%
-\contentsline {section}{\numberline {4.15}Random Tricks}{180}{section.4.15}%
-\contentsline {subsection}{\numberline {4.15.1}Bouncing Physics}{180}{subsection.4.15.1}%
-\contentsline {subsection}{\numberline {4.15.2}Screen fades}{183}{subsection.4.15.2}%
-\contentsline {section}{\numberline {4.16}Keen Dreams in CGA}{185}{section.4.16}%
-\contentsline {subsection}{\numberline {4.16.1}CGA Video card}{185}{subsection.4.16.1}%
-\contentsline {subsection}{\numberline {4.16.2}Interlacing}{188}{subsection.4.16.2}%
-\contentsline {subsection}{\numberline {4.16.3}Double buffering}{189}{subsection.4.16.3}%
-\contentsline {subsection}{\numberline {4.16.4}Screen refresh}{190}{subsection.4.16.4}%
-\contentsline {chapter}{\numberline {5}Epilogue}{193}{chapter.5}%
-\contentsline {section}{\numberline {5.1}The Dopefish legacy}{194}{section.5.1}%
-\contentsline {chapter}{Appendices}{195}{section*.167}%
-\contentsline {chapter}{\numberline {A}Unboxing the asset files}{197}{appendix.A}%
-\contentsline {chapter}{\numberline {B}x86 Memory Models}{199}{appendix.B}%
-\contentsline {chapter}{\numberline {C}Dangerous Dave in Copyright Infringement}{203}{appendix.C}%
-\contentsline {chapter}{\numberline {D}Founding of id Software}{205}{appendix.D}%
+\contentsline {section}{\numberline {4.14}Keyboard}{178}{section.4.14}%
+\contentsline {subsection}{\numberline {4.14.1}Keyboard scancodes}{178}{subsection.4.14.1}%
+\contentsline {subsection}{\numberline {4.14.2}Keyboard controller}{180}{subsection.4.14.2}%
+\contentsline {section}{\numberline {4.15}Random Tricks}{182}{section.4.15}%
+\contentsline {subsection}{\numberline {4.15.1}Bouncing Physics}{182}{subsection.4.15.1}%
+\contentsline {subsection}{\numberline {4.15.2}Screen fades}{185}{subsection.4.15.2}%
+\contentsline {section}{\numberline {4.16}Keen Dreams in CGA}{187}{section.4.16}%
+\contentsline {subsection}{\numberline {4.16.1}CGA Video card}{187}{subsection.4.16.1}%
+\contentsline {subsection}{\numberline {4.16.2}Interlacing}{190}{subsection.4.16.2}%
+\contentsline {subsection}{\numberline {4.16.3}Double buffering}{191}{subsection.4.16.3}%
+\contentsline {subsection}{\numberline {4.16.4}Screen refresh}{192}{subsection.4.16.4}%
+\contentsline {chapter}{\numberline {5}Epilogue}{195}{chapter.5}%
+\contentsline {section}{\numberline {5.1}The Dopefish legacy}{196}{section.5.1}%
+\contentsline {chapter}{Appendices}{197}{section*.171}%
+\contentsline {chapter}{\numberline {A}Unboxing the asset files}{199}{appendix.A}%
+\contentsline {chapter}{\numberline {B}x86 Memory Models}{201}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Dangerous Dave in Copyright Infringement}{205}{appendix.C}%
+\contentsline {chapter}{\numberline {D}Founding of id Software}{207}{appendix.D}%

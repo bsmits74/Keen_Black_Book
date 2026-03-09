@@ -334,7 +334,6 @@ The full refresh cycle, including sprite updates, proceeds as follows:
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/refresh.c}
 \end{minipage}
-\label{state_type}
 
 
 
@@ -578,20 +577,19 @@ Wolfenstein 3D is using an even faster solution. Here, each virtual screen has a
 
 \section{Actors and AI}
 \label{section:actors_and_ai}
-
-\subsection{State Machine}
-All objects in the game, such as Commander Keen, enemies, bonus points, doors, and even the scoreboard, are called "actors". Each actor can "think" and perform actions like walking, shooting, or emitting sounds. Actors are controlled via a state machine, enabling them to take actions such as chasing the player, throwing objects, or doing nothing at all. To model their behavior, all enemies have an associated state, which can include:
+All objects in the game, such as Commander Keen, enemies, bonus points, doors, and even the scoreboard, are called "actors". Each actor can "think" and perform actions like walking, attacking, or playing sounds. Actors are controlled via a state machine, enabling them to take actions such as chasing the player, throwing objects, or jumping over a gap. To model their behavior, each enemy has an associated state, which can include:
 \begin{itemize}
   \item Chasing Keen
-  \item Hitting or smashing Keen
+  \item Attacking or smashing Keen
   \item Shooting projectiles
   \item Climbing and sliding on poles
   \item Turning into a flower
   \item Special Boss (Boobus)
 \end{itemize}
 
-\par
-Each state has associated think, reaction, and contact method pointers. Additionally, there is a \cw{tictime} and \cw{*nextstate} pointer, which indicate when the actor should transition to another state after a specific number of tics have passed in the current state.\\
+\subsection{State Machine}
+A state machine is a design pattern that manages an object's behavior by breaking it into distinct states (e.g., idle, running, jumping) and defining rules for transitioning between them.
+In Commander Keen, each state has associated think, reaction, and contact method pointers. Additionally, there is a \cw{tictime} value and \cw{*nextstate} pointer, which indicate when the actor should transition to another state after a specific number of tics have passed in the current state.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -600,39 +598,38 @@ Each state has associated think, reaction, and contact method pointers. Addition
 \label{state_type}
 \par
 
-Each actor has a defined state chain, for example the pea pod. \\
+Each actor has a defined state chain, for example the Pea Pod. \\
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,style=mystyle,basicstyle=\small]{code/s_grdchase.c}
 \end{minipage}
 
 \par
-Different types of enemies have their own state machines, often sharing reaction function (e.g., \cw{WalkReact} and \cw{ProjectileReact}) but usually possessing their own unique "thinking" states.\\
+Different types of enemies have their own state machines, often sharing reaction functions (e.g., \cw{WalkReact} and \cw{ProjectileReact}) but usually having their own unique "thinking" states.\\
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{imgs/drawings/state_machine.eps}
+  \includegraphics[width=1.0\textwidth]{imgs/drawings/state_machine.eps}
   \caption{State machine for Pea pod and Pea brain.}
   \label{fig:state_machine}  
 \end{figure}
 
 \par
-The \cw{*react} function is responsible for managing how an enemy reacts to the environment, like turning around upon hitting a wall or the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.
+The \cw{*react} function determines how an enemy reacts to the environment, such as turning around when hitting a wall or reaching the edge of a platform. The \cw{*think} function defines how an enemy behaves when Commander Keen is nearby (e.g., attacking or firing a projectile) or when it reaches an edge (e.g. jumping). In some cases it introduces randomness, like when a pea pod might decide to spit a pea brain.
 
 \par
 \begin{minipage}{\textwidth}
   \lstinputlisting[language=C]{code/state_machine_think.c}
 \end{minipage}
-\label{state_type}
 
 \par
-The \cw{*contact} function checks if an object has come into contact with another object and defines the resulting interaction, such as Commander Keen taking losing a life.
+The \cw{*contact} function checks if an object has come into contact with another object and defines the resulting interaction, such as Commander Keen losing a life.
 
 
 
 \subsection{Clipping}
 \label{section:clipping}
-Whether an actor can move or fall through a tile is determined by the tile property \cw{tinf[]}. Each foreground tile includes four directional parameters: north, south, east, and west. If, for example, the east parameter has a value greater than 0, the tile has a solid east wall, and the actor cannot enter it from the east side. When a sprite moves to the left and encounters a solid tile from the east, the engine adjusts the actor's movement to prevent it from entering the tile.\\
+Whether an actor can move through or fall through a tile is determined by the tile property \cw{tinf[]}. Each foreground tile includes four directional parameters: north, south, east, and west. If, for example, the east parameter has a value greater than 0, the tile has a solid east wall, and the actor cannot enter it from the east side. When an actor moves to the left and encounters a solid tile from the east, the engine adjusts the actor's movement to prevent it from crossing the tile.\\
 
 
 \begin{figure}[H]
@@ -675,20 +672,20 @@ This offset is defined by the lookup table \cw{wallclip[][]}, which uses the act
 \end{minipage}
 
 
-\section{Drawing layer for layer}
+\section{Rendering the layers}
 \label{section:DrawingLayer}
-Each tile on the screen can contain up to three layers: the background layer, the foreground layer and a sprite layer. Rendering the final screen requires multiple redraws on the same tile to achieve the correct layering:
+Each tile on the screen can contain up to three layers: the background tile layer, the foreground tile layer and a sprite layer. Rendering the final result on screen requires multiple redraws of the screen:
 \begin{enumerate}
-  \item Draw the background layer or a combined background and foreground tile.
+  \item Draw the background tile or a combined background and foreground tile.
   \item Draw the sprites.
-  \item Re-draw the foreground layer if a sprite should not appear on top.
+  \item Re-draw the foreground tile if a sprite should not appear on top.
 \end{enumerate}
 
 \par
 It must run quickly and therefore most of the code is written in assembly.
 
 \subsection{Draw background and foreground tiles}
-Drawing the background layer is straightforward, as it only requires copying 128 bytes to VRAM. Drawing foreground tiles on top of the background layer requires an additional mask, which defines which pixels are overwritten by the foreground tile.\\
+Drawing the background layer is straightforward: it only requires copying 128 bytes to VRAM. Drawing a foreground tile on top of the background tile requires an additional mask, which defines which pixels are overwritten by the foreground tile.\\
 
 \begin{figure}[H] 
 \centering
@@ -713,7 +710,7 @@ Drawing the background layer is straightforward, as it only requires copying 128
 \end{figure}
 
 \par
-Combining the background and foreground layers involves using a bitwise \cw{AND}-operation to clear the background pixels, followed by a bitwise \cw{OR}-operation to write the foreground pixels. Because each tile is 2 bytes wide, writes to VRAM always occur on even memory addresses, ensuring full utilization of the 80286 CPU's 16-bit data bus.\\
+Combining the background and foreground layers involves using a bitwise \cw{AND}-operation to clear the background pixels, followed by a bitwise \cw{OR}-operation to write the foreground pixels. Because each tile is 2 bytes wide, writes to VRAM therefore always occur on even memory addresses, ensuring full utilization of the 80286 CPU's 16-bit data bus.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -736,7 +733,7 @@ The next step is to render sprites on the screen. Most home computers of that er
 to display a sprite on the screen. Updating the \cw{(X, Y)} coordinates would move the sprite, with the display adapter handling everything else. Unfortunately, the concept of sprites did not exist on EGA cards, so game developers had to implement their own solution.\\
 
 \par
-A challenge arises from the fact that sprites can move freely across the screen and are not byte-aligned. To address this, the bit-shifting technique described in section "\nameref{section:bitshifting}" on page \pageref{section:bitshifting} is used. When caching a sprite into memory, each sprite is copied four times, with each copy shifted by two or more pixels. The property \cw{*spr->shifts} determines the number of bit shifts applied to each of the four copies.\\
+A challenge arises from the fact that sprites can move freely across the screen and are not byte-aligned. To address this, the bit-shifting technique described in section "\nameref{section:bitshifting}" on page \pageref{section:bitshifting} is used. When caching a sprite in memory, each sprite is stored four times, with each copy shifted by two or more pixels. The property \cw{*spr->shifts} determines the number of bit shifts applied to each of the four copies.\\
 
 
 \begin{figure}[H]
@@ -755,7 +752,7 @@ Displaying the correct shifted sprite is as simple as\\
   \label{sprite_shift}  
   
 \par
-Creating and storing the bit-shifted sprites takes place during loading and caching the sprites from disk. The first sprite keeps the original width (\cw{smallplane}), every next shift is one byte wider to support the 8-bit shift (\cw{bigplane}). 
+Creating and storing the bit-shifted sprites takes place during loading and caching the sprites from disk. The first sprite keeps the original width (\cw{smallplane}), every shifted copy is one byte wider to accommodate the 8-bit shift (\cw{bigplane}). 
 \\
   
 \par
@@ -765,11 +762,10 @@ Creating and storing the bit-shifted sprites takes place during loading and cach
   \label{sprite_shift}  
 
 \par
-To achieve a perfect one-pixel shift for each sprite, a total of eight copies would be required. The character Commander Keen uses 91 different sprites, consuming a total of 41,095 bytes of RAM. Fully pixel-aligned Commander Keen sprites would require 328,760 bytes, and this does not include the additional memory needed for enemy sprites. This cost was deemed too high. To save RAM, the number of bit-shifted copies is limited to four, resulting in a two-pixel alignment.\\
-
+One might ask why only four shifts are used instead of eight to achieve a perfect one-pixel shift. Consider Commander Keen, which uses 91 different sprites that are all loaded permanently into memory. These sprites consume 41,095 bytes of RAM, and after creating seven additional shifted copies, this grows to a total of 328,760 bytes. In addition, the engine still needs to load and copy all other sprites required for a level. This memory cost was deemed too high. To save RAM, the number of bit-shifted copies is therefore limited to four, resulting in a two-pixel alignment.\\
 
 \par
-As a result, the game cannot scroll more smoothly than two pixels. Remember the map itself scrolls with one-pixel alignment using the EGA Pel Pan register. To keep the sprites and the world synchronized, pixel panning must therefore also be limited to two pixels. A simple technique is used to enforce this constraint: the least significant bit of the Pel Pan value is cleared using a mask.\\
+Recall that the map itself scrolls with one-pixel alignment using the EGA Pel Pan register. To keep the sprites and the world synchronized, pixel panning must therefore also be restricted to two pixels. A simple technique is used to enforce this constraint: the least significant bit of the Pel Pan value is cleared using a mask.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -802,7 +798,7 @@ If multiple sprites are displayed on the same tile, each sprite is assigned a pr
 \end{figure}
 
 \par
-To draw sprites 'inside' a foreground tile, a trick is used by introducing a priority foreground tile in the \cw{tinf} info table. The attribute is named INTILE ("in-front"). If a foreground tile has its INTILE attribute high bit set (\cw{80h}), sprites with priority 0-2 will not be drawn over it. This results in the following drawing order:
+To draw sprites 'inside' a foreground tile, a trick is used by introducing a priority foreground tile in the \cw{tinf} info table. The attribute is named INTILE ("in-front"). If a foreground tile has its INTILE attribute high bit set (\cw{80h}), sprites with priority 0--2 will not be drawn over it. This results in the following drawing order:
 \begin{enumerate}
   \item Draw the background tile and the masked foreground tile.
   \item Draw sprites with priority 0, 1, and 2 (in that order), and mark the corresponding tiles in the tile buffer array with a '3', as illustrated in Figure \ref{fig:kc4_6_step4} on page \pageref{fig:kc4_6_step4}. 
@@ -846,7 +842,7 @@ To draw sprites 'inside' a foreground tile, a trick is used by introducing a pri
 \par
 
 \subsection{Tile Draw Performance Tricks}
-To draw one background tile to VRAM, the engine must read and write 128 bytes (2 x 16 bytes x 4 memory banks), which is the minimum number of read/write operations required. In the worst case, up to 512 bytes of read/write operations are required (background, foreground, sprite, and foreground again), with multiple bitwise operations involved.
+The minimum number of read/write operations per tile, when only a background tile is required, is 128 bytes (2$\times$16 bytes$\times$4 memory banks). Worst case, up to 512 bytes of read/write operations are required (background tile, foreground tile, sprite, and foreground tile again), with multiple bitwise operations involved.
 The engine employs several tricks to squeeze the maximum out of each CPU cycle: background tile caching and word-aligned memory writing.
 
 \subsubsection{Background Tile Caching}
@@ -874,13 +870,13 @@ It first checks whether the background tile is already stored in the tile cache 
 
 
 \subsubsection{Word-aligned memory writing}
-The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: this only works when accessing even memory addresses. Additionally, writing a word at the offset address \cw{FFFFh} causes a CPU exception.\\
+The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: this only works when accessing even memory addresses. To make things worse, writing a word at offset \cw{FFFFh} causes the CPU to crash.\\
 
 \par
 Because tiles are word-aligned (16 bits wide) and the screen refreshes in tile-sized steps, they are always aligned with even memory addresses. However, sprites are byte-aligned. When a sprite is drawn from an odd memory address, the CPU is limited to reading and writing 8 bits at a time. To fully utilize the 16-bit data bus, the engine uses small function routines for each combination of sprite width and even/odd address alignment.\\
 
 \par
-Take for example drawing a 6-byte wide sprite. An optimal write depends on whether the start address is even or odd. In case of an even address, writing three times a \cw{word} is optimal. In case of an odd address, the optimal is to first write a \cw{byte}, followed by two \cw{word} and then a \cw{byte} again.\\
+Take for example drawing a 6-byte wide sprite. An optimal write depends on whether the start address is even or odd. In case of an even address, three times a \cw{word} writes is optimal. In case of an odd address, the optimal approach is to first write a \cw{byte}, followed by two \cw{word} writes and then a \cw{byte} again.\\
 
 \begin{figure}[H]
   \centering

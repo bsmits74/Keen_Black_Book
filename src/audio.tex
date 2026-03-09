@@ -4,49 +4,58 @@
 
 \section{Audio and Heartbeat} 
 \label{audio_and_heartbeat}
-The audio and heartbeat system runs concurrently with the rest of the program. On an operating system supporting neither multi-processes nor threads, this requires using interrupts to pause normal execution and perform tasks in parallel.\\
+Since DOS had no multitasking or thread support, programs could not run parallel tasks such as system heartbeat and sound playback independently. Therefore, they often relied on system interrupts to maintain a consistent game loop and timing.\\
 
-\subsection{Interrupts}
+\subsection{Introduction to interrupts}
 When the user presses a key on the keyboard, how does the program know to respond to that event? We can take educated guesses about what happens in that situation. Perhaps the keyboard controller flips a byte in a memory-mapped area somewhere? Maybe it stores the keypress in a temporary buffer and makes it available on an I/O port whenever the program is ready to receive it?\\
 
 \par
-Polling approaches require each program to actively monitor hardware events at regular intervals. No matter what a program is doing, it must remember to occasionally stop, communicate with the keyboard hardware to see if any keypresses have come in, and react to them if so. If the program gets busy or forgets to check, the keyboard goes un-serviced. And that's just one piece of hardware. Add to that the system timer, real-time clock, mouse movement and disk drives... the list of things that need to be checked grows out of control. Moreover, polling can waste resources when no new hardware events have occurred.\\
+Polling approaches require each program to actively monitor hardware events at regular intervals. No matter what a program is doing, it must remember to occasionally stop, communicate with the keyboard hardware to see if any keypresses have come in, and react to them if so. If the program gets busy or forgets to check, the keyboard goes unserviced. And that's just one piece of hardware. Add to that the system timer, real-time clock, mouse movement, and disk drives... the list of things that need to be checked grows out of control. Moreover, polling can waste resources when no new hardware events have occurred.\\
 
 \par
-The solution to this is "interrupts". At the processor level, an interrupt request (IRQ) is a special event caught by a system called Programmable Interrupt Controller (PIC), that causes the flow of program execution (e.g. running the 2D renderer) to be suspended, followed by an unconditional jump to a specific section of code known as the interrupt service routine (ISR). The service routine does whatever it needs to do to adequately respond to the event, and then it signals a return. The return causes execution to jump right back to where it was before the interrupt was received, and the original program continues as if nothing had happened. \\
+The solution to this is "interrupts". At the processor level, an interrupt request (IRQ) is a special event caught by the Programmable Interrupt Controller (PIC), that causes the flow of program execution (e.g., running the 2D engine) to be suspended, followed by an unconditional jump to a specific section of code known as the interrupt service routine (ISR). The service routine does whatever it needs to do to adequately respond to the event, and then it signals a return. The return causes execution to jump back to the exact point where it was interrupted, and the original program continues as if nothing had happened. \\
 
 \par
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{imgs/drawings/irqs/explanationsvg.eps}
-  \caption{Hardware interrupts are translated to software interrupt via the PIC.}
+  \caption{Hardware interrupts are translated to software interrupts via the PIC.}
   \label{fig:hardware_interrupts}
 \end{figure}
 
 \par
- Since interrupts keep triggering constantly from various sources, an ISR must choose what should happen if an IRQ is raised while it is still running. There are two options.  The ISR can decide it needs a "long" time to run and disable other IRQs via the IMR\footnote{Interrupt Mask Register}. This path introduces the problem of discarding important information such as keyboard or mouse inputs.\\
- \par
- Alternately, the ISR can decide not to mask other IRQs and do what it is supposed to do as fast as possible to not delay the firing of other important interrupts that may lose data if they aren't serviced quickly enough. Commander Keen uses the latter approach and keeps tasks in its ISR very small and short. 
+Because interrupts can arrive from many sources at any time, a mechanism is required to prevent one interrupt from being pre-empted by another. Therefore interrupts can be disabled using the Interrupt Mask Register (IMR), which enables or disables individual hardware interrupts. To enable or disable all interrupts at once, the interrupt flag (IF) can be used.\\
+\par
+\begin{minipage}{\textwidth}
+\lstinputlisting[ language={[x86masm]Assembler}]{code/interrupt_flag.asm}
+\end{minipage}\\
 
-\subsection{IRQs and ISRs}
-The audio and heartbeat system relies on two chips: the Intel 8254, which functions as a Programmable Interval Timer (PIT), and the Intel 8259, which acts as a PIC. The PIT features a crystal oscillating at 1.193182 MHz. At its core, the PIT is a decrementing counter. The programmer loads a 16-bit value between 0 and 65,535 into a register in the PIT. With each clock pulse, the counter decrements toward zero. Once it reaches zero, it automatically resets to the original value stored in the register and starts over.\\
+\par
+Notice that masking interrupts potentially introduces other problems, such as discarding important information like keyboard or mouse input. Therefore it was common practice to keep interrupt tasks very small and short.\\
+ 
+
+\subsection{The PIT and PIC}
+The audio and heartbeat system relies on two chips: the Intel 8253 Programmable Interval Timer (PIT) and the Intel 8259 PIC. The PIT uses a crystal oscillator running at 1.193182MHz. At its core, the PIT contains programmable counters. With each clock pulse, the counter decrements toward zero. Once it reaches zero, it automatically resets to the original value stored in the register and starts over.\\
 
 \par
 \begin{figure}[H]
   \centering
-  \includegraphics[width=.75\textwidth]{imgs/drawings/heartbeats.eps}
+  \includegraphics[width=.67\textwidth]{imgs/drawings/heartbeats.eps}
   \caption{Interactions between PIT and PIC.}
 \end{figure}
 
 \par
-In fact, there are three counters in the PIT. Counter \#1 is connected to the RAM in order to automatically perform something called "memory refresh" and was considered a "do not touch" part of the PIT\footnote{Without frequent refresh, DRAM will lose its content. This is one of the reasons it is slower and SRAM is preferred in the caching system.}. Counter \#2 is connected to the PC speaker and generates sounds, and will be explained in detail in the next section. Counter \#0 is connected to the PIC and when it hits zero it triggers IRQ 0 and sends it to the PIC. The PIC manages hardware interrupts, mapping IRQ 0 - IRQ 8 to the Interrupt Vector Table (IVT), a list of pointers to the corresponding ISR addresses. Notice that IRQ 0 (mapped to IVT entry \#8) is associated with the System timer and usually updates the operating system clock.
+The PIT contains three counters in total. Counter \#1 is connected to the RAM in order to automatically perform something called "memory refresh" and was considered a "do not touch" part of the PIT. Counter \#2 is connected to the PC speaker and generates sounds, and will be explained in detail in the next section.\\
+
+\par
+Counter \#0 is connected to the PIC, and when it hits zero it triggers IRQ 0 to the PIC. The PIC routes the IRQ to the Interrupt Vector Table (IVT), which is a list of pointers to corresponding ISR addresses in memory. The first eight interrupts in the IVT are processor exceptions, followed by hardware interrupts (IRQ 0--7), and finally software interrupts. IRQ 0 is mapped to interrupt \#8 and usually updates the operating system clock.
 
 \begin{figure}[H]
 	\renewcommand{\arraystretch}{1.1}
 	\centering
 	\begin{tabularx}{\textwidth}{ l p{.5\textwidth}  }
 	  \toprule
-	  \textbf{IVT Entry \#} & \textbf{Type} \\ \bottomrule
+	  \textbf{Interrupt \#} & \textbf{Type} \\ \bottomrule
 
 	  00h	&	CPU divide by zero \\
 01h	&	Debug single step \\
@@ -64,16 +73,16 @@ In fact, there are three counters in the PIT. Counter \#1 is connected to the RA
 0Dh & IRQ5, LPT2, Parallel port (HDD on XT) \\
 0Eh & IRQ6, Floppy Disk Controller \\
 0Fh & IRQ7, LPT1, Parallel port \\
-10h & Video services (VGA)\\
-11h & Equipment check \\
+10h & Video services\\
+11h & Equipment determination \\
 12h & Memory size determination \\
 		\bottomrule
 	\end{tabularx}
-	\caption{The Interrupt Vector Table (entries 0 to 18).}
+	\caption{The Interrupt Vector Table as implemented in DOS (entries 0 to 18).}
 \end{figure}
 
 \subsection{Hijacking the System Timer}
-By modifying the IVT \#8 pointer, an application can hijack the interrupt to serve its own purposes. When this occurs, the engine halts its runtime at regular intervals and jumps to a custom interrupt function. We now have two systems running in parallel.\\
+Each entry in the IVT can be reprogrammed to point to a custom ISR. By modifying the IVT \#8 pointer, an application can hijack the interrupt to serve its own purposes. When this occurs, the engine halts execution at regular intervals and jumps to a custom interrupt function. This effectively creates two systems that run in parallel.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -81,10 +90,10 @@ By modifying the IVT \#8 pointer, an application can hijack the interrupt to ser
 \end{minipage}\\
 
 \par
-IVT \#8, in its original configuration, not only operates the system clock but also manages the floppy disk motor. Specifically, it ensures the motor shuts off after a read or write operation. When IVT \#8 is hijacked, this functionality is bypassed, causing the floppy disk motor, after loading data from the disk, to run indefinitely. Although this does not cause issues, the constant spinning of the disk can be both noisy and confusing, potentially giving users the impression that data loading is still in progress.\\
+IVT \#8, in its original ISR, not only operates the system clock but also manages the floppy disk motor. Specifically, it ensures the motor shuts off after a read or write operation. When IVT \#8 is hijacked, this functionality is bypassed, causing the floppy disk motor, after loading data from the disk, to run indefinitely. Although this does not cause issues, the constant spinning of the disk can be both noisy and confusing, potentially giving users the impression that data loading is still in progress.\\
 
 \par
-The current status of the disk motors is stored in the BIOS Data Area (BDA), which is a section of memory located at segment \cw{0040h}. The BDA stores many variables indicating information about the state of the computer.\\
+The current status of the disk motors is stored in the BIOS Data Area (BDA), which is a section of memory located at segment \cw{0040h}. The BDA stores many variables describing the state of the computer.\\
 
 \begin{figure}[H]
 	\renewcommand{\arraystretch}{1.2}
@@ -111,7 +120,7 @@ The current status of the disk motors is stored in the BIOS Data Area (BDA), whi
    % \stepcounter{footnote}
 
 \pagebreak
-BIOS data address \cw{40:3Fh} holds the motor status, where bit 0 indicates if the disk 1 motor is on and bit 1 if the disk 2 motor is on. BIOS data address \cw{40:40h} contains the disk motor shutoff counter. This counter is decremented by the timer interrupt vector. When the counter reaches 0, the disk motor is turned off.\\
+BIOS data address \cw{40:3Fh} stores the motor status, where bit 0 indicates whether the disk 1 motor is on and bit 1 if the disk 2 motor is on. BIOS data address \cw{40:40h} contains the disk motor shut-off counter. This counter is decremented by the timer interrupt vector. When the counter reaches 0, the disk motor is turned off.\\
 
 \par
 The hijacked interrupt subsystem is taking over responsibility for this functionality. It checks whether either disk motor is running and decrements the shutoff counter as needed. When the counter drops below 2, the subsystem invokes the original timer interrupt to ensure the disk motor is properly shut down.\\
@@ -123,7 +132,7 @@ The hijacked interrupt subsystem is taking over responsibility for this function
 \par
 
 \subsection{Heartbeats}
-Each counter on the PIT chip is 16-bit, which is decremented after each period. An IRQ is generated and sent to the PIC whenever the counter wraps around after 2$^{16}$ = 65,536 decrements. By default, the interrupts are generated at a frequency of 1.19318MHz / 65,536 = 18.2Hz. To change the interrupt frequency, the timer can be reprogrammed by simply adjusting the counter value.\\
+Each PIT counter is 16-bit and decrements every clock cycle. When it wraps around after 2$^{16}$ = 65,536 counts, it generates IRQ 0 to the PIC. With the PIT running at 1.193182MHz, this results in an interrupt frequency of 18.2Hz. To change the interrupt frequency, the timer can be reprogrammed by simply adjusting the counter value.
 
 \par
 \begin{minipage}{\textwidth}
@@ -131,13 +140,13 @@ Each counter on the PIT chip is 16-bit, which is decremented after each period. 
 \end{minipage}\\
 \par
 
-\textbf{\underline{Trivia :}} Note that \cw{SDL\_SetIntsPerSec} is using a frequency of 1.192755MHz, instead of the PIT documented 1.193182MHz. This difference is likely derived from the calculation 18.2 Hz * 65,536 = 1.192755MHz.\\
+\textbf{\underline{Trivia :}} Note that \cw{SDL\_SetIntsPerSec} is using a frequency of 1.192755MHz, instead of the PIT documented 1.193182MHz. This difference is likely derived from the calculation 18.2Hz * 65,536 = 1.192755MHz.\\
 
 \par
 The engine can decide at what frequency to be interrupted, depending on the type of sound it needs to play and what devices will be used. As a result, two frequencies are defined:
 \begin{enumerate}
-\item Running at 140Hz to play sound effects and music on the PC beeper, AdLib and SoundBlaster.
-\item Running at 700Hz to play sound effects and music on Disney Sound Source.
+\item Running at 140Hz to play sound effects and music on the PC speaker, AdLib and Sound Blaster.
+\item Running at 700Hz to play sound effects and music on the (Disney) Sound Source.
 \end{enumerate}
 
 \bigskip
@@ -148,28 +157,24 @@ The engine can decide at what frequency to be interrupted, depending on the type
 
 
 \par
-Each time the interrupt system triggers, it runs another small (yet paramount) system before taking care of audio requests. The sole goal of this heartbeat system is to maintain a 32-bit variable: \cw{TimeCount}.\\
+After handling the audio-related requests, the interrupt routine updates the system heartbeat. This step maintains a global timing reference that the system relies on for basic timekeeping. Specifically, the routine increments a 32-bit variable called \cw{TimeCount}.\\
 
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/timecount.c}
-\end{minipage}
+\end{minipage}\\
 
 \par
-Once the interrupt is completed, the interrupt handler must explicitly acknowledge the IRQ at the interrupt controller to return to the game engine loop. This is accomplished by writing an "end of interrupt" signal byte to I/O port \cw{20h}.\\
+The heartbeat is updated at a rate of 70 units per second. These units are called "ticks". Every system in the engine uses this variable to pace itself; the engine will not refresh the screen until at least two ticks have passed, the game state machine expresses actor action duration in tick units, and the list goes on.\\
 
-\par
-The heartbeat is updated at a rate of 70 units per second, these units are called "ticks". Depending on how fast the audio system runs (from 140Hz to 700Hz), it adjusts how frequent it should increase \cw{TimeCount} to keep the game rate at 70Hz.\\
-
-\par
-Every system in the engine uses this variable to pace itself. The renderer will not start rendering a frame until at least one tick has passed. The AI system expresses action duration in tick units. The input sampler checks how long a key was pressed, and the list goes on. Everything interacting with human players uses \cw{TimeCount}.
+\trivia{Even if the game were played for a very long period, the 32-bit \cw{TimeCount} counter would only overflow after almost two years.}\\
 
 
 \subsection{Manage Refresh Timing}
-After each screen refresh, a certain number of ticks has passed. The tick count depends on several factors, such as the number of tiles refreshed and the waiting period for a screen's vertical retrace. Since all game actions and reactions rely on the tick interval between two refreshes, it is important to keep this interval consistent.\\
+After each screen refresh, a certain number of ticks has passed. The tick count depends on several factors, such as the number of tiles refreshed, number of sprites and waiting factors such as the screen's vertical retrace. Since all game actions and reactions rely on the tick interval between two refreshes, it is important to keep this interval consistent.
 
 \par
-Without controlling the tick interval, the state and speed of actors can become unpredictable, potentially causing them to move too quickly or even "warp" to an unexpected location. To manage refresh intervals effectively, a minimum and maximum number of ticks are defined within the refresh loop.\\
+Without controlling the tick interval, the state and speed of actors can become unpredictable, potentially causing them to move too quickly or even warp to an unexpected location. To manage refresh intervals effectively, a minimum and maximum number of ticks are defined within the refresh loop.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -179,19 +184,18 @@ Without controlling the tick interval, the state and speed of actors can become 
 
 
 \subsection{Audio System}
-The audio system is complex because of the fragmentation of audio devices it can deal with. At a high level, the Sound Manager offers a lean API divided in two categories: one for sounds and one for music.\\
+In the time before Windows 95, there was no standard API for programming sound cards. Each game studio had to implement its own audio interfaces, and id Software was no exception. The Sound Manager provided support for both sound effects and music. Keen Dreams only used sound effects.\\
 
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/sound.h}
 \end{minipage}
-\par
-\vspace{10pt}
-
-But in the implementation lies a maze of functions directly accessing the I/O port of three sound outputs: AdLib, SoundBlaster and PC Speaker. All belong to one of the two supported families of sound generators: Square Waves (PC speaker) or FM Synthesizer (Frequency Modulation). \\
 
 \par
-Sounds effects are stored in two formats.
+Each implementation of sound effects relies on directly accessing the I/O port of one of three sound cards: AdLib, Sound Blaster (using the AdLib sound) and PC speaker. Ultimately, only one kind of sound generator was used: FM Synthesizer (Frequency Modulation). \\
+
+\par
+Sound effects are stored in two formats.
 \begin{enumerate}
 \item PC Speaker.
 \item AdLib.
@@ -206,25 +210,25 @@ They are all packaged in the \cw{AudioT} archive created by Muse. Sounds are seg
 \end{minipage}
 
 \par
-Although the Sound Manager was designed to support music and digital sound playback on SoundBlaster and Disney Sound Source, this functionality was never implemented in Keen Dreams (as explained in section "\nameref{section:audio}" on page \pageref{section:audio}) and will therefore not be further explained in this section.\\
+Although the Sound Manager was designed to support music and digital sound playback on Sound Blaster and Disney Sound Source, this functionality was never implemented in Keen Dreams (as explained in section "\nameref{section:audio}" on page \pageref{section:audio}) and will therefore not be further explained in this book.\\
 
 \subsection{PC Speaker}
-The hardware chapter described a problem for sound effects: the default PC speaker could only generate square waves, resulting in long beeps which are not acceptable for gaming.\\
+The hardware chapter highlighted a key challenge for sound effects. The default PC speaker was only capable of producing simple square waves. This limitation made the default speaker poorly suited for sound effects, highlighting a significant obstacle for game developers.\\
 
 \par
-Earlier it was hinted that the PIT had three counter channels, of which channel 2 was used for PC speaker output. The counter output mode can be reprogrammed to "square wave generator" mode. If counter \#2 is closer to its starting value than zero, the output of the PIT is a high electrical signal. If the counter is closer to zero, the output is low. The end result is a square wave, high half of the time and low the other half, with the frequency controlled by the value in the PIT register. This square wave signal is amplified and fed into the speaker. \\
+Earlier it was hinted that the PIT had three counters, of which counter \#2 was used for PC speaker output. The counter output mode can be reprogrammed to "square wave generator" mode. If counter \#2 is closer to its starting value than zero, the output of the PIT is a high electrical signal. If the counter is closer to zero, the output is low. The end result is a square wave, high half of the time and low the other half, with the frequency controlled by the value in the PIT register. This square wave signal is amplified and fed into the speaker. \\
 
 \par
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{imgs/drawings/pc_speaker.eps}
+  \includegraphics[width=1.0\textwidth]{imgs/drawings/pc_speaker.eps}
   \caption{Built-in speaker hardware diagram.}
   \label{fig:pc_speaker}
 \end{figure}
 
 
 \par
-A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626 Hz\footnote{261.626 Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, while the PIT clock runs at 1.193182 MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. To create a higher pitch, the counter value would need to be lower.\\
+A simple tone has only one frequency. As a practical example, say we want to play a middle C through the speaker. Middle C is 261.626Hz\footnote{261.626Hz for middle C is a consequence of the twelve-tone equal temperament, see https://en.wikipedia.org/wiki/12\_equal\_temperament.}, while the PIT clock runs at 1.193182MHz. Dividing the latter by the former and rounding to the nearest integer value yields 4561. To create a higher pitch, the counter value would need to be lower.\\
 
 \par
 This integer value must be written to the PIT counter \#2 to produce the desired tone. While the counter is above 2280 the output signal is high, below that threshold the output signal is low. Once the counter reaches 0, it automatically resets to the initial value of 4561 and the cycle repeats. To adjust the frequency, write value \cw{b6h} to port \cw{43h} to set the PIT command register, followed by writing the desired counter value to port \cw{42h}.
@@ -238,7 +242,7 @@ This integer value must be written to the PIT counter \#2 to produce the desired
 
   0 & 0 & \multirow{2}{*}{Set value for counter 2 (at port \cw{42h}).} \\
   1 & 1 & \\ \hline
-  2 & 1 & \multirow{2}{.8\textwidth}{Because the data port is an 8 bit I/O port and the count values is 16 bit, the PIT chip needs to be instructed 16 bits are transferred as a pair, starting with the lowest 8 bits followed by the highest 8 bits.} \\
+  2 & 1 & \multirow{2}{.8\textwidth}{Because the data port is an 8-bit I/O port and the count values is 16-bit, the PIT chip needs to be instructed 16 bits are transferred as a pair, starting with the lowest 8 bits followed by the highest 8 bits.} \\
   3 & 1 & \\ \hline
   4 & 1 & \multirow{3}{*}{Set to square wave generator mode.} \\
   5 & 1 & \\
@@ -264,23 +268,24 @@ When instructed to play a PC Speaker sound effect, the audio system sets itself 
 \end{figure}
 
 \par
-The connection to the speaker can be deactivated without changing any timer parameters through the system's keyboard controller (Intel 8042 UPI\footnote{Universal Peripheral Interface.}). Setting port \cw{61h}, bit 0 and bit 1, to 0 turns off both counter \#2 and the speaker.\\
+The connection to the speaker can be deactivated without changing any timer parameters through the system's keyboard controller (Intel 8042 UPI\footnote{Universal Peripheral Interface.}). Setting bits 0 and 1 of port \cw{61h} to 0 turns off both counter \#2 and the speaker. \\
 
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/pwm_code.c}
-\end{minipage}
+\end{minipage}\\
 
+\vspace{10pt}
 \par
-Human hearing ranges from approximately 20 Hz to 20,000 Hz, making any counter value lower than 60 inaudible. Frequencies are encoded in a stream of bytes (0-255) and decoded using the formula\\
+Frequencies are encoded in a stream of bytes (0-255) and decoded using the formula\\
 
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C]{code/frequency.c}
-\end{minipage}
+\end{minipage}\\
 
 \par
-The lowest frequency is 78 Hz and the highest frequency is 19,886 Hz. Notice how the \cw{*60} is not calculated but looked up. Once again, the engine tries to save as much CPU time as possible by using a bit of RAM.\\
+Human hearing ranges from approximately 20Hz to 20,000Hz, making any counter value lower than 60 inaudible. The lowest frequency using the formula is 78Hz and the highest frequency is 19,886Hz. Notice how the \cw{*60} is not calculated but looked up. Once again, the engine tries to save as much CPU time as possible by using a bit of RAM.\\
 
 \par
 \begin{minipage}{\textwidth}
@@ -289,35 +294,120 @@ The lowest frequency is 78 Hz and the highest frequency is 19,886 Hz. Notice how
 \par
 
 \subsection{AdLib}
-The AdLib sound relies on the OPL2 chip. Programming the OPL2 output is esoteric to say the least. AdLib and Creative did publish SDKs but they were expensive.  Documentation was sparse and often cryptic. Today, they are very difficult to find.\\
-\par
-The OPL2 is made of 9 channels capable of emulating instruments. Each channel is made of two oscillators: a Modulator whose outputs are fed into a carrier's input. Each channel has individual settings including frequency and envelope (composed of attack rate, decay rate, sustain level, release rate, and vibrato). Each oscillator can also pick a waveform (these characteristic forms are what gave the YM3812 its recognizable sound).\\
-\par
- To control all of these channels, a developer must configure the OPL2's 244 internal registers. These are all accessed via two external I/O ports. One port is for selecting the card's internal register and the other is to read/write data to it.\\
-\par
-\begin{minipage}{\textwidth}
-\lstinputlisting[language=C,morekeywords={longword}]{code/audio_ports.c}
-\end{minipage}
-\par
-When the AdLib was first conceived in 1986, it was tested on IBM XTs and ATs, none of which exceeded a speed of 6 MHz. They wrote their specifications based on this, writing that while the AdLib required a certain amount of "wait time" between commands, it was okay to send them as fast as possible because no PC was faster than the minimum wait time. They later found out that a Intel 386 was fast enough to send commands faster than the AdLib was expecting them, and they changed their specification to mention a minimum 35 microseconds wait time between commands.\\
+At the heart of the AdLib was a Yamaha YM3812 music synthesis chip, which Yamaha called OPL2. The foundation of the OPL2 consists of 18 operators. Each operator contains an oscillator, envelope generator, and level controller. The OPL2 generates sound using a combination of oscillators and envelope generators.\\
 
 \par
-The Programming Guide was amended with reliable specs to wait 3.3 microseconds after a register select write, and 23 microseconds after a data write. On an Intel 286 it is implemented as a 10 microseconds and 25 microseconds respectively.\\
+The oscillator generates sine waves but can also apply several transformations to produce other waveforms. Besides the unmodified sine wave, it can generate three other waveforms.\\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/waveforms.eps}
+  \caption{OPL2 oscillator waveforms.}
+  \label{fig:OPLS_waveforms}
+\end{figure}
 
 \par
-The engine does not know about any of the details of the OPL2. There is zero abstraction layer of transformation here. An IMF\footnote{id Music Format} sound is made of a series of messages containing the values to write to the register and data ports of the OPL2.\\
+The waves generated by the oscillator are fed into an envelope generator, which is responsible for creating a more realistic approximation of a real instrument. Each individual sound goes through several distinct stages that affect the output amplitude over time. These stages are called attack, decay, sustain, and release.\\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/OPL2_envelope.eps}
+  \caption{OPL2 envelope lifecycle.}
+  \label{fig:OPL2_envelope}
+\end{figure}
 
 \par
-Every time the audio system wakes up via the timer interrupt, it checks if a sound effect should be sent, and plays the next sample out through the AdLib card.\\
+The attack stage begins when a sound event occurs, starting from silence.
+Once maximum amplitude is reached, the decay stage reduces the amplitude until it reaches the sustain level. The amplitude is held at the sustain level as long as the composer holds the note. When a sound-off event occurs, the release stage gradually reduces the amplitude back to silence.
+By combining the oscillator and envelope generator, the OPL2 can produce surprisingly convincing simulations of real instruments. Finally, the level controller sets the overall volume sent to the speakers.\\
+
+
+The OPL2 is organized into nine channels, where each channel consists of two operators. Each channel can control how its operators are connected to each other:
+\begin{itemize}
+	\item FM synthesis uses two operators in series. The first operator ("modulator") modulates the second operator ("carrier") via its modulation data input.
+	\item Additive synthesis uses two operators in parallel, adding both outputs together.
+\end{itemize}
+
+Most games used FM synthesis because it was easier to use and required less CPU overhead than additive synthesis. The output of all nine channels is summed together to produce the final sound sent to the speaker.\\
+
+\par
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{imgs/drawings/OPL2_channel.eps}
+  \caption{OPL2 channel architecture.}
+  \label{fig:OPL2_channel}
+\end{figure}
+
+\par 
+The OPL2 chip is controlled by three kinds of internal registers: chip-wide registers, per-channel registers, and per-operator registers. In total, 288 parameters could be configured. 
+
+\par
+The available documentation for programming all these parameters from AdLib and Creative Labs was both cryptic and expensive. Programming the OPL2 was therefore, to say the least, quite challenging. Nevertheless, musicians were able to create wonderful sounds with the OPL2 chip and make lasting impressions on listeners. \\
+
+\par
+\begin{figure}[H]
+\renewcommand{\arraystretch}{1.2}
+\centering
+\setlength{\tabcolsep}{0pt} % set border margin to 0
+\footnotesize
+\begin{tabularx}{\textwidth}[c]{|>{\hsize=.11\hsize}Y |>{\hsize=.11\hsize}Y |>{\hsize=.11\hsize}Y |>{\hsize=.11\hsize}Y |>{\hsize=.11\hsize}Y |>{\hsize=.11\hsize}Y |>{\hsize=.11\hsize}Y |>{\hsize=.11\hsize}Y |>{\hsize=.11\hsize}Y|} 
+\hline
+Index reg. & D7 & D6 & D5 & D4 & D3 & D2 & D1 & D0 \\ \hline
+\cw{01h} & \multicolumn{2}{c|}{} & \cellcolor{EGA_16} WSEnable & \multicolumn{5}{c|}{} \\ \hline
+\cw{02h} & \multicolumn{8}{c|}{\cellcolor{EGA_16} Timer 1 count (80 $\mu$sec resolution)} \\ \hline
+\cw{03h} & \multicolumn{8}{c|}{\cellcolor{EGA_16} Timer 1 count (320 $\mu$sec resolution)} \\ \hline
+\cw{04h} & \cellcolor{EGA_16} IRQReset & \cellcolor{EGA_16} T1Mask & \cellcolor{EGA_16} T2Mask & \multicolumn{3}{c|}{} & \cellcolor{EGA_16} T2 Start & \cellcolor{EGA_16} T1 Start \\ \hline
+\cw{08h} & \cellcolor{EGA_16} CSW & \cellcolor{EGA_16} NOTE-SEL & \multicolumn{6}{c|}{} \\ \hline
+\cw{20h-35h} & \cellcolor{EGA_1F} Tremolo & \cellcolor{EGA_1F} Vibrato & \cellcolor{EGA_1F} Sustain & \cellcolor{EGA_1F} KSR & \multicolumn{4}{c|}{\cellcolor{EGA_1F} Frequency Multiplication Factor} \\ \hline
+\cw{40h-55h} & \multicolumn{2}{c|}{\cellcolor{EGA_1F} Key Scale Level} & \multicolumn{6}{c|}{\cellcolor{EGA_1F} Output level} \\ \hline
+\cw{60h-75h} & \multicolumn{4}{c|}{\cellcolor{EGA_1F} Attack Rate} & \multicolumn{4}{c|}{\cellcolor{EGA_1F} Decay Rate} \\ \hline
+\cw{80h-95h} & \multicolumn{4}{c|}{\cellcolor{EGA_1F} Sustain Level} & \multicolumn{4}{c|}{\cellcolor{EGA_1F} Release Rate} \\ \hline
+\cw{A0h-A8h} & \multicolumn{8}{c|}{\cellcolor{EGA_0F}Frequency Number (lower 8 bits)} \\ \hline
+\cw{B0h-B8h} & \multicolumn{2}{c|}{} & \cellcolor{EGA_0F} KEY-ON & \multicolumn{3}{c|}{\cellcolor{EGA_0F} Block number} & \multicolumn{2}{c|}{\cellcolor{EGA_0F} F-Num (hi bits)} \\ \hline
+\cw{BDh} & \cellcolor{EGA_16} Trem Dep & \cellcolor{EGA_16} Vibr Dep & \cellcolor{EGA_16} PercMode & \cellcolor{EGA_16} BD on & \cellcolor{EGA_16} SD on & \cellcolor{EGA_16} TT on & \cellcolor{EGA_16} CY on & \cellcolor{EGA_16} HH on \\ \hline
+\cw{C0h-C8h} & \multicolumn{4}{c|}{} & \multicolumn{3}{c|}{\cellcolor{EGA_0F} FeedBack Modulation Factor} & \cellcolor{EGA_0F} Additive \\ \hline
+\cw{E0h-F5h} & \multicolumn{6}{c|}{} & \multicolumn{2}{c|}{\cellcolor{EGA_1F}Waveform Select} \\ \hline
+\multicolumn{9}{l}{} \\ 
+\multicolumn{9}{l}{
+  \begin{tabular}{ >{\centering\arraybackslash}p{7em} m{1em} >{\centering\arraybackslash}p{7em} m{1em} >{\centering\arraybackslash}p{7em}}
+ \cellcolor{EGA_16} chip-wide &  & \cellcolor{EGA_0F} per channel & & \cellcolor{EGA_1F} per operator  \\   
+\end{tabular}
+
+} \\
+\end{tabularx} 
+\caption{OPL2 parameters reference overview.}
+\setlength{\tabcolsep}{6pt} % reset border margin
+\end{figure}
+
+\par
+All these parameters were programmed via two external I/O ports:
+\begin{itemize}
+  \item \cw{388h} - Index register (write), Status register (read)
+  \item \cw{389h} - Data register (write only)
+\end{itemize}
+
+Every time the timer interrupt is triggered, it checks whether a sound effect has been received and plays the next effect through the AdLib card.\\
 
 \par
 \begin{minipage}{\textwidth}
 \lstinputlisting[language=C,morekeywords={longword}]{code/adlib_wait.c}
 \end{minipage}
+
 \par
+One notable detail is the \cw{SDL\_Delay()} call. At first glance, introducing delays in the time-critical audio routine seems counterintuitive. The OPL2 chip was designed with a "fire-and-forget" register system. When the CPU wrote a value to a register, the chip required a short amount of time to apply the change before accepting the next write.\\
 
+\par
+When the AdLib card was released in 1987, the PC XT and AT were not fast enough to outpace writing to the AdLib card. However, with the introduction of the Intel 386 (on which Commander Keen was developed), commands were sent to the card more quickly than AdLib had anticipated. If a program sent data too quickly, the new command would overwrite the previous one before it was processed, leading to garbled sound. AdLib therefore recommended inserting artificial delays between register writes.\\
 
+\begin{fancyquotes}
+Because of the nature of the card, you must wait 3.3 µsec after a register select write, and 23 µsec after a data write.\\
 
+\par
+\textbf{- AdLib programming guide, by Tero Töttö}
+\end{fancyquotes}
+
+\par
+It is not readily apparent how the value of \cw{TimerDelay10} was chosen to produce a delay of 3.3 $\mu$s. Later id Software games replaced this delay with six (\cw{in al,dx}) instructions that repeatedly read from I/O port 388h.
 
 
 \end{document}
