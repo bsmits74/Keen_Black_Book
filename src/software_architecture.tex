@@ -113,7 +113,7 @@ Although I wrote LZEXE for my own use, I gave it to some friends, and it was the
 The compression engine was built around the Lempel–Ziv–Storer–Szymanski (LZSS) algorithm, and the decompressor was designed to operate without using more memory than the final decompressed program required. This was more difficult than it might seem at first, because the tool had to ensure that there was never a moment when decompressed data overwrote an unread portion of the compressed data.\\
 
 \par
-An LZEXE-compressed program is a standard DOS executable, loaded in the standard way without any special trickery. Each executable file contains an EXE header, which specifies the initial values of the SS and SP stack registers. These are set up to point to a high area of uninitialized memory.
+An LZEXE-compressed program is a standard DOS executable, loaded in the standard way without any special trickery. Each executable file contains an EXE header, which specifies the initial layout of the executable in memory. One of its tasks is to initalize the stack, which is set up to a high area of uninitialized memory.\\
 
 \par
 The first task performed by the program is to move itself, including the decompression code and relocation table. This step is necessary because, if the compressed payload were decompressed in the same location where DOS originally loaded it, the decompressor would begin writing decompressed program data faster than it could read the compressed data, destroying its own source material.\\
@@ -126,7 +126,7 @@ The first task performed by the program is to move itself, including the decompr
  \end{figure}
 
 \par
-Once relocated, the decompression code begins reading the compressed program and decompresses it back into the program’s original starting address. The heart of the decompressor is the LZSS algorithm, which operates by replacing repeated occurrences of data with references to earlier instances of that same data in the decompressed output\footnote{The detailed working of LZSS compression is beyond the scope of this book. If you are interested, here is a great explanation: https://cosmodoc.org/topics/lzexe/.}.\\
+Once relocated, the decompression code begins reading the compressed program and decompresses it back into the program’s original starting address. The heart of the decompressor is the LZSS algorithm, which operates by replacing repeated occurrences of data with references to earlier instances of that same data in the decompressed output\footnote{The detailed working of LZSS compression is beyond the scope of this book. If you are interested, here is a great explanation: https://cosmodoc.org/topics/lzexe/.}.
 
 \par
 \begin{figure}[H]
@@ -308,7 +308,7 @@ The next step is allocating the far heap, which can be obtained by\\
 \lstinputlisting[language=C]{code/farheap.c}
 \par 
 
-The block of unusable memory is between the start of the stack memory (including the reserved block) and the start of the far heap. \\
+The unusable memory block is set from the start of the stack, including the reserved block, until the start of the far heap. \\
 
 \begin{figure}[H]
 \centering
@@ -318,7 +318,7 @@ The block of unusable memory is between the start of the stack memory (including
  \par
 
 \par
-Finally, the last unusable block of memory lies between the end of the far heap and the end of the 1MiB memory, the area that is typically for VRAM, ROM, etc. Now, the entire memory space from segment \cw{0000h} to \cw{FFFFh} is allocated, chained together, and fully controlled by the Memory Manager.\\
+Finally, the last unusable memory block lies between the end of the far heap and the end of the 1MiB memory, the area that is typically for VRAM, ROM, etc. Now, the entire memory space from segment \cw{0000h} to \cw{FFFFh} is allocated, chained together, and fully controlled by the Memory Manager.\\
 
 \begin{figure}[H]
 \centering
@@ -337,7 +337,7 @@ blocks\footnote{See the "Game Engine Black book Wolfenstein 3D" for a detailed d
  \par
 
 \par
-By calling \cw{MM\_ShowMemory}, you can inspect the current memory usage during gameplay. Each pixel represents one memory segment of 16 bytes. Red indicates blocked memory, black indicates available memory, blue is unpurgeable memory, and purple is purgeable memory. Small white pixels indicate the start of new memory blocks in the linked list. Notice how small the near heap (the first black line) is compared to the far heap!\\
+The current memory usage during gameplay can be inspected by calling \cw{MM\_ShowMemory}. Each pixel represents one memory paragraph of 16 bytes. Red indicates locked memory, black indicates available memory, blue is unpurgeable memory, and purple is purgeable memory. Small white pixels indicate the start of new memory blocks in the linked list. Notice how small the near heap (the first black line) is compared to the far heap!\\
 
 \setlength{\fboxsep}{0pt}
 \begin{figure}[H]
@@ -350,7 +350,7 @@ By calling \cw{MM\_ShowMemory}, you can inspect the current memory usage during 
 		\fbox{\includegraphics[width=\linewidth]{screenshots_300dpi/mm_dump_run.png}}
 	\end{subfigure}
 	\caption{Memory dump after (i) initializing Memory Manager and (ii) running the game.}
-	\label{fig:subfigures}
+	\label{fig:memorydump}
 \end{figure}
 
 
@@ -363,7 +363,7 @@ The Video Manager consists of two parts:
 The Video Manager is described extensively in section "\nameref{section:adaptive_tile_refresh}" on page \pageref{section:adaptive_tile_refresh}.
 
 \subsection{Cache Manager (CA)}
-The Cache Manager is a small but critical component. It loads and decompresses maps, graphics and audio resources stored on the filesystem and makes them available in RAM. Assets are stored in three files: 
+The Cache Manager loads and decompresses maps, graphics and audio resources stored on the filesystem and makes them available in RAM. Assets are stored in three files: 
 \begin{itemize}
 	\item A header file containing the offset to allow translation from asset ID to byte offset in the data file.
 	\item A compression dictionary to decompress each asset.
@@ -375,6 +375,7 @@ The Cache Manager is a small but critical component. It loads and decompresses m
 \begin{figure}[H]
 \centering
  \includegraphics[width=\textwidth]{imgs/drawings/cache_manager_architecture.eps}
+ \caption{Cache manager architecture.}
  \end{figure}
 
 \par
@@ -405,29 +406,30 @@ Each character is 10 pixels tall, but the width varies, as illustrated in Figure
  \end{figure}
  \par
  
-On the EGA video card each 8 pixels take up 1 byte of VRAM, as explained on page \pageref{section:EGA_Planar_Madness}. When you print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
+On the EGA video card each 8 pixels take up 1 byte of VRAM, as explained on page \pageref{section:ega_memmap}. When you print characters that aren't perfectly aligned with this 8-pixel grid, how do you manage the alignment? Let's say you want to display the letter 'N' on the screen. If the 'N' starts in the middle of a byte (say at pixel 3 instead of pixel 0), you need a clever way to shift the bits over to ensure it appears correctly on the screen.\\
 
 \par
 Instead of manually shifting every pixel in your character bitmaps, the game engine uses pre-calculated bitshift tables. These tables are essentially lookup guides that help quickly adjust how characters are drawn based on their starting position. The process works as follows:
 \begin{enumerate}
-  \item Start with a base table (called \cw{shiftdata0}) that holds all the possible values for a byte, from 0 to 255, and store this in an integer (16 bits). 
-  \item Next, you generate seven more tables by shifting each value in \cw{shiftdata0} one bit to the right for each table. So, for \cw{shiftdata1} the value 198 becomes 99, and for \cw{shiftdata2} it becomes 32817, and so on. This process continues until you have eight tables, each representing a different bitshift.
+  \item Start with a base table (called \cw{shiftdata0}) that contains all possible byte values, from 0 to 255, each stored as a 16-bit integer.
+  \item Next, seven additional tables are generated by shifting each value in \cw{shiftdata0} one bit to the right for each successive table. For example, in \cw{shiftdata1} the value 198 becomes 99, and in \cw{shiftdata2} it becomes 32817, and so on. 
 \end{enumerate}
 
 \begin{figure}[H]
 \centering
- \includegraphics[width=0.65\textwidth]{imgs/drawings/shift_tables.eps}
+ \includegraphics[width=0.7\textwidth]{imgs/drawings/shift_tables.eps}
  \caption{Right bitshift for integer 198.}
  \label{fig:shiftttable}
  \end{figure}
 
 \par
-The pre-calculated bitshift tables are stored in \cw{id\_vw\_a.asm}, below the \cw{bitshift3} table.\\
+The pre-calculated bitshift tables are stored in \cw{id\_vw\_a.asm}, below the \cw{bitshift3} table. Figure \ref{fig:text_bitshift_N} illustrates how a 3-pixel shifted 'N' is generated using this table.\\
 
 \begin{minipage}{\textwidth}
   \lstinputlisting[basicstyle=\fontsize{7}{9}\selectfont]{code/unrolled_shift_table.c}
 \end{minipage}
 \label{wallclip_array}
+
 
 \begin{figure}[H]
 \centering
@@ -461,7 +463,7 @@ The Sound Manager takes care of interaction with the different sound systems: PC
 The Input Manager is responsible for handling input from the keyboard, mouse, and joystick. It manages hardware-level details such as I/O port addresses, scan codes, and custom interrupt routines to ensure reliable communication between the input devices and the game engine.\\
 
 \par
-Because most players used the keyboard to play Commander Keen, section “\nameref{keyboard}” on page \pageref{keyboard} provides a detailed explanation of the keyboard input system and its implementation.\\
+Because most players used the keyboard to play Commander Keen, section “\nameref{section:input}” on page \pageref{section:input} provides a detailed explanation of the keyboard input system and its implementation.\\
 
 
 \subsection{Softdisk files}

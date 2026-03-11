@@ -124,7 +124,7 @@ The engine is now capable of moving the entire screen one pixel at a time in all
 So far, we have built a virtual screen in VRAM allowing smooth one pixel moves in both axes. However, once the virtual screen edge is reached, a full-screen redraw would be too slow, causing a drop to 5 fps.\\
 
 \par
-A naive approach for screen refresh is to load the entire level into VRAM, setting the logical width to match the level width. By adjusting the CRTC Start Address and Horizontal Pel Panning registers, smooth scrolling can be achieved. However, loading the entire level requires far more VRAM than is available. The first level, \textit{Horse Radish Hill}, is 136 tiles wide and 37 tiles high. Each tile is 128 bytes,  which means a total of 136 x 37 x 128 bytes = 644KB is required to store the entire level in VRAM. Since we only have 256KiB available, this is not a feasible option.\\
+A naive approach for screen refresh is to load the entire level into VRAM, setting the logical width to match the level width. By adjusting the CRTC Start Address and Horizontal Pel Panning registers, smooth scrolling can be achieved. unfortunately, loading the entire level requires far more VRAM than is available. The first level, \textit{Horse Radish Hill}, is 136 tiles wide and 37 tiles high. Each tile is 128 bytes,  which means a total of 136$\times$37$\times$128 bytes = 644KB is required to store the entire level in VRAM. Since we only have 256KiB available, this is not a feasible option.\\
 
 \textbf{\underline{Trivia :}} At the time of writing this book, most video cards contain more than 1GB VRAM,  sufficient to store all Commander Keen levels at once in VRAM. \\
 
@@ -165,20 +165,6 @@ Let's have a closer look at the EGA VRAM setup. The video memory is organized in
 \item A master page containing a static page, which is copied to the buffer screen when performing the screen refresh.
 \end{itemize}
 
-\par
-The EGA screen in mode \cw{0Dh} has a resolution of 320x200 pixels, or 40x200 bytes. Let's extend the height by 8 bytes to have a height of 208 pixels, so the screen fits nicely in 20x13 tiles. By making the virtual screen one tile higher and one wider on each side of the screen, the engine can scroll up to 16 pixels to any direction of the screen without any tile refresh, by simply adjusting the CRTC Start Address and Pel Pan registers.\\
-
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=1.0\textwidth]{imgs/drawings/ATR_virtual_screen.eps}
-\label{fig:atr_virtual screen}
-\end{figure}
-
-\par
-Each virtual screen has a size of 44*240*4=42,420 bytes. So, within a 256KiB EGA card there is enough VRAM available to keep all three virtual screens in memory. The page that is displayed on screen is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
-
-
 
 \begin{figure}[H]
 \centering
@@ -186,6 +172,19 @@ Each virtual screen has a size of 44*240*4=42,420 bytes. So, within a 256KiB EGA
 \caption{Virtual screen layout on EGA card.}
 \label{fig:ega_ram_arch}
 \end{figure}
+
+\par
+The EGA screen in mode \cw{0Dh} has a resolution of 320x200 pixels, or 40x200 bytes. Let's extend the height by 8 bytes to have a height of 208 pixels, so the screen fits nicely in 20x13 tiles. By making the virtual screen one tile higher and one wider on each side of the screen, the engine can scroll up to 16 pixels to any direction of the screen without any tile refresh, by simply adjusting the CRTC Start Address and Pel Pan registers.\\
+
+\par
+Each virtual screen has a size of 44$\times$240$\times$4 = 42,420 bytes. So, within a 256KiB EGA card there is enough VRAM available to keep all three virtual screens in memory. The page that is displayed on screen is selected by setting the CRTC Start Address register at which to begin fetching video data.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{imgs/drawings/ATR_virtual_screen.eps}
+\label{fig:atr_virtual screen}
+\end{figure}
+
 
 \par
 For both the buffer and visible screen a tile array is created to maintain which tiles are updated since last refresh.\\
@@ -294,7 +293,7 @@ It just works. We no longer had the problem of having fields of similar colors. 
 
 \subsection{Virtual Screen Tile Refresh in Keen Dreams} 
 \label{section:scroll_refresh_dreams}
-The EGA memory wrapping results in an improved, more simplified screen refresh algorithm. First, a virtual screen and tile update array is defined by making the display one tile taller and wider, creating what is known as the viewport. This allows the engine to scroll the display up to 16 pixels to the right and bottom without refreshing tiles, by simply adjusting the CRTC Start Address and Pel Pan register. \\
+The EGA memory wrapping results in an improved, more simplified screen refresh algorithm. This algorithm was called "Virtual Screen Tile Refresh".\\
 
 \begin{fancyquotes}
 The second Keen trilogy used a better trick -- just keep panning and redrawing the leading edge, letting the screen wrap around at the 64k aperture edge.\\
@@ -304,6 +303,10 @@ The second Keen trilogy used a better trick -- just keep panning and redrawing t
 \addtocounter{footnote}{-1}
 \stepcounter{footnote}
 \footnotetext{John Carmack on Twitter.}
+
+\par
+First, a virtual screen and tile update array is defined by making the display one tile taller and wider, creating what is known as the viewport. This allows the engine to scroll the display up to 16 pixels to the right and bottom without refreshing tiles, by simply adjusting the CRTC Start Address and Pel Pan register. \\
+
 
 
 
@@ -869,26 +872,26 @@ The assembly function \cw{RFL\_NewTile} is responsible for drawing tiles to the 
 It first checks whether the background tile is already stored in the tile cache array. If it is, the tile is copied at 32 bits per cycle from VRAM to VRAM. Otherwise, the tile is loaded from RAM, and the VRAM pointer for that tile is stored in the tile cache array for future use.
 
 
-\subsubsection{Word-aligned memory writing}
-The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: this only works when accessing even memory addresses. To make things worse, writing a word at offset \cw{FFFFh} causes the CPU to crash.\\
+\subsubsection{Writing to word-aligned memory}
+The 286 CPU can read and write 16 bits in a single cycle, but there is a caveat: writing a word at offset \cw{FFFFh} causes the CPU to crash.
+This is not an issue for tiles, because they are word-aligned (16 bits wide). Since the screen scrolls in tile-sized steps, they always reside at even memory addresses. \\
 
 \par
-Because tiles are word-aligned (16 bits wide) and the screen refreshes in tile-sized steps, they are always aligned with even memory addresses. However, sprites are byte-aligned. When a sprite is drawn from an odd memory address, the CPU is limited to reading and writing 8 bits at a time. To fully utilize the 16-bit data bus, the engine uses small function routines for each combination of sprite width and even/odd address alignment.\\
+Sprites, however, are byte-aligned. When a sprite is drawn starting at an odd memory address, it may cross the \cw{FFFFh} offset and crash the CPU. To avoid this, the engine uses small, specialized routines for each combination of sprite width and even/odd alignment, ensuring correct wrapping at \cw{FFFFh}. \\
 
 \par
-Take for example drawing a 6-byte wide sprite. An optimal write depends on whether the start address is even or odd. In case of an even address, three times a \cw{word} writes is optimal. In case of an odd address, the optimal approach is to first write a \cw{byte}, followed by two \cw{word} writes and then a \cw{byte} again.\\
+For example, when drawing a 6-byte-wide sprite that starts at an even address, three \cw{word} writes wrap around the segment. If it starts at an odd address, the routine writes a \cw{byte}, followed by two \cw{word} writes, and finally another \cw{byte}. \\
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\textwidth]{imgs/drawings/mask_block.eps}
+  \includegraphics[width=0.8\textwidth]{imgs/drawings/mask_block.eps}
   \caption{Word-optimized 6 byte wide sprite to even (\cw{MASK6E}) and odd (\cw{MASK6O}) address.}
   \label{fig:mask_block}  
 \end{figure}
 
-
-
 \par
-In total 23 functions are defined to optimize \cw{word}-size writing up to 10 bytes wide sprites. Each function pointer reference is stored in an array.\\
+In total, 23 routines handle aligned \cw{word}-sized writes for sprites up to 10 bytes wide. Their function pointers are stored in an array. \\
+
 
 \par
 \begin{minipage}{\textwidth}

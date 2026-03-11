@@ -193,10 +193,8 @@ The remaining three units form a three-stage pipeline. When the execution unit i
 \end{figure}
 
 \par
-In practical terms, a 286 system running at the same clock frequency as an 8088 will typically be three to six times faster due to its pipelined architecture and dedicated functional units\footnote{https://www.tomshardware.com/reviews/processor-cpu-apu-specifications-upgrade,3566-6.html.}. \\
-
-\par
-The table below shows the average instruction costs for the 80286. Multiplication and division operations require significantly more cycles than most other instructions. For applications where every cycle counts, such as games, minimizing the use of multiplication and division during runtime was critical.\\
+In practical terms, a 286 system running at the same clock frequency as an 8088 will typically be three to six times faster due to its pipelined architecture and dedicated functional units\footnote{https://www.tomshardware.com/reviews/processor-cpu-apu-specifications-upgrade,3566-6.html.}. Still, it was important to understand the cost of each assembly instruction.
+Figure \ref{fig:instruction_cost} shows the average instruction costs for the 286. Multiplication and division operations require significantly more cycles than most other instructions. For applications where every cycle counts, such as games, minimizing the use of multiplication and division during runtime was critical.\\
 
   \begin{figure}[H]
 \centering  
@@ -214,6 +212,7 @@ The table below shows the average instruction costs for the 80286. Multiplicatio
   \toprule
 \end{tabularx}
 \caption{286 instruction costs\protect\footnotemark.}
+\label{fig:instruction_cost}
 \end{figure}
 \addtocounter{footnote}{-1}
 \stepcounter{footnote}
@@ -245,10 +244,7 @@ For programming purposes, the 286 CPU can be summarized as follows:
 
 
 \section{RAM}
-When the first IBM PC was introduced in 1981, it came with a base memory of 16KiB or 64KiB and could be expanded up to 256KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}. This was a large amount of memory at the time, considering that the average home computer, such as the Commodore 64 or MSX systems, contained a maximum of 64KiB.\\
-
-\par
- With the introduction of the 8088 CPU and the IBM XT, the maximum memory increased to 640KiB. Later, with the introduction of the 80286, one could, in theory, address up to 16MiB of memory. In practice, however, this was never fully utilized due to the constraints of the DOS operating system.\\
+When the first IBM PC was introduced in 1981, it came with a base memory of 16KiB or 64KiB and could be expanded up to 256KiB\footnote{This book uses IEC notation where KiB is $2^{10}$ and KB is $10^3$.}. With the introduction of the 8088 CPU and the IBM XT, the maximum memory increased to 640KiB. This was a large amount of memory at the time, considering that the average home computer, such as the Commodore 64 or MSX-1 system, contained a maximum of 64KiB. Later, with the introduction of the 80286, one could, in theory, address up to 16MiB of memory. In practice, however, this was never fully utilized due to the constraints of the DOS operating system.\\
 
 
 \subsection{x86 Real and Protected Mode}
@@ -626,7 +622,7 @@ The EGA represented an interesting middle ground for game developers in the late
 IBM introduced the Enhanced Graphics Adapter (EGA) in 1984 as the successor to CGA. The standard card was shipped with only 64KiB video memory, but it had the option to expand the memory using the onboard graphics memory expansion card.
 Figure \ref{fig:ibm_ega_card} shows the original IBM EGA card, a clunky beast full of discrete components. The memory consists of TMS4416 RAM, a common memory chip for (home) computers around that period. Each chip contains 16KiB of 4-bits memory, so two chips are needed to provide 16KiB of 8-bit memory and eight chips for 64KiB of 8-bit memory. \\
 
-\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still, it was not until 1984 that they became widely available and lower-priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64KiB RAM was the way to go for new designs. Computers with only 16KiB as base memory - and that's where TMS4416 would have been a cost saver - were already on the way out.}\\
+\trivia{Texas Instruments introduced the first 16KiB by 4-bits as TMS4416 in 1980\footnote{https://pdf1.alldatasheet.com/datasheet-pdf/view/103706/TI/TMS4416.html}. Still, it was not until 1984 that they became widely available and lower-priced than four TMS4116 chips (16KiB by 1-bit). However, at that time 64KiB RAM was the way to go for new designs. Computers with only 16KiB as base memory, and that's where TMS4416 would have been a cost saver, were already on the way out.}\\
 
 \begin{figure}[H]
   \centering 
@@ -742,7 +738,7 @@ The EGA card remained backward compatible with previous video adapters. In addit
 \label{ega-modes-available}
  \end{figure}
  
-\trivia{The modes \cw{08h-0Ah}  are reserved for PCjr (or Tandy Graphics Adapter) graphics modes, which offered 160x200 with 16 colors, 320x200 with 16 colors and 640$\times$200 with 4 colors. Modes \cw{0Bh} and \cw{0Ch} are reserved for internal EGA BIOS.}\\
+\trivia{The modes \cw{08h-0Ah}  are reserved for PCjr (or Tandy Graphics Adapter) graphics modes, which offered 160$\times$200 with 16 colors, 320$\times$200 with 16 colors and 640$\times$200 with 4 colors. Modes \cw{0Bh} and \cw{0Ch} are reserved for internal EGA BIOS.}\\
 
 \par
 Changing the video mode is usually done using the \cw{0x10h} BIOS interrupt, which handles all kinds of video display operations. Changes via the BIOS are regarded as a safe way to ensure all registers are setup properly.
@@ -973,14 +969,15 @@ The AdLib card was built around the Yamaha YM3812, also known as the OPL2 chip, 
 The AdLib card dominated the PC market for almost three years. Then, in 1989, Creative Labs released the competing Sound Blaster, which quickly dominated over AdLib. To compete with Sound Blaster, AdLib planned a new 12-bit stereo sound card called AdLib Gold. Sadly, due to AdLib's dependence on Yamaha, which suffered long delays introducing its latest multimedia chipset, their new product, AdLib Gold PC-1000, never saw the light of day under AdLib's management. Unable to remain solvent, AdLib closed its doors on 1\textsuperscript{st} May 1992.\\
 
 
-
-
-
-  \subsection{Sound Blaster}
-  Creative Labs, the company behind the Sound Blaster, did not enter the sound card industry until 1987 with the introduction of their Creative Music System (C/MS). From inception in 1981, the company was a computer repair shop in Singapore. Creative Music System, or "Game Blaster" as it was renamed a year later, was an FM synthesizer card similar to AdLib. Based on the Philips SAA1099 chip, which was essentially a square-wave generator, it sounded much like twelve simultaneous PC speakers, except that each channel had amplitude control. The card did not sell well.\\
+\subsection{Sound Blaster}
+Creative Labs, the company behind the Sound Blaster, did not enter the sound card industry until 1987 with the introduction of their Creative Music System (C/MS). From inception in 1981, the company was a computer repair shop in Singapore. Creative Music System, or "Game Blaster" as it was renamed a year later, was an FM synthesizer card similar to AdLib. Based on the Philips SAA1099 chip, which was essentially a square-wave generator, it sounded much like twelve simultaneous PC speakers, except that each channel had amplitude control. The card did not sell well.\\
   
-  \par
-The original Sound Blaster v1.0 and v1.5 were released in 1989 as the successor to the Game Blaster. Not only was it equipped with the OPL2 chip, providing 100\% compatibility with AdLib music playback, but it was also technologically superior with a DSP\footnote{An Intel MCS-51 "Digital Sound Processor", not "Digital Signal Processor".} allowing PCM playback (digitized sounds) at 8 bits per sample and up to 22.05kHz sampling rate. The card also came with a DA-15 port allowing a joystick connection. Most importantly, the Sound Blaster was \$90 cheaper than the AdLib, which led many consumers to choose it instead. In less than a year, the Sound Blaster became the top-selling expansion card for the PC. \\
+\par
+The original Sound Blaster v1.0 and v1.5 were released in 1989 as successors to the Game Blaster. The Sound Blaster was equipped with the same OPL2 chip used by AdLib, providing 100\% compatibility with AdLib music. In addition, it included a Digital Sound Processor (DSP), allowing digitized sound playback at 8 bits per sample and sampling rates of up to 22.05 kHz.\\
+
+\par
+The card also included a DA-15 port for joystick connections. Most importantly, the Sound Blaster was about \$90 cheaper than the AdLib, which led many consumers to choose it instead. In less than a year, the Sound Blaster became the best-selling expansion card for the PC.\\
+
 
 \par
 \begin{fancyquotes}

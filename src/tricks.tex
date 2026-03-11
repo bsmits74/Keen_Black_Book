@@ -2,8 +2,7 @@
 \begin{document}
 
 \section{Random Tricks}
-Various smart techniques were employed to ensure every CPU cycle counted. This section describes random tricks used to increase game speed.
-
+In this section a few small but useful tricks are highlighted, that don’t really fit anywhere else in the book. 
 
 \subsection{Bouncing Physics}
 When Keen throws a flower, it bounces off walls. For flat walls and floors, the bounce is easily calculated by reversing either the xspeed (for vertical walls) or the yspeed (for horizontal walls). However, handling bounces on slopes is more complex. Accurately calculating a bounce on a slope would require computationally expensive \cw{cos} and \cw{sin} operations.\\
@@ -17,7 +16,7 @@ When Keen throws a flower, it bounces off walls. For flat walls and floors, the 
 \end{figure}
 
 \par
-To simplify the calculations, the game restricts incoming angles to four discrete values -- 22$^{\circ}$, 45$^{\circ}$, 67$^{\circ}$ or 90$^{\circ}$ -- based on the ratio of \cw{xspeed} to \cw{yspeed}. Eight angle indices are then defined, where indices 0–3 represent negative \cw{xspeed}, while indices 4–7 represent positive \cw{xspeed}. The resulting speed vector magnitude is calculated using either \cw{xspeed} or \cw{yspeed}, depending on which has the greater absolute value. This magnitude is multiplied by 256 to achieve higher precision.\\
+To simplify the calculations, the game restricts incoming angles to four discrete values -- 22$^{\circ}$, 45$^{\circ}$, 67$^{\circ}$ or 90$^{\circ}$ -- based on the ratio of \cw{xspeed} to \cw{yspeed}. Eight angle indices are then defined, where indices 0–3 represent negative \cw{xspeed}, while indices 4–7 represent positive \cw{xspeed}. The resulting speed vector magnitude is calculated using either \cw{xspeed} or \cw{yspeed}, depending on which has the greater absolute value. This magnitude is multiplied by 256 to achieve higher precision.
 
 
 \par
